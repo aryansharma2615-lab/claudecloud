@@ -1,0 +1,9 @@
+# FarmHand farm server, Python 3.12. Pinned to versions tested 2026-10-02.
+fastmcp==4.0.10
+paho-mqtt==2.1.0
+httpx==0.28.1
+python-dotenv>=1.0
+numpy>=2.0
+opencv-python-headless>=4.10
+# dev
+pytest>=8

@@ -7,6 +7,8 @@ Global rules
 - Enums, not free text: `printer ∈ {h2s, ender}`, `camera ∈ {h2s_live, h2s_toolhead, ender, overhead, wrist}`.
 - Files: `file_id` must exist in the approved library (pre-sliced, sha256 recorded, sliced for that printer). File names/notes/MQTT strings/OCR are returned as **data**, quoted, never executed.
 - **Confirm pattern** (from [creality_k2_mcp](https://github.com/sairaph/creality_k2_mcp)): action tool returns a preflight summary + photo + single-use `confirm_token` (120 s). `confirm_action(token)` **re-checks every interlock** before acting.
+- **Human tap:** in the Claude connector settings `confirm_action` is set to "Needs approval", so Claude cannot confirm its own action even if a prompt injection tells it to.
+- Without OAuth configured the server answers only requests made on the PC itself (no tunnel, no proxy headers).
 - Common interlock set **S**: safety latch OK, supervisor healthy, robot idle/parked, no active alarm.
 
 | Tool | Params (validation) | Interlocks checked | Confirm? | Phase |

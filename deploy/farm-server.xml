@@ -1,0 +1,21 @@
+<!-- WinSW service definition (https://github.com/winsw/winsw, MIT).
+     Rename WinSW-x64.exe to farm-server.exe next to this file, then:
+       farm-server.exe install   &&   farm-server.exe start -->
+<service>
+  <id>farmhand-server</id>
+  <name>FarmHand farm server</name>
+  <description>FarmHand MCP server + printer watcher</description>
+  <workingdirectory>C:\FarmHand\app</workingdirectory>
+  <executable>C:\FarmHand\app\.venv\Scripts\python.exe</executable>
+  <arguments>-m farm.mcp_server</arguments>
+  <onfailure action="restart" delay="10 sec"/>
+  <onfailure action="restart" delay="30 sec"/>
+  <onfailure action="restart" delay="60 sec"/>
+  <resetfailure>1 hour</resetfailure>
+  <startmode>Automatic</startmode>
+  <delayedAutoStart>true</delayedAutoStart>
+  <log mode="roll-by-size">
+    <sizeThreshold>5120</sizeThreshold>
+    <keepFiles>5</keepFiles>
+  </log>
+</service>
