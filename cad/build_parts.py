@@ -124,11 +124,11 @@ parts["upper_arm_cover_link"] = (ua_cover_l, "PETG", "Ender 3 S1 Pro", "screwed 
 parts["upper_arm_link"] = (link, "PETG-CF", "Bambu H2S", "beam + elbow boss + J2 motor seat; flange bolts with 4× M4, alu tubes run through both halves", Pos(0, 0, 0))
 
 # ---------------- 3. forearm (J2 -> wrist), hangs under the upper arm ----------------
-fa = hollow_beam(-65, L2 + 22, -FA_H, 0, FA_W, open_side="bottom")
+fa = hollow_beam(-75, L2 + 22, -FA_H, 0, FA_W, open_side="bottom")   # tail -75: end wall clear of the motor screws (D255)
 fa += spigot(B6805, 0, BEAM_H + 2, 14)                           # up through the 6805 pair
 fa += cyl(44, -FA_H, 0, L2)                                    # wrist boss
 fa = bearing_seats(fa, B6704, L2, -FA_H, 0)
-fa += box(-65, -24, -FA_W / 2, FA_W / 2, -FA_H, -FA_H + WALL)            # motor plate across the open bottom
+fa += box(-75, -24, -FA_W / 2, FA_W / 2, -FA_H, -FA_H + WALL)            # motor plate across the open bottom
 fa = nema17_holes(fa, -45, 0, -FA_H, -FA_H + WALL)           # wrist motor hangs below, shaft up into the beam
 fa_cover = box(-24 + 0.2, L2 - 26, -FA_W / 2 + WALL + 0.2, FA_W / 2 - WALL - 0.2, -FA_H, -FA_H + WALL)
 parts["forearm_cover"] = (fa_cover, "PETG", "Ender 3 S1 Pro", "closes the forearm box; belt access", Pos(L1, 0, FA_Z1))

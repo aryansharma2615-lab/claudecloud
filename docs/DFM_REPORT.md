@@ -10,7 +10,7 @@ First-pass printed parts. Bought parts are crude primitives (motors as boxes, be
 | upper_arm_cover_link | PETG | Ender 3 S1 Pro | 144×43×3 | 26 | yes | yes | yes | screwed + glued: closes the box section |
 | upper_arm_link | PETG-CF | Bambu H2S | 206×66×68 | 255 | yes | yes | yes | beam + elbow boss + J2 motor seat; flange bolts with 4× M4, alu tubes run through both halves |
 | forearm_cover | PETG | Ender 3 S1 Pro | 248×37×3 | 38 | yes | yes | yes | closes the forearm box; belt access |
-| forearm | PETG-CF | Bambu H2S | 337×44×112 | 310 | yes | no | yes | fits the H2S bed diagonally; motor behind the elbow balances it |
+| forearm | PETG-CF | Bambu H2S | 347×44×112 | 317 | yes | no | diagonal 40° | fits the H2S bed diagonally; motor behind the elbow balances it |
 | wrist_flange | PETG-CF | Bambu H2S | 70×70×59 | 63 | yes | yes | yes | V-seats need stiffness; balls are hardened steel, magnets only preload |
 | hand_body | PETG-CF | Bambu H2S or Ender | 168×69×40 | 300 | yes | yes | yes | small; balls pressed into sockets |
 | jaw_left | PETG-CF | Ender 3 S1 Pro | 20×20×95 | 22 | yes | yes | yes | print 2: on its side so layers run along the finger |

@@ -18,4 +18,4 @@ Data-only uses of existing features worth copying (no engine change):
 Next rungs exposed by FarmHand:
 - Path editor: tap a path frame → edit the key; today paths come only from the config.
 - Wiring lane for a 24 V system with an E-stop chain (FarmHand `docs/WIRING.md` → `META.wiring`).
-- Fasteners + fit check for the FarmHand screws (needs the Mac's `build_av.py` ray-caster).
+- ~~Fasteners + fit check~~ done in the cloud: `fit_check()` in `av/build_farmhand_av.py` (trimesh ray-cast: hole on the centreline of every clearance part, thread bite ≥ 1.5·d printed / 1·d metal, head seated within 0.8 mm). It found 2 buried wrist-motor screw heads (D255). Port it into `build_av.py` on the Mac.

@@ -320,7 +320,102 @@ def wiring(centre):
                      "Routing is first-pass: cable chain along the rail, up the column, down the hollow J1 spigot, inside the arm."), meshes
 
 
-def build_checks(jobs, meshes_fit, wir=None):
+# ---------------------------------------------------------------- fasteners + ray-cast fit check
+HEAD = {3: (5.5, 3.0), 4: (7.0, 4.0), 5: (8.5, 5.0)}           # ISO 4762 socket head Ø, height
+SIDE = {(0, 1, 0): "BACK", (0, -1, 0): "FRONT", (1, 0, 0): "RIGHT", (-1, 0, 0): "LEFT", (0, 0, 1): "TOP", (0, 0, -1): "BOTTOM"}
+
+
+def fastener_list():
+    z0, z1 = 62.0, 122.0                                         # upper-arm box (cad/build_parts.py UA_Z0, + BEAM_H)
+    F = []
+
+    def add(fid, d, L, at, axis, host, through, bite, step, gid, note, nut=False, metal=False, tool=None):
+        F.append(dict(fid=fid, d=d, len=L, at=at, axis=axis, host=host, through=through, bite=bite, step=step, gid=gid,
+                      note=note, nut=nut, metal=metal, tool=tool or {3: "2.5 mm hex", 4: "3 mm hex", 5: "4 mm hex"}[d]))
+    for i, (x, z) in enumerate([(-65, -45), (-65, 45), (25, -45), (25, 45)]):
+        add(f"sh_m5_{i}", 5, 16, [x, -78.0, z], [0, -1, 0], "shoulder_housing", ["shoulder_housing"], "z_plate", 3, "M5×16 shoulder → Z plate",
+            "Shoulder housing to the bought gantry plate (tapped M5). Carries the arm's 14.4 N·m into the carriage.", metal=True)
+    for i, (y, z) in enumerate([(-29.0, z0 + 6), (29.0, z0 + 6), (-29.0, z1 + 2), (29.0, z1 + 2)]):
+        add(f"fl_m4_{i}", 4, 20, [112.0, y, z], [1, 0, 0], "upper_arm_root", ["upper_arm_root", "upper_arm_link"], None, 4,
+            "M4×20 flange bolt + nut", "Clamps the two upper-arm halves; the alu tubes carry the bending.", nut=True)
+    for i, (x, z) in enumerate([(80, z1 - 3.2 - 12.5), (80, z1 - 3.2 - 37.5), (160, z1 - 3.2 - 12.5), (160, z1 - 3.2 - 37.5),
+                                (240, z1 - 3.2 - 12.5), (240, z1 - 3.2 - 37.5)]):
+        host = "upper_arm_root" if x < 120 else "upper_arm_link"
+        add(f"tb_m4_{i}", 4, 55, [x, 25.0, z], [0, -1, 0], host, [host, "ua_tube_top" if i % 2 == 0 else "ua_tube_bot"], None, 4,
+            "M4×55 tube cross-bolt + nut", "Locks a spine tube into the printed box so they bend as one beam.", nut=True)
+    s = 15.5
+    for i, (dx, dy) in enumerate([(-s, -s), (-s, s), (s, -s), (s, s)]):
+        add(f"j1m_{i}", 3, 12, [-45 + dx, -45 + dy, 0.0], [0, 0, 1], "shoulder_housing", ["shoulder_housing"], "j1_motor", 3,
+            "M3×12 J1 motor screw", "From under the deck into the motor face.", metal=True)
+        add(f"j2m_{i}", 3, 8, [240 + dx, dy, z1 - 3.2], [0, 0, 1], "upper_arm_link", ["upper_arm_link"], "j2_motor", 4,
+            "M3×8 J2 motor screw", "From inside the box (before the cover goes on) up into the motor.", metal=True)
+        add(f"wm_{i}", 3, 8, [255 + dx, dy, 13.2], [0, 0, -1], "forearm", ["forearm"], "w_motor", 5,
+            "M3×8 wrist motor screw", "From inside the forearm down into the motor.", metal=True)
+        add(f"zm_{i}", 3, 12, [35 + dx, -115 + dy, -382.0], [0, 0, -1], "z_motor_mount", ["z_motor_mount"], "z_motor", 2,
+            "M3×12 Z motor screw", "From above the mount plate down into the motor.", metal=True)
+    return F
+
+
+def fit_check(f, meshes):
+    """Ray-cast the real meshes along the screw. Returns the engine's fit dict."""
+    import trimesh.ray.ray_triangle as rt
+    a, ax = np.array(f["at"], float), np.array(f["axis"], float)
+    d, L = f["d"], f["len"]
+    warn, note, mat = [], [], {}
+    for pid, m in meshes.items():
+        if pid.startswith(("wire_", "scr_")):
+            continue
+        lo, hi = m.bounds
+        seg_lo, seg_hi = np.minimum(a - 2 * ax, a + (L + 2) * ax), np.maximum(a - 2 * ax, a + (L + 2) * ax)
+        if np.any(seg_hi < lo - 1) or np.any(seg_lo > hi + 1):
+            continue
+        hits = rt.RayMeshIntersector(m).intersects_location([a - 0.01 * ax], [ax])[0]
+        t = sorted(float(np.dot(h - a, ax)) for h in hits)
+        t = [x for x in t if x > -0.05]
+        inside = 0.0                                              # centreline length inside material within the shank
+        for i in range(0, len(t) - 1, 2):
+            inside += max(0.0, min(t[i + 1], L) - max(t[i], 0.0))
+        if t:
+            mat[pid] = dict(inside=inside, first=t[0])
+    for pid in f["through"]:
+        if pid in mat and mat[pid]["inside"] > 0.3 and pid not in (f["bite"],):
+            if pid.startswith("ua_tube"):
+                note.append(f"drill Ø{d + 0.4:.1f} through the {pid.replace('_', ' ')} at assembly (tube walls hit by the centreline, as expected)")
+            else:
+                warn.append(f"no hole in {pid}: {mat[pid]['inside']:.1f} mm of material on the centreline")
+    bite = None
+    if f["bite"]:
+        bm = mat.get(f["bite"], {}).get("inside", 0.0)
+        need = (1.0 if f["metal"] else 1.5) * d
+        bite = round(bm, 2)
+        if bm < need:
+            warn.append(f"thread bite {bm:.1f} mm into {f['bite']} < {need:.1f} mm")
+    # head seat: a ray parallel to the shank, just outside the hole, must find the host surface right under the head
+    perp = np.cross(ax, [0, 0, 1] if abs(ax[2]) < 0.9 else [1, 0, 0]); perp /= np.linalg.norm(perp)
+    host = meshes[f["host"]]
+    p0 = a + perp * (HEAD[d][0] / 2 - 0.6) - 1.0 * ax
+    h = rt.RayMeshIntersector(host).intersects_location([p0], [ax])[0]
+    ts = sorted(float(np.dot(x - p0, ax)) - 1.0 for x in h)
+    seat = next((x for x in ts if x > -0.6), None)
+    if seat is None or abs(seat) > 0.8:
+        warn.append(f"head not seated on {f['host']} ({'no surface' if seat is None else f'{seat:+.1f} mm'})")
+    return dict(mode="check", through=f["through"], warn=warn, note=note, seat_on=f["host"],
+                seat_mm=round(seat, 2) if seat is not None else None, hole=not any(w.startswith("no hole") for w in warn),
+                bite_in=f["bite"], bite_mm=bite, tip_gap_mm=None, retains={})
+
+
+def screw_mesh(f):
+    a, ax = np.array(f["at"], float), np.array(f["axis"], float)
+    hd, hh = HEAD[f["d"]]
+    parts = [trimesh.creation.cylinder(radius=f["d"] / 2, segment=[a, a + f["len"] * ax], sections=10),
+             trimesh.creation.cylinder(radius=hd / 2, segment=[a - hh * ax, a], sections=12)]
+    if f["nut"]:
+        parts.append(trimesh.creation.cylinder(radius=f["d"] * 0.9, segment=[a + (f["len"] - f["d"] * 0.8 - 1) * ax,
+                                                                              a + (f["len"] - 1) * ax], sections=6))
+    return trimesh.util.concatenate(parts)
+
+
+def build_checks(jobs, meshes_fit, wir=None, fasts=None):
     """Every gate as data for the R9 Checks lane. Values are parsed from the reports or re-run here."""
     import re
     import subprocess
@@ -365,6 +460,11 @@ def build_checks(jobs, meshes_fit, wir=None):
         bad = [r["label"] for r in wir["runs"] if r["undersized"]]
         C.append(dict(group="Electrical", label="Wires under their ampacity", value=f"{len(wir['runs']) - len(bad)} / {len(wir['runs'])}",
                       limit=None, status="pass" if not bad else "fail", source="chassis ampacity per AWG", note=", ".join(bad)))
+    if fasts:
+        bad = [f for f in fasts if f["fit"]["warn"]]
+        C.append(dict(group="CAD", label="Screw fit check (ray-cast)", value=f"{len(fasts) - len(bad)} / {len(fasts)}", limit=None,
+                      status="pass" if not bad else "fail", source="av/build_farmhand_av.py fit_check()",
+                      note="; ".join(f"{f['id']}: {f['fit']['warn'][0]}" for f in bad[:3])))
     fw = os.path.join(ROOT, "firmware", "farmhand_mc")
     r = subprocess.run(f"g++ -std=c++17 -I{fw}/include {fw}/test/host_test.cpp -o /tmp/fh_ht && /tmp/fh_ht", shell=True,
                        capture_output=True, text=True)
@@ -395,6 +495,16 @@ def main():
     centre = {pid: [round(float(v), 1) for v in m.bounds.mean(0)] for pid, m in meshes.items()}
     WIR, wire_meshes = wiring(centre)
     meshes.update(wire_meshes)
+    FAST = []
+    for f in fastener_list():
+        fit = fit_check(f, meshes)
+        meshes["scr_" + f["fid"]] = screw_mesh(f)
+        ax = tuple(int(round(v)) for v in f["axis"])
+        side = SIDE[tuple(-v for v in ax)]
+        spec = f"M{f['d']}×{f['len']} socket head" + (" + nut" if f["nut"] else "")
+        FAST.append(dict(id=f["fid"], label=f"M{f['d']}×{f['len']}", spec=spec, at=f["at"], axis=f["axis"], head="socket", washer=False,
+                         part=f["host"], retains=[], holds=f["bite"], step=f["step"], gid=f["gid"], tool=f["tool"], note=f["note"],
+                         into=[f["bite"]] if f["bite"] else f["through"], fit=fit, side=side, screw="scr_" + f["fid"]))
     st, door = station()
     for sid, label, size, c, rz, note in st + [door]:
         meshes[sid] = box_mesh(size, c, rz)
@@ -436,6 +546,14 @@ def main():
                 p["mass"] = dict(g=b[4], com=[round(info[pid]["lo"][i] + info[pid]["span"][i] / 2, 1) for i in range(3)], how="catalogue class")
             p["material"] = None
         meta_parts.append(p)
+    for f in FAST:
+        pid = f["screw"]
+        meta_parts.append(dict(id=pid, label=f["label"], color="#aab3bb", group="_hw", step=f["step"], note=f["note"], explode=[0, 0, 0],
+                               kind="screw", qty=1, bom=False,
+                               screw=dict(fid=f["id"], role="screw", axis=f["axis"], at=f["at"], d=int(f["label"][1]), len=int(f["label"].split("×")[1]),
+                                          head="socket", side=f["side"], host=f["part"], gid=f["gid"], spec=f["spec"], tool=f["tool"],
+                                          into=f["into"], fit=f["fit"]),
+                               mass=dict(g=0.5, com=f["at"], how="steel socket screw"), **info[pid]))
     for r in WIR["runs"]:
         pid = r["part"]
         meta_parts.append(dict(id=pid, label=r["label"], color={"power": "#3987e5", "ground": "#008300", "data": "#d55181", "motor": "#c98500"}[r["kind"]],
@@ -502,7 +620,7 @@ def main():
             (8, "Jaws", "2.5 mm hex", "MGN9 · M3", "20 min", "Rail, carriages, jaws, TPU pads, steel nails."),
             (9, "Plates", "2 mm hex", "3× M3 per shoe", "10 min", "Clamp a shoe on every build plate."),
             (10, "Station", "—", "measure first", "—", "Printers placed as measured; AprilTags on each printer face.")]],
-        fasteners=[], bomExtra=[dict(id=i, label=l, qty=q, kind="bought", color="#3a3f47",
+        fasteners=FAST, bomExtra=[dict(id=i, label=l, qty=q, kind="bought", color="#3a3f47",
                                      cost=dict(each=c, est=True, supplier=u.split("/")[2], url=u, checked="2026-10-02",
                                                bulk={"10": round(c * 0.85, 2), "50": round(c * 0.75, 2), "100": round(c * 0.7, 2)},
                                                have=False, have_note="", formula="docs/BOM.md estimate")) for i, l, q, c, u in BOM_EXTRA],
@@ -518,7 +636,7 @@ def main():
                     load_payloads=[dict(label="Spool + tool (spec)", g=1500.0, default=True)], load_checks=[]),
         currency="CAD $", priceNote="Prices in CAD, estimated 2026-10-02 (shop pages blocked in the cloud): verify at checkout.",
         built="2026-10-02", plateFile="",
-        checks=build_checks(jobs, [pl["fits"] for pl in place.values()], WIR))
+        checks=build_checks(jobs, [pl["fits"] for pl in place.values()], WIR, FAST))
 
     tpl = open(a.template).read()
     ms = tpl.find('<script id="meta"'); mb = tpl.find(">", ms) + 1; me = tpl.find("</script>", mb)

@@ -31,7 +31,7 @@ FLEX_STATION = (1180.0, -40.0)  # where full plates go (right end of the table)
 
 # ---------------- robot (from cad/build_parts.py) ----------------
 UA = dict(z0=62, z1=122, hw=25, tail=75)          # 60 mm closed box (stiffness Fix B)          # upper arm, relative to the shoulder height Zs
-FA = dict(z0=10, z1=60, hw=22, tail=65)
+FA = dict(z0=10, z1=60, hw=22, tail=75)
 HAND = dict(z0=-44, z1=-4, hx=90, hy=33)
 JAW_Z0 = -149                                    # jaw tips
 GRIP_DZ = -134                                   # plate plane when held
