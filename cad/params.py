@@ -33,6 +33,8 @@ WALL = 3.2                  # min wall (4 perimeters @ 0.4)
 SEAT_CLR = 0.15             # bearing OD seat: bore = OD + SEAT_CLR (light press, H2S)
 SPIGOT_CLR = -0.05          # spigot into bearing ID: diameter = ID + SPIGOT_CLR (snug)
 M3_CLR, M3_INSERT, M5_CLR = 3.4, 4.0, 5.5
-BEAM_W, BEAM_H = 50.0, 36.0  # arm beam section (hollow box, cables + belt inside)
+BEAM_W, BEAM_H = 50.0, 60.0  # upper-arm section: closed box (screwed+glued cover) around 2 stacked 25×25 alu tubes
+FA_W, FA_H = 44.0, 50.0      # forearm section around 1× 20×20 alu tube (sim/stiffness.py Fix B)
+TUBE_UA, TUBE_FA = 25.0, 20.0
 
 BEDS = {"Ender 3 S1 Pro": (220, 220, 270), "Bambu H2S": (340, 320, 340)}

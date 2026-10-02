@@ -5,10 +5,13 @@ First-pass printed parts. Bought parts are crude primitives (motors as boxes, be
 | Part | Material | Print on | Size X×Y×Z (mm) | Mass ≤ (g) | Valid solid | Fits Ender | Fits H2S | Why |
 |---|---|---|---|---|---|---|---|---|
 | shoulder_housing | PETG-CF | Bambu H2S | 120×118×120 | 432 | yes | yes | yes | stiff (carries the 14.4 N·m arm moment into the Z carriage); CF needs the H2S hardened nozzle |
-| upper_arm_root | PETG-CF | Bambu H2S | 195×70×131 | 189 | yes | yes | yes | J1 hub + J2 motor + 1:4 stage; spigot carries the arm moment, print upright |
-| upper_arm_link | PETG-CF | Bambu H2S | 206×66×44 | 174 | yes | yes | yes | beam + elbow bearing boss; flange bolts with 4× M4 |
-| forearm | PETG-CF | Bambu H2S | 337×44×74 | 233 | yes | no | yes | fits the H2S bed diagonally; motor behind the elbow balances it |
-| wrist_flange | PETG-CF | Bambu H2S | 70×70×45 | 59 | yes | yes | yes | V-seats need stiffness; balls are hardened steel, magnets only preload |
+| upper_arm_root | PETG-CF | Bambu H2S | 195×70×155 | 234 | yes | yes | yes | J1 hub + hollow cable path; spigot carries the arm moment, print upright |
+| upper_arm_cover_root | PETG | Ender 3 S1 Pro | 72×43×3 | 13 | yes | yes | yes | screwed + glued: closes the box section (stiffness ×1.7) |
+| upper_arm_cover_link | PETG | Ender 3 S1 Pro | 144×43×3 | 26 | yes | yes | yes | screwed + glued: closes the box section |
+| upper_arm_link | PETG-CF | Bambu H2S | 206×66×68 | 255 | yes | yes | yes | beam + elbow boss + J2 motor seat; flange bolts with 4× M4, alu tubes run through both halves |
+| forearm_cover | PETG | Ender 3 S1 Pro | 248×37×3 | 38 | yes | yes | yes | closes the forearm box; belt access |
+| forearm | PETG-CF | Bambu H2S | 337×44×112 | 310 | yes | no | yes | fits the H2S bed diagonally; motor behind the elbow balances it |
+| wrist_flange | PETG-CF | Bambu H2S | 70×70×59 | 63 | yes | yes | yes | V-seats need stiffness; balls are hardened steel, magnets only preload |
 | hand_body | PETG-CF | Bambu H2S or Ender | 168×60×40 | 295 | yes | yes | yes | small; balls pressed into sockets |
 | jaw_left | PETG-CF | Ender 3 S1 Pro | 20×20×95 | 22 | yes | yes | yes | print 2: on its side so layers run along the finger |
 | jaw_right | PETG-CF | Ender 3 S1 Pro | 20×20×95 | 22 | yes | yes | yes | mirror of jaw_left (same STL rotated) |
@@ -16,4 +19,4 @@ First-pass printed parts. Bought parts are crude primitives (motors as boxes, be
 | plate_shoe | PETG | Ender 3 S1 Pro | 120×50×10 | 41 | yes | yes | yes | one per plate; screws clamp it on, no glue on the PEI |
 | z_motor_mount | PETG-CF | Ender 3 S1 Pro | 50×62×60 | 54 | yes | yes | yes | takes the screw thrust; motor hangs below, T8 coupler above |
 
-**Clash check (assembly, arm stretched, 37 bodies incl. 26 bought parts as primitives; bearings in seats and spigots in bearings included):** 0 overlaps > 1 mm³ ✓
+**Clash check (assembly, arm stretched, 43 bodies incl. 29 bought parts as primitives; bearings in seats and spigots in bearings included):** 0 overlaps > 1 mm³ ✓

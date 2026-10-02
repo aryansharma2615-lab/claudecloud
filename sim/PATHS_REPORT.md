@@ -4,26 +4,10 @@ First-pass kinematic sweep: every job is sampled along straight-line moves, inve
 
 | Job | Samples | Result | Min clearance | Rail X used | Wrist reach used | Shoulder height | J1 range | J2 range |
 |---|---|---|---|---|---|---|---|---|
-| H2S plate pull (door open 170°) | 65 | ✓ clean | 48 mm | 560…560 | 414–503 mm (max 550) | 383–440 mm | -147…-104° | 48…83° |
-| H2S plate insert (reverse) | 65 | ✓ clean | 48 mm | 560…560 | 414–503 mm (max 550) | 383–440 mm | -147…-104° | 48…83° |
+| H2S plate pull (door open 170°) | 65 | ✓ clean | 48 mm | 560…560 | 414–503 mm (max 550) | 387–444 mm | -147…-104° | 48…83° |
+| H2S plate insert (reverse) | 65 | ✓ clean | 48 mm | 560…560 | 414–503 mm (max 550) | 387–444 mm | -147…-104° | 48…83° |
 | H2S door: pull by the handle 0→40° | 72 | ✓ clean | 11 mm | 520…660 | 182–514 mm (max 550) | 320–320 mm | -150…-133° | 42…143° |
 | H2S door: push from inside 40→170° | 117 | ✓ clean | 9 mm | 280…520 | 456–549 mm (max 550) | 320–320 mm | -118…-92° | 5…68° |
-| H2S screen tap (door closed) | 13 | ✓ clean | 24 mm | 80…80 | 179–186 mm (max 550) | 582–582 mm | -150…-131° | 142…143° |
-| Ender sheet lift + carry out | 52 | ✓ clean | 19 mm | 320…320 | 400–407 mm (max 550) | 233–270 mm | 41…63° | 85…87° |
-| Carry H2S plate to the flex station (rail move) | 31 | ✓ clean | 13 mm | -100…720 | 377–550 mm (max 550) | 440–440 mm | 97…120° | 3…94° |
-
-## What this taught us (design decisions, carry into DESIGN_DECISIONS D241+)
-
-- **D241 — Door = pull to 40° by the handle, then push from inside to 170°.** Pulling by the handle past ~45° swings the
-  handle behind the robot's own shoulder line (J1 would need > 150°). Opening it like a person (pull, let go, palm on the
-  inner face near the hinge) is clean with ≥ 9 mm clearance. FarmLoop's motorised door opener is the fallback if the
-  measured door disagrees.
-- **D242 — One rail stop per plate move.** The plate pull/insert is clean from a single rail position (X = 560, robot to
-  the right of the H2S) with 48 mm clearance; the planner now prefers "no rail motion while inside a printer".
-- **D243 — The door sweeps through the rail line for angles 30–150°.** The rail carriage must track the door (the
-  planner does this); firmware rule: no rail moves through the door's sweep while it is between 30° and 150°.
-- **Tight margins to fix with real measurements:** door push uses 549 of 550 mm reach (push point at 170 mm from the
-  hinge; move it to ~140 mm or lengthen L2 by 30 mm); screen tap sits at J1 = −150° (the joint stop) — pick the rail
-  position so J1 has ≥ 10° margin, or tilt the screen.
-- **Z column is too short for v2 spools:** shoulder max 950 mm puts the hand ~820 mm high; loading the AMS 2 Pro on top
-  (~852 mm + spool) needs a ~1.25 m column, or the AMS placed beside the H2S (question 2).
+| H2S screen tap (door closed) | 13 | ✓ clean | 24 mm | 80…80 | 179–186 mm (max 550) | 586–586 mm | -150…-131° | 142…143° |
+| Ender sheet lift + carry out | 52 | ✓ clean | 19 mm | 320…320 | 400–407 mm (max 550) | 237–274 mm | 41…63° | 85…87° |
+| Carry H2S plate to the flex station (rail move) | 31 | ✓ clean | 13 mm | -100…720 | 377–550 mm (max 550) | 444–444 mm | 97…120° | 3…94° |

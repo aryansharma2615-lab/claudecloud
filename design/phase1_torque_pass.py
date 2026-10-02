@@ -206,9 +206,9 @@ print("| **Weighted total (/5)** | | " + " | ".join(f"**{v:.2f}**" for v in tot.
 cap17 = NEMA17_HOLD * PULLOUT_FRACTION
 lean = []
 a1 = 4 * pi / 2.2 ** 2                                  # J1 180 deg in 2.2 s
-lean.append(("J1 (GT2 1:16)", I_J1 * a1 + 0.5, cap17 * 16 * ETA_BELT_STAGE ** 2))
-a2 = 4 * pi / 1.6 ** 2                                  # J2 180 deg in 1.6 s
-lean.append(("J2 (GT2 1:8)", I_J2 * a2 + 0.3, cap17 * 8 * ETA_BELT_STAGE ** 2))
+lean.append(("J1 (GT2 1:16, +J2 motor at the elbow)", (I_J1 + 0.35 * L1 ** 2) * a1 + 0.5, cap17 * 16 * ETA_BELT_STAGE ** 2))
+a2 = 4 * pi / 2.2 ** 2                                  # J2 180 deg in 2.2 s (motor moved to the elbow, single stage)
+lean.append(("J2 (GT2 12T→60T, 1:5, motor at elbow)", I_J2 * a2 + 0.3, cap17 * 5 * ETA_BELT_STAGE))
 lean.append(("W (GT2 1:4)", tau_w, cap17 * 4 * ETA_BELT_STAGE))
 m_zl = m_z - 1.0 - 1.2 + 0.6                            # NEMA 17s instead of NEMA 23s
 lead_eta = 0.30                                         # T8x2 trapezoid screw, ASSUMED

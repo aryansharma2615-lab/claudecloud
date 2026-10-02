@@ -1,6 +1,6 @@
 # FarmHand robot — LEAN buy list (v1, plates + door + screen)
 
-**Total ≈ C$730 before tax (~C$840 with tax/shipping).** Replaces the C$2,302 "industrial" list in
+**Total ≈ C$770 before tax (~C$885 with tax/shipping).** (+C$40 after the stiffness check: a 4080 column and aluminium spines take tool sag from ~23 mm to 0.44 mm.) Replaces the C$2,302 "industrial" list in
 [BOM_draft.md](BOM_draft.md), which is kept only as the upgrade path.
 
 **Why it got cheaper without losing the design:** the SCARA's arm joints never hold weight, so
@@ -27,7 +27,7 @@ listing with good reviews), and prices are estimates. Me and Cowork can verify a
 | 4 | ESP32-S3 DevKitC-1 N16R8 | motion controller | 1 | 25 | 25 | [Amazon.ca search](https://www.amazon.ca/s?k=ESP32-S3+DevKitC-1+N16R8) |
 | 5 | 24 V 15 A power supply (Mean Well LRS-350-24 or similar) | motor power | 1 | 45 | 45 | [Amazon.ca search](https://www.amazon.ca/s?k=LRS-350-24) |
 | 6 | Feetech STS3215 servo + serial bus board | gripper (reports grip force) | 1 | 40 | 40 | [Amazon.ca search](https://www.amazon.ca/s?k=STS3215+servo) |
-| 7 | 2040 V-slot: 1.5 m (X rail) + 1.0 m (Z column) + corner brackets + T-nuts | frame | 1 | 55 | 55 | [Makerstore.cc V-slot](https://www.makerstore.cc/product-category/v-slot/) |
+| 7 | V-slot: 2040 × 1.5 m (X rail) + **4080 × 1.0 m (Z column, stiffness fix)** + corner brackets + T-nuts | frame | 1 | 75 | 75 | [Makerstore.cc V-slot](https://www.makerstore.cc/product-category/v-slot/) |
 | 8 | V-slot gantry plate kit with 4 wheels + eccentric spacers | X carriage, Z carriage | 2 | 18 | 36 | [Amazon.ca search](https://www.amazon.ca/s?k=v-slot+gantry+plate+2040+wheels) |
 | 9 | T8×2 lead screw 1000 mm + brass nut + 5→8 mm coupler + KP08 bearing | Z lift (self-locking) | 1 | 25 | 25 | [Amazon.ca search](https://www.amazon.ca/s?k=T8+lead+screw+1000mm+pitch+2mm) |
 | 10 | GT2 6 mm belt 5 m + 16T/20T/64T pulleys + idlers | X drive, J1 1:16, J2 1:8, wrist 1:4 | 1 | 40 | 40 | [Amazon.ca search](https://www.amazon.ca/s?k=GT2+64+tooth+pulley+8mm+bore) |
@@ -37,9 +37,10 @@ listing with good reviews), and prices are estimates. Me and Cowork can verify a
 | 14 | 24 V 30 A relay + socket ×2 (E-stop cuts motor power) | safety, category-0 stop | 1 | 20 | 20 | [Amazon.ca search](https://www.amazon.ca/s?k=24V+30A+relay+socket) |
 | 15 | Wiring: silicone wire 18/22 AWG, JST-XH kit, blade fuses + holder, terminal blocks | wiring | 1 | 50 | 50 | [Amazon.ca search](https://www.amazon.ca/s?k=JST+XH+connector+kit) |
 | 16 | Hand: MGN9 100 mm rail+carriage ×2, FSR402 ×2, conductive stylus tip, 10 mm steel balls ×6 | gripper + stylus + quick-change seat | 1 | 65 | 65 | [MGN9](https://www.amazon.ca/s?k=MGN9+100mm), [FSR402](https://www.amazon.ca/s?k=FSR402), [stylus tip](https://shop.adaptarobotics.com/en-us/products/compressible-touch-panel-test-stylus) |
+| 16b | Aluminium square tube: 25×25×2 × 0.8 m + 20×20×1.5 × 0.4 m | arm spines (stiffness fix, sim/SIM_REPORT.md) | 1 | 20 | 20 |
 | 17 | M3/M4/M5 screw + T-nut + heat-set insert top-up | assembly | 1 | 25 | 25 | [Amazon.ca search](https://www.amazon.ca/s?k=M5+heat+set+insert) |
 | 18 | PETG 2 kg + TPU 0.5 kg (skip what you already have) | printed parts, fin-ray pads | 1 | 70 | 70 | — |
-| | **Total** | | | | **≈ 730** | |
+| | **Total** | | | | **≈ 770** | |
 
 **You already have (C$0):** M2–M4 screw kit, M3 heat-set inserts + tips, calipers, solder, grease, magnets.
 **On other lists:** E-stop button (SHOPPING.md Phase 3); wrist + overhead cameras (SHOPPING.md Phase 5, ~C$180).

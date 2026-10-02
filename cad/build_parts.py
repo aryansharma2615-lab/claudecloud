@@ -97,38 +97,52 @@ root = hollow_beam(-75, SPLIT, z0, z1) + fl
 root += cyl(70, z0 - 1.5, z0)                                    # thin hub face, 0.5 mm over the tower
 root += spigot(B6806, -25, z0 - 1.5, 20)                          # through both 6806s, 64T pulley below the deck
 root -= cyl(20, z0 - 12, z1 + 1)                                 # cable path
-root = nema17_holes(root, -50, 0, z1 - WALL, z1)                 # J2 motor on top, shaft down into the beam
-root += cyl(26, z0, z1, 45) - cyl(B608[1] + SEAT_CLR, z0 + WALL, z1 - WALL + 0.01, 45)   # 1:4 intermediate stage
 link = hollow_beam(SPLIT, L1 + 26, z0, z1)
 link += box(SPLIT, SPLIT + 8, -BEAM_W / 2 - 8, BEAM_W / 2 + 8, z0, z1 + 8)
 link += cyl(52, z0, z1, L1)
 link = bearing_seats(link, B6805, L1, z0, z1)
+link = nema17_holes(link, L1 - 60, 0, z1 - WALL, z1)            # J2 motor on top near the elbow, 12T -> 60T (1:5)
+TUBE_Y0 = -BEAM_W / 2 + WALL                                     # 2 stacked 25×25 alu tubes against the -y wall
+TUBE_SLOT = box(55, 272, TUBE_Y0 - 0.2, TUBE_Y0 + TUBE_UA + 0.2, z1 - WALL - 2 * TUBE_UA - 0.4, z1 - WALL + 0.01)
+root -= TUBE_SLOT                                                # tubes run through both end walls: they tie the split
+link -= TUBE_SLOT
+for xb in (80.0, 160.0, 240.0):                                  # M4 cross-bolts through walls + both tubes
+    for zt in (z1 - WALL - TUBE_UA / 2, z1 - WALL - 1.5 * TUBE_UA):
+        hole = Pos(xb, 0, zt) * Rot(90, 0, 0) * Cylinder(4.5 / 2, BEAM_W + 2)
+        root -= hole
+        link -= hole
 for y, z in itertools.product((-BEAM_W / 2 - 4, BEAM_W / 2 + 4), (z0 + 6, z1 + 2)):
     hole = Pos(SPLIT, y, z) * Rot(0, 90, 0) * Cylinder(4.5 / 2, 20)   # M4 through-bolts
     root -= hole
     link -= hole
 parts["upper_arm_root"] = (root, "PETG-CF", "Bambu H2S",
-                           "J1 hub + J2 motor + 1:4 stage; spigot carries the arm moment, print upright", Pos(0, 0, 0))
-parts["upper_arm_link"] = (link, "PETG-CF", "Bambu H2S", "beam + elbow bearing boss; flange bolts with 4× M4", Pos(0, 0, 0))
+                           "J1 hub + hollow cable path; spigot carries the arm moment, print upright", Pos(0, 0, 0))
+ua_cover_r = box(40, SPLIT - 8.2, -BEAM_W / 2 + WALL + 0.2, BEAM_W / 2 - WALL - 0.2, z0, z0 + WALL)
+ua_cover_l = box(SPLIT + 8.2, L1 - 28, -BEAM_W / 2 + WALL + 0.2, BEAM_W / 2 - WALL - 0.2, z0, z0 + WALL)
+parts["upper_arm_cover_root"] = (ua_cover_r, "PETG", "Ender 3 S1 Pro", "screwed + glued: closes the box section (stiffness ×1.7)", Pos(0, 0, 0))
+parts["upper_arm_cover_link"] = (ua_cover_l, "PETG", "Ender 3 S1 Pro", "screwed + glued: closes the box section", Pos(0, 0, 0))
+parts["upper_arm_link"] = (link, "PETG-CF", "Bambu H2S", "beam + elbow boss + J2 motor seat; flange bolts with 4× M4, alu tubes run through both halves", Pos(0, 0, 0))
 
 # ---------------- 3. forearm (J2 -> wrist), hangs under the upper arm ----------------
-fa = hollow_beam(-65, L2 + 22, -BEAM_H, 0, 44, open_side="bottom")
+fa = hollow_beam(-65, L2 + 22, -FA_H, 0, FA_W, open_side="bottom")
 fa += spigot(B6805, 0, BEAM_H + 2, 14)                           # up through the 6805 pair
-fa += cyl(44, -BEAM_H, 0, L2)                                    # wrist boss
-fa = bearing_seats(fa, B6704, L2, -BEAM_H, 0)
-fa += box(-65, -24, -22, 22, -BEAM_H, -BEAM_H + WALL)            # motor plate across the open bottom
-fa = nema17_holes(fa, -45, 0, -BEAM_H, -BEAM_H + WALL)           # wrist motor hangs below, shaft up into the beam
+fa += cyl(44, -FA_H, 0, L2)                                    # wrist boss
+fa = bearing_seats(fa, B6704, L2, -FA_H, 0)
+fa += box(-65, -24, -FA_W / 2, FA_W / 2, -FA_H, -FA_H + WALL)            # motor plate across the open bottom
+fa = nema17_holes(fa, -45, 0, -FA_H, -FA_H + WALL)           # wrist motor hangs below, shaft up into the beam
+fa_cover = box(-24 + 0.2, L2 - 26, -FA_W / 2 + WALL + 0.2, FA_W / 2 - WALL - 0.2, -FA_H, -FA_H + WALL)
+parts["forearm_cover"] = (fa_cover, "PETG", "Ender 3 S1 Pro", "closes the forearm box; belt access", Pos(L1, 0, FA_Z1))
 parts["forearm"] = (fa, "PETG-CF", "Bambu H2S", "fits the H2S bed diagonally; motor behind the elbow balances it",
                     Pos(L1, 0, FA_Z1))
 
 # ---------------- 4. wrist flange (kinematic quick-change seat, Jubilee pattern) ----------------
-wf = cyl(70, -10, 0) + spigot(B6704, 0, BEAM_H - 1, 10)
+wf = cyl(70, -10, 0) + spigot(B6704, 0, FA_H - 1, 10)
 for k in range(3):                                               # 3 radial 90° V-grooves on the bottom face
     v = Rot(0, 0, 120 * k) * Pos(25, 0, -10) * Rot(45, 0, 0) * Box(22, 6, 6)
     wf -= v
     wf -= Rot(0, 0, 120 * k + 60) * Pos(25, 0, -10) * Cylinder(4.1, 6)   # 8×3 magnet pockets (you have these)
 parts["wrist_flange"] = (wf, "PETG-CF", "Bambu H2S", "V-seats need stiffness; balls are hardened steel, magnets only preload",
-                         Pos(L1 + L2, 0, FA_Z1 - BEAM_H - 1))
+                         Pos(L1 + L2, 0, FA_Z1 - FA_H - 1))
 
 # ---------------- 5. hand body (gripper + stylus + hook + camera) ----------------
 BALL_SEAT_GAP = BALL / 2 * 2 ** 0.5 - 3 * 2 ** 0.5   # ball centre sits r·√2 above a 90° V apex (groove 4.24 deep) -> 2.83 mm gap
@@ -143,7 +157,7 @@ hb += box(60, 78, -10, 10, HB_Z, -4) - cyl(14.2, HB_Z - 1, -3, 69, 0)  # stylus 
 hb += box(-78, -60, -6, 6, -8, 0) + box(-90, -78, -6, 6, HB_Z + 2, 0)   # door / AMS-lid hook
 hb += box(-20, 20, 27, 33, HB_Z + 2, 0) - box(-14, 14, 26, 34, HB_Z + 6, -6)  # wrist-camera window bracket
 parts["hand_body"] = (soften(hb, 1.5), "PETG-CF", "Bambu H2S or Ender", "small; balls pressed into sockets",
-                      Pos(L1 + L2, 0, FA_Z1 - BEAM_H - 11 - BALL_SEAT_GAP))
+                      Pos(L1 + L2, 0, FA_Z1 - FA_H - 11 - BALL_SEAT_GAP))
 
 # ---------------- 6. jaw (print 2) ----------------
 jw = box(-10, 10, -MGN9["car_w"] / 2, MGN9["car_w"] / 2, -6, 0)   # carriage plate
@@ -152,7 +166,7 @@ jw -= box(-3.1, 3.1, -9.1, 9.1, -92, -20)                        # dovetail-ish 
 jw -= box(-1.05, 1.05, -8, 8, -96, -84)                          # slot for the 2 mm steel "nail" strip
 for y in (-5, 5):
     jw -= cyl(M3_CLR, -7, 1, 0, y)                               # to MGN9 carriage
-HAND_Z = FA_Z1 - BEAM_H - 11 - BALL_SEAT_GAP                                     # hand-body top in the assembly
+HAND_Z = FA_Z1 - FA_H - 11 - BALL_SEAT_GAP                                     # hand-body top in the assembly
 JAW_Z = HAND_Z + HB_Z - MGN9["car_h"]                            # jaws hang under the MGN9 carriages
 parts["jaw_left"] = (jw, "PETG-CF", "Ender 3 S1 Pro", "print 2: on its side so layers run along the finger",
                      Pos(L1 + L2 - 30, 0, JAW_Z))
@@ -223,11 +237,17 @@ bought = {
     "j1_brg_top": (ring(B6806, 0, 0, 60 - B6806[2]), "6806 bearing — J1 upper; the pair takes the 14.4 N·m arm moment"),
     "j1_pulley_out": (gt2(64, 0, 0, -22) - cyl(30.2, -23, -13), "GT2 64T — J1 output pulley clamped on the spigot"),
     "j1_pulley_mid": (gt2(64, 0, -45, -12) + gt2(16, 0, -45, -22, 8) - cyl(8, -23, -3, 0, -45), "64T + 16T on the 8 mm intermediate shaft"),
-    "j2_motor": (nema(-50, 0, UAZ1), "NEMA 17 — J2 elbow, behind J1 so it barely adds J1 inertia"),
+    "j2_motor": (nema(L1 - 60, 0, UAZ1), "NEMA 17 — J2 elbow, on top near the elbow, 12T→60T belt (1:5)"),
+    "ua_tube_top": (box(56, 271, -BEAM_W / 2 + WALL, -BEAM_W / 2 + WALL + TUBE_UA, UAZ1 - WALL - TUBE_UA, UAZ1 - WALL),
+                    "Alu tube 25×25×2 — upper-arm spine (with its twin: sag 14 mm → 0.2 mm)"),
+    "ua_tube_bot": (box(56, 271, -BEAM_W / 2 + WALL, -BEAM_W / 2 + WALL + TUBE_UA, UAZ1 - WALL - 2 * TUBE_UA, UAZ1 - WALL - TUBE_UA),
+                    "Alu tube 25×25×2 — stacked under the first; spacing them is what makes the beam stiff"),
+    "fa_tube": (box(L1 - 20, L1 + 225, -FA_W / 2 + WALL, -FA_W / 2 + WALL + TUBE_FA, FA_Z1 - WALL - TUBE_FA, FA_Z1 - WALL),
+                "Alu tube 20×20×1.5 — forearm spine"),
     "j2_brg_bottom": (ring(B6805, L1, 0, UA_Z0), "6805 bearing (25×37×7) — elbow lower"),
     "j2_brg_top": (ring(B6805, L1, 0, UAZ1 - B6805[2]), "6805 bearing — elbow upper"),
-    "w_motor": (nema(L1 - 45, 0, FA_Z1 - BEAM_H, up=False), "NEMA 17 — wrist yaw, 1:4 belt inside the forearm"),
-    "w_brg_bottom": (ring(B6704, L1 + L2, 0, FA_Z1 - BEAM_H), "6704 bearing (20×27×4) — wrist lower"),
+    "w_motor": (nema(L1 - 45, 0, FA_Z1 - FA_H, up=False), "NEMA 17 — wrist yaw, 1:4 belt inside the forearm"),
+    "w_brg_bottom": (ring(B6704, L1 + L2, 0, FA_Z1 - FA_H), "6704 bearing (20×27×4) — wrist lower"),
     "w_brg_top": (ring(B6704, L1 + L2, 0, FA_Z1 - B6704[2]), "6704 bearing — wrist upper"),
     "servo": (box(L1 + L2 - 22.6, L1 + L2 + 22.6, -17.5, 17.5, HAND_Z - WALL - 3 - STS3215["w"], HAND_Z - WALL - 3),
               "Feetech STS3215 — gripper servo, reports position and load (grip force)"),

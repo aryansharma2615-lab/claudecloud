@@ -50,8 +50,8 @@ Inputs: payload 1.5 kg (1.2 kg spool + 0.3 kg tool); H2S plate steel 486 g (comp
 
 | Joint | Need (N·m) | Capacity (N·m) | % | ≤70 % |
 |---|---|---|---|---|
-| J1 (GT2 1:16) | 2.58 | 4.26 | 60 % | OK |
-| J2 (GT2 1:8) | 1.18 | 2.13 | 55 % | OK |
+| J1 (GT2 1:16, +J2 motor at the elbow) | 2.66 | 4.26 | 62 % | OK |
+| J2 (GT2 12T→60T, 1:5, motor at elbow) | 0.77 | 1.40 | 55 % | OK |
 | W (GT2 1:4) | 0.49 | 1.12 | 44 % | OK |
 | Z (T8x2 lead screw) | 0.11 | 0.29 | 36 % | OK |
 | X (GT2 20T, 0.5 m/s^2) | 0.07 | 0.29 | 23 % | OK |

@@ -30,12 +30,12 @@ ENDER_SHEET = dict(w=235.0, d=235.0, cx=(ENDER_X0 + ENDER_X1) / 2, front_y=FACE 
 FLEX_STATION = (1180.0, -40.0)  # where full plates go (right end of the table)
 
 # ---------------- robot (from cad/build_parts.py) ----------------
-UA = dict(z0=62, z1=98, hw=25, tail=75)          # upper arm, relative to the shoulder height Zs
-FA = dict(z0=24, z1=60, hw=22, tail=65)
-HAND = dict(z0=-30, z1=10, hx=90, hy=33)
-JAW_Z0 = -145                                    # jaw tips
-GRIP_DZ = -130                                   # plate plane when held
-STYLUS = dict(lx=69, ly=45, z=-22)               # tip in hand frame (horizontal, points along hand +y)
+UA = dict(z0=62, z1=122, hw=25, tail=75)          # 60 mm closed box (stiffness Fix B)          # upper arm, relative to the shoulder height Zs
+FA = dict(z0=10, z1=60, hw=22, tail=65)
+HAND = dict(z0=-44, z1=-4, hx=90, hy=33)
+JAW_Z0 = -149                                    # jaw tips
+GRIP_DZ = -134                                   # plate plane when held
+STYLUS = dict(lx=69, ly=45, z=-26)               # tip in hand frame (horizontal, points along hand +y)
 ZS_MIN, ZS_MAX = 215.0, 950.0                    # shoulder height range from the column (CAD)
 COLUMN = dict(dx0=-40, dx1=0, y0=-125, y1=-105)  # relative to J1 x
 J1_LIM, J2_LIM = 150.0, 145.0                    # degrees; J1 measured from +y (toward the printers)
