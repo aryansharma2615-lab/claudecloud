@@ -18,11 +18,11 @@ needed) and the **ESP32-CAM is the camera + Wi-Fi link**, passing text commands 
 | PSU − | **common GND** (breadboard blue rail) | everything shares ground or serial/servo signals don't work |
 | 1000 µF cap | + motor rail, − GND (stripe = −) | absorbs servo current spikes |
 | 3 × SG90 red / brown | motor rail / GND | |
-| SG90 orange (signal) | shoulder **D9**, elbow **D10**, gripper **D11** | |
+| SG90 orange (signal) | shoulder **D5**, elbow **D6**, gripper **D3** (same as the v5 build sheet) | |
 | ULN2003 + / − | motor rail / GND | |
-| ULN2003 IN1–IN4 | **D4, D5, D6, D7** | |
-| Motor rail → 10 kΩ → **D2**, and D2 → 100 kΩ → GND | rail sense: UNO knows the E-stop is pressed | |
-| Door button (kit) | **D3** ↔ GND. No button? Put a jumper wire from D3 to GND (open D3 = "door open" = arm refuses to move) | interlock |
+| ULN2003 IN1–IN4 | **D8, D9, D10, D11** (same as the build sheet) | |
+| Motor rail → 10 kΩ → **A0**, and A0 → 100 kΩ → GND | rail sense: UNO knows the E-stop is pressed | |
+| Door button (kit) | **D2** ↔ GND. No button? Put a jumper wire from D2 to GND (open D2 = "door open" = arm refuses to move) | interlock |
 | ESP32-CAM **GPIO14** | UNO **D0 (RX)** | ESP → UNO commands (3.3 V is enough for the UNO to read HIGH) |
 | UNO **D1 (TX)** → 1 kΩ → ESP32-CAM **GPIO15**, and GPIO15 → 2 kΩ → GND | UNO → ESP replies; the divider turns 5 V into 3.3 V so the ESP pin isn't damaged | |
 | UNO USB | Mac | power for the UNO + uploads |
@@ -49,7 +49,7 @@ needed) and the **ESP32-CAM is the camera + Wi-Fi link**, passing text commands 
 4. Yaw has no home switch on v5: turn the turret to straight-ahead by hand with power off, then `zero`.
 
 ## Safety
-- The E-stop cuts motor power in hardware; the UNO also stops and detaches servos when it sees the rail drop (D2).
+- The E-stop cuts motor power in hardware; the UNO also stops and detaches servos when it sees the rail drop (A0).
 - The ESP32 bridge sends **stop** if the Mac goes quiet for 3 s in the middle of a move (dead-man), and every web
   request needs your key. Keep it on your home Wi-Fi only.
 - 1N4007 not needed: the ULN2003 has built-in flyback diodes for the stepper coils.

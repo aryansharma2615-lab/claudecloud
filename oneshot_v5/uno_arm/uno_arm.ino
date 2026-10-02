@@ -1,4 +1,5 @@
 // OneShot Arm v5 — UNO R3 motion firmware (3 × SG90 + 28BYJ-48/ULN2003 yaw). No servo driver board needed.
+// Pins match the published v5 build sheet: servos D5 shoulder, D6 elbow, D3 gripper; ULN2003 D8–D11; door D2; rail sense A0.
 // Commands arrive one per line on Serial (115200) — from the ESP32-CAM bridge (pins D0/D1) or the Mac over USB.
 //   P              ping                         -> "OK P"
 //   S              status                       -> "OK S yaw sh el grip estop door moving"
@@ -8,13 +9,13 @@
 //   Z              set the current yaw as 0 (no yaw switch on v5)
 //   X              stop now (holds position, servos stay powered, yaw coils off)
 // Joint angles are ARM angles. Shoulder/elbow have 2:1 printed gears (v5), so servo moves 2° per joint degree.
-// Safety: E-stop cuts the servo/stepper 5 V rail in hardware; D2 senses that rail. D3 = door interlock (kit button).
+// Safety: E-stop cuts the servo/stepper 5 V rail in hardware; A0 senses that rail. D2 = door interlock (kit button).
 #include <Servo.h>
 
-const uint8_t PIN_SH = 9, PIN_EL = 10, PIN_GR = 11;          // servo signals
-const uint8_t PIN_IN[4] = {4, 5, 6, 7};                       // ULN2003 IN1..IN4
-const uint8_t PIN_RAIL_SENSE = 2;                             // HIGH = motor rail powered (E-stop released)
-const uint8_t PIN_DOOR = 3;                                   // LOW = door closed (button to GND, pull-up)
+const uint8_t PIN_SH = 5, PIN_EL = 6, PIN_GR = 3;            // servo signals (= OneShot v5 build sheet, step 11)
+const uint8_t PIN_IN[4] = {8, 9, 10, 11};                     // ULN2003 IN1..IN4 (= build sheet D8–D11)
+const uint8_t PIN_RAIL_SENSE = A0;                            // HIGH = motor rail powered (E-stop released)
+const uint8_t PIN_DOOR = 2;                                   // LOW = door closed (button to GND, pull-up) (= build sheet D2)
 
 // ---- calibration: edit after the first power-up (see oneshot_v5/WIRING.md "Calibrate") ----
 const float GEAR_SH = 2.0, GEAR_EL = 2.0;                     // servo deg per joint deg

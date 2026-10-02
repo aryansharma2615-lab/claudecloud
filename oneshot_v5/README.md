@@ -1,7 +1,7 @@
 # OneShot Arm v5 — control stack (ESP32-CAM + UNO, Claude-controlled)
 
-- `uno_arm/uno_arm.ino` — UNO drives 3 × SG90 (D9/D10/D11) + 28BYJ-48 yaw (ULN2003 on D4–D7); smooth min-jerk moves,
-  joint limits, E-stop rail sense (D2), door interlock (D3). Text protocol: `P S J G H Z X` (see the file header).
+- `uno_arm/uno_arm.ino` — UNO drives 3 × SG90 (D5/D6/D3) + 28BYJ-48 yaw (ULN2003 on D8–D11), pins as on the v5 build sheet; smooth min-jerk moves,
+  joint limits, E-stop rail sense (A0), door interlock (D2). Text protocol: `P S J G H Z X` (see the file header).
 - `esp32cam_bridge/` — ESP32-CAM: `/capture` JPEG, `/stream` MJPEG, `/cmd` → UNO serial, API key, 3 s dead-man stop, OTA.
 - `mac/oneshot.py` — CLI/library; `mac/oneshot_mcp.py` — MCP server (look, move, grip, home, stop, status) so Claude
   sees and moves the arm.
