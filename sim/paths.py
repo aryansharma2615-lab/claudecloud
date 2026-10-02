@@ -38,7 +38,8 @@ GRIP_DZ = -134                                   # plate plane when held
 STYLUS = dict(lx=69, ly=45, z=-26)               # tip in hand frame (horizontal, points along hand +y)
 ZS_MIN, ZS_MAX = 215.0, 950.0                    # shoulder height range from the column (CAD)
 COLUMN = dict(dx0=-40, dx1=0, y0=-125, y1=-105)  # relative to J1 x
-J1_LIM, J2_LIM = 150.0, 145.0                    # degrees; J1 measured from +y (toward the printers)
+J1_LIM, J2_LIM = 140.0, 140.0                    # planning limits = hard stops (150/145) minus a 10/5° margin
+REACH_MARGIN = 20.0                              # never plan the arm fully stretched
 CLEAR = 8.0                                      # required clearance, mm
 
 
@@ -175,13 +176,15 @@ def lerp(a, b, n):
     return [tuple(a[k] + (b[k] - a[k]) * i / n if isinstance(a[k], float) else a[k] for k in range(len(a))) for i in range(n + 1)]
 
 
-def check_pose(X, Zs, wx, wy, yaw, plate, stylus, elbow, obs, allow):
+def check_pose(X, Zs, wx, wy, yaw, plate, stylus, elbow, obs, allow, margin=REACH_MARGIN):
     """Returns (ok, clearance, issues, (t1, t2))."""
     sol = ik(X, wx, wy, elbow)
     if sol is None:
         return False, -1e9, [f"unreachable wrist ({wx:.0f}, {wy:.0f}) from X={X:.0f}"], None
     t1, t2 = sol
     issues = []
+    if math.hypot(wx - X, wy) > L1 + L2 - margin:
+        issues.append("reach margin")
     if abs(t1) > J1_LIM or abs(t2) > J2_LIM:
         issues.append(f"joint limit: J1 {t1:.0f}°, J2 {t2:.0f}°")
     if not (ZS_MIN <= Zs <= ZS_MAX):
@@ -202,7 +205,7 @@ def check_pose(X, Zs, wx, wy, yaw, plate, stylus, elbow, obs, allow):
 X_GRID = [x * 20.0 for x in range(-12, 58)]          # rail travel -240 .. 1140 (ASSUMED table span)
 
 
-def run_job(name, waypoints, obstacles_fn, allow=None, steps=12, fixed_first=True):
+def run_job(name, waypoints, obstacles_fn, allow=None, steps=12, fixed_first=True, margin=REACH_MARGIN):
     """Each waypoint: (X or None, Zs, wrist x, wrist y, yaw, plate, stylus). X None = planner picks the rail
     position; at every sample the planner keeps the clean (X, elbow) closest to the previous one."""
     allow = allow or {}
@@ -216,7 +219,7 @@ def run_job(name, waypoints, obstacles_fn, allow=None, steps=12, fixed_first=Tru
     if fixed_first and all(smp[0] is None for smp in samples):     # one rail stop for the whole job, if one exists
         for el in (1, -1):
             for x in sorted(X_GRID, key=lambda v: abs(v - (samples[0][2] - 250))):
-                if all(check_pose(x, *smp[1:], el, obstacles_fn(smp) + table_obstacles(), allow)[0] for smp in samples[::3]):
+                if all(check_pose(x, *smp[1:], el, obstacles_fn(smp) + table_obstacles(), allow, margin)[0] for smp in samples[::3]):
                     samples = [(x,) + smp[1:] for smp in samples]
                     prev = (x, el)
                     break
@@ -228,7 +231,7 @@ def run_job(name, waypoints, obstacles_fn, allow=None, steps=12, fixed_first=Tru
         best = None
         for el in ([prev[1], -prev[1]] if prev else [1, -1]):
             for x in cands:
-                ok, clr, iss, sol = check_pose(x, Zs, wx, wy, yaw, plate, stylus, el, obs, allow)
+                ok, clr, iss, sol = check_pose(x, Zs, wx, wy, yaw, plate, stylus, el, obs, allow, margin)
                 if ok and clr >= 0:
                     best = (x, el, clr, sol)
                     break
@@ -268,8 +271,8 @@ def main():
           (None, zs_g + 8, PX, out_y, 0.0, (PLATE["w"], PLATE["d"]), False),   # straight out through the door
           (None, zs_g + 60, PX, out_y, 0.0, (PLATE["w"], PLATE["d"]), False)]
     ALLOW_PLATE = {"held plate": ("H2S bed",), "jaw": ("H2S bed",)}   # sliding on the bed is the job
-    jobs.append(run_job("H2S plate pull (door open 170°)", wp, lambda i: h2s_obstacles(170.0), allow=ALLOW_PLATE))
-    jobs.append(run_job("H2S plate insert (reverse)", list(reversed(wp)), lambda i: h2s_obstacles(170.0), allow=ALLOW_PLATE))
+    jobs.append(run_job("H2S plate pull (door open 170°)", wp, lambda i: h2s_obstacles(170.0), allow=ALLOW_PLATE, margin=10.0))
+    jobs.append(run_job("H2S plate insert (reverse)", list(reversed(wp)), lambda i: h2s_obstacles(170.0), allow=ALLOW_PLATE, margin=10.0))
 
     # 2. H2S door: grip the handle, swing it along its arc, the rail carriage tracks the door so the column stays clear
     def door_wp(phi):
@@ -282,7 +285,7 @@ def main():
         return (None, HANDLE["z"] + 20.0, wx, wy, -phi, None, False)
 
 
-    def door_push_wp(phi, r=170.0, off=55.0):
+    def door_push_wp(phi, r=140.0, off=55.0):
         """Hand on the door's INNER face, r mm from the hinge, pushing it open (like a person's palm)."""
         hx, hy = H2S_HINGE
         a = math.radians(phi)

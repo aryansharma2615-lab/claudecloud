@@ -63,7 +63,7 @@ STEPS = [[1, "X rail", "Beam on the table front, X carriage on its wheels, X mot
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "sim"))
 import paths as SIMP  # noqa: E402
-X_STOP = 560.0
+X_STOP = 600.0
 ZS = SIMP.Z_PLATE - SIMP.GRIP_DZ + 3
 T1, T2 = SIMP.ik(X_STOP, SIMP.PLATE["cx"], SIMP.PLATE["front_y"] - 14, +1)
 PHI1, PHI12 = 90 - T1, 90 - (T1 + T2)

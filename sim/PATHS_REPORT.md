@@ -4,10 +4,10 @@ First-pass kinematic sweep: every job is sampled along straight-line moves, inve
 
 | Job | Samples | Result | Min clearance | Rail X used | Wrist reach used | Shoulder height | J1 range | J2 range |
 |---|---|---|---|---|---|---|---|---|
-| H2S plate pull (door open 170°) | 65 | ✓ clean | 48 mm | 560…560 | 414–503 mm (max 550) | 387–444 mm | -147…-104° | 48…83° |
-| H2S plate insert (reverse) | 65 | ✓ clean | 48 mm | 560…560 | 414–503 mm (max 550) | 387–444 mm | -147…-104° | 48…83° |
-| H2S door: pull by the handle 0→40° | 72 | ✓ clean | 11 mm | 520…660 | 182–514 mm (max 550) | 320–320 mm | -150…-133° | 42…143° |
-| H2S door: push from inside 40→170° | 117 | ✓ clean | 9 mm | 280…520 | 456–549 mm (max 550) | 320–320 mm | -118…-92° | 5…68° |
-| H2S screen tap (door closed) | 13 | ✓ clean | 24 mm | 80…80 | 179–186 mm (max 550) | 586–586 mm | -150…-131° | 142…143° |
+| H2S plate pull (door open 170°) | 65 | ✓ clean | 48 mm | 600…600 | 454–536 mm (max 550) | 387–444 mm | -137…-99° | 26…69° |
+| H2S plate insert (reverse) | 65 | ✓ clean | 48 mm | 600…600 | 454–536 mm (max 550) | 387–444 mm | -137…-99° | 26…69° |
+| H2S door: pull by the handle 0→40° | 72 | ✓ clean | 10 mm | 540…720 | 202–528 mm (max 550) | 320–320 mm | -140…-127° | 33…138° |
+| H2S door: push from inside 40→170° | 117 | ✓ clean | 14 mm | 300…520 | 480–530 mm (max 550) | 320–320 mm | -115…-102° | 31…59° |
+| H2S screen tap (door closed) | 13 | ✓ clean | 24 mm | 220…220 | 319–323 mm (max 550) | 586–586 mm | -139…-128° | 109…110° |
 | Ender sheet lift + carry out | 52 | ✓ clean | 19 mm | 320…320 | 400–407 mm (max 550) | 237–274 mm | 41…63° | 85…87° |
-| Carry H2S plate to the flex station (rail move) | 31 | ✓ clean | 13 mm | -100…720 | 377–550 mm (max 550) | 444–444 mm | 97…120° | 3…94° |
+| Carry H2S plate to the flex station (rail move) | 31 | ✓ clean | 13 mm | -100…740 | 377–530 mm (max 550) | 444–444 mm | 97…108° | 31…94° |
