@@ -18,6 +18,7 @@ def _bool(name: str, default: bool) -> bool:
 @dataclass(frozen=True)
 class Settings:
     dry_run: bool
+    printers: tuple[str, ...]  # which printers are connected, e.g. ("ender",)
     data_dir: Path
     # Bambu H2S (LAN-only + Developer Mode)
     bambu_host: str
@@ -59,6 +60,8 @@ def load_settings(env_file: str | None = None) -> Settings:
     g = os.getenv
     return Settings(
         dry_run=_bool("FARM_DRY_RUN", True),  # safe default: no hardware touched
+        printers=tuple(n.strip() for n in g("FARM_PRINTERS", "h2s,ender").split(",")
+                       if n.strip() in ("h2s", "ender")),
         data_dir=Path(g("FARM_DATA_DIR", "data")).resolve(),
         bambu_host=g("BAMBU_HOST", ""),
         bambu_serial=g("BAMBU_SERIAL", ""),

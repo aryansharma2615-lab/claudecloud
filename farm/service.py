@@ -43,7 +43,8 @@ class FarmService:
     # ---------- helpers ----------
     def _printer(self, name: str) -> Printer:
         if name not in self.printers:
-            raise FarmError(f"unknown printer {name!r}; choose one of {', '.join(self.printers)}")
+            raise FarmError(f"printer {name!r} is not connected to the farm yet; "
+                            f"connected: {', '.join(self.printers)}")
         return self.printers[name]
 
     def _guard(self, user: str, tool: str, params: dict, is_action: bool) -> None:

@@ -164,16 +164,20 @@ def build_service(settings: Settings) -> FarmService:
 
     if settings.dry_run:
         from .printers.fake import FakePrinter
-        printers = {"h2s": FakePrinter("h2s"), "ender": FakePrinter("ender")}
+        printers = {n: FakePrinter(n) for n in settings.printers}
     else:
-        from .printers.bambu import BambuPrinter
-        from .printers.octoprint import OctoPrintPrinter
-        printers = {
-            "h2s": BambuPrinter(settings.bambu_host, settings.bambu_serial, settings.bambu_access_code,
-                                settings.bambu_file_url_template, settings.bambu_door_field),
-            "ender": OctoPrintPrinter(settings.octoprint_url, settings.octoprint_api_key,
-                                      settings.ender_camera_index),
-        }
+        printers = {}
+        if "h2s" in settings.printers:
+            from .printers.bambu import BambuPrinter
+            printers["h2s"] = BambuPrinter(
+                settings.bambu_host, settings.bambu_serial, settings.bambu_access_code,
+                settings.bambu_file_url_template, settings.bambu_door_field)
+        if "ender" in settings.printers:
+            from .printers.octoprint import OctoPrintPrinter
+            printers["ender"] = OctoPrintPrinter(settings.octoprint_url, settings.octoprint_api_key,
+                                                 settings.ender_camera_index)
+    if not printers:
+        raise SystemExit("FARM_PRINTERS lists no known printer (use h2s, ender or both)")
     settings.vision_dir.mkdir(parents=True, exist_ok=True)
     return FarmService(printers, Store(settings.db_path), settings.vision_dir,
                        Notifier(settings.pushover_token, settings.pushover_user))

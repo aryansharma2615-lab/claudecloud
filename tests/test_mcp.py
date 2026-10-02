@@ -87,3 +87,17 @@ async def test_local_only_blocks_tunnelled_requests():
                                     (b"x-forwarded-for", b"160.79.104.9")]))["status"] == 403
     assert (await _call_local_only([(b"host", b"localhost"), (b"tailscale-funnel-request", b"?1")]))["status"] == 403
     assert (await _call_local_only([(b"host", b"localhost")], client=("10.0.0.7", 1)))["status"] == 403
+
+
+def test_ender_only_farm(monkeypatch, tmp_path):
+    from farm.mcp_server import build_service
+    from farm.service import FarmError
+    monkeypatch.setenv("FARM_PRINTERS", "ender")
+    monkeypatch.setenv("FARM_DRY_RUN", "1")
+    monkeypatch.setenv("FARM_DATA_DIR", str(tmp_path))
+    svc = build_service(load_settings(env_file="/nonexistent"))
+    assert list(svc.printers) == ["ender"]
+    assert [p["printer"] for p in svc.farm_status("u")["printers"]] == ["ender"]
+    with pytest.raises(FarmError, match="not connected"):
+        svc.set_light("u", "h2s", True)
+    assert svc.stop_all("u")["printers"] == {"ender": "not printing"}

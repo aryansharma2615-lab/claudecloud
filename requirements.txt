@@ -2,6 +2,7 @@
 fastmcp==4.0.10
 paho-mqtt==2.1.0
 httpx==0.28.1
+pyserial>=3.5
 python-dotenv>=1.0
 numpy>=2.0
 opencv-python-headless>=4.10
