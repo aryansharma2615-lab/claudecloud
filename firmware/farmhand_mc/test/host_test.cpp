@@ -47,5 +47,14 @@ int main() {
   assert(s.tick(8001, true, false) && s.state() == State::ESTOP);
   assert(!s.reset(true));                                      // can't reset while pressed
   assert(s.reset(false));
+  // D248 keep-out: door sweeping the rail line between X 200 and 500
+  s.start_homing(); s.homing_done(true); s.heartbeat(9000);
+  s.set_keepout(200, 500); s.set_x_now(100);
+  float across[kAxes] = {700, 100, 0, 0, 0};
+  assert(!s.request_move(across, ZONE_OUTSIDE, 9000, e) && e == Err::E06_INTERLOCK);   // would drive through the door
+  float near_[kAxes] = {150, 100, 0, 0, 0};
+  assert(s.request_move(near_, ZONE_OUTSIDE, 9000, e));
+  s.move_done(); s.set_keepout(0, 0);
+  assert(s.request_move(across, ZONE_OUTSIDE, 9000, e));
   puts("host tests: all passed");
 }

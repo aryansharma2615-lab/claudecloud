@@ -53,12 +53,22 @@ class Supervisor {
     if (st_ != State::IDLE && st_ != State::RUNNING) { why = (st_ == State::ESTOP) ? Err::E01_ESTOP : Err::E06_INTERLOCK; return false; }
     for (int i = 0; i < kAxes; ++i)
       if (!(target[i] >= lim_.lo[i] && target[i] <= lim_.hi[i])) { why = Err::E10_RANGE; return false; }
+    if (crosses_keepout(x_now_, target[0])) { why = Err::E06_INTERLOCK; return false; }
     if (z != ZONE_OUTSIDE && (permit_zone_ != z || now >= lease_until_)) { why = Err::E06_INTERLOCK; return false; }
     if (!hb_seen_ || now - last_hb_ > kWatchdogMs) { why = Err::E02_WATCHDOG; return false; }
     zone_ = z;
     st_ = State::RUNNING;
     return true;
   }
+  // D248: PC sends a rail keep-out while the H2S door sweeps the rail line (30–150°). Moves that end in it,
+  // or cross it, are refused. Cleared with an empty range (x_min >= x_max).
+  void set_keepout(float x_min, float x_max) { ko_min_ = x_min; ko_max_ = x_max; }
+  bool crosses_keepout(float x_from, float x_to) const {
+    if (ko_min_ >= ko_max_) return false;
+    float lo = x_from < x_to ? x_from : x_to, hi = x_from < x_to ? x_to : x_from;
+    return hi > ko_min_ && lo < ko_max_;
+  }
+
   void move_done() { if (st_ == State::RUNNING) { st_ = State::IDLE; zone_ = ZONE_OUTSIDE; } }
   bool inside_printer() const { return zone_ != ZONE_OUTSIDE; }
 
@@ -84,6 +94,7 @@ class Supervisor {
   }
 
   Limits& limits() { return lim_; }
+  void set_x_now(float x) { x_now_ = x; }
 
  private:
   void latch(State s, Err e) { st_ = s; err_ = e; }
@@ -93,6 +104,7 @@ class Supervisor {
   bool hb_seen_ = false;
   Zone permit_zone_ = ZONE_OUTSIDE, zone_ = ZONE_OUTSIDE;
   Limits lim_;
+  float ko_min_ = 0, ko_max_ = 0, x_now_ = 0;
 };
 
 }  // namespace fh

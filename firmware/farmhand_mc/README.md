@@ -6,7 +6,7 @@
 - `src/main.cpp` — FastAccelStepper on 5 axes, MT6701 SSI encoders, homing (switch + absolute encoder),
   TMC2209 currents over UART, STS3215 gripper, 5 Hz status.
 - Commands: `hello`, `heartbeat`, `get_status`, `home`, `permit {zone, ms}`, `move {j:[x,z,j1,j2,w], v, zone}`,
-  `grip {pos, torque}`, `pause`, `halt`, `reset`.
+  `grip {pos, torque}`, `keepout {x_min, x_max}` (D248: rail keep-out while the H2S door sweeps the rail), `pause`, `halt`, `reset`.
 
 **Tested:** `g++ -std=c++17 -Iinclude test/host_test.cpp -o /tmp/t && /tmp/t` (protocol + every supervisor rule)
 and `pytest tests/test_robot_link.py` (PC framing matches).

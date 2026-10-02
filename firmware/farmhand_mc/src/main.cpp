@@ -158,7 +158,9 @@ static void handle(const std::string& line) {
     sup.grant_permit(zone, now, d["ms"] | 0);
     reply(seq, true);
   }
+  else if (!strcmp(c, "keepout")) { sup.set_keepout(d["x_min"] | 0.0f, d["x_max"] | 0.0f); reply(seq, true); }
   else if (!strcmp(c, "move")) {
+    sup.set_x_now(enc_unit[0]);
     float t[kAxes];
     for (int i = 0; i < kAxes; ++i) t[i] = d["j"][i] | NAN;
     const char* z = d["zone"] | "outside";
