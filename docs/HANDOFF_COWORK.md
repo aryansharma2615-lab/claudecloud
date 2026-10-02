@@ -22,7 +22,7 @@ Also check Mem0 (project "farmhand").
 | Stiffness | `sim/stiffness.py` | Fix B: 0.44 mm tool sag (≤ 1 mm) — lower bound, no bearing/wheel play |
 | Dynamics | `sim/sim_check.py` (PyBullet, `urdf/farmhand_scara.urdf`) | sim 84 % of hand calc ✓, revolute hold 0 N·m |
 | Job paths | `sim/paths.py` | 7 jobs clean vs printer box models, with joint/reach margins |
-| CAD | `cad/params.py` (single source) + `cad/build_parts.py` → `cad/out/*.step/.stl` | 15 printed parts, 0 clashes over 43 bodies, all fit a bed |
+| CAD | `cad/params.py` (single source) + `cad/build_parts.py` → `cad/out/*.step/.stl` | 17 printed part files (incl. fit coupon), 0 clashes over 43 bodies, all fit a bed |
 | Viewer | `cad/viewer_config.py` → published at https://claude.ai/artifact/AU2Tzgdss1pAZRXaCz1yLW | generic cad-assembly-viewer (no Motion lane) |
 | Firmware | `firmware/farmhand_mc/` (ESP32-S3) | host tests pass; **never compiled** (cloud blocked PlatformIO) |
 
