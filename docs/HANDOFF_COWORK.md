@@ -23,7 +23,8 @@ Also check Mem0 (project "farmhand").
 | Dynamics | `sim/sim_check.py` (PyBullet, `urdf/farmhand_scara.urdf`) | sim 84 % of hand calc ✓, revolute hold 0 N·m |
 | Job paths | `sim/paths.py` | 7 jobs clean vs printer box models, with joint/reach margins |
 | CAD | `cad/params.py` (single source) + `cad/build_parts.py` → `cad/out/*.step/.stl` | 17 printed part files (incl. fit coupon), 0 clashes over 43 bodies, all fit a bed |
-| Viewer | `cad/viewer_config.py` → published at https://claude.ai/artifact/AU2Tzgdss1pAZRXaCz1yLW | generic cad-assembly-viewer (no Motion lane) |
+| SP AV (engine v5.3) | `av/build_farmhand_av.py` → `av/farmhand_artifact_v1.html`, published at https://claude.ai/artifact/T7hnUhC4ieNx5tafS9YUX6 | Motion (X/Z prismatic, J1/J2/W, **door as a moving obstacle**, 7 job paths, 0 mesh collisions), Wiring (11 runs), 30 screws fit-checked, Plates (3 on the H2S), BOM, new **Checks** tab (24 gates) |
+| Engine patch | `av/engine/patch_engine_v5_3.py` (R8 far clip, R9 Checks lane) + `av/engine/AV_FEATURES_v5_3.md` | built from the published OneShot v5.2 page; **port R8/R9 and `fit_check()` into `~/Claude/AV`** and re-run verify_av_v2 on OneShot + SmartValve |
 | Firmware | `firmware/farmhand_mc/` (ESP32-S3) | host tests pass; **never compiled** (cloud blocked PlatformIO) |
 
 **Your tasks, in order:**
@@ -31,7 +32,7 @@ Also check Mem0 (project "farmhand").
    swing + aperture, plate weight + how it comes off, screen photo with a ruler, AMS on top or beside, Ender real
    Y stop). Put them in `cad/params.py` and the ASSUMED block at the top of `sim/paths.py`; re-run
    `python cad/build_parts.py && python sim/paths.py && python sim/sim_check.py`. Fix anything that goes red.
-2. **SP assembly viewer (the real one).** Rebuild the viewer on the SP engine in `~/Claude/AV`
+2. **SP assembly viewer.** A cloud build already exists (row above). On the Mac: apply `av/engine/patch_engine_v5_3.py` to the real engine in `~/Claude/AV`, run verify_av_v2 (it was not available in the cloud), then rebuild on it
    (viewer_template_motion_v5_2.html, patch_engine_v5_2.py, verify_av_v3.py; read AV_FEATURES.md, CONFIG_SCHEMA.md,
    CHECKPOINT.md first) with `/sp-assembly-viewer`. Feed it `cad/out/asm/*.stl` (already in assembly frame).
    Must have: Motion lane with the real job paths from `sim/paths.py` (plate pull/insert, door pull + push, screen
