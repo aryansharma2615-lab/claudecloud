@@ -45,3 +45,15 @@ Inputs: payload 1.5 kg (1.2 kg spool + 0.3 kg tool); H2S plate steel 486 g (comp
 | Job coverage v1+v2 | 3 | 4 | 5 | 3 | 4 | 1 |
 | Look | 1 | 4 | 4 | 2 | 4 | 2 |
 | **Weighted total (/5)** | | **2.35** | **3.05** | **3.30** | **4.25** | **3.10** |
+
+## Lean variant (docs/BOM.md: NEMA 17 + TMC2209, GT2 belts, T8x2 Z)
+
+| Joint | Need (N·m) | Capacity (N·m) | % | ≤70 % |
+|---|---|---|---|---|
+| J1 (GT2 1:16) | 2.58 | 4.26 | 60 % | OK |
+| J2 (GT2 1:8) | 1.18 | 2.13 | 55 % | OK |
+| W (GT2 1:4) | 0.49 | 1.12 | 44 % | OK |
+| Z (T8x2 lead screw) | 0.11 | 0.29 | 36 % | OK |
+| X (GT2 20T, 0.5 m/s^2) | 0.07 | 0.29 | 23 % | OK |
+
+T8x2 lead angle 4.5° < friction angle ~8.5° (μ≈0.15): self-locking, Z holds with power off (verify on the bench).

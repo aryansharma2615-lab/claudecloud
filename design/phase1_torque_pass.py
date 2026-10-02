@@ -199,3 +199,26 @@ for i, (c, w) in enumerate(crit):
 wsum = sum(w for _, w in crit)
 tot = {k: sum(s[i] * crit[i][1] for i in range(len(crit))) / wsum for k, s in scores.items()}
 print("| **Weighted total (/5)** | | " + " | ".join(f"**{v:.2f}**" for v in tot.values()) + " |")
+
+# =====================================================================================
+# LEAN variant (docs/BOM.md): NEMA 17 + TMC2209 everywhere, GT2 belts, T8x2 self-locking Z
+# =====================================================================================
+cap17 = NEMA17_HOLD * PULLOUT_FRACTION
+lean = []
+a1 = 4 * pi / 2.2 ** 2                                  # J1 180 deg in 2.2 s
+lean.append(("J1 (GT2 1:16)", I_J1 * a1 + 0.5, cap17 * 16 * ETA_BELT_STAGE ** 2))
+a2 = 4 * pi / 1.6 ** 2                                  # J2 180 deg in 1.6 s
+lean.append(("J2 (GT2 1:8)", I_J2 * a2 + 0.3, cap17 * 8 * ETA_BELT_STAGE ** 2))
+lean.append(("W (GT2 1:4)", tau_w, cap17 * 4 * ETA_BELT_STAGE))
+m_zl = m_z - 1.0 - 1.2 + 0.6                            # NEMA 17s instead of NEMA 23s
+lead_eta = 0.30                                         # T8x2 trapezoid screw, ASSUMED
+lean.append(("Z (T8x2 lead screw)", m_zl * (G + 1.0) * 0.002 / (2 * pi * lead_eta) + 0.05, cap17))
+m_xl = m_zl + 3.5
+lean.append(("X (GT2 20T, 0.5 m/s^2)", (m_xl * 0.5 + 0.02 * m_xl * G + 5.0) * 0.00637, cap17))
+lead_angle = __import__("math").degrees(__import__("math").atan(2 / (pi * 8)))
+print("\n## Lean variant (docs/BOM.md: NEMA 17 + TMC2209, GT2 belts, T8x2 Z)\n")
+print("| Joint | Need (N·m) | Capacity (N·m) | % | ≤70 % |")
+print("|---|---|---|---|---|")
+for j, need, cap in lean:
+    print(f"| {j} | {need:.2f} | {cap:.2f} | {pct(need, cap):.0f} % | {rule(pct(need, cap), MOVE_MAX)} |")
+print(f"\nT8x2 lead angle {lead_angle:.1f}° < friction angle ~8.5° (μ≈0.15): self-locking, Z holds with power off (verify on the bench).")
