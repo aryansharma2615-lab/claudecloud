@@ -241,7 +241,86 @@ def jobs_to_paths(jobs):
     return out
 
 
-def build_checks(jobs, meshes_fit):
+AWG = {16: (0.0132, 22.0, 0.65), 18: (0.0210, 16.0, 0.51), 22: (0.0530, 7.0, 0.32), 26: (0.134, 2.2, 0.20)}  # ohm/m, chassis A, radius mm
+
+
+def tube(path, r):
+    segs = []
+    for a, b in zip(path, path[1:]):
+        a, b = np.array(a, float), np.array(b, float)
+        if np.linalg.norm(b - a) < 1e-6:
+            continue
+        segs.append(trimesh.creation.cylinder(radius=max(r, 1.5), segment=[a, b], sections=6))
+    return trimesh.util.concatenate(segs)
+
+
+def wiring(centre):
+    """docs/WIRING.md as engine nodes + runs + routed wire meshes (cable chain along the rail, up the column, along the arm)."""
+    BOX = [650.0, -60.0, -440.0]                                   # controller box at the right end of the table (cad frame)
+    nodes = [
+        dict(id="psu", label="24 V 15 A PSU", at=[650, -20, -440], schem=[0, 1], role="Motor bus. Worst case ~5 A (120 W): 3× margin.",
+             pins=[dict(id="v", label="+24V", kind="power"), dict(id="g", label="GND", kind="ground")]),
+        dict(id="estop", label="E-stop + relays A/B", at=[700, -140, -420], schem=[0, 0],
+             role="NC mushroom drops both relay coils: the motor bus dies in hardware (category 0). Two relays in series so one welded contact can't keep power on.",
+             pins=[dict(id="in", label="IN", kind="power"), dict(id="out", label="OUT", kind="power")]),
+        dict(id="ctrl", label="ESP32-S3 + 5× TMC2209", at=BOX, schem=[1, 1],
+             role="Motion controller. Logic stays powered through an E-stop, so the absolute encoders keep position.",
+             pins=[dict(id="v", label="VM 24V", kind="power"), dict(id="g", label="GND", kind="ground"),
+                   dict(id="mx", label="X", kind="motor"), dict(id="mz", label="Z", kind="motor"), dict(id="m1", label="J1", kind="motor"),
+                   dict(id="m2", label="J2", kind="motor"), dict(id="mw", label="W", kind="motor"), dict(id="bus", label="SERVO TX/RX", kind="data"),
+                   dict(id="v12", label="12V", kind="power")]),
+        dict(id="buck", label="24→12 V buck", at=[620, -60, -440], schem=[1, 2], role="Feeds only the gripper servo.",
+             pins=[dict(id="in", label="IN", kind="power"), dict(id="out", label="12V", kind="power")]),
+    ]
+    motors = {"x_motor": ("X", "mx"), "z_motor": ("Z", "mz"), "j1_motor": ("J1", "m1"), "j2_motor": ("J2", "m2"), "w_motor": ("W", "mw")}
+    row = 0
+    for pid, (nm, pin) in motors.items():
+        nodes.append(dict(id=pid, label=f"{nm} motor (NEMA 17)", at=centre[pid], schem=[2, row], role="4-wire bipolar stepper, 2 A rated, run at 1.0–1.4 A.",
+                          pins=[dict(id="plug", label="A+A−B+B−", kind="motor")]))
+        row += 1
+    nodes.append(dict(id="servo", label="Gripper servo STS3215", at=centre["servo"], schem=[2, row], role="Half-duplex serial bus servo: position + load back.",
+                      pins=[dict(id="bus", label="DATA", kind="data"), dict(id="vp", label="12V", kind="power")]))
+    # routes: box -> along the beam -> X carriage -> up the column -> shoulder -> along the arm
+    xc, col = [0.0, -115.0, -440.0], [-20.0, -112.0, 0.0]
+    via_arm = [[0, -100, 30], [0, 0, 95], [150, 0, 95], [300, 0, 95], [300, 0, 40], [450, 0, 40], [550, 0, 30]]
+    route = {
+        "x_motor": [BOX, [880, -115, -470], centre["x_motor"]],
+        "z_motor": [BOX, xc, [35, -115, -400], centre["z_motor"]],
+        "j1_motor": [BOX, xc, col, [-45, -45, 60], centre["j1_motor"]],
+        "j2_motor": [BOX, xc, col, via_arm[0], via_arm[1], [240, 0, 125], centre["j2_motor"]],
+        "w_motor": [BOX, xc, col, *via_arm[:5], [255, 0, 0], centre["w_motor"]],
+        "servo": [BOX, xc, col, *via_arm, centre["servo"]],
+    }
+    runs, meshes = [], {}
+
+    def add(rid, label, net, frm, to, kind, awg, amps, path, volts, note, conductors=1, step=4):
+        L = sum(float(np.linalg.norm(np.subtract(b, a))) for a, b in zip(path, path[1:]))
+        ohm_m, chassis, r = AWG[awg]
+        ohms = ohm_m * L / 1000
+        drop = amps * ohms * 2
+        runs.append(dict(id=rid, label=label, net=net, **{"from": frm}, to=to, kind=kind, gauge=f"{awg} AWG", amps=amps, step=step,
+                         note=note, path=[[round(c, 1) for c in pt] for pt in path], part="wire_" + rid, awg=awg, radius=r,
+                         length_mm=round(L, 1), conductors=conductors, ohms=round(ohms, 4), drop_v=round(drop, 3),
+                         drop_pct=round(100 * drop / volts, 2), chassis_a=chassis, undersized=amps > chassis))
+        meshes["wire_" + rid] = tube(path, r * 2)
+    add("bus", "24 V motor bus", "+24V", "estop.out", "ctrl.v", "power", 18, 5.0, [[700, -140, -420], [660, -100, -430], BOX], 24,
+        "18 AWG silicone, 7.5 A fuse. Drop must stay < 3 % (WIRING.md: 1.8 % over a 2 m loop).")
+    add("psu_in", "PSU → E-stop", "+24V", "psu.v", "estop.in", "power", 18, 5.0, [[650, -20, -440], [690, -90, -430], [700, -140, -420]], 24,
+        "10 A main fuse at the PSU.")
+    add("gnd", "Ground", "GND", "psu.g", "ctrl.g", "ground", 18, 5.0, [[650, -20, -440], [650, -40, -440], BOX], 24, "One star ground at the controller.")
+    add("buck_in", "Buck feed", "+24V", "ctrl.v12", "buck.in", "power", 22, 1.4, [BOX, [620, -60, -440]], 24, "3 A fuse.")
+    for pid, (nm, pin) in motors.items():
+        add(pid, f"{nm} motor cable", f"MOT·{nm}", f"ctrl.{pin}", f"{pid}.plug", "motor", 22, 1.4, route[pid], 24,
+            "4-core 22 AWG through the cable chains; bend radius ≥ 10× cable Ø (D208).", conductors=4, step=4 if nm in ("J2", "W") else 2)
+    add("servo_bus", "Servo data", "DATA", "ctrl.bus", "servo.bus", "data", 26, 0.05, route["servo"], 12, "Half-duplex serial, 1 Mbit.", step=7)
+    add("servo_pwr", "Servo 12 V", "+12V", "buck.out", "servo.vp", "power", 22, 1.4, [[620, -60, -440]] + route["servo"][1:], 12,
+        "Peak 2.8 A at stall, capped to 50 % torque in firmware.", step=7)
+    return dict(nodes=nodes, runs=runs, volts=24.0,
+                note="24 V motor bus through a hardware E-stop (two relays in series); logic and encoders stay powered. "
+                     "Routing is first-pass: cable chain along the rail, up the column, down the hollow J1 spigot, inside the arm."), meshes
+
+
+def build_checks(jobs, meshes_fit, wir=None):
     """Every gate as data for the R9 Checks lane. Values are parsed from the reports or re-run here."""
     import re
     import subprocess
@@ -279,6 +358,13 @@ def build_checks(jobs, meshes_fit):
     C.append(dict(group="Job paths (mesh sweep, this viewer)", label="Collisions, all 7 jobs, door as moving obstacle", value=0,
                   limit=None, unit="", status="pass", source="Motion → Path (engine v5.3 BVH), headless run 2026-10-02",
                   note="re-run: open Motion → Path"))
+    if wir:
+        w = max(wir["runs"], key=lambda r: r["drop_pct"])
+        C.append(dict(group="Electrical", label="Worst voltage drop", value=w["drop_pct"], limit=3.0, unit="%",
+                      status="pass" if w["drop_pct"] <= 3 else "fail", source="av/build_farmhand_av.py wiring()", note=w["label"]))
+        bad = [r["label"] for r in wir["runs"] if r["undersized"]]
+        C.append(dict(group="Electrical", label="Wires under their ampacity", value=f"{len(wir['runs']) - len(bad)} / {len(wir['runs'])}",
+                      limit=None, status="pass" if not bad else "fail", source="chassis ampacity per AWG", note=", ".join(bad)))
     fw = os.path.join(ROOT, "firmware", "farmhand_mc")
     r = subprocess.run(f"g++ -std=c++17 -I{fw}/include {fw}/test/host_test.cpp -o /tmp/fh_ht && /tmp/fh_ht", shell=True,
                        capture_output=True, text=True)
@@ -306,6 +392,9 @@ def main():
         if not os.path.exists(f):
             continue
         meshes[pid] = trimesh.load(f, force="mesh")
+    centre = {pid: [round(float(v), 1) for v in m.bounds.mean(0)] for pid, m in meshes.items()}
+    WIR, wire_meshes = wiring(centre)
+    meshes.update(wire_meshes)
     st, door = station()
     for sid, label, size, c, rz, note in st + [door]:
         meshes[sid] = box_mesh(size, c, rz)
@@ -347,6 +436,12 @@ def main():
                 p["mass"] = dict(g=b[4], com=[round(info[pid]["lo"][i] + info[pid]["span"][i] / 2, 1) for i in range(3)], how="catalogue class")
             p["material"] = None
         meta_parts.append(p)
+    for r in WIR["runs"]:
+        pid = r["part"]
+        meta_parts.append(dict(id=pid, label=r["label"], color={"power": "#3987e5", "ground": "#008300", "data": "#d55181", "motor": "#c98500"}[r["kind"]],
+                               group="_wire", step=r["step"], explode=[0, 0, 0], kind="wire", qty=1, bom=False,
+                               wire={k: r[k] for k in ("id", "net", "kind", "gauge", "awg", "length_mm", "amps", "ohms", "drop_v", "drop_pct",
+                                                       "chassis_a", "undersized", "from", "to")}, **info[pid]))
     for sid, label, size, c, rz, note in st + [door]:
         meta_parts.append(dict(id=sid, label=label, color=COL["station"] if sid != "h2s_door" else "#a9c6e8",
                                group="station", step=10, note=note, explode=[0, 0, 0], kind="bought", qty=1, material=None,
@@ -413,7 +508,7 @@ def main():
                                                have=False, have_note="", formula="docs/BOM.md estimate")) for i, l, q, c, u in BOM_EXTRA],
         parts=meta_parts, plates=plate_list, centre=[200.0, 100.0, -100.0], home=dict(yaw=-0.55, pitch=0.42),
         explodeScale=20, bed=dict(name="Bambu H2S", x=340.0, y=320.0, z=340.0, gap=8.0, nozzle=0.4, sequential=False, gantry=None, skirt=None),
-        wiring=None,
+        wiring=WIR,
         motion=dict(joints=joints, loops=[], payloads=[], grip=None, paths=jobs_to_paths(jobs), springs=[], gravity=[0, 0, -1],
                     rules=dict(warn=0.5, max=0.7),
                     note="Drive X, Z, J1, J2, W like the real motors; the door joint is the H2S door as a moving obstacle. "
@@ -423,7 +518,7 @@ def main():
                     load_payloads=[dict(label="Spool + tool (spec)", g=1500.0, default=True)], load_checks=[]),
         currency="CAD $", priceNote="Prices in CAD, estimated 2026-10-02 (shop pages blocked in the cloud): verify at checkout.",
         built="2026-10-02", plateFile="",
-        checks=build_checks(jobs, [pl["fits"] for pl in place.values()]))
+        checks=build_checks(jobs, [pl["fits"] for pl in place.values()], WIR))
 
     tpl = open(a.template).read()
     ms = tpl.find('<script id="meta"'); mb = tpl.find(">", ms) + 1; me = tpl.find("</script>", mb)
