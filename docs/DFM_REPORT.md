@@ -12,11 +12,12 @@ First-pass printed parts. Bought parts are crude primitives (motors as boxes, be
 | forearm_cover | PETG | Ender 3 S1 Pro | 248×37×3 | 38 | yes | yes | yes | closes the forearm box; belt access |
 | forearm | PETG-CF | Bambu H2S | 337×44×112 | 310 | yes | no | yes | fits the H2S bed diagonally; motor behind the elbow balances it |
 | wrist_flange | PETG-CF | Bambu H2S | 70×70×59 | 63 | yes | yes | yes | V-seats need stiffness; balls are hardened steel, magnets only preload |
-| hand_body | PETG-CF | Bambu H2S or Ender | 168×60×40 | 295 | yes | yes | yes | small; balls pressed into sockets |
+| hand_body | PETG-CF | Bambu H2S or Ender | 168×69×40 | 300 | yes | yes | yes | small; balls pressed into sockets |
 | jaw_left | PETG-CF | Ender 3 S1 Pro | 20×20×95 | 22 | yes | yes | yes | print 2: on its side so layers run along the finger |
 | jaw_right | PETG-CF | Ender 3 S1 Pro | 20×20×95 | 22 | yes | yes | yes | mirror of jaw_left (same STL rotated) |
 | finray_pad | TPU 95A | Ender 3 S1 Pro | 14×18×70 | 7 | yes | yes | yes | flexible: wraps the part; Ender has a direct-drive Sprite extruder |
 | plate_shoe | PETG | Ender 3 S1 Pro | 120×50×10 | 41 | yes | yes | yes | one per plate; screws clamp it on, no glue on the PEI |
+| fit_coupon | PETG | Ender 3 S1 Pro or H2S | 151×44×16 | 47 | yes | yes | yes | 6806 / 6805 / 6704 seats + spigot + insert hole, ~1 h; adjust params, reprint, then go |
 | z_motor_mount | PETG-CF | Ender 3 S1 Pro | 50×62×60 | 54 | yes | yes | yes | takes the screw thrust; motor hangs below, T8 coupler above |
 
-**Clash check (assembly, arm stretched, 43 bodies incl. 29 bought parts as primitives; bearings in seats and spigots in bearings included):** 0 overlaps > 1 mm³ ✓
+**Clash check (assembly, arm stretched, 44 bodies incl. 29 bought parts as primitives; bearings in seats and spigots in bearings included):** 0 overlaps > 1 mm³ ✓

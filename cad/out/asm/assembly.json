@@ -1,13 +1,18 @@
 {
  "title": "FarmHand rail-SCARA v1",
+ "home": {
+  "yaw": -0.45,
+  "pitch": 0.42
+ },
  "explode_scale": 20,
- "subtitle": "37 parts \u00b7 shown at 1:2 scale (viewer far-clip is 2 m) \u00b7 tap a part",
+ "subtitle": "posed mid plate-swap inside the H2S \u00b7 1:2 scale \u00b7 tap a part",
  "groups": {
   "frame": "Frame + lift \u2014 bought extrusion, rails, screw",
   "arm": "Printed arm structure",
   "hand": "Printed hand + tools",
   "drive": "Bought motors, bearings, pulleys",
-  "grip": "Bought hand parts"
+  "grip": "Bought hand parts",
+  "station": "Station \u2014 printers, door, table (assumed sizes, ghost shapes)"
  },
  "steps": [
   [
@@ -205,6 +210,13 @@
    "note": "Rides the lead screw; bolted to the Z plate so turning the screw lifts the carriage.",
    "transform": [
     {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -223,6 +235,13 @@
    ],
    "note": "Bought gantry plate on V-wheels around the column. The shoulder housing bolts flat to it with 4 \u00d7 M5.",
    "transform": [
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -243,6 +262,13 @@
    "note": "Holds the two J1 bearings 60 mm apart \u2014 that spacing turns the arm's 14.4 N\u00b7m moment into ~240 N per bearing, easy for 6806s. Ribs carry it back to the plate.",
    "transform": [
     {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -261,6 +287,13 @@
    ],
    "note": "NEMA 17 on the deck, shaft down. Two GT2 1:4 stages under the deck give 1:16 \u2014 60 % of capacity for a 180\u00b0 swing in 2.2 s.",
    "transform": [
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -281,6 +314,13 @@
    "note": "6806 (30\u00d742\u00d77) pressed in the bottom of the tower.",
    "transform": [
     {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -299,6 +339,13 @@
    ],
    "note": "6806 in the top of the tower. The upper-arm spigot runs through both.",
    "transform": [
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -319,6 +366,13 @@
    "note": "64T + 16T on an 8 mm shaft in two 608s: the middle of the 1:16 reduction.",
    "transform": [
     {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -337,6 +391,13 @@
    ],
    "note": "64T clamped on the bottom of the spigot (clamp hub, no set screw \u2014 set screws loosened on PAROL6).",
    "transform": [
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -357,6 +418,16 @@
    "note": "J1 spigot + J2 motor seat + the first 1:4 stage. Hollow so cables go down the middle of J1.",
    "transform": [
     {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -375,6 +446,16 @@
    ],
    "note": "Split at x = 120 so each half fits the H2S bed; 4 \u00d7 M4 through the flanges. Open underside gets a snap-on cover over the belt.",
    "transform": [
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -395,6 +476,16 @@
    "note": "Sits behind J1, not at the elbow, so J1 doesn't have to swing its mass at full reach.",
    "transform": [
     {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -413,6 +504,16 @@
    ],
    "note": "6805 (25\u00d737\u00d77).",
    "transform": [
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -433,6 +534,16 @@
    "note": "6805. Forearm spigot runs up through both.",
    "transform": [
     {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -451,6 +562,33 @@
    ],
    "note": "Hangs under the upper arm so the hand reaches low into the printers. Belt to the wrist runs inside.",
    "transform": [
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -471,6 +609,33 @@
    "note": "NEMA 17 behind the elbow (balances the forearm), 1:4 belt to the wrist.",
    "transform": [
     {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -489,6 +654,33 @@
    ],
    "note": "6704 (20\u00d727\u00d74).",
    "transform": [
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -509,6 +701,33 @@
    "note": "6704.",
    "transform": [
     {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -527,6 +746,50 @@
    ],
    "note": "Three V-grooves underneath. Three steel balls on the hand drop into them: one exact position every time (~40 \u00b5m, Jubilee pattern). Magnets only pull it together; the balls carry the load.",
    "transform": [
+    {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -547,6 +810,50 @@
    "note": "\u00d810 hardened ball, pressed into the hand. Sits 2.8 mm proud so the faces never touch \u2014 only the 6 ball/groove contacts do.",
    "transform": [
     {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -565,6 +872,50 @@
    ],
    "note": "Kinematic coupling ball (2 of 3).",
    "transform": [
+    {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -585,6 +936,50 @@
    "note": "Kinematic coupling ball (3 of 3).",
    "transform": [
     {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -603,6 +998,50 @@
    ],
    "note": "Holds the gripper servo, jaw rail, the stylus barrel (right end) and the door hook (left end). Camera window on the side.",
    "transform": [
+    {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -623,6 +1062,50 @@
    "note": "Feetech STS3215. Reports its load, so the robot knows how hard it is squeezing.",
    "transform": [
     {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -641,6 +1124,50 @@
    ],
    "note": "MGN9. Both jaws on one rail, driven opposite ways: the part always ends up centred.",
    "transform": [
+    {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -661,6 +1188,50 @@
    "note": "MGN9 carriage, left jaw.",
    "transform": [
     {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -679,6 +1250,50 @@
    ],
    "note": "MGN9 carriage, right jaw.",
    "transform": [
+    {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -699,6 +1314,50 @@
    "note": "Rigid core + slot for a 2 mm steel 'nail' at the tip (fin-ray tips lose force on edges and thin plates).",
    "transform": [
     {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -717,6 +1376,50 @@
    ],
    "note": "Same STL as the left jaw, turned 180\u00b0.",
    "transform": [
+    {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
     {
      "scale": 0.5
     }
@@ -737,6 +1440,50 @@
    "note": "TPU. Ribs fold toward the object when squeezed, so the pad wraps odd shapes instead of pushing them away.",
    "transform": [
     {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
@@ -756,9 +1503,803 @@
    "note": "Clamps on the front notch of every build plate. The robot always grabs this tab, never the bare plate.",
    "transform": [
     {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
      "scale": 0.5
     }
    ]
+  },
+  {
+   "id": "upper_arm_cover_root",
+   "label": "Upper-arm cover",
+   "stl": "upper_arm_cover_root.stl",
+   "color": "#2f7fd1",
+   "group": "arm",
+   "step": 4,
+   "explode": [
+    0,
+    0,
+    -1.2
+   ],
+   "note": "Screwed + glued on: turns the U-channel into a closed box (sag 22.8 \u2192 0.44 mm with the tubes).",
+   "transform": [
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "upper_arm_cover_link",
+   "label": "Upper-arm cover",
+   "stl": "upper_arm_cover_link.stl",
+   "color": "#2f7fd1",
+   "group": "arm",
+   "step": 4,
+   "explode": [
+    0.4,
+    0,
+    -1.2
+   ],
+   "note": "Second half of the closing cover.",
+   "transform": [
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "forearm_cover",
+   "label": "Forearm cover",
+   "stl": "forearm_cover.stl",
+   "color": "#2f7fd1",
+   "group": "arm",
+   "step": 5,
+   "explode": [
+    0.4,
+    0,
+    -1.6
+   ],
+   "note": "Closes the forearm box; unscrew it to reach the wrist belt.",
+   "transform": [
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "ua_tube_top",
+   "label": "Spine tube",
+   "stl": "ua_tube_top.stl",
+   "color": "#8a94a6",
+   "group": "frame",
+   "step": 4,
+   "explode": [
+    0,
+    -1.5,
+    0.6
+   ],
+   "note": "Aluminium 25\u00d725\u00d72. Two stacked tubes are the real beam; the print just holds them and the bearings.",
+   "transform": [
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "ua_tube_bot",
+   "label": "Spine tube",
+   "stl": "ua_tube_bot.stl",
+   "color": "#8a94a6",
+   "group": "frame",
+   "step": 4,
+   "explode": [
+    0,
+    -1.5,
+    0.3
+   ],
+   "note": "Second 25\u00d725 tube. Spacing the two apart vertically is what multiplies the stiffness.",
+   "transform": [
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "fa_tube",
+   "label": "Forearm spine",
+   "stl": "fa_tube.stl",
+   "color": "#8a94a6",
+   "group": "frame",
+   "step": 5,
+   "explode": [
+    0,
+    -1.5,
+    0
+   ],
+   "note": "Aluminium 20\u00d720\u00d71.5 inside the forearm.",
+   "transform": [
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "h2s_plate",
+   "label": "H2S build plate",
+   "primitive": {
+    "type": "box",
+    "size": [
+     355,
+     346.5,
+     1.0
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      550.0,
+      201.25,
+      -134
+     ]
+    },
+    {
+     "t": [
+      -550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -119.34193083738553
+    },
+    {
+     "t": [
+      550.0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": [
+      -300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": -74.33374961213238
+    },
+    {
+     "t": [
+      300.0,
+      0,
+      0
+     ]
+    },
+    {
+     "rz": 193.67568044951793
+    },
+    {
+     "t": [
+      0,
+      0,
+      -93.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#3d4a5c",
+   "group": "hand",
+   "step": 9,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "Held by its shoe at the front edge, just peeled off the magnets. Next: pulled straight out, 48 mm clear of everything (sim/PATHS_REPORT.md)."
+  },
+  {
+   "id": "table",
+   "label": "Table (assumed 1500\u00d7750)",
+   "primitive": {
+    "type": "box",
+    "size": [
+     1500,
+     750,
+     20
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      40.0,
+      235,
+      -490.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#e6dccb",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "ASSUMED size until measured."
+  },
+  {
+   "id": "h2s_left",
+   "label": "H2S side",
+   "primitive": {
+    "type": "box",
+    "size": [
+     15,
+     514,
+     626
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      -653.0,
+      358.0,
+      -167.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#c9ced6",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "Bambu H2S envelope (492\u00d7514\u00d7626, vendor)."
+  },
+  {
+   "id": "h2s_right",
+   "label": "H2S side",
+   "primitive": {
+    "type": "box",
+    "size": [
+     15,
+     514,
+     626
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      -175.0,
+      358.0,
+      -167.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#c9ced6",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "H2S right side."
+  },
+  {
+   "id": "h2s_back",
+   "label": "H2S back",
+   "primitive": {
+    "type": "box",
+    "size": [
+     492,
+     15,
+     626
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      -414.0,
+      608.0,
+      -167.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#c9ced6",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "H2S back."
+  },
+  {
+   "id": "h2s_top",
+   "label": "H2S top",
+   "primitive": {
+    "type": "box",
+    "size": [
+     492,
+     514,
+     15
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      -414.0,
+      358.0,
+      139.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#c9ced6",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "H2S top glass."
+  },
+  {
+   "id": "ams",
+   "label": "AMS 2 Pro",
+   "primitive": {
+    "type": "box",
+    "size": [
+     372,
+     280,
+     226
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      -414.0,
+      331.0,
+      259.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#c9ced6",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "AMS 2 Pro on top (372\u00d7280\u00d7226). v2 spool loading reaches up here."
+  },
+  {
+   "id": "h2s_header",
+   "label": "H2S front header",
+   "primitive": {
+    "type": "box",
+    "size": [
+     492,
+     15,
+     66
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      -414.0,
+      108.0,
+      113.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#c9ced6",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "Above the door: the 5-inch touchscreen is at the top-left of the front."
+  },
+  {
+   "id": "h2s_bed",
+   "label": "H2S bed (lowered)",
+   "primitive": {
+    "type": "box",
+    "size": [
+     340,
+     400,
+     38
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      -414.0,
+      365.0,
+      -251.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#c9ced6",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "Bed commanded down to the hand-off height (gcode_line)."
+  },
+  {
+   "id": "h2s_door",
+   "label": "H2S door (open 170\u00b0)",
+   "primitive": {
+    "type": "box",
+    "size": [
+     472,
+     12,
+     520
+    ]
+   },
+   "transform": [
+    {
+     "rz": -170.0
+    },
+    {
+     "t": [
+      -892.4146297108811,
+      60.01903007060446,
+      -180.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#a9c6e8",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "Opened by pulling the handle to 40\u00b0, then pushing the inside face to 170\u00b0 (D246)."
+  },
+  {
+   "id": "ender_base",
+   "label": "Ender base",
+   "primitive": {
+    "type": "box",
+    "size": [
+     455.0,
+     340,
+     80
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      159.5,
+      331.0,
+      -440.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#c9ced6",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "Ender 3 S1 Pro envelope (assumed)."
+  },
+  {
+   "id": "ender_up_l",
+   "label": "Ender upright",
+   "primitive": {
+    "type": "box",
+    "size": [
+     40,
+     40,
+     625
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      -48.0,
+      321.0,
+      -168.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#c9ced6",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "Ender frame."
+  },
+  {
+   "id": "ender_up_r",
+   "label": "Ender upright",
+   "primitive": {
+    "type": "box",
+    "size": [
+     40,
+     40,
+     625
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      367.0,
+      321.0,
+      -168.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#c9ced6",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "Ender frame."
+  },
+  {
+   "id": "ender_top",
+   "label": "Ender top bar",
+   "primitive": {
+    "type": "box",
+    "size": [
+     455.0,
+     40,
+     40
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      159.5,
+      321.0,
+      125.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#c9ced6",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "Ender frame."
+  },
+  {
+   "id": "ender_bed",
+   "label": "Ender bed (slung forward)",
+   "primitive": {
+    "type": "box",
+    "size": [
+     235,
+     235,
+     8
+    ]
+   },
+   "transform": [
+    {
+     "t": [
+      159.5,
+      208.0,
+      -384.0
+     ]
+    },
+    {
+     "scale": 0.5
+    }
+   ],
+   "color": "#c9ced6",
+   "group": "station",
+   "step": 10,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "note": "Bed brought forward by OctoPrint for the sheet swap."
   }
  ]
 }

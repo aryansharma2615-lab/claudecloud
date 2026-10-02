@@ -251,96 +251,101 @@ def run_job(name, waypoints, obstacles_fn, allow=None, steps=12, fixed_first=Tru
                 x=(min(xs), max(xs)) if xs else (0, 0))
 
 
-# ---------------- the jobs ----------------
-jobs = []
+def main():
+    # ---------------- the jobs ----------------
+    jobs = []
 
-# 1. H2S plate swap (door already open at 170°): grip the shoe tab, peel, pull straight out past the robot's side
-PX = PLATE["cx"]
-X_P = PX - 260.0                                   # robot parks beside the plate path, so the plate clears its own column
-tab_y = PLATE["front_y"] - 14
-zs_g = Z_PLATE - GRIP_DZ                           # shoulder height that puts the plate plane at the bed
-out_y = FACE - 12 - 28 - PLATE["d"]                # plate's back edge 12 mm clear of the door plane
-wp = [(None, zs_g + 25, PX, FACE - 60, 0.0, None, False),
-      (None, zs_g + 25, PX, tab_y, 0.0, None, False),
-      (None, zs_g + 3, PX, tab_y, 0.0, None, False),            # jaws down around the tab (plate still on the bed)
-      (None, zs_g + 8, PX, tab_y, 0.0, (PLATE["w"], PLATE["d"]), False),   # peel 8 mm off the magnets
-      (None, zs_g + 8, PX, out_y, 0.0, (PLATE["w"], PLATE["d"]), False),   # straight out through the door
-      (None, zs_g + 60, PX, out_y, 0.0, (PLATE["w"], PLATE["d"]), False)]
-ALLOW_PLATE = {"held plate": ("H2S bed",), "jaw": ("H2S bed",)}   # sliding on the bed is the job
-jobs.append(run_job("H2S plate pull (door open 170°)", wp, lambda i: h2s_obstacles(170.0), allow=ALLOW_PLATE))
-jobs.append(run_job("H2S plate insert (reverse)", list(reversed(wp)), lambda i: h2s_obstacles(170.0), allow=ALLOW_PLATE))
+    # 1. H2S plate swap (door already open at 170°): grip the shoe tab, peel, pull straight out past the robot's side
+    PX = PLATE["cx"]
+    X_P = PX - 260.0                                   # robot parks beside the plate path, so the plate clears its own column
+    tab_y = PLATE["front_y"] - 14
+    zs_g = Z_PLATE - GRIP_DZ                           # shoulder height that puts the plate plane at the bed
+    out_y = FACE - 12 - 28 - PLATE["d"]                # plate's back edge 12 mm clear of the door plane
+    wp = [(None, zs_g + 25, PX, FACE - 60, 0.0, None, False),
+          (None, zs_g + 25, PX, tab_y, 0.0, None, False),
+          (None, zs_g + 3, PX, tab_y, 0.0, None, False),            # jaws down around the tab (plate still on the bed)
+          (None, zs_g + 8, PX, tab_y, 0.0, (PLATE["w"], PLATE["d"]), False),   # peel 8 mm off the magnets
+          (None, zs_g + 8, PX, out_y, 0.0, (PLATE["w"], PLATE["d"]), False),   # straight out through the door
+          (None, zs_g + 60, PX, out_y, 0.0, (PLATE["w"], PLATE["d"]), False)]
+    ALLOW_PLATE = {"held plate": ("H2S bed",), "jaw": ("H2S bed",)}   # sliding on the bed is the job
+    jobs.append(run_job("H2S plate pull (door open 170°)", wp, lambda i: h2s_obstacles(170.0), allow=ALLOW_PLATE))
+    jobs.append(run_job("H2S plate insert (reverse)", list(reversed(wp)), lambda i: h2s_obstacles(170.0), allow=ALLOW_PLATE))
 
-# 2. H2S door: grip the handle, swing it along its arc, the rail carriage tracks the door so the column stays clear
-def door_wp(phi):
-    hx, hy = H2S_HINGE
-    a = math.radians(phi)
-    wx = hx + HANDLE["r"] * math.cos(a) - 60 * math.sin(a)      # hand 60 mm off the slab (handle standoff, ASSUMED), on its outer (robot) side
-    wy = hy - HANDLE["r"] * math.sin(a) - 60 * math.cos(a)
-    rail_cross = hx + (hy - COLUMN["y1"]) / math.tan(a) if 0 < phi < 180 and abs(math.tan(a)) > 1e-6 else -1e9
-    X = max(wx + 120.0, rail_cross - COLUMN["dx0"] + 40.0 if phi < 90 else wx + 120.0)
-    return (None, HANDLE["z"] + 20.0, wx, wy, -phi, None, False)
-
-
-def door_push_wp(phi, r=170.0, off=55.0):
-    """Hand on the door's INNER face, r mm from the hinge, pushing it open (like a person's palm)."""
-    hx, hy = H2S_HINGE
-    a = math.radians(phi)
-    wx = hx + r * math.cos(a) + off * math.sin(a)
-    wy = hy - r * math.sin(a) + off * math.cos(a)
-    return (None, HANDLE["z"] + 20.0, wx, wy, -phi, None, False)
+    # 2. H2S door: grip the handle, swing it along its arc, the rail carriage tracks the door so the column stays clear
+    def door_wp(phi):
+        hx, hy = H2S_HINGE
+        a = math.radians(phi)
+        wx = hx + HANDLE["r"] * math.cos(a) - 60 * math.sin(a)      # hand 60 mm off the slab (handle standoff, ASSUMED), on its outer (robot) side
+        wy = hy - HANDLE["r"] * math.sin(a) - 60 * math.cos(a)
+        rail_cross = hx + (hy - COLUMN["y1"]) / math.tan(a) if 0 < phi < 180 and abs(math.tan(a)) > 1e-6 else -1e9
+        X = max(wx + 120.0, rail_cross - COLUMN["dx0"] + 40.0 if phi < 90 else wx + 120.0)
+        return (None, HANDLE["z"] + 20.0, wx, wy, -phi, None, False)
 
 
-DOOR_PULL_END = 40
-door_pull = [door_wp(float(p)) for p in range(0, DOOR_PULL_END + 1, 5)]
-jobs.append(run_job(f"H2S door: pull by the handle 0→{DOOR_PULL_END}°", door_pull,
-                    lambda smp: h2s_obstacles(None) + door_boxes(-smp[4])[:-2], steps=8, fixed_first=False,
-                    allow={"jaw": ("H2S door",)}))
-door_push = [door_push_wp(float(p)) for p in range(DOOR_PULL_END, 171, 10)]
-jobs.append(run_job(f"H2S door: push from inside {DOOR_PULL_END}→170°", door_push,
-                    lambda smp: h2s_obstacles(None) + door_boxes(-smp[4])[:-2], steps=8, fixed_first=False,
-                    allow={"hand": ("H2S door",)}))      # the back of the hand is touching the glass on purpose
+    def door_push_wp(phi, r=170.0, off=55.0):
+        """Hand on the door's INNER face, r mm from the hinge, pushing it open (like a person's palm)."""
+        hx, hy = H2S_HINGE
+        a = math.radians(phi)
+        wx = hx + r * math.cos(a) + off * math.sin(a)
+        wy = hy - r * math.sin(a) + off * math.cos(a)
+        return (None, HANDLE["z"] + 20.0, wx, wy, -phi, None, False)
 
-# 3. H2S screen tap (fallback job): stylus horizontal, pointing at the screen face
-c_y = FACE - CLEAR + 2 - STYLUS["ly"]   # tip ends 2 mm into the clearance band = touching the glass
-wp = [(None, SCREEN["z"] - STYLUS["z"], SCREEN["x"] - STYLUS["lx"], c_y - 60, 0.0, None, True),
-      (None, SCREEN["z"] - STYLUS["z"], SCREEN["x"] - STYLUS["lx"], c_y, 0.0, None, True)]
-jobs.append(run_job("H2S screen tap (door closed)", wp, lambda i: h2s_obstacles(None),
-                    allow={"stylus tip": ("H2S header", "H2S left jamb")}))
 
-# 4. Ender sheet swap: bed slung forward, lift the sheet by its tab, carry it out to the front
-EX = ENDER_SHEET["cx"]
-X_E = EX - 260.0
-etab = ENDER_SHEET["front_y"] - 14
-ezs = ENDER_SHEET["z"] - GRIP_DZ
-wp = [(None, ezs + 25, EX, etab - 80, 0.0, None, False),
-      (None, ezs + 25, EX, etab, 0.0, None, False),
-      (None, ezs + 3, EX, etab, 0.0, None, False),
-      (None, ezs + 40, EX, etab, 0.0, (ENDER_SHEET["w"], ENDER_SHEET["d"]), False),
-      (None, ezs + 40, EX, etab - 150, 0.0, (ENDER_SHEET["w"], ENDER_SHEET["d"]), False)]
-jobs.append(run_job("Ender sheet lift + carry out", wp, lambda i: ender_obstacles(), allow={"held plate": ("Ender bed",), "jaw": ("Ender bed",)}))
+    DOOR_PULL_END = 40
+    door_pull = [door_wp(float(p)) for p in range(0, DOOR_PULL_END + 1, 5)]
+    jobs.append(run_job(f"H2S door: pull by the handle 0→{DOOR_PULL_END}°", door_pull,
+                        lambda smp: h2s_obstacles(None) + door_boxes(-smp[4])[:-2], steps=8, fixed_first=False,
+                        allow={"jaw": ("H2S door",)}))
+    door_push = [door_push_wp(float(p)) for p in range(DOOR_PULL_END, 171, 10)]
+    jobs.append(run_job(f"H2S door: push from inside {DOOR_PULL_END}→170°", door_push,
+                        lambda smp: h2s_obstacles(None) + door_boxes(-smp[4])[:-2], steps=8, fixed_first=False,
+                        allow={"hand": ("H2S door",)}))      # the back of the hand is touching the glass on purpose
 
-# 5. Carry the H2S plate to the flex station along the rail
-wp = [(None, zs_g + 60, PX, out_y, 0.0, (PLATE["w"], PLATE["d"]), False),
-      (None, zs_g + 60, FLEX_STATION[0], out_y, 0.0, (PLATE["w"], PLATE["d"]), False)]
-jobs.append(run_job("Carry H2S plate to the flex station (rail move)", wp, lambda i: h2s_obstacles(170.0) + ender_obstacles(), steps=30, fixed_first=False))
+    # 3. H2S screen tap (fallback job): stylus horizontal, pointing at the screen face
+    c_y = FACE - CLEAR + 2 - STYLUS["ly"]   # tip ends 2 mm into the clearance band = touching the glass
+    wp = [(None, SCREEN["z"] - STYLUS["z"], SCREEN["x"] - STYLUS["lx"], c_y - 60, 0.0, None, True),
+          (None, SCREEN["z"] - STYLUS["z"], SCREEN["x"] - STYLUS["lx"], c_y, 0.0, None, True)]
+    jobs.append(run_job("H2S screen tap (door closed)", wp, lambda i: h2s_obstacles(None),
+                        allow={"stylus tip": ("H2S header", "H2S left jamb")}))
 
-# ---------------- report ----------------
-lines = ["# FarmHand — job paths vs printers (generated by `sim/paths.py`)\n",
-         "First-pass kinematic sweep: every job is sampled along straight-line moves, inverse kinematics solved at "
-         f"each sample, and ~1–2k points on the arm, hand, jaws and held plate tested against box models of the "
-         f"H2S (walls, door aperture, bed, parked toolhead, AMS on top, **the door slab at its real angle**), the Ender "
-         f"(base, uprights, raised gantry, bed), the table and the robot's own column. Required clearance {CLEAR:.0f} mm. "
-         "**Station dimensions are ASSUMED** (see the top of the script) until measured.\n",
-         "| Job | Samples | Result | Min clearance | Rail X used | Wrist reach used | Shoulder height | J1 range | J2 range |",
-         "|---|---|---|---|---|---|---|---|---|"]
-for j in jobs:
-    res = "✓ clean" if not j["hits"] else f"**{len(j['hits'])} issue(s)**"
-    lines.append(f"| {j['name']} | {j['n']} | {res} | {j['clear']:.0f} mm | {j['x'][0]:.0f}…{j['x'][1]:.0f} | {j['reach'][0]:.0f}–{j['reach'][1]:.0f} mm "
-                 f"(max {L1 + L2:.0f}) | {j['zs'][0]:.0f}–{j['zs'][1]:.0f} mm | {j['j1'][0]:.0f}…{j['j1'][1]:.0f}° | "
-                 f"{j['j2'][0]:.0f}…{j['j2'][1]:.0f}° |")
-for j in jobs:
-    if j["hits"]:
-        lines.append(f"\n**{j['name']}** — first issues:\n")
-        lines += [f"- {h}" for h in j["hits"][:8]]
-open(os.path.join(os.path.dirname(__file__), "PATHS_REPORT.md"), "w").write("\n".join(lines) + "\n")
-print("\n".join(lines))
+    # 4. Ender sheet swap: bed slung forward, lift the sheet by its tab, carry it out to the front
+    EX = ENDER_SHEET["cx"]
+    X_E = EX - 260.0
+    etab = ENDER_SHEET["front_y"] - 14
+    ezs = ENDER_SHEET["z"] - GRIP_DZ
+    wp = [(None, ezs + 25, EX, etab - 80, 0.0, None, False),
+          (None, ezs + 25, EX, etab, 0.0, None, False),
+          (None, ezs + 3, EX, etab, 0.0, None, False),
+          (None, ezs + 40, EX, etab, 0.0, (ENDER_SHEET["w"], ENDER_SHEET["d"]), False),
+          (None, ezs + 40, EX, etab - 150, 0.0, (ENDER_SHEET["w"], ENDER_SHEET["d"]), False)]
+    jobs.append(run_job("Ender sheet lift + carry out", wp, lambda i: ender_obstacles(), allow={"held plate": ("Ender bed",), "jaw": ("Ender bed",)}))
+
+    # 5. Carry the H2S plate to the flex station along the rail
+    wp = [(None, zs_g + 60, PX, out_y, 0.0, (PLATE["w"], PLATE["d"]), False),
+          (None, zs_g + 60, FLEX_STATION[0], out_y, 0.0, (PLATE["w"], PLATE["d"]), False)]
+    jobs.append(run_job("Carry H2S plate to the flex station (rail move)", wp, lambda i: h2s_obstacles(170.0) + ender_obstacles(), steps=30, fixed_first=False))
+
+    # ---------------- report ----------------
+    lines = ["# FarmHand — job paths vs printers (generated by `sim/paths.py`)\n",
+             "First-pass kinematic sweep: every job is sampled along straight-line moves, inverse kinematics solved at "
+             f"each sample, and ~1–2k points on the arm, hand, jaws and held plate tested against box models of the "
+             f"H2S (walls, door aperture, bed, parked toolhead, AMS on top, **the door slab at its real angle**), the Ender "
+             f"(base, uprights, raised gantry, bed), the table and the robot's own column. Required clearance {CLEAR:.0f} mm. "
+             "**Station dimensions are ASSUMED** (see the top of the script) until measured.\n",
+             "| Job | Samples | Result | Min clearance | Rail X used | Wrist reach used | Shoulder height | J1 range | J2 range |",
+             "|---|---|---|---|---|---|---|---|---|"]
+    for j in jobs:
+        res = "✓ clean" if not j["hits"] else f"**{len(j['hits'])} issue(s)**"
+        lines.append(f"| {j['name']} | {j['n']} | {res} | {j['clear']:.0f} mm | {j['x'][0]:.0f}…{j['x'][1]:.0f} | {j['reach'][0]:.0f}–{j['reach'][1]:.0f} mm "
+                     f"(max {L1 + L2:.0f}) | {j['zs'][0]:.0f}–{j['zs'][1]:.0f} mm | {j['j1'][0]:.0f}…{j['j1'][1]:.0f}° | "
+                     f"{j['j2'][0]:.0f}…{j['j2'][1]:.0f}° |")
+    for j in jobs:
+        if j["hits"]:
+            lines.append(f"\n**{j['name']}** — first issues:\n")
+            lines += [f"- {h}" for h in j["hits"][:8]]
+    open(os.path.join(os.path.dirname(__file__), "PATHS_REPORT.md"), "w").write("\n".join(lines) + "\n")
+    print("\n".join(lines))
+
+
+if __name__ == "__main__":
+    main()

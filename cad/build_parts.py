@@ -153,7 +153,7 @@ for k in range(3):                                               # ball sockets 
     hb -= Rot(0, 0, 120 * k + 60) * Pos(25, 0, 0) * Cylinder(4.1, 6)
 hb -= box(-STS3215["l"] / 2 - 0.8, STS3215["l"] / 2 + 0.8, -STS3215["h"] / 2 - 0.8, STS3215["h"] / 2 + 0.8, -WALL - 3 - STS3215["w"] - 0.4, -WALL - 3)  # servo lies on its side, 3 mm under the ball sockets
 hb -= box(-60.1, 60.1, -MGN9["rail_w"] / 2 - 0.1, MGN9["rail_w"] / 2 + 0.1, HB_Z - 0.1, HB_Z + MGN9["rail_h"] - 1)  # rail groove
-hb += box(60, 78, -10, 10, HB_Z, -4) - cyl(14.2, HB_Z - 1, -3, 69, 0)  # stylus barrel boss (Ø14 plunger tube)
+hb += box(60, 78, -10, 42, -32, -12) - Pos(69, 16, -22) * Rot(90, 0, 0) * Cylinder(7.1, 54)  # stylus barrel, HORIZONTAL along +y (D251)
 hb += box(-78, -60, -6, 6, -8, 0) + box(-90, -78, -6, 6, HB_Z + 2, 0)   # door / AMS-lid hook
 hb += box(-20, 20, 27, 33, HB_Z + 2, 0) - box(-14, 14, 26, 34, HB_Z + 6, -6)  # wrist-camera window bracket
 parts["hand_body"] = (soften(hb, 1.5), "PETG-CF", "Bambu H2S or Ender", "small; balls pressed into sockets",
@@ -194,7 +194,18 @@ for x in (-45, 0, 45):
 for x in range(-16, 17, 8):
     ps -= box(x - 1, x + 1, -26, -4, 7, 8.1)                     # grip ribs
 parts["plate_shoe"] = (ps, "PETG", "Ender 3 S1 Pro", "one per plate; screws clamp it on, no glue on the PEI",
-                       Pos(L1 + L2, -20, JAW_Z - 140))
+                       Pos(L1 + L2, 18, -139))   # in the jaws, slot on the plate front edge (plate plane z = -134)
+
+# ---------------- 8b. fit coupon: print FIRST, tune SEAT_CLR / SPIGOT_CLR before the big parts ----------------
+fc = box(-75, 75, -22, 22, 0, 9)
+for x, brg in ((-48, B6806), (0, B6805), (42, B6704)):
+    fc -= cyl(brg[1] + SEAT_CLR, 9 - brg[2], 9.01, x)
+    fc -= cyl(brg[1] - 6, -1, 10, x)
+fc -= cyl(M3_INSERT, -1, 10, 66, 10)
+fc -= cyl(M3_CLR, -1, 10, 66, -10)
+fc += cyl(B6704[0] + SPIGOT_CLR, 9, 9 + B6704[2] + 3, 66, -10) - cyl(M3_CLR, 8, 17, 66, -10)   # spigot test pin
+parts["fit_coupon"] = (fc, "PETG", "Ender 3 S1 Pro or H2S", "6806 / 6805 / 6704 seats + spigot + insert hole, ~1 h; adjust params, reprint, then go",
+                       Pos(L1 + L2, 200, -470))
 
 # ---------------- 9. Z-motor mount (bottom of the 2040 column) ----------------
 zm = box(-25, 25, -10, 52, 0, 8) + box(-25, 25, -10, -2, 8, 60)
