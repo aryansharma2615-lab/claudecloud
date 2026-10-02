@@ -1,0 +1,15 @@
+/* ===========================================================================
+   SP AV ENGINE v7.4 — angle, view history, key map, wire to buy
+   =========================================================================== */
+.dot.ang{background:var(--warn)}
+#leads .angln{fill:none;stroke:var(--warn);stroke-width:1.6;stroke-linejoin:round}
+.tbtn:disabled{opacity:.38;cursor:default}
+.wbuy .kpis{padding:0;margin:0}
+.keymap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:30;max-width:min(520px,92%);
+  max-height:86%;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);
+  box-shadow:var(--shadow);padding:14px 16px 10px}
+.keymap .btn{float:right;min-width:44px;min-height:44px;padding:0}
+.keymap table{border-collapse:collapse;font-size:12.5px;clear:both}
+.keymap th{text-align:left;font:600 11px var(--f-mono);color:var(--ink);padding:5px 14px 5px 0;white-space:nowrap;vertical-align:top}
+.keymap td{color:var(--body);padding:5px 0}
+@media (pointer:coarse){ #bKeys{display:none} }

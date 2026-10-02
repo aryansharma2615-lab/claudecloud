@@ -61,3 +61,53 @@ common ground; flow shown in 2D and 3D; the Mac path of the 3MF; the honest zip 
 `supply {volts, amps}` / `stall_a`, pin `color` / `order` / `wires`, run `ends` / `dir` —
 full table in `CONFIG_SCHEMA.md → Engine v7 fields`; `examples/v7_demo/av_config.json` uses
 every one.
+
+---
+
+# Additions for engine v7.1 and v7.2 (same session, later)
+
+## "The engine" block — current template becomes v7.2
+
+```
+  viewer_template_motion_v7_3.html  the CURRENT engine: v7 + v7.1 (R16–R24) + v7.2 (R25–R28) + v7.3 (R29–R32)
+  patch_engine_v7_1/_2/_3.py        each patches the previous template (module: engine_v7_N.js/.css)
+  verify_av_v7.py                   v6 (v5, v4, v3) + the v7.3 gates; must PASS
+```
+
+## "What every SP AV must have" — add
+
+- **Wires as SP wires them** — kit jumpers are "any colour · tag it"; factory leads (servo,
+  28BYJ-48) keep their real colours and carry them along their run; ranges like D8–11 are four
+  wires. A **wire cut list (CSV)** comes off the Wiring tab (routed length + 40 mm).
+- **Bench mode** — "Mark done" per Build step and "Next to build", kept on that device; part
+  **search**; **long-press** a part for its card; **Snap** saves the view as a PNG; **Focus**
+  gives the model the whole screen; a **mm scale bar**; the ⧉ link carries the exact camera.
+- **Explode traces** — dashed lines from every part's home to where it is now.
+- **Checks tab (CAD-quality tools)** — the project's own gates (`checks`), a **clash scan** of the
+  current pose (clash / by design / contact, tap to isolate the pair), **centre of gravity** with
+  its footprint and the **tilt it tips over at**, and a **Ø tool** (three taps on a rim). Every
+  clash that is not by design is a finding for Shawarma, fixed in CAD or listed.
+
+## Verify — replace the command
+
+```bash
+python3 ~/Claude/AV/verify_av_v7.py <out>.html --shots ./shots --floor-ref <same build on v6>.html [--dia part:cx,cy,cz,r]
+```
+Adds to the proof list: no wire left unset; traces = exploded parts; search filters and Enter
+opens the hit; "done" survives a reload; Snap is a real PNG and the cut list a CSV with one row
+per run (as-is inside an artifact, no zip); long-press selects + opens; the scale bar matches the
+view (≤ 1 %, ortho ≤ 2 %); the copied link restores the camera; Focus grows the stage; the clash
+scan finds exactly the pairs a brute-force sweep finds; CoG = an independent Σ m·x (≤ 0.01 mm) and
+sits inside its footprint; Ø reads a known rim within 2 %.
+
+## v7.3 additions
+
+- **Clearance is a gate, not a guess** — the **Gap** tool (tap two parts → minimum clearance,
+  closest points, a 3D dimension, the FDM verdict) and the **Tight gaps** report on the Checks tab
+  (every non-touching pair under 2 mm, smallest first). Any printed pair under **0.2 mm** is a print
+  risk and goes to Shawarma as a finding with the fix (open the gap, or print as one part).
+- **⤓ BOM (CSV)** on the BOM tab — the order list with bulk breaks, status and links.
+- **Section handle** — drag the cut plane on the model (or arrow keys).
+- Verify adds: gap = brute-force all-triangle distance (≤ 1e-6 mm); tight list real and sorted; BOM
+  CSV sums to the tab's own total; section handle exact in ortho and under the finger in persp.
+- fps gate is the **median of 5** interleaved runs against the v6 page (best-of-N rewarded luck).

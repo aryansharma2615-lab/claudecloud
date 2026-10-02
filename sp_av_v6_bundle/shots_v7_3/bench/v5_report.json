@@ -1,0 +1,507 @@
+{
+ "ok": true,
+ "v71": {
+  "wireSources": {
+   "label": 3,
+   "run": 3,
+   "library": 2,
+   "any": 6,
+   "convention": 1
+  },
+  "traces": {
+   "exploded": 25,
+   "traces": 25,
+   "shown": 25,
+   "shownAt0": 0
+  },
+  "search": {
+   "q": "SG90",
+   "visible": 3,
+   "of": 14,
+   "sel": [
+    "A_servo"
+   ],
+   "title": "SG90 \u00b7 pot moved out"
+  },
+  "bench": {
+   "afterTick": [
+    2
+   ],
+   "afterReload": [
+    2
+   ],
+   "tickOk": true,
+   "progress": "1 / 9 built",
+   "afterClear": []
+  },
+  "snap": {
+   "name": "oneshot_v6_bench_view.png",
+   "bytes": 46673
+  },
+  "cutList": {
+   "name": "oneshot_v6_bench_wire_cut_list.csv",
+   "rows": 6,
+   "header": "run,label,from,to,net,kind,gauge,routed_mm,cut_mm,conductors,colours_from_end,connector_from,connector_to,amps,drop_v"
+  },
+  "peek": {
+   "part": "A_ring_housing",
+   "sel": [
+    "A_ring_housing"
+   ],
+   "title": "Ring housing \u00b7 36 T internal",
+   "sheetOpen": true
+  },
+  "scale": {
+   "persp": {
+    "mm": 100,
+    "px": 111.21,
+    "text": "100 mm at target",
+    "mmPerPx": 0.8991836307216232
+   },
+   "relErr": 2e-05,
+   "ortho": {
+    "mm": 100,
+    "px": 111.21,
+    "text": "100 mm",
+    "mmPerPx": 0.8991836307216232
+   },
+   "orthoSegPx": 111.21,
+   "orthoErr": 2e-05
+  },
+  "link": {
+   "hash": "#cam=-0.785,0.615,773.999,-26.315,-11.688,14.628,o",
+   "ok": true
+  },
+  "focus": {
+   "stageBefore": 648,
+   "stageFocus": 799,
+   "header": "none",
+   "stageAfter": 648
+  },
+  "artifactFiles": [
+   {
+    "name": "oneshot_v6_bench_view.png",
+    "size": 51179
+   },
+   {
+    "name": "oneshot_v6_bench_wire_cut_list.csv",
+    "size": 908
+   }
+  ],
+  "errors": [],
+  "warnings": [],
+  "ok": true
+ },
+ "v4_ok": true,
+ "v7": {
+  "cube": [
+   {
+    "face": "FRONT",
+    "zone": [
+     1,
+     1
+    ],
+    "want": [
+     -0.785,
+     0.615
+    ],
+    "got": [
+     -0.785,
+     0.615
+    ],
+    "ok": true
+   },
+   {
+    "face": "TOP",
+    "zone": [
+     0,
+     0
+    ],
+    "want": [
+     -1.571,
+     1.45
+    ],
+    "got": [
+     -1.571,
+     1.45
+    ],
+    "ok": true
+   },
+   {
+    "face": "FRONT",
+    "zone": [
+     0,
+     1
+    ],
+    "want": [
+     -1.571,
+     0.785
+    ],
+    "got": [
+     -1.571,
+     0.785
+    ],
+    "ok": true
+   },
+   {
+    "face": "RIGHT",
+    "zone": [
+     0,
+     0
+    ],
+    "want": [
+     0,
+     0
+    ],
+    "got": [
+     0,
+     0
+    ],
+    "ok": true
+   },
+   {
+    "face": "FRONT",
+    "zone": [
+     0,
+     0
+    ],
+    "want": [
+     -1.571,
+     0
+    ],
+    "got": [
+     -1.571,
+     0
+    ],
+    "ok": true
+   },
+   {
+    "face": "RIGHT",
+    "zone": [
+     -1,
+     -1
+    ],
+    "want": [
+     -0.785,
+     -0.615
+    ],
+    "got": [
+     -0.785,
+     -0.615
+    ],
+    "ok": true
+   }
+  ],
+  "pan": {
+   "right": {
+    "targetMoved_mm": 71.56,
+    "modelsSame": true,
+    "yawSame": true,
+    "distSame": true
+   },
+   "shift": {
+    "targetMoved_mm": 72.49,
+    "modelsSame": true,
+    "yawSame": true,
+    "distSame": true
+   }
+  },
+  "zoom": {
+   "persp": {
+    "cursor": [
+     225.0,
+     322.2
+    ],
+    "after": [
+     225.0,
+     322.26
+    ],
+    "err_px": 0.104,
+    "dist": 469.0
+   },
+   "ortho": {
+    "cursor": [
+     225.0,
+     322.2
+    ],
+    "after": [
+     225.0,
+     322.26
+    ],
+    "err_px": 0.104,
+    "dist": 469.0
+   }
+  },
+  "orbitPivot": {
+   "err_px": 0.0
+  },
+  "pinch": {
+   "err_px": 0.0,
+   "dist": 270.0
+  },
+  "dblFit": {
+   "part": "A_ring_housing",
+   "sel": [
+    "A_ring_housing"
+   ],
+   "inside": true,
+   "spanBefore": 73.9,
+   "spanAfter": 275.7
+  },
+  "scrub": {
+   "at500": {
+    "n": 9,
+    "u": 0.5,
+    "paused": true,
+    "dur": 1020,
+    "keys": 1
+   },
+   "endErr": 0
+  },
+  "playWhole": "STEP 04 / 9",
+  "steps": [
+   {
+    "n": 1,
+    "keys": 1,
+    "dur": 1020,
+    "midOff": 23.04,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 2,
+    "keys": 1,
+    "dur": 1020,
+    "midOff": 29.08,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 3,
+    "keys": 3,
+    "dur": 1340,
+    "midOff": 116.36,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 4,
+    "keys": 3,
+    "dur": 1300,
+    "midOff": 161.78,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 5,
+    "keys": 7,
+    "dur": 1860,
+    "midOff": 178.52,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 6,
+    "keys": 5,
+    "dur": 1580,
+    "midOff": 244.65,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 7,
+    "keys": 2,
+    "dur": 1220,
+    "midOff": 60.84,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 8,
+    "keys": 4,
+    "dur": 1500,
+    "midOff": 206.67,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 9,
+    "keys": 1,
+    "dur": 1020,
+    "midOff": 16.29,
+    "endU": 1,
+    "endErr": 0
+   }
+  ],
+  "wire": {
+   "nodes": 5,
+   "cards": 5,
+   "cardInfo": [
+    {
+     "node": "chg",
+     "orders": [
+      1,
+      2
+     ],
+     "swatches": 2,
+     "rows": 2,
+     "src": [
+      "label",
+      "label"
+     ],
+     "connector": "USB lead \u00b7 cut + soldered"
+    },
+    {
+     "node": "rail",
+     "orders": [
+      1,
+      2
+     ],
+     "swatches": 2,
+     "rows": 2,
+     "src": [
+      "run",
+      "run"
+     ],
+     "connector": "Breadboard 2.54 mm"
+    },
+    {
+     "node": "servo",
+     "orders": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "swatches": 6,
+     "rows": 6,
+     "src": [
+      "label",
+      "library",
+      "library",
+      "any",
+      "any",
+      "any"
+     ],
+     "connector": "JR servo 3-pin \u00b7 2.54 mm"
+    },
+    {
+     "node": "pot",
+     "orders": [
+      1,
+      2,
+      3
+     ],
+     "swatches": 3,
+     "rows": 3,
+     "src": [
+      "any",
+      "any",
+      "any"
+     ],
+     "connector": "Solder joint"
+    },
+    {
+     "node": "uno",
+     "orders": [
+      1,
+      2
+     ],
+     "swatches": 2,
+     "rows": 2,
+     "src": [
+      "run",
+      "convention"
+     ],
+     "connector": "Dupont 2.54 mm header"
+    }
+   ],
+   "budget": {
+    "sup": "chg",
+    "rating": 2.4,
+    "total": 0.7,
+    "pct": 0.2916666666666667,
+    "status": "pass",
+    "ground": {
+     "ok": true,
+     "n": 4,
+     "missing": []
+    },
+    "loads": [
+     [
+      "servo",
+      0.7
+     ]
+    ]
+   },
+   "budgetCard": true,
+   "chips": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "runs": 6
+  },
+  "flow": {
+   "eflow": 1,
+   "flow3": 1,
+   "anim": "avflow"
+  },
+  "platePath": [
+   "~/Claude/OneShot/v6/av/plates/oneshot_v6_bench_all_plates_plate1.3mf",
+   "~/Claude/OneShot/v6/av/plates/oneshot_v6_bench_all_plates.3mf"
+  ],
+  "plateBtnLocal": "\u2913 3MF \u00b7 plate 1",
+  "materials": {
+   "gloss": 4,
+   "plastic": 4,
+   "matte": 6,
+   "steel": 13,
+   "satin": 6
+  },
+  "edgesChangePixels": true,
+  "glError": 0,
+  "artifact": {
+   "label": "\u2913 3MF \u00b7 zipped by the viewer \u2014 tap to unzip",
+   "saved": [
+    {
+     "name": "oneshot_v6_bench_plate1.zip",
+     "size": 147137,
+     "type": "application/zip"
+    }
+   ]
+  },
+  "fps": {
+   "v7": 42.7,
+   "medianMs": 23.5,
+   "runs7": [
+    42.7,
+    42.9,
+    34.0,
+    43.1,
+    41.2
+   ],
+   "v6": 37.3,
+   "runs6": [
+    37.8,
+    37.3,
+    36.7,
+    37.3,
+    36.5
+   ]
+  },
+  "errors": [],
+  "warnings": [
+   "WARNING [.WebGL-0x2e0400119400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x2e0400119400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x2e0400119400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x2e0400119400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+  ],
+  "ok": true
+ }
+}

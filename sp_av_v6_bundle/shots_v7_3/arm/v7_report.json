@@ -1,0 +1,193 @@
+{
+ "ok": true,
+ "v73": {
+  "tight": {
+   "n": 39,
+   "candidates": 94,
+   "ms": 371,
+   "risk": [
+    {
+     "a": "grip_pinion",
+     "b": "rack_up",
+     "d": 0.07
+    },
+    {
+     "a": "grip_pinion",
+     "b": "rack_lo",
+     "d": 0.07
+    },
+    {
+     "a": "yaw_pinion",
+     "b": "turret_base",
+     "d": 0.095
+    },
+    {
+     "a": "pinion_el",
+     "b": "crank",
+     "d": 0.095
+    },
+    {
+     "a": "pinion_sh",
+     "b": "upper_arm",
+     "d": 0.097
+    },
+    {
+     "a": "yoke",
+     "b": "upper_arm",
+     "d": 0.171
+    },
+    {
+     "a": "yoke",
+     "b": "crank",
+     "d": 0.172
+    },
+    {
+     "a": "coupler",
+     "b": "forearm",
+     "d": 0.196
+    },
+    {
+     "a": "base_plate",
+     "b": "yaw_pinion",
+     "d": 0.197
+    },
+    {
+     "a": "yoke",
+     "b": "rod1",
+     "d": 0.197
+    },
+    {
+     "a": "crank",
+     "b": "coupler",
+     "d": 0.197
+    },
+    {
+     "a": "yoke",
+     "b": "pinion_sh",
+     "d": 0.198
+    },
+    {
+     "a": "yoke",
+     "b": "pinion_el",
+     "d": 0.198
+    },
+    {
+     "a": "upper_arm",
+     "b": "triangle",
+     "d": 0.198
+    },
+    {
+     "a": "forearm",
+     "b": "triangle",
+     "d": 0.198
+    },
+    {
+     "a": "forearm",
+     "b": "wrist",
+     "d": 0.198
+    },
+    {
+     "a": "rod1",
+     "b": "triangle",
+     "d": 0.198
+    },
+    {
+     "a": "triangle",
+     "b": "rod2",
+     "d": 0.198
+    },
+    {
+     "a": "rod2",
+     "b": "wrist",
+     "d": 0.198
+    }
+   ],
+   "first": [
+    {
+     "a": "servo_sh",
+     "b": "horn_sh",
+     "d": 0.049,
+     "printed": false
+    },
+    {
+     "a": "servo_el",
+     "b": "horn_el",
+     "d": 0.049,
+     "printed": false
+    },
+    {
+     "a": "servo_gr",
+     "b": "horn_gr",
+     "d": 0.049,
+     "printed": false
+    },
+    {
+     "a": "grip_pinion",
+     "b": "rack_up",
+     "d": 0.07,
+     "printed": true
+    },
+    {
+     "a": "grip_pinion",
+     "b": "rack_lo",
+     "d": 0.07,
+     "printed": true
+    },
+    {
+     "a": "yaw_pinion",
+     "b": "turret_base",
+     "d": 0.095,
+     "printed": true
+    }
+   ]
+  },
+  "gapVsBrute": [
+   {
+    "a": "servo_sh",
+    "b": "horn_sh",
+    "bvh": 0.049472,
+    "brute": 0.049472
+   },
+   {
+    "a": "servo_el",
+    "b": "horn_el",
+    "bvh": 0.049431,
+    "brute": 0.049431
+   },
+   {
+    "a": "servo_gr",
+    "b": "horn_gr",
+    "bvh": 0.049454,
+    "brute": 0.049454
+   }
+  ],
+  "gapTool": {
+   "a": "forearm",
+   "b": "rod2",
+   "caption": "Gap 14.51 mm",
+   "d": 14.506,
+   "lineShown": true
+  },
+  "bomCsv": {
+   "rows": 46,
+   "tableRows": 46,
+   "csvTotal": 98.52,
+   "tile": "CAD $98.52"
+  },
+  "section": {
+   "ortho": {
+    "wantMm": 64.59,
+    "gotMm": 64.59,
+    "handleOffPx": 0.0
+   },
+   "persp": {
+    "wantMm": 69.27,
+    "gotMm": 66.85,
+    "handleOffPx": 0.04
+   }
+  },
+  "errors": [],
+  "ok": true
+ },
+ "v6_ok": true
+}

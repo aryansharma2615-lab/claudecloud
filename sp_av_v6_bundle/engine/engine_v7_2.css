@@ -1,0 +1,29 @@
+/* ===========================================================================
+   SP AV ENGINE v7.2 — Checks tab components (semantic tokens only)
+   =========================================================================== */
+.ckcard{margin:0 var(--sp-4) var(--sp-3);padding:10px 12px;border:1px solid var(--line);
+  border-radius:var(--r-md);background:var(--raised);display:flex;flex-direction:column;gap:8px}
+.ckcard .kpis{padding:0;margin:0}
+.ckcard .btn{min-height:44px;align-self:flex-start}
+.ckline{font-family:var(--f-mono);font-size:10.5px;color:var(--mut)}
+.ckrow{display:grid;grid-template-columns:18px minmax(0,1fr) auto;align-items:center;gap:8px;
+  min-height:44px;border-top:1px solid var(--line);cursor:pointer;font-size:12.5px}
+.ckrow .ckg{font-weight:800;text-align:center}
+.ckrow .ckp{color:var(--ink);overflow-wrap:anywhere}
+.ckrow .ckd{font-family:var(--f-mono);font-size:10px;color:var(--mut);white-space:nowrap}
+.ckrow.clash .ckg,.ckrow.clash .ckd{color:var(--bad)}
+.ckrow.design .ckg{color:var(--info)}
+.ckrow:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+
+/* centre of gravity: a CAD CoG symbol, its drop line, the footprint it must stay inside */
+.cog{position:absolute;left:0;top:0;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;
+  border:2px solid var(--ink);background:conic-gradient(var(--ink) 0 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0);
+  pointer-events:none;will-change:transform;box-shadow:0 0 0 2px var(--stage)}
+.cog span{position:absolute;left:22px;top:0;font:700 10px var(--f-mono);color:var(--ink);white-space:nowrap}
+.cog.bad{border-color:var(--bad);background:conic-gradient(var(--bad) 0 25%,transparent 0 50%,var(--bad) 0 75%,transparent 0)}
+#leads .cogdrop{stroke:var(--ink);stroke-width:1.2;stroke-dasharray:3 3}
+#leads .coghull{fill:color-mix(in srgb,var(--good) 14%,transparent);stroke:var(--good);stroke-width:1.2;stroke-dasharray:5 3}
+
+/* Ø tool picks and the clash point */
+.dot.dia{background:var(--info)}
+.dot.clashp{background:var(--bad);width:13px;height:13px;margin:-7px 0 0 -7px}

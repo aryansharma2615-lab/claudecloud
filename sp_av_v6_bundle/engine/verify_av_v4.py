@@ -454,17 +454,19 @@ def v7_gates(path, shots=None, floor_ref=None, log=print):
         pa.close()
 
         # ---------------- FPS vs the v6 floor ----------------
-        # best of two, interleaved with the v6 page: software-WebGL timing swings ±20 % run to run
+        # MEDIAN of five, interleaved with the v6 page. Software-WebGL timing swings ±25 % run to run
+        # and the resolution tuner sometimes steps down mid-bench, so the best run is luck, not the engine.
         ref = "file://" + str(pathlib.Path(floor_ref).absolute()) if floor_ref else None
         r7, r6 = [], []
-        for _ in range(2):
+        med = lambda rs: sorted(rs, key=lambda r: r["fps"])[len(rs) // 2]
+        for _ in range(5):
             r7.append(bench_fps(b, url))
             if ref:
                 r6.append(bench_fps(b, ref))
-        f7 = max(r7, key=lambda r: r["fps"])
+        f7 = med(r7)
         res["fps"] = {"v7": round(f7["fps"], 1), "medianMs": round(f7["medianMs"], 1), "runs7": [round(r["fps"], 1) for r in r7]}
         if ref:
-            f6 = max(r6, key=lambda r: r["fps"])
+            f6 = med(r6)
             res["fps"]["v6"] = round(f6["fps"], 1)
             res["fps"]["runs6"] = [round(r["fps"], 1) for r in r6]
             if f7["fps"] < 0.9 * f6["fps"]:

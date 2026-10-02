@@ -21,3 +21,10 @@ Work goes to branch `sp-av-v7`. Do not edit anything in `engine/` in place — a
 - `engine/SKILL_UPDATE_v7.md` — lines for `/sp-assembly-viewer`.
 
 On the Mac: copy `engine/*v7*`, `engine/verify_av_v4.py`, `engine/build_av_v7.py` into `~/Claude/AV/`.
+
+## v7.1 → v7.3 (same branch, later)
+
+Each is a patch on the previous template, its module in `engine_v7_N.js/.css`, and a verifier that
+runs every earlier gate first: `verify_av_v5.py` (v7.1), `verify_av_v6.py` (v7.2),
+`verify_av_v7.py` (v7.3 = current). Pages: `refs_v7/*_v7_1/2/3.html`, `examples/v7_demo/v7_N_demo_av.html`.
+Screens: `shots_v7_3/` (and reports `v7_report.json` beside them).

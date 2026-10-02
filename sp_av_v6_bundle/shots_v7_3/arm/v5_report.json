@@ -1,0 +1,659 @@
+{
+ "ok": true,
+ "v71": {
+  "wireSources": {
+   "convention": 9,
+   "run": 9,
+   "any": 10,
+   "label": 9,
+   "library": 5
+  },
+  "traces": {
+   "exploded": 62,
+   "traces": 62,
+   "shown": 62,
+   "shownAt0": 0
+  },
+  "search": {
+   "q": "608",
+   "visible": 6,
+   "of": 35,
+   "sel": [
+    "bearing_lo"
+   ],
+   "title": "608 ZZ bearing \u00b7 lower"
+  },
+  "bench": {
+   "afterTick": [
+    2
+   ],
+   "afterReload": [
+    2
+   ],
+   "tickOk": true,
+   "progress": "1 / 12 built",
+   "afterClear": []
+  },
+  "snap": {
+   "name": "oneshot_arm_v5_view.png",
+   "bytes": 82643
+  },
+  "cutList": {
+   "name": "oneshot_arm_v5_wire_cut_list.csv",
+   "rows": 16,
+   "header": "run,label,from,to,net,kind,gauge,routed_mm,cut_mm,conductors,colours_from_end,connector_from,connector_to,amps,drop_v"
+  },
+  "peek": {
+   "part": "forearm",
+   "sel": [
+    "forearm"
+   ],
+   "title": "Forearm",
+   "sheetOpen": true
+  },
+  "scale": {
+   "persp": {
+    "mm": 100,
+    "px": 85.38,
+    "text": "100 mm at target",
+    "mmPerPx": 1.171282276670466
+   },
+   "relErr": 4e-05,
+   "ortho": {
+    "mm": 100,
+    "px": 85.38,
+    "text": "100 mm",
+    "mmPerPx": 1.171282276670466
+   },
+   "orthoSegPx": 85.38,
+   "orthoErr": 4e-05
+  },
+  "link": {
+   "hash": "#cam=-0.785,0.615,1008.216,-34.41,-15.283,19.127,o",
+   "ok": true
+  },
+  "focus": {
+   "stageBefore": 648,
+   "stageFocus": 799,
+   "header": "none",
+   "stageAfter": 648
+  },
+  "artifactFiles": [
+   {
+    "name": "oneshot_arm_v5_view.png",
+    "size": 67062
+   },
+   {
+    "name": "oneshot_arm_v5_wire_cut_list.csv",
+    "size": 2256
+   }
+  ],
+  "errors": [],
+  "warnings": [],
+  "ok": true
+ },
+ "v4_ok": true,
+ "v7": {
+  "cube": [
+   {
+    "face": "FRONT",
+    "zone": [
+     1,
+     1
+    ],
+    "want": [
+     -0.785,
+     0.615
+    ],
+    "got": [
+     -0.785,
+     0.615
+    ],
+    "ok": true
+   },
+   {
+    "face": "TOP",
+    "zone": [
+     0,
+     0
+    ],
+    "want": [
+     -1.571,
+     1.45
+    ],
+    "got": [
+     -1.571,
+     1.45
+    ],
+    "ok": true
+   },
+   {
+    "face": "FRONT",
+    "zone": [
+     0,
+     1
+    ],
+    "want": [
+     -1.571,
+     0.785
+    ],
+    "got": [
+     -1.571,
+     0.785
+    ],
+    "ok": true
+   },
+   {
+    "face": "RIGHT",
+    "zone": [
+     0,
+     0
+    ],
+    "want": [
+     0,
+     0
+    ],
+    "got": [
+     0,
+     0
+    ],
+    "ok": true
+   },
+   {
+    "face": "FRONT",
+    "zone": [
+     0,
+     0
+    ],
+    "want": [
+     -1.571,
+     0
+    ],
+    "got": [
+     -1.571,
+     0
+    ],
+    "ok": true
+   },
+   {
+    "face": "RIGHT",
+    "zone": [
+     -1,
+     -1
+    ],
+    "want": [
+     -0.785,
+     -0.615
+    ],
+    "got": [
+     -0.785,
+     -0.615
+    ],
+    "ok": true
+   }
+  ],
+  "pan": {
+   "right": {
+    "targetMoved_mm": 91.66,
+    "modelsSame": true,
+    "yawSame": true,
+    "distSame": true
+   },
+   "shift": {
+    "targetMoved_mm": 94.43,
+    "modelsSame": true,
+    "yawSame": true,
+    "distSame": true
+   }
+  },
+  "zoom": {
+   "persp": {
+    "cursor": [
+     255.0,
+     322.2
+    ],
+    "after": [
+     255,
+     322.26
+    ],
+    "err_px": 0.104,
+    "dist": 610.9
+   },
+   "ortho": {
+    "cursor": [
+     255.0,
+     322.2
+    ],
+    "after": [
+     255,
+     322.26
+    ],
+    "err_px": 0.104,
+    "dist": 610.9
+   }
+  },
+  "orbitPivot": {
+   "err_px": 0.0
+  },
+  "pinch": {
+   "err_px": 0.0,
+   "dist": 351.7
+  },
+  "dblFit": {
+   "part": "forearm",
+   "sel": [
+    "forearm"
+   ],
+   "inside": true,
+   "spanBefore": 79.5,
+   "spanAfter": 262.1
+  },
+  "scrub": {
+   "at500": {
+    "n": 12,
+    "u": 0.5,
+    "paused": true,
+    "dur": 1020,
+    "keys": 1
+   },
+   "endErr": 0
+  },
+  "playWhole": "STEP 04 / 12",
+  "steps": [
+   {
+    "n": 1,
+    "keys": 5,
+    "dur": 1580,
+    "midOff": 65.88,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 2,
+    "keys": 7,
+    "dur": 1380,
+    "midOff": 22.43,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 3,
+    "keys": 2,
+    "dur": 1180,
+    "midOff": 6.11,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 4,
+    "keys": 5,
+    "dur": 1660,
+    "midOff": 33.03,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 5,
+    "keys": 4,
+    "dur": 1460,
+    "midOff": 76.28,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 6,
+    "keys": 6,
+    "dur": 1740,
+    "midOff": 182.4,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 7,
+    "keys": 5,
+    "dur": 1620,
+    "midOff": 189.79,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 8,
+    "keys": 11,
+    "dur": 1860,
+    "midOff": 254.18,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 9,
+    "keys": 4,
+    "dur": 1500,
+    "midOff": 272.59,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 10,
+    "keys": 12,
+    "dur": 2000,
+    "midOff": 124.21,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 11,
+    "keys": 0,
+    "dur": 900,
+    "midOff": 0.0,
+    "endU": 1,
+    "endErr": 0
+   },
+   {
+    "n": 12,
+    "keys": 1,
+    "dur": 1020,
+    "midOff": 16.66,
+    "endU": 1,
+    "endErr": 0
+   }
+  ],
+  "wire": {
+   "nodes": 10,
+   "cards": 10,
+   "cardInfo": [
+    {
+     "node": "estop",
+     "orders": [
+      1,
+      2
+     ],
+     "swatches": 2,
+     "rows": 2,
+     "src": [
+      "convention",
+      "convention"
+     ],
+     "connector": "Screw terminal"
+    },
+    {
+     "node": "psu",
+     "orders": [
+      1,
+      2
+     ],
+     "swatches": 2,
+     "rows": 2,
+     "src": [
+      "convention",
+      "convention"
+     ],
+     "connector": "Screw terminal"
+    },
+    {
+     "node": "rail",
+     "orders": [
+      1,
+      2
+     ],
+     "swatches": 2,
+     "rows": 2,
+     "src": [
+      "run",
+      "convention"
+     ],
+     "connector": "Breadboard 2.54 mm"
+    },
+    {
+     "node": "door",
+     "orders": [
+      1,
+      2
+     ],
+     "swatches": 2,
+     "rows": 2,
+     "src": [
+      "any",
+      "convention"
+     ],
+     "connector": "Dupont / solder tab"
+    },
+    {
+     "node": "servo_sh",
+     "orders": [
+      1,
+      2,
+      3
+     ],
+     "swatches": 3,
+     "rows": 3,
+     "src": [
+      "label",
+      "label",
+      "label"
+     ],
+     "connector": "JR servo 3-pin \u00b7 2.54 mm"
+    },
+    {
+     "node": "servo_el",
+     "orders": [
+      1,
+      2,
+      3
+     ],
+     "swatches": 3,
+     "rows": 3,
+     "src": [
+      "label",
+      "label",
+      "label"
+     ],
+     "connector": "JR servo 3-pin \u00b7 2.54 mm"
+    },
+    {
+     "node": "servo_gr",
+     "orders": [
+      1,
+      2,
+      3
+     ],
+     "swatches": 3,
+     "rows": 3,
+     "src": [
+      "label",
+      "label",
+      "label"
+     ],
+     "connector": "JR servo 3-pin \u00b7 2.54 mm"
+    },
+    {
+     "node": "uno",
+     "orders": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+     ],
+     "swatches": 9,
+     "rows": 9,
+     "src": [
+      "run",
+      "run",
+      "run",
+      "any",
+      "any",
+      "any",
+      "any",
+      "any",
+      "convention"
+     ],
+     "connector": "Dupont 2.54 mm header"
+    },
+    {
+     "node": "uln",
+     "orders": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+     ],
+     "swatches": 11,
+     "rows": 11,
+     "src": [
+      "any",
+      "any",
+      "any",
+      "any",
+      "convention",
+      "convention",
+      "run",
+      "run",
+      "run",
+      "run",
+      "run"
+     ],
+     "connector": "2.54 mm header + JST-XH socket"
+    },
+    {
+     "node": "motor_yaw",
+     "orders": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "swatches": 5,
+     "rows": 5,
+     "src": [
+      "library",
+      "library",
+      "library",
+      "library",
+      "library"
+     ],
+     "connector": "JST-XH 5-pin"
+    }
+   ],
+   "budget": {
+    "sup": "psu",
+    "rating": 4,
+    "total": 2.34,
+    "pct": 0.585,
+    "status": "pass",
+    "ground": {
+     "ok": true,
+     "n": 8,
+     "missing": []
+    },
+    "loads": [
+     [
+      "servo_sh",
+      0.7
+     ],
+     [
+      "servo_el",
+      0.7
+     ],
+     [
+      "servo_gr",
+      0.7
+     ],
+     [
+      "uln",
+      0.24
+     ]
+    ]
+   },
+   "budgetCard": true,
+   "chips": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "runs": 16
+  },
+  "flow": {
+   "eflow": 1,
+   "flow3": 1,
+   "anim": "avflow"
+  },
+  "platePath": [
+   "~/Claude/OneShot/v5/av/plates/oneshot_v5_all_plates_plate1.3mf",
+   "~/Claude/OneShot/v5/av/plates/oneshot_v5_all_plates.3mf"
+  ],
+  "plateBtnLocal": "\u2913 3MF \u00b7 plate 1",
+  "materials": {
+   "gloss": 12,
+   "steel": 29,
+   "metal": 1,
+   "matte": 8,
+   "plastic": 6,
+   "satin": 18,
+   "brass": 4
+  },
+  "edgesChangePixels": true,
+  "glError": 0,
+  "artifact": {
+   "label": "\u2913 3MF \u00b7 zipped by the viewer \u2014 tap to unzip",
+   "saved": [
+    {
+     "name": "oneshot_arm_v5_plate1.zip",
+     "size": 75473,
+     "type": "application/zip"
+    }
+   ]
+  },
+  "fps": {
+   "v7": 36.1,
+   "medianMs": 27.4,
+   "runs7": [
+    36.1,
+    35.5,
+    36.1,
+    38.9,
+    37.9
+   ],
+   "v6": 36.7,
+   "runs6": [
+    35.9,
+    35.1,
+    37.8,
+    36.9,
+    36.7
+   ]
+  },
+  "errors": [],
+  "warnings": [
+   "WARNING [.WebGL-0x178400117c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x178400117c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x178400117c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x178400117c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+  ],
+  "ok": true
+ }
+}

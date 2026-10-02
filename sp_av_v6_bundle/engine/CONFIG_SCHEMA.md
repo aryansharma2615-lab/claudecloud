@@ -374,3 +374,35 @@ A pin label like `pot pads ×3` / `3 pins` without `wires` shows three numbered 
 | `dir` | power flows away from the supply, ground back to it, a data run flows from the controller (UNO / ESP32 / driver) | `"to"` = current/signal flows from → to, `"from"` = the reverse. Drives the flow animation |
 
 Worked example: `examples/v7_demo/av_config.json` uses every field above.
+
+---
+
+## Engine v7.1 / v7.2 fields (all optional)
+
+### Wire colours (v7.1)
+
+`pins[].color` (or a `wires[].color`) may be `"any"` — the lead is whatever jumper was in the
+kit; the card shows **any colour · tag it** and nothing warns. Without any colour field the
+engine resolves each conductor in this order:
+
+1. config (`color` / `wires`)
+2. a colour word in the pin label, or the part library (SG90 / MG90S / MG996R leads,
+   28BYJ-48 plug) — **factory leads**
+3. **carried along the run** from a factory lead at the other end (the servo's orange SIG lead
+   is what reaches UNO D5; a generic `MOTOR` pin mating a 28BYJ plug takes its 5 colours)
+4. red / black convention for a power / ground pin
+5. **any colour**
+
+A pin label that is a range (`"D8–11"`, `"IN1–4"`) or a count (`"5-pin JST"`, `"pot pads ×3"`)
+expands to one row per wire, in order.
+
+### Checks lane (v7.2)
+
+| field | what it does |
+|---|---|
+| `checks` (top level) | `[{group, label, value, limit, unit, status: "pass"/"warn"/"fail", source, note}]` — your own design gates as tiles at the top of the **Checks** tab (same shape as the v5.3 line's `META.checks`) |
+| `parts[].mass` | `{g, com: [x,y,z], how}` — mass and centre of mass in assembly coordinates (Motion builds already carry it). Without it a printed part uses `print.grams` at its mesh's volume centroid; anything else is left out of the CoG and counted |
+
+The **Clash scan**, **CoG / tip angle** and **Ø** tool need no config. A pair is reported
+**by design** when it is a declared Motion `touch` / gear `mesh`, a screw with its `host` /
+`into` part, or a part whose id / label says insert, brass, bearing, 608 or bushing.

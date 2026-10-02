@@ -28,6 +28,15 @@ python3 verify_av_v4.py ../refs_v7/oneshot_v6_bench_v7.html --shots ../shots_v7/
 - **Inside an artifact, 3MF/STL go out zipped** (allowlist has neither). Label says so. Do not fight it.
 - `f` is Fit now; the fps chip moved to `` ` `` / `p`.
 
+## v7.1 → v7.4 state (later the same day)
+
+- **Current verified engine: `viewer_template_motion_v7_3.html`** — `verify_av_v7.py` PASS (all layers v3 → v7.3)
+  on `refs_v7/oneshot_v6_bench_v7_3.html` and `refs_v7/oneshot_v5_2_arm_v7_3.html`. Demo run not finished.
+- **v7.4 built, NOT verified:** run `python3 verify_av_v8.py ../refs_v7/<page>_v7_4.html --shots … --floor-ref …`
+  (make the pages with `patch_engine_v7_4.patch()` on the v7_3 pages) and the demo with
+  `--ang 45,30,5:45,-30,5:-45,-30,5:90 --dia servo:5.5,0,39,2.5`.
+- Bench findings to fix in CAD: 2 clashes, 7 printed gaps < 0.2 mm (planetary stage), tips at 8.7°.
+
 ## NEXT rungs (v7 exposed)
 
 1. Write the real pot-lead colours into the OneShot v6 bench config (`pins[].wires`) — 7 unset there, 9 on the arm.

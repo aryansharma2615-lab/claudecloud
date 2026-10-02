@@ -530,3 +530,46 @@ which is how the regression refs were made. Proved on three builds — OneShot v
   `finish`, `screw`, `plate_dir`, `project_dir`, and fills the Motion template's `__META__` / `__GEO__`.
 * Known: fps is SwiftShader in a container — a floor, not a phone. The v3 orbit bench inside the same run read
   29.9 fps on the arm (v6 page: same band); the v7 gate's best-of-2 read 33.5 vs v6 34.0.
+
+---
+
+## 2026-10-02 — engine v7.1 → v7.4 (same session; `patch_engine_v7_1/2/3/4.py`, `engine_v7_N.js/.css`, verifiers v5 → v8)
+
+Each step patches the previous template and its verifier runs every earlier gate first.
+Proved on the OneShot v6 bench, the OneShot v5.2 arm and `examples/v7_demo` (numbers below).
+
+* **R16 wires as SP wires them (v7.1).** Shawarma: "no specific colours have been used" — kit jumpers.
+  Colour order is now config → factory lead (label / library) → **carried along the run** from a
+  factory lead → red/black convention → **any colour · tag it**. Ranges ("D8–11", "IN1–4") and
+  "5-pin" plugs expand to one row per wire; a generic `MOTOR` pin mating the 28BYJ plug takes its 5
+  colours; "brn" reads "brown"; a door button is "Dupont / solder tab", not a screw terminal.
+  Arm: UNO D5/D6/D3 → **orange via lead**, ULN2003 motor socket → blue/pink/yellow/orange/red, 0 unset.
+* **R17 explode traces · R18 part search · R19 bench checklist (device-local) · R20 Snap PNG + wire
+  cut-list CSV (straight through the artifact allowlist, no zip) · R21 long-press peek · R22 scale
+  bar · R23 camera in the ⧉ link · R24 Focus mode + haptics (v7.1).**
+* **R25–R28 Checks tab (v7.2).** The v5.3 line's `META.checks` tiles, plus: **clash scan** (all
+  intersecting facet pairs via the Motion BVH, sorted clash / by design / contact — same pair set as
+  the brute-force sweep), **centre of gravity** (= an independent Σ m·x over META to 0.00 mm) with its
+  footprint and the static **tip angle** atan(margin / height), and the **Ø tool** (3 rim taps).
+* **R29–R32 (v7.3).** **Gap** tool and **Tight gaps** report (BVH distance = brute-force all-triangle
+  distance to 1e-6 mm; flush < 0.005 mm counts as touching; a printed pair under 0.2 mm is a print
+  risk) — CHECKPOINT's open "Stage 4 clearance callouts". **BOM CSV** (sums to the tab's total).
+  **Section handle** (exact in ortho, under the finger in persp).
+* **R33–R37 (v7.4).** ∠ angle tool, view history ◀ ▶ ([ ]), swipe between build steps, "wire to buy"
+  per gauge, "?" key map.
+* **Fixes found by the gates:** overlays that wrote `style.display` every frame now write only on
+  change (`showEl`); the scale bar only writes when its numbers move; the long-press test leaves the
+  wiring view first (ghosts cannot be picked). **The fps gate is now the median of 5 interleaved runs**:
+  the same v6 bench page read 35.2 / 36.5 / 49.1 fps in one sitting (the DPR tuner sometimes steps down
+  mid-bench), so best-of-N rewarded luck, not the engine.
+
+**Findings for Shawarma (OneShot v6 bench):**
+- Clash: ring housing × SG90 (cuts in ≤ 4.5 mm), torque lever × test weight (≤ 4.3 mm).
+- Print-risk gaps < 0.2 mm on printed pairs: ring housing ↔ carrier 0.10, sun ↔ carrier 0.10,
+  ring housing ↔ planets 0.118–0.119, horn ↔ sun 0.137, pot gear ↔ pot 0.064 mm — the planetary
+  stage will likely bind as printed: open to ≥ 0.2 mm or print-in-place with a tested clearance.
+- Tips over at 8.7° of tilt with the weight on the lever (CoG 12.8 mm inside the footprint, 83 mm up).
+
+**Proof (final run, v7.3 pages, every layer v3 → v7.3):** OneShot v6 bench PASS (fps median of 5: 42.7 vs v6 37.3);
+OneShot v5.2 arm PASS (36.1 vs 36.7). The demo run was still going at hand-off.
+**v7.4 (R33–R37) is built and has its verifier (`verify_av_v8.py`), but has NOT been run yet: next step.**

@@ -1,0 +1,71 @@
+{
+ "ok": true,
+ "v72": {
+  "checksTab": {
+   "visible": true,
+   "title": "Checks",
+   "metaChecks": 0,
+   "tiles": 0
+  },
+  "clash": {
+   "pairs": 15,
+   "brute": 15,
+   "kinds": {
+    "clash": 2,
+    "design": 13
+   },
+   "candidates": 63,
+   "ms": 78,
+   "clashes": [
+    [
+     "A_ring_housing",
+     "A_servo",
+     4.5
+    ],
+    [
+     "A_torque_lever",
+     "A_weight",
+     4.3
+    ]
+   ],
+   "rowSel": [
+    "A_ring_housing",
+    "A_servo"
+   ]
+  },
+  "cog": {
+   "g": 215.85,
+   "margin": 12.792,
+   "h": 83.266,
+   "tipDeg": 8.734,
+   "hull": 4,
+   "missing": 0,
+   "com": [
+    42.208,
+    -13.816,
+    83.266
+   ],
+   "independent": {
+    "g": 215.85,
+    "com": [
+     42.208,
+     -13.816,
+     83.266
+    ],
+    "err_mm": 0.0
+   },
+   "markerShown": true
+  },
+  "circle3": {
+   "d": 15,
+   "c": [
+    2.999999999999999,
+    -1.9999999999999996,
+    11
+   ]
+  },
+  "errors": [],
+  "ok": true
+ },
+ "v5_ok": true
+}
