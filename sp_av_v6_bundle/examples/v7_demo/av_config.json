@@ -1,0 +1,873 @@
+{
+ "title": "v7 demo · servo bracket",
+ "subtitle": "every v7 config field in one small build",
+ "slug": "v7_demo",
+ "project_dir": "~/Claude/AV/examples/v7_demo",
+ "currency": "CAD $",
+ "explode_scale": 16,
+ "home": {
+  "yaw": -0.85,
+  "pitch": 0.42
+ },
+ "printer": {
+  "name": "Creality Ender 3 S1 Pro",
+  "x": 220,
+  "y": 220,
+  "z": 270,
+  "nozzle": 0.4,
+  "gap": 8,
+  "margin": 5,
+  "sequential": false
+ },
+ "materials": {
+  "PETG": {
+   "density": 1.27,
+   "spool_g": 1000
+  },
+  "PLA": {
+   "density": 1.24,
+   "spool_g": 1000
+  },
+  "TPU": {
+   "density": 1.21,
+   "spool_g": 1000
+  }
+ },
+ "groups": {
+  "base": "Base",
+  "drive": "Servo + horn",
+  "hw": "Hardware"
+ },
+ "steps": [
+  {
+   "n": 1,
+   "title": "Base plate",
+   "caption": "Flat on the bench.",
+   "tool": "—",
+   "time": "1 min"
+  },
+  {
+   "n": 2,
+   "title": "Inserts into the base",
+   "caption": "Iron at 240 °C, straight down.",
+   "tool": "soldering iron",
+   "spec": "2× M3 heat-set",
+   "time": "4 min"
+  },
+  {
+   "n": 3,
+   "title": "Bracket down onto the inserts",
+   "caption": "Two M3×8 from the top.",
+   "tool": "2.5 mm hex",
+   "spec": "2× M3×8",
+   "time": "3 min"
+  },
+  {
+   "n": 4,
+   "title": "Servo into the bracket",
+   "caption": "Slides in from the front, lead out the back.",
+   "tool": "—",
+   "time": "1 min"
+  },
+  {
+   "n": 5,
+   "title": "TPU foot pads",
+   "caption": "Press on.",
+   "tool": "—",
+   "time": "1 min"
+  }
+ ],
+ "parts": [
+  {
+   "id": "base",
+   "label": "Base plate",
+   "color": "#5d6672",
+   "group": "base",
+   "step": 1,
+   "kind": "printed",
+   "material": "PETG",
+   "explode": [
+    0,
+    0,
+    -1.6
+   ],
+   "primitive": {
+    "type": "box",
+    "size": [
+     90,
+     60,
+     5
+    ],
+    "at": [
+     0,
+     0,
+     2.5
+    ]
+   },
+   "print": {
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "layer": 0.2,
+    "walls": 3,
+    "infill": 25,
+    "support": "none",
+    "orientation": "Flat face down."
+   }
+  },
+  {
+   "id": "insert_a",
+   "label": "M3 heat-set insert",
+   "color": "#c9a227",
+   "group": "hw",
+   "step": 2,
+   "kind": "bought",
+   "finish": "brass",
+   "explode": [
+    0,
+    0,
+    0.8
+   ],
+   "insert": {
+    "dir": [
+     0,
+     0,
+     1
+    ],
+    "dist": 24
+   },
+   "primitive": {
+    "type": "cylinder",
+    "r": 2.3,
+    "h": 4,
+    "at": [
+     -15,
+     0,
+     3
+    ]
+   }
+  },
+  {
+   "id": "insert_b",
+   "label": "M3 heat-set insert",
+   "color": "#c9a227",
+   "group": "hw",
+   "step": 2,
+   "kind": "bought",
+   "finish": "brass",
+   "explode": [
+    0,
+    0,
+    0.8
+   ],
+   "insert": {
+    "dir": [
+     0,
+     0,
+     1
+    ],
+    "dist": 24
+   },
+   "primitive": {
+    "type": "cylinder",
+    "r": 2.3,
+    "h": 4,
+    "at": [
+     15,
+     0,
+     3
+    ]
+   }
+  },
+  {
+   "id": "bracket",
+   "label": "Servo bracket",
+   "color": "#3a6fb0",
+   "group": "drive",
+   "step": 3,
+   "kind": "printed",
+   "material": "PLA",
+   "explode": [
+    0,
+    0,
+    1.4
+   ],
+   "insert": {
+    "dir": [
+     0,
+     0,
+     1
+    ],
+    "dist": 45
+   },
+   "primitive": {
+    "type": "compound",
+    "parts": [
+     {
+      "type": "box",
+      "size": [
+       44,
+       16,
+       4
+      ],
+      "at": [
+       0,
+       0,
+       7
+      ]
+     },
+     {
+      "type": "box",
+      "size": [
+       4,
+       16,
+       30
+      ],
+      "at": [
+       -15,
+       0,
+       22
+      ]
+     },
+     {
+      "type": "box",
+      "size": [
+       4,
+       16,
+       30
+      ],
+      "at": [
+       15,
+       0,
+       22
+      ]
+     }
+    ]
+   },
+   "print": {
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "layer": 0.2,
+    "walls": 4,
+    "infill": 40,
+    "support": "none",
+    "orientation": "Foot down: the uprights print as walls."
+   },
+   "fast": [
+    "fa",
+    "fb"
+   ]
+  },
+  {
+   "id": "screw_a",
+   "label": "M3×8",
+   "color": "#aab3bb",
+   "group": "hw",
+   "step": 3,
+   "kind": "screw",
+   "bom": false,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "screw": {
+    "axis": [
+     0,
+     0,
+     -1
+    ],
+    "at": [
+     -15,
+     0,
+     12
+    ],
+    "d": 3,
+    "len": 8,
+    "role": "screw",
+    "host": "bracket"
+   },
+   "primitive": {
+    "type": "compound",
+    "parts": [
+     {
+      "type": "cylinder",
+      "r": 2.75,
+      "h": 3,
+      "at": [
+       -15,
+       0,
+       10.5
+      ]
+     },
+     {
+      "type": "cylinder",
+      "r": 1.5,
+      "h": 8,
+      "at": [
+       -15,
+       0,
+       5
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "screw_b",
+   "label": "M3×8",
+   "color": "#aab3bb",
+   "group": "hw",
+   "step": 3,
+   "kind": "screw",
+   "bom": false,
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "screw": {
+    "axis": [
+     0,
+     0,
+     -1
+    ],
+    "at": [
+     15,
+     0,
+     12
+    ],
+    "d": 3,
+    "len": 8,
+    "role": "screw",
+    "host": "bracket"
+   },
+   "primitive": {
+    "type": "compound",
+    "parts": [
+     {
+      "type": "cylinder",
+      "r": 2.75,
+      "h": 3,
+      "at": [
+       15,
+       0,
+       10.5
+      ]
+     },
+     {
+      "type": "cylinder",
+      "r": 1.5,
+      "h": 8,
+      "at": [
+       15,
+       0,
+       5
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "servo",
+   "label": "SG90 micro servo",
+   "color": "#2a5fa8",
+   "group": "drive",
+   "step": 4,
+   "kind": "bought",
+   "finish": "plastic",
+   "explode": [
+    0,
+    -2.0,
+    0.6
+   ],
+   "insert": {
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 50
+   },
+   "primitive": {
+    "type": "compound",
+    "parts": [
+     {
+      "type": "box",
+      "size": [
+       23,
+       12.5,
+       22.5
+      ],
+      "at": [
+       0,
+       0,
+       24
+      ]
+     },
+     {
+      "type": "cylinder",
+      "r": 2.5,
+      "h": 4,
+      "at": [
+       5.5,
+       0,
+       37
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "pad_l",
+   "label": "TPU foot",
+   "color": "#2b2b2b",
+   "group": "base",
+   "step": 5,
+   "kind": "printed",
+   "material": "TPU",
+   "explode": [
+    0,
+    0,
+    -2.4
+   ],
+   "primitive": {
+    "type": "cylinder",
+    "r": 6,
+    "h": 2,
+    "at": [
+     -36,
+     0,
+     -1
+    ]
+   },
+   "print": {
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "layer": 0.2,
+    "walls": 2,
+    "infill": 100,
+    "support": "none",
+    "orientation": "Flat."
+   }
+  },
+  {
+   "id": "pad_r",
+   "label": "TPU foot",
+   "color": "#2b2b2b",
+   "group": "base",
+   "step": 5,
+   "kind": "printed",
+   "material": "TPU",
+   "explode": [
+    0,
+    0,
+    -2.4
+   ],
+   "primitive": {
+    "type": "cylinder",
+    "r": 6,
+    "h": 2,
+    "at": [
+     36,
+     0,
+     -1
+    ]
+   },
+   "print": {
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "layer": 0.2,
+    "walls": 2,
+    "infill": 100,
+    "support": "none",
+    "orientation": "Flat."
+   }
+  }
+ ],
+ "wiring": {
+  "volts": 5,
+  "note": "Demo harness: every conductor carries its real lead colour.",
+  "nodes": [
+   {
+    "id": "psu",
+    "label": "5 V 2 A wall adapter",
+    "at": [
+     -60,
+     40,
+     5
+    ],
+    "schem": [
+     0,
+     0
+    ],
+    "connector": "5.5×2.1 barrel → screw terminal",
+    "supply": {
+     "volts": 5,
+     "amps": 2
+    },
+    "role": "Power supply: turns wall AC into 5 V DC.",
+    "pins": [
+     {
+      "id": "v",
+      "label": "+5V",
+      "kind": "power",
+      "color": "red",
+      "order": 1
+     },
+     {
+      "id": "g",
+      "label": "GND",
+      "kind": "ground",
+      "color": "black",
+      "order": 2
+     }
+    ]
+   },
+   {
+    "id": "servo",
+    "label": "SG90 (pot moved out)",
+    "at": [
+     0,
+     0,
+     30
+    ],
+    "schem": [
+     1,
+     0
+    ],
+    "stall_a": 0.65,
+    "role": "Micro servo: a motor + gearbox + a potentiometer (a knob-shaped variable resistor) that reports the angle.",
+    "pins": [
+     {
+      "id": "g",
+      "label": "GND",
+      "kind": "ground",
+      "order": 1
+     },
+     {
+      "id": "v",
+      "label": "+5V",
+      "kind": "power",
+      "order": 2
+     },
+     {
+      "id": "sig",
+      "label": "SIG",
+      "kind": "data",
+      "order": 3
+     },
+     {
+      "id": "pads",
+      "label": "pot pads ×3",
+      "kind": "data",
+      "order": 4,
+      "wires": [
+       {
+        "label": "END 1",
+        "color": "white"
+       },
+       {
+        "label": "WIPER",
+        "color": "yellow"
+       },
+       {
+        "label": "END 2",
+        "color": "green"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "pot",
+    "label": "Pot at the joint",
+    "at": [
+     30,
+     0,
+     30
+    ],
+    "schem": [
+     2,
+     0
+    ],
+    "connector": "Solder joints ×3, heat-shrink",
+    "role": "The servo's own pot, moved out to the joint so the servo reads the joint angle.",
+    "pins": [
+     {
+      "id": "w",
+      "label": "3 pins",
+      "kind": "data",
+      "wires": [
+       {
+        "label": "END 1",
+        "color": "white"
+       },
+       {
+        "label": "WIPER",
+        "color": "yellow"
+       },
+       {
+        "label": "END 2",
+        "color": "green"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "uno",
+    "label": "UNO R3",
+    "at": [
+     -60,
+     -30,
+     5
+    ],
+    "schem": [
+     0,
+     1
+    ],
+    "role": "Microcontroller board: sends the servo its 50 Hz pulse.",
+    "pins": [
+     {
+      "id": "d9",
+      "label": "D9",
+      "kind": "data",
+      "color": "orange"
+     },
+     {
+      "id": "gnd",
+      "label": "GND",
+      "kind": "ground",
+      "color": "brown"
+     }
+    ]
+   }
+  ],
+  "runs": [
+   {
+    "id": "feed",
+    "label": "Adapter + → servo",
+    "net": "+5V",
+    "from": "psu.v",
+    "to": "servo.v",
+    "kind": "power",
+    "gauge": "22 AWG",
+    "amps": 0.65,
+    "step": 4,
+    "ends": {
+     "from": {
+      "connector": "Screw terminal"
+     },
+     "to": {
+      "connector": "Dupont 2.54 mm"
+     }
+    },
+    "path": [
+     [
+      -60,
+      40,
+      5
+     ],
+     [
+      -30,
+      30,
+      5
+     ],
+     [
+      -6,
+      8,
+      6
+     ],
+     [
+      -6,
+      6,
+      18
+     ]
+    ]
+   },
+   {
+    "id": "ret",
+    "label": "Servo GND → adapter",
+    "net": "GND",
+    "from": "servo.g",
+    "to": "psu.g",
+    "kind": "ground",
+    "gauge": "22 AWG",
+    "amps": 0.65,
+    "step": 4,
+    "path": [
+     [
+      -4,
+      6,
+      18
+     ],
+     [
+      -4,
+      8,
+      6
+     ],
+     [
+      -28,
+      32,
+      5
+     ],
+     [
+      -58,
+      42,
+      5
+     ]
+    ]
+   },
+   {
+    "id": "sig",
+    "label": "Servo signal ← D9",
+    "net": "SIG·D9",
+    "from": "uno.d9",
+    "to": "servo.sig",
+    "kind": "data",
+    "gauge": "26 AWG",
+    "amps": 0.01,
+    "step": 4,
+    "path": [
+     [
+      -60,
+      -30,
+      5
+     ],
+     [
+      -30,
+      -10,
+      5
+     ],
+     [
+      -2,
+      6,
+      6
+     ],
+     [
+      -2,
+      6,
+      18
+     ]
+    ]
+   },
+   {
+    "id": "gnd",
+    "label": "UNO GND → adapter GND",
+    "net": "GND",
+    "from": "uno.gnd",
+    "to": "psu.g",
+    "kind": "ground",
+    "gauge": "26 AWG",
+    "amps": 0.01,
+    "step": 4,
+    "path": [
+     [
+      -62,
+      -30,
+      5
+     ],
+     [
+      -64,
+      0,
+      5
+     ],
+     [
+      -62,
+      38,
+      5
+     ]
+    ]
+   },
+   {
+    "id": "pot",
+    "label": "Pot leads → servo board",
+    "net": "POT×3",
+    "from": "pot.w",
+    "to": "servo.pads",
+    "kind": "data",
+    "gauge": "26 AWG",
+    "amps": 0.005,
+    "step": 4,
+    "dir": "to",
+    "path": [
+     [
+      30,
+      0,
+      30
+     ],
+     [
+      20,
+      4,
+      30
+     ],
+     [
+      8,
+      6,
+      26
+     ]
+    ]
+   }
+  ]
+ },
+ "fasteners": [
+  {
+   "id": "fa",
+   "label": "M3×8",
+   "spec": "M3×8 socket head into an M3 heat-set insert",
+   "qty": 1,
+   "at": [
+    -15,
+    0,
+    12
+   ],
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "part": "bracket",
+   "screw": "screw_a",
+   "step": 3,
+   "gid": "M3×8 · bracket to base",
+   "side": "TOP",
+   "tool": "2.5 mm hex",
+   "note": "Down through the bracket foot into the insert."
+  },
+  {
+   "id": "fb",
+   "label": "M3×8",
+   "spec": "M3×8 socket head into an M3 heat-set insert",
+   "qty": 1,
+   "at": [
+    15,
+    0,
+    12
+   ],
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "part": "bracket",
+   "screw": "screw_b",
+   "step": 3,
+   "gid": "M3×8 · bracket to base",
+   "side": "TOP",
+   "tool": "2.5 mm hex",
+   "note": "Down through the bracket foot into the insert."
+  }
+ ]
+}

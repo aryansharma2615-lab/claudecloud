@@ -479,3 +479,54 @@ not a regression, the gate needs a GPU to mean anything.
   feedback gears `ratio = −(1/N)(Z1/Z2)`. `mesh` exempts one pair, `touch` the other.
 * The AV path check caught a real bench defect: the hanging test weight met the stand at −40° with
   a 64 mm lever → lever 96 mm, test hole 90 mm, sweep −15° … +40°.
+
+---
+
+## 2026-10-02 — engine v7 ratchet (`viewer_template_motion_v7.html`, `patch_engine_v7.py` + `engine_v7.js/.css`, `verify_av_v4.py`, `build_av_v7.py`)
+
+Built in the cloud on `sp-av-v7` from this bundle's v6. `patch(html)` upgrades a built v6 page in place,
+which is how the regression refs were made. Proved on three builds — OneShot v6 bench, OneShot v5.2 arm
+(v5.2 → v6 → v7) and `examples/v7_demo` (every new config field) — all `verify_av_v4.py` **PASS**
+(every v3 gate + every v7 gate, 0 console errors). Screens: `shots_v7/` (390 + 1280 px, light + dark).
+
+* **R10 nav — CAD-grade camera.** The camera is `target + PAN` seen from (yaw, pitch, dist); orbit-about-
+  the-pick, zoom-to-cursor and pinch all move PAN and one other number so the picked point keeps its pixel —
+  exact for both projections. Right / middle / shift drag and two fingers pan; a CSS-3D **view cube**
+  (6 face buttons; the outer 28 % bands of a face pick its 12 edges and 8 corners, so the targets stay
+  thumb-sized); **Fit** (F), **double-tap a part = fit it**, **Persp / Ortho** (5); keys 1 / 3 / 7 front /
+  right / top, Ctrl = opposite, 0 iso, 9 flip. Presets, Reset, steps, plates and the wiring view route their
+  pan through the same eased `animate()`. Gates: cube 6/6 views exact (face, edge, corner, from the real
+  cube's pixels); pan moves the target 72–94 mm with every model matrix byte-identical; zoom-to-cursor
+  0.10 px (persp **and** ortho); orbit pivot 0.0 px; CDP two-finger pinch 0.0 px; double-tap fit puts the
+  whole bbox on screen (bench ring housing 74 → 276 px wide).
+* **R11 look — CAD viewport.** Key + fill + rim lights over a sky/ground hemisphere; per-material shading
+  (PLA matte, PETG gloss, TPU satin, bought plastic, steel screws/bearings, brass inserts, `finish` overrides);
+  screen-space **silhouette + crease + part-seam** lines from a normal/id + depth pass; a **soft contact
+  shadow** (256² height map from under the ground, separable blur, re-rendered only when a part moves);
+  MSAA kept. Found by the fps gate: edges every drag frame and a 13-tap blur every frame cost ~6 ms →
+  edges now draw on the still frame only (same rule as the DPR tuner) and the blur runs once per pose.
+  fps (SwiftShader, best of 2, same machine): bench **41.9 vs v6 42.1**, arm **33.5 vs 34.0**, demo **60.6 vs 60.6**.
+* **R12 build — every step plays.** Parts fly in along `insert` (default = their explode vector), screws drive
+  in along their axis while turning (nuts thread on from the far side), staggered; ▷/❚❚, scrub and ↺ per step;
+  ▶ now plays the whole build step by step (each step waits for its animation). At u = 1 the engine returns the
+  untouched base matrix, so the end pose is **bit-exact** (gate: max |Δ| = 0 on every step — 9 bench, 12 arm,
+  5 demo). The build sheet wraps `buildSheet` with no-anim / no-pan / persp, so it stays static.
+* **R13 wiring — detailed.** One connector card per node: pins in order, every conductor with its colour
+  (config → label words → part library: SG90 brown/red/orange, 28BYJ-48 blue/pink/yellow/orange/red →
+  convention → *unset*, never guessed); a pair pin ("+5V/GND") sends its GND lead to the far end's ground
+  pin; connector per end; gauge · A · ΔV chips on every run; **power budget** (sum of load stall currents vs the
+  supply rating, 80 % line) + **common ground** (union-find over ground runs and power pairs); tracing a run
+  animates flow on the 3D tube and the schematic edge (power away from the supply, ground back, data from
+  the controller). Bench: 0.70 A of 2.4 A, common ground ✓; arm: 2.34 A of 4 A ✓. The moved-pot leads show as
+  END 1 · WIPER · END 2 and stay **unset** until `pins[].wires` names their colours (the demo does).
+* **R14 3MF — honest.** Inside an artifact the button reads "3MF · zipped by the viewer — tap to unzip" and
+  the platform gets a .zip (gate stubs `window.claude`); locally it stays the direct .3mf. The plate panel's
+  **On the Mac** card shows `…/av/plates/<slug>_all_plates_plate<N>.3mf` + the all-plates file, with copy,
+  open-in-slicer and reveal-in-Finder commands.
+* **R15 UI.** Fit / Persp / Edges / Spin (turntable) in the tool rail; tool buttons 44 px on phones (were 36);
+  the cube shrinks to ⅔ while the sheet is up on a phone; `prefers-reduced-motion` turns off fly-ins, cube
+  moves, flow dashes, the turntable and the cube transition.
+* `build_av_v7.py` — runs `build_av.py` through anchored source patches (never edits it): passes `insert`,
+  `finish`, `screw`, `plate_dir`, `project_dir`, and fills the Motion template's `__META__` / `__GEO__`.
+* Known: fps is SwiftShader in a container — a floor, not a phone. The v3 orbit bench inside the same run read
+  29.9 fps on the arm (v6 page: same band); the v7 gate's best-of-2 read 33.5 vs v6 34.0.

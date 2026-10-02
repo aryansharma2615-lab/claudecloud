@@ -1,5 +1,45 @@
 # AV engine — CHECKPOINT
 
+**Updated:** 2026-10-02 (engine v7, cloud, branch `sp-av-v7`)
+**Build state:** ✅ GREEN. Engine v7 = `viewer_template_motion_v7.html` from `patch_engine_v7.py`
+(+ `engine_v7.js`, `engine_v7.css`) applied to v6. `verify_av_v4.py` PASS on the OneShot v6 bench,
+the OneShot v5.2 arm (v5.2 → v6 → v7) and `examples/v7_demo`. Nothing is mid-edit.
+
+## Rebuild / re-verify v7 (bundle layout; on the Mac the same files live in ~/Claude/AV)
+
+```bash
+cd sp_av_v6_bundle/engine
+python3 patch_engine_v7.py                                   # -> viewer_template_motion_v7.html
+python3 -c "import patch_engine_v7 as p; open('x_v7.html','w').write(p.patch(open('x_v6.html').read()))"
+python3 build_av_v7.py ../examples/v7_demo/av_config.json ../examples/v7_demo/v7_demo_av.html
+python3 verify_av_v4.py ../refs_v7/oneshot_v6_bench_v7.html --shots ../shots_v7/bench --floor-ref ../refs/oneshot_v6_bench.html
+```
+
+## Decisions worth not re-litigating (v7)
+
+- **Edge lines draw on the still frame only.** Measured: edges every drag frame + a per-frame shadow blur
+  cost ~6 ms and put v7 under v6. Same rule as the DPR tuner. Do not "fix" it by drawing them mid-drag.
+- **Pan is an offset on the orbit target** (`PAN`), never a model move. Every eased move can carry
+  `pan`; entering plates / wiring / a step re-centres via `V7.panNext`.
+- **A view-cube face seen edge-on is not a button on a phone** (< 0.45 facing, 0.12 with a mouse). Reach it
+  through the edge/corner bands of the face you can see.
+- **Unknown wire colours stay "unset"** and the verifier warns — the SG90's moved-pot leads have no standard
+  colours. Set `pins[].wires`.
+- **Inside an artifact, 3MF/STL go out zipped** (allowlist has neither). Label says so. Do not fight it.
+- `f` is Fit now; the fps chip moved to `` ` `` / `p`.
+
+## NEXT rungs (v7 exposed)
+
+1. Write the real pot-lead colours into the OneShot v6 bench config (`pins[].wires`) — 7 unset there, 9 on the arm.
+2. Port `build_av_v7.py`'s pass-through into the project builders (`build_av_v5_2.py`, `build_av_bench_v6.py`) so
+   their configs can carry `insert` / `finish` per part.
+3. Label layout that avoids the view cube's corner on a phone (pins currently slide under it when the sheet is up).
+4. Stage 4 below (tolerance + clearance callouts) is still open.
+
+---
+
+## Earlier state (2026-09-13)
+
 **Updated:** 2026-09-13
 **Build state:** ✅ GREEN. `smartvalve_v3_artifact_v2.html` builds, opens, and
 passes the full suite (`verify_av.py` → PASS, 46.4 fps, 0 console errors).

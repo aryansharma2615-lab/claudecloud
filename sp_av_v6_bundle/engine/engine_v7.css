@@ -1,0 +1,119 @@
+/* ===========================================================================
+   SP AV ENGINE v7 — component layer (semantic tokens only, both themes)
+   =========================================================================== */
+:root{
+  /* viewport look: CAD edge ink + contact shadow (dark is the bare default) */
+  --edge:#020403; --edge-a:.66; --shadow-c:#000000; --shadow-a:.62;
+  --flow:var(--ink);
+}
+:root[data-theme="light"]{ --edge:#141b17; --edge-a:.5; --shadow-a:.30; }
+
+/* ---- view cube: CSS 3D, orthographic like the viewport it steers ---- */
+#vcube{position:absolute;left:12px;top:36px;width:104px;height:104px;z-index:4;
+  pointer-events:none}
+#vcIn{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+.vcf{position:absolute;left:0;top:0;box-sizing:border-box;padding:0;margin:0;
+  appearance:none;cursor:pointer;pointer-events:auto;border:1px solid var(--line);
+  border-radius:3px;color:var(--mut);font:700 8.5px/1 var(--f-mono);letter-spacing:.06em;
+  display:flex;align-items:center;justify-content:center;transform-origin:50% 50%;
+  background:
+    linear-gradient(90deg,transparent 27.5%,color-mix(in srgb,var(--line) 70%,transparent) 27.5% 28.5%,transparent 28.5% 71.5%,color-mix(in srgb,var(--line) 70%,transparent) 71.5% 72.5%,transparent 72.5%),
+    linear-gradient(0deg,transparent 27.5%,color-mix(in srgb,var(--line) 70%,transparent) 27.5% 28.5%,transparent 28.5% 71.5%,color-mix(in srgb,var(--line) 70%,transparent) 71.5% 72.5%,transparent 72.5%),
+    color-mix(in srgb,var(--panel) 90%,transparent)}
+.vcf span{pointer-events:none}
+.vcf.on{color:var(--ink);border-color:var(--accent)}
+.vcf:active{background:var(--accent);color:var(--accent-ink)}
+.vcf:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+/* orbit pivot — where the drag is turning about */
+.pivot{position:absolute;left:0;top:0;width:9px;height:9px;margin:-5px 0 0 -5px;border-radius:50%;
+  background:var(--info);border:2px solid var(--stage);pointer-events:none;will-change:transform}
+
+/* ---- build: per-step player ---- */
+.sabar{display:flex;align-items:center;gap:var(--sp-2);padding-bottom:var(--sp-3)}
+.sabar .btn{min-height:44px;min-width:44px;padding:0 12px}
+.sabar input[type=range]{flex:1;min-width:0;min-height:44px;accent-color:var(--accent)}
+
+/* ---- wiring: power budget ---- */
+.pbud{margin:0 var(--sp-4) var(--sp-3);padding:10px 12px;border:1px solid var(--line);
+  border-radius:var(--r-md);background:var(--raised)}
+.pbud.fail{border-color:var(--bad)} .pbud.warn{border-color:var(--warn)}
+.pbh{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.pbg{font-weight:800;color:var(--good)} .pbud.fail .pbg{color:var(--bad)} .pbud.warn .pbg{color:var(--warn)}
+.pbt{font-size:13px;font-weight:700;color:var(--ink)}
+.pbv{margin-left:auto;font-family:var(--f-mono);font-size:11px;color:var(--body);
+  font-variant-numeric:tabular-nums}
+.pbtrack{position:relative;display:flex;gap:2px;height:14px;background:var(--sunk);
+  border-radius:3px}
+.pbseg{background:var(--series-1);height:100%}
+.pbseg:first-child{border-radius:3px 0 0 3px}
+.pbmark{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;background:var(--ink)}
+.pbleg{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:6px;font-family:var(--f-mono);
+  font-size:10.5px;color:var(--mut)}
+.pbgnd{margin-top:8px;font-size:12px;font-weight:600;color:var(--good)}
+.pbgnd.bad{color:var(--bad)}
+
+/* ---- wiring: connector cards, pins in order, real lead colours ---- */
+.pinouts{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px;
+  padding:0 var(--sp-4) var(--sp-3)}
+.pcard{border:1px solid var(--line);border-radius:var(--r-md);background:var(--raised);
+  padding:8px 10px;min-width:0}
+.pch{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.pcn{font-size:13px;font-weight:700;color:var(--ink)}
+.pcc{font-family:var(--f-mono);font-size:10px;color:var(--info);border:1px solid
+  color-mix(in srgb,var(--info) 45%,transparent);border-radius:3px;padding:1px 5px}
+.pcc.unset{color:var(--mut);border-style:dashed;border-color:var(--line)}
+.pcr{display:grid;grid-template-columns:16px 30px minmax(0,auto) 1fr;align-items:center;
+  column-gap:8px;min-height:24px;font-size:12px}
+.pco{font-family:var(--f-mono);font-size:10px;color:var(--mut);text-align:right;
+  font-variant-numeric:tabular-nums}
+.pcw{height:7px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.4),0 0 0 1px
+  color-mix(in srgb,var(--ink) 18%,transparent)}
+.pcw.unset{background:repeating-linear-gradient(45deg,transparent 0 3px,var(--faint) 3px 4px);
+  box-shadow:inset 0 0 0 1px var(--faint)}
+.pcl{color:var(--ink);font-weight:600;white-space:nowrap}
+.pcx{font-family:var(--f-mono);font-size:10px;color:var(--mut);white-space:nowrap}
+.pcd{grid-column:3 / -1;font-family:var(--f-mono);font-size:10px;color:var(--body);
+  overflow-wrap:anywhere;padding-bottom:3px}
+.pcd:empty{display:none}
+
+/* ---- wiring: chips on every run ---- */
+.wrow{flex-wrap:wrap}
+.wchips{flex-basis:100%;display:flex;flex-wrap:wrap;gap:4px;padding:0 0 8px 24px}
+.wchip{font-family:var(--f-mono);font-size:10px;color:var(--body);background:var(--sunk);
+  border:1px solid var(--line);border-radius:3px;padding:2px 6px;font-variant-numeric:tabular-nums}
+.wchip.warn{border-color:var(--warn);color:var(--warn)}
+.wchip.bad{border-color:var(--bad);color:var(--bad)}
+.wchip.conn{color:var(--info)}
+
+/* ---- current flow: schematic edge + 3D tube ---- */
+.eflow{fill:none;stroke:var(--flow);stroke-width:2;stroke-dasharray:3 8;stroke-linecap:round;
+  pointer-events:none;animation:avflow .9s linear infinite}
+.eflow.rev{animation-direction:reverse}
+@keyframes avflow{to{stroke-dashoffset:-11}}
+.flow3{fill:none;stroke-width:3.2;stroke-dasharray:4 10;stroke-linecap:round;opacity:.95;
+  animation:avflow3 .8s linear infinite}
+@keyframes avflow3{to{stroke-dashoffset:-14}}
+@media (prefers-reduced-motion: reduce){ .eflow,.flow3{animation:none} #vcube{transition:none} }
+
+/* ---- plates: the real file on the Mac ---- */
+.lpath{margin:0 var(--sp-4) var(--sp-3);padding:10px 12px;border:1px solid var(--line);
+  border-radius:var(--r-md);background:var(--raised)}
+.lph{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.lpr{display:grid;grid-template-columns:auto minmax(0,1fr) 44px;gap:8px;align-items:center;
+  margin-bottom:6px}
+.lpk{font-family:var(--f-mono);font-size:10px;color:var(--mut);white-space:nowrap}
+.lpv{font-family:var(--f-mono);font-size:10.5px;color:var(--body);overflow-wrap:anywhere;
+  background:var(--sunk);border-radius:3px;padding:4px 6px}
+.lpr .btn{min-height:44px;padding:0}
+.lpath .acts{padding:4px 0 0}
+
+@media (max-width:899px){
+  /* phone: the cube sits top-right (the tool rail owns the bottom), fps moves clear of it */
+  #vcube{left:auto;right:6px;top:6px;width:96px;height:96px;transform-origin:100% 0;
+    transition:transform .18s ease}
+  #vcube.mini{transform:scale(.66)}
+  #fps{right:108px}
+  .tbtn{min-height:44px}
+  #sel{bottom:66px}
+}

@@ -314,3 +314,63 @@ The AWG table in `build_av.py` is the standard's own numbers, not estimates.
 `make_av_config.py`, which pulls every coordinate from the CAD source so the
 viewer cannot drift away from the parts. Copy that pattern: hand-write the
 editorial content, compute the geometry.
+
+---
+
+## Engine v7 fields (all optional — every one has a default from what configs already carry)
+
+Build with `build_av_v7.py` (same arguments as `build_av.py`). It passes the new part fields
+through; wiring nodes and runs already pass through whole. A config with none of these builds
+exactly as before and still gets every v7 feature from the defaults.
+
+### Parts
+
+| field | default | what it does |
+|---|---|---|
+| `insert` | `{dir: explode direction, dist: max(18, |explode|·explode_scale·1.25)}` | how the part flies in when its Build step plays. `dir` is the direction it travels **from** (unit vector, assembly coords), `dist` in mm |
+| `finish` | from `material` / `kind` (see below) | shading: `matte` · `gloss` · `satin` · `plastic` · `steel` · `brass` · `metal` |
+| `screw` | (project builders emit it) | `{axis, at, len, role, host}` — `axis` is the drive direction, `at` the head. On its step the screw drives in along `axis` while turning (2–6 visual turns); `role: "nut"` threads on from the far side |
+
+Finish defaults: printed PLA → matte, PETG → gloss, TPU → satin; `kind: "screw"` → steel;
+id/label containing *insert* or *brass* → brass; bearings / shafts / rails / nuts → steel;
+motors → metal; any other bought part → plastic; wires → satin.
+
+```json
+{"id": "servo", "kind": "bought", "finish": "plastic",
+ "explode": [0, -2.0, 0.6], "insert": {"dir": [0, -1, 0], "dist": 50}}
+```
+
+### Top level
+
+| field | default | what it does |
+|---|---|---|
+| `plate_dir` | folder of `plateFile`, or `<project>/av/plates` | the folder the plate panel's **On the Mac** card points at |
+| `project_dir` | the parts' `stlPath` up to `/out/` | the project root used to build that path |
+
+### wiring.nodes
+
+| field | default | what it does |
+|---|---|---|
+| `connector` | inferred from the label (servo → *JR servo 3-pin · 2.54 mm*, 28BYJ-48 → *JST-XH 5-pin*, UNO/ESP32 → *Dupont 2.54 mm header*, PSU → *Screw terminal*, pot / sensor → *Solder joint*, …) | the connector chip on the node's card and on each run's end |
+| `supply` | first node whose id/label says psu / supply / charger / adapter / battery; rating parsed from "… 4 A …" in its label or role | `{volts, amps}` — the supply the power budget is checked against |
+| `stall_a` | the `amps` of the node's single power run | the worst-case current this load draws (stall, not running) |
+
+### wiring.nodes[].pins
+
+| field | default | what it does |
+|---|---|---|
+| `order` | array order | pin number on the connector (1 = pin 1) |
+| `color` | a colour word in the label ("SIG orange", "+5V red/GND brn") → the part library (SG90/MG90S: brown GND · red +5 V · orange SIG; 28BYJ-48: blue · pink · yellow · orange · red) → convention (power red, ground black) → shown **unset** | lead colour. A name (`"orange"`) or `#rrggbb`. An array gives one colour per conductor |
+| `wires` | — | `[{label, color}]` — several conductors behind one pin, in order. Use it for the SG90's moved potentiometer: `[{"label":"END 1","color":"white"},{"label":"WIPER","color":"yellow"},{"label":"END 2","color":"green"}]` |
+
+A pin label like `pot pads ×3` / `3 pins` without `wires` shows three numbered conductors
+(END 1 · WIPER · END 2 for a pot) with colour **unset** — the verifier warns, it does not guess.
+
+### wiring.runs
+
+| field | default | what it does |
+|---|---|---|
+| `ends` | each end's node `connector` | `{from: {connector, color}, to: {connector, color}}` — the connector actually used at each end of this run |
+| `dir` | power flows away from the supply, ground back to it, a data run flows from the controller (UNO / ESP32 / driver) | `"to"` = current/signal flows from → to, `"from"` = the reverse. Drives the flow animation |
+
+Worked example: `examples/v7_demo/av_config.json` uses every field above.
