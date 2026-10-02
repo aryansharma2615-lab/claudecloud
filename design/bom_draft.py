@@ -1,0 +1,115 @@
+"""FarmHand robot - Phase 1 draft BOM (priced, phased, HAVE/BUY).
+
+Run:  python design/bom_draft.py > docs/BOM_draft.md
+
+price_src: "snap" = stepperonline.ca / vendor price seen in a 2026-10-02 search snapshot (verify at checkout);
+           "usd"  = USD listing x 1.40 (ASSUMED FX, no rate fetched);
+           "est"  = engineering estimate, no live price could be fetched (proxy blocked shops) -> verify.
+Links marked (search) are store searches, not a specific product.
+"""
+
+SO = "https://www.stepperonline.ca"
+AMZ = "https://www.amazon.ca/s?k="
+
+# (group, item, why, qty, unit_cad, price_src, link, status)
+P1 = [
+    # ---- motion ----
+    ("Motion", "NEMA 23 closed-loop stepper 3 N·m, 23HS45-4204-ME1K", "X, J1, J2", 3, 50.00, "snap",
+     SO + "/nema-23-closed-loop-stepper-motor-3nm-425oz-in-with-magnetic-encoder-1000ppr-4000cpr-23hs45-4204-me1k.html", "BUY"),
+    ("Motion", "NEMA 23 closed-loop stepper with 24 V power-off brake", "Z (only gravity axis)", 1, 110.00, "est",
+     SO + "/catalogsearch/result/?q=closed+loop+brake+nema+23 (search)", "BUY"),
+    ("Motion", "NEMA 17 closed-loop stepper 0.56 N·m, 17HS19-2004-ME1K", "W wrist yaw", 1, 53.00, "usd",
+     "https://www.omc-stepperonline.com/nema-17-closed-loop-stepper-motor-56ncm-79-3oz-in-with-magnetic-encoder-1000ppr-4000cpr-17hs19-2004-me1k", "BUY"),
+    ("Motion", "CL57T-V41 closed-loop driver 0-8 A, 24-48 V", "one per stepper", 5, 52.77, "snap",
+     SO + "/closed-loop-stepper-driver-v4-1-0-8-0a-24-48vdc-for-nema-17-23-24-stepper-motor-cl57t-v41.html", "BUY"),
+    ("Motion", "SFU1605 ball screw 1000 mm kit (BK12/BF12, nut housing, coupler)", "Z lift", 1, 80.00, "est",
+     AMZ + "SFU1605+ball+screw+1000mm+BK12 (search)", "BUY"),
+    ("Motion", "HGR20 rail 1500 mm + 2× HGH20CA blocks", "X rail", 1, 120.00, "est", AMZ + "HGR20+1500mm (search)", "BUY"),
+    ("Motion", "HGR15 rail 1000 mm + 2× HGH15CA blocks", "Z guide on the column", 1, 75.00, "est", AMZ + "HGR15+1000mm (search)", "BUY"),
+    ("Motion", "Aluminium extrusion: 4040 × 1.2 m column, 2040 × 1.5 m rail beam, brackets, T-nuts", "frame", 1, 95.00, "est",
+     "https://www.makerstore.cc (search 4040, 2040)", "BUY"),
+    ("Motion", "HTD 5M belts + pulleys (X open belt 15 mm; J1 2-stage 1:10; J2 1:6; W 1:4) + idlers", "all belt stages", 1, 140.00, "est",
+     AMZ + "HTD+5M+pulley+belt (search)", "BUY"),
+    ("Motion", "Bearings: J1 pair 6808-2RS, J2 pair 6806-2RS, W pair 6705-2RS, idler bearings", "joint bearing stacks", 1, 82.00, "est",
+     AMZ + "6808-2RS (search)", "BUY"),
+    ("Motion", "14-bit absolute encoder boards (MT6701 or AS5047P) + 10 diametric magnets", "J1, J2, W output + 2 spare", 5, 15.00, "est",
+     AMZ + "MT6701+magnetic+encoder (search)", "BUY"),
+    ("Motion", "Homing switches (6 micro + 2 inductive)", "X, Z hard stops + references", 1, 30.00, "est", AMZ + "micro+limit+switch (search)", "BUY"),
+    ("Motion", "Cable chains (X 15×30 × 1.5 m, Z 10×20 × 1 m)", "hidden cabling (R14)", 1, 40.00, "est", AMZ + "cable+drag+chain+15x30 (search)", "BUY"),
+    ("Motion", "Clamp hubs, keyed pulleys, shaft adapters (no set screws on load paths)", "rule D206", 1, 30.00, "est", "-", "BUY"),
+    # ---- hand ----
+    ("Hand", "Feetech STS3215 12 V serial-bus servo + bus adapter", "gripper (reports position + load)", 1, 45.00, "est",
+     AMZ + "STS3215 (search)", "BUY"),
+    ("Hand", "MGN9 rail 100 mm with carriage", "self-centring jaw guides", 2, 15.00, "est", AMZ + "MGN9+100mm (search)", "BUY"),
+    ("Hand", "Steel rack + pinion, module 1", "jaw drive", 1, 10.00, "est", "-", "BUY"),
+    ("Hand", "FSR 402 force-sensing resistor", "grip/contact pads", 2, 10.00, "est", AMZ + "FSR+402 (search)", "BUY"),
+    ("Hand", "Conductive stylus tips (compressible test-stylus or conductive foam) + spring plunger", "capacitive finger", 1, 30.00, "est",
+     "https://shop.adaptarobotics.com/en-us/products/compressible-touch-panel-test-stylus", "BUY"),
+    ("Hand", "1 kg bar load cell + HX711", "stylus force", 1, 10.00, "est", AMZ + "1kg+load+cell+HX711 (search)", "BUY"),
+    ("Hand", "Hardened steel balls 10 mm × 6 + N52 magnets", "kinematic quick-change flange", 1, 15.00, "est", "-", "BUY"),
+    # ---- electronics ----
+    ("Electronics", "ESP32-S3 DevKitC-1 N16R8", "motion controller (+1 spare)", 2, 25.00, "est", AMZ + "ESP32-S3+DevKitC-1+N16R8 (search)", "BUY"),
+    ("Electronics", "Mean Well LRS-350-24 (24 V, ~14.6 A)", "motor bus", 1, 75.00, "est", AMZ + "LRS-350-24 (search)", "BUY"),
+    ("Electronics", "24 V to 12 V 5 A buck converter", "gripper servo", 1, 15.00, "est", "-", "BUY"),
+    ("Electronics", "24 V DC contactor or 2 series relays (≥ 20 A) in the E-stop loop", "category-0 stop, brake drop", 1, 45.00, "est", "-", "BUY"),
+    ("Electronics", "TVS clamp / brake-resistor module for the 24 V bus", "regen protection (D214)", 1, 20.00, "est", "-", "BUY"),
+    ("Electronics", "Fuses + holders, DIN rail, terminal blocks, silicone wire 16/18/22 AWG, JST-XH + GX16 connectors", "wiring", 1, 110.00, "est", "-", "BUY"),
+    ("Electronics", "Prototype carrier board (perfboard now; JLCPCB board in Phase 2)", "controller carrier", 1, 30.00, "est", "-", "BUY"),
+    ("Electronics", "Amber beacon + buzzer", "pre-motion warning (H25)", 1, 15.00, "est", "-", "BUY"),
+    # ---- materials ----
+    ("Materials", "PETG-CF 2 kg + ASA 1 kg + TPU 0.5 kg", "printed housings / links / pads (pick per part in Phase 2)", 1, 130.00, "est", "-", "BUY"),
+    ("Materials", "M4/M5 screws + T-nuts + M4/M5 heat-set inserts", "frame + housings", 1, 45.00, "est", "-", "BUY"),
+    ("Materials", "Aluminium square tube 20×20×1.5, 1 m", "SCARA link spines", 1, 15.00, "est", "-", "BUY"),
+    # ---- plates and station ----
+    ("Plates", "Bambu Textured PEI plate (H2S size)", "2 extra = 3 per printer cycle (replaces SHOPPING.md Phase 4 line)", 2, 84.00, "usd",
+     "https://us.store.bambulab.com/products/bambu-textured-pei-plate (check ca.store.bambulab.com)", "BUY"),
+    ("Plates", "Ender PEI spring-steel sheet (size to measure)", "2 extra", 2, 25.00, "est", AMZ + "Ender+3+S1+Pro+PEI+sheet (search)", "BUY"),
+    ("Plates", "Flex station + plate rack hardware (rods, springs, bin)", "offline part clearing", 1, 30.00, "est", "-", "BUY"),
+    # ---- conditional ----
+    ("Tools", "Ratcheting crimper (JST/Dupont) + ferrule crimper", "only if Q6 = no crimper", 1, 45.00, "est", AMZ + "SN-28B+crimper (search)", "IF NEEDED"),
+    # ---- have ----
+    ("Have", "M2-M4 screw assortment, M3 heat-set inserts + tips, calipers, solder, silicone grease, 8×3 magnets", "", 1, 0.00, "-", "Mem0 inventory", "HAVE"),
+    ("Elsewhere", "E-stop button, UPS, ESP32 supervisor", "already in SHOPPING.md Phase 3", 1, 0.00, "-", "docs/SHOPPING.md", "OTHER LIST"),
+    ("Elsewhere", "Wrist USB camera + overhead camera + AprilTags (~C$180)", "already in SHOPPING.md Phase 5", 1, 0.00, "-", "docs/SHOPPING.md", "OTHER LIST"),
+]
+
+P2 = [
+    ("v2 spools", "Spool tool: STS3215 + printed expanding mandrel", "AMS restock", 1, 45.00, "est", "-", "BUY"),
+    ("v2 spools", "Printed hub plugs for every spool (filament)", "standard grip feature (D236)", 1, 10.00, "est", "-", "BUY"),
+    ("v2 spools", "Column stiffness upgrade: 4080 × 1.2 m", "only if v1 column sag > budget", 1, 45.00, "est", "-", "IF NEEDED"),
+    ("v2 spools", "Ender big-spool side stand + PTFE guide + bearings", "3-5 kg spools, no robot threading", 1, 35.00, "est", "-", "BUY"),
+]
+
+
+def table(rows, title):
+    print(f"## {title}\n")
+    print("| Group | Item | Why | Qty | Unit (CAD) | Line (CAD) | Price source | Link | Status |")
+    print("|---|---|---|---|---|---|---|---|---|")
+    tot = 0.0
+    cond = 0.0
+    for g, item, why, q, u, src, link, st in rows:
+        line = q * u
+        if st == "BUY":
+            tot += line
+        elif st == "IF NEEDED":
+            cond += line
+        print(f"| {g} | {item} | {why} | {q} | {u:.2f} | {line:.2f} | {src} | {link} | {st} |")
+    print()
+    return tot, cond
+
+
+print("# FarmHand robot — draft BOM (Phase 1, Gate 1)\n")
+print("Generated by `design/bom_draft.py`. **Draft for budgeting, not a checkout list.** "
+      "Shop pages were blocked during research, so most prices are estimates (`est`) or search-snapshot "
+      "prices (`snap`, stepperonline.ca 2026-10-02); `usd` = USD × 1.40 assumed FX. Verify every line before "
+      "ordering. Tax/shipping not included (add ~15 %).\n")
+t1, c1 = table(P1, "Phase 1 — plates, door, screen, part clearing")
+t2, c2 = table(P2, "Phase 2 — spools (v2)")
+print("## Totals\n")
+print("| Phase | BUY (CAD) | If needed (CAD) | With ~15 % tax + shipping |")
+print("|---|---|---|---|")
+print(f"| Phase 1 | **{t1:,.0f}** | {c1:,.0f} | ~{t1*1.15:,.0f} |")
+print(f"| Phase 2 | **{t2:,.0f}** | {c2:,.0f} | ~{t2*1.15:,.0f} |")
+print(f"| **Robot total** | **{t1+t2:,.0f}** | {c1+c2:,.0f} | ~{(t1+t2)*1.15:,.0f} |")
+print("\nFor comparison (research, USD): 6-axis-on-rail runner-up ≈ +C$1,200 (two strain-wave joints + brakes); "
+      "Dobot M1 Pro SCARA alone US$5,990; used PF400 US$13–16k; Prusa Pro AFS EUR 45k.")

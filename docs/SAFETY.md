@@ -27,6 +27,21 @@ Layers:
 | H15 | Remote attacker / prompt injection via file names, MQTT, OCR | OAuth single-user allowlist, tool whitelist, no raw G-code, approved file library by hash, rate limits, action log; farm LAN segment | Reject + log + alert on denied auth bursts | Quarterly: invalid token, unknown file id, injected file name → all refused |
 | H16 | Windows 10 out of support | ESU enrolment (runs to 2027-10-12) | — | Calendar: plan Linux move before 2027-07 |
 
+### Robot rows (Prompt A, Gate 1 draft — rail-SCARA, see ARCHITECTURE_ROBOT.md)
+Only the Z column carries weight; the SCARA joints swing in a horizontal plane. Design target: tool force ≤ 50 N in the shared zone (*assumed*, below the PF3400's 100 N; check against ISO/TS 15066 tables before Phase 3).
+
+| # | Hazard | Detection | Automatic action | Test (monthly unless noted) |
+|---|---|---|---|---|
+| H17 | Z column drops on power loss, E-stop or a drive fault | Brake is power-off-applied; brake coil fed through the E-stop contactor | Power gone = brake on; revolute joints have no gravity load so nothing else falls | Cut mains with 1.5 kg on the hand at the top of Z → drop < 1 mm |
+| H18 | Pinch/crush between SCARA links, or hand vs printer frame/door | Motor current caps per axis, following error, output-encoder mismatch, breakaway flange microswitch | Fault-stop (E04/E07), latched; links have finger gaps ≥ 25 mm or ≤ 8 mm | Spring scale at the tool during a slow move → stop below 50 N |
+| H19 | Printer moves (bed, toolhead, door) while the hand is inside | Robot sets `inside_printer`; farm server refuses `project_file`, `gcode_line`, OctoPrint jobs while it is set | Print start refused; robot keeps its permit only while the printer stays idle | Dry run: start a print with the arm inside → refused |
+| H20 | Bed lowered/raised by `gcode_line` into the hand | Only reviewed server constants move the bed, and only with the hand outside the printer envelope | Command refused if `inside_printer` | Unit test + dry run |
+| H21 | 24 V bus overvoltage from regen (decelerating Z/X) | Bus voltage monitor on the controller | TVS / brake resistor absorbs it; decel limits; fault if > 30 V | E-stop from top speed, log bus < 30 V |
+| H22 | Stylus ground path ties robot and printer electrics together | Stylus bonded only to robot 0 V / PSU earth, never into printer internals | — | Measure tip-to-printer-chassis < 1 V AC with the robot on (once at build) |
+| H23 | Steel plate dropped (sharp edge, part flung) | Gripper load + FSR "plate present" | Fault-stop, alert; plates carried ≤ 150 mm above the table outside printers | Pull the plate from the jaws by hand → fault |
+| H24 | Hands caught at the X rail carriage, belt or cable chain | Soft limits + hard end stops; brush/cover strip over belt and carriage | — | Visual check, end-stop trip test |
+| H25 | Person in the cell when a job starts | Amber beacon + buzzer 3 s before motion; supervisor "home occupied" flag (phone/Pushover ack); guard + door interlock if Q3 = kids/pets | Unattended jobs only when nobody is flagged home, or after the warning | Start a job while flagged occupied → refused / warned |
+
 **Latch detail (H1/H2):** smoke and heat contacts drive a 12 V self-holding relay (DPDT: one pole holds itself, one pole signals the IoT Relays). A NC "RESET" button breaks the hold. Fail-safe check: if the 12 V supply dies, the IoT Relays use their "normally ON" outlets → printers keep power (this is the one non-fail-safe point; mitigated by the supervisor monitoring the 12 V rail and the smart plugs as a second cut). **Open question:** Prompt A/electrician review of this before Phase 3.
 
 **Mains wiring:** everything above is plug-in or low-voltage (≤ 24 V). No hard-wired 120 V changes without a licensed electrician.
