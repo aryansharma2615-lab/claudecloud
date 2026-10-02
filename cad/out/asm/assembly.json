@@ -1,0 +1,764 @@
+{
+ "title": "FarmHand rail-SCARA v1",
+ "explode_scale": 20,
+ "subtitle": "37 parts \u00b7 shown at 1:2 scale (viewer far-clip is 2 m) \u00b7 tap a part",
+ "groups": {
+  "frame": "Frame + lift \u2014 bought extrusion, rails, screw",
+  "arm": "Printed arm structure",
+  "hand": "Printed hand + tools",
+  "drive": "Bought motors, bearings, pulleys",
+  "grip": "Bought hand parts"
+ },
+ "steps": [
+  [
+   1,
+   "X rail",
+   "Beam on the table front, X carriage on its wheels, X motor + belt."
+  ],
+  [
+   2,
+   "Z column",
+   "Column on the X carriage, lead screw + Z motor at the bottom."
+  ],
+  [
+   3,
+   "Shoulder",
+   "Z plate + nut, then the shoulder housing; press the two 6806s, J1 motor + intermediate shaft."
+  ],
+  [
+   4,
+   "Upper arm",
+   "Spigot down through the bearings, clamp the 64T pulley under the deck; bolt the link to the root; J2 motor on top."
+  ],
+  [
+   5,
+   "Forearm",
+   "Elbow bearings, forearm spigot up through them; wrist motor underneath."
+  ],
+  [
+   6,
+   "Wrist",
+   "Wrist bearings and the quick-change flange."
+  ],
+  [
+   7,
+   "Hand",
+   "Press the 3 balls, drop in the servo, offer the hand up to the flange (magnets pull it home)."
+  ],
+  [
+   8,
+   "Jaws",
+   "MGN9 rail, carriages, jaws, TPU pads."
+  ],
+  [
+   9,
+   "Plates",
+   "Clamp a shoe on every build plate."
+  ]
+ ],
+ "parts": [
+  {
+   "id": "x_beam",
+   "label": "X rail beam",
+   "stl": "x_beam.stl",
+   "color": "#8a94a6",
+   "group": "frame",
+   "step": 1,
+   "explode": [
+    0,
+    0,
+    -1.5
+   ],
+   "note": "2040 V-slot, 1.5 m along the table front. The whole robot rides on it so it can park square in front of either printer \u2014 no long reach needed.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "x_motor",
+   "label": "X motor",
+   "stl": "x_motor.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 1,
+   "explode": [
+    1.5,
+    0,
+    -1
+   ],
+   "note": "NEMA 17 + GT2 20T pulley. Belt moves the carriage; an AprilTag at each printer re-references X so belt stretch never adds up.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "x_plate",
+   "label": "X carriage",
+   "stl": "x_plate.stl",
+   "color": "#8a94a6",
+   "group": "frame",
+   "step": 1,
+   "explode": [
+    0,
+    0,
+    -1
+   ],
+   "note": "Gantry plate on 4 V-wheels. The Z column bolts to it.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "z_column",
+   "label": "Z column",
+   "stl": "z_column.stl",
+   "color": "#8a94a6",
+   "group": "frame",
+   "step": 2,
+   "explode": [
+    0,
+    -1.5,
+    0
+   ],
+   "note": "2040 V-slot, 1 m tall. The only part of the robot that fights gravity is what slides up this.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "z_screw",
+   "label": "Lead screw T8\u00d72",
+   "stl": "z_screw.stl",
+   "color": "#8a94a6",
+   "group": "frame",
+   "step": 2,
+   "explode": [
+    0,
+    -2.5,
+    0
+   ],
+   "note": "2 mm per turn = self-locking: thread friction beats the weight, so the arm cannot fall when power is cut. That is why there is no brake.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "z_motor",
+   "label": "Z motor",
+   "stl": "z_motor.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 2,
+   "explode": [
+    0,
+    -2,
+    -1.5
+   ],
+   "note": "NEMA 17 turning the lead screw. Needs only 36 % of its torque to lift the whole arm + 1.5 kg.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "z_motor_mount",
+   "label": "Z motor mount",
+   "stl": "z_motor_mount.stl",
+   "color": "#2f7fd1",
+   "group": "arm",
+   "step": 2,
+   "explode": [
+    0,
+    -2,
+    -1
+   ],
+   "note": "Printed bracket, takes the screw thrust. Bolts to the column with M5 T-nuts.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "z_nut",
+   "label": "Brass nut",
+   "stl": "z_nut.stl",
+   "color": "#8a94a6",
+   "group": "frame",
+   "step": 3,
+   "explode": [
+    0,
+    -2,
+    0
+   ],
+   "note": "Rides the lead screw; bolted to the Z plate so turning the screw lifts the carriage.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "z_plate",
+   "label": "Z carriage plate",
+   "stl": "z_plate.stl",
+   "color": "#8a94a6",
+   "group": "frame",
+   "step": 3,
+   "explode": [
+    0,
+    -1.5,
+    0
+   ],
+   "note": "Bought gantry plate on V-wheels around the column. The shoulder housing bolts flat to it with 4 \u00d7 M5.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "shoulder_housing",
+   "label": "Shoulder housing",
+   "stl": "shoulder_housing.stl",
+   "color": "#2f7fd1",
+   "group": "arm",
+   "step": 3,
+   "explode": [
+    0,
+    -0.8,
+    0
+   ],
+   "note": "Holds the two J1 bearings 60 mm apart \u2014 that spacing turns the arm's 14.4 N\u00b7m moment into ~240 N per bearing, easy for 6806s. Ribs carry it back to the plate.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "j1_motor",
+   "label": "J1 motor",
+   "stl": "j1_motor.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 3,
+   "explode": [
+    -1,
+    -1,
+    1
+   ],
+   "note": "NEMA 17 on the deck, shaft down. Two GT2 1:4 stages under the deck give 1:16 \u2014 60 % of capacity for a 180\u00b0 swing in 2.2 s.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "j1_brg_bottom",
+   "label": "J1 bearing low",
+   "stl": "j1_brg_bottom.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 3,
+   "explode": [
+    0,
+    0,
+    -1.2
+   ],
+   "note": "6806 (30\u00d742\u00d77) pressed in the bottom of the tower.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "j1_brg_top",
+   "label": "J1 bearing top",
+   "stl": "j1_brg_top.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 3,
+   "explode": [
+    0,
+    0,
+    1.2
+   ],
+   "note": "6806 in the top of the tower. The upper-arm spigot runs through both.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "j1_pulley_mid",
+   "label": "J1 intermediate",
+   "stl": "j1_pulley_mid.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 3,
+   "explode": [
+    0,
+    -1,
+    -1.5
+   ],
+   "note": "64T + 16T on an 8 mm shaft in two 608s: the middle of the 1:16 reduction.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "j1_pulley_out",
+   "label": "J1 output pulley",
+   "stl": "j1_pulley_out.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 4,
+   "explode": [
+    0,
+    0,
+    -2
+   ],
+   "note": "64T clamped on the bottom of the spigot (clamp hub, no set screw \u2014 set screws loosened on PAROL6).",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "upper_arm_root",
+   "label": "Upper arm \u2014 root",
+   "stl": "upper_arm_root.stl",
+   "color": "#2f7fd1",
+   "group": "arm",
+   "step": 4,
+   "explode": [
+    0,
+    0,
+    1
+   ],
+   "note": "J1 spigot + J2 motor seat + the first 1:4 stage. Hollow so cables go down the middle of J1.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "upper_arm_link",
+   "label": "Upper arm \u2014 link",
+   "stl": "upper_arm_link.stl",
+   "color": "#2f7fd1",
+   "group": "arm",
+   "step": 4,
+   "explode": [
+    0.6,
+    0,
+    1
+   ],
+   "note": "Split at x = 120 so each half fits the H2S bed; 4 \u00d7 M4 through the flanges. Open underside gets a snap-on cover over the belt.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "j2_motor",
+   "label": "J2 motor",
+   "stl": "j2_motor.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 4,
+   "explode": [
+    -0.5,
+    0,
+    2
+   ],
+   "note": "Sits behind J1, not at the elbow, so J1 doesn't have to swing its mass at full reach.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "j2_brg_bottom",
+   "label": "Elbow bearing low",
+   "stl": "j2_brg_bottom.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 5,
+   "explode": [
+    0,
+    0,
+    -1
+   ],
+   "note": "6805 (25\u00d737\u00d77).",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "j2_brg_top",
+   "label": "Elbow bearing top",
+   "stl": "j2_brg_top.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 5,
+   "explode": [
+    0,
+    0,
+    1.6
+   ],
+   "note": "6805. Forearm spigot runs up through both.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "forearm",
+   "label": "Forearm",
+   "stl": "forearm.stl",
+   "color": "#2f7fd1",
+   "group": "arm",
+   "step": 5,
+   "explode": [
+    0.5,
+    0,
+    -1
+   ],
+   "note": "Hangs under the upper arm so the hand reaches low into the printers. Belt to the wrist runs inside.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "w_motor",
+   "label": "Wrist motor",
+   "stl": "w_motor.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 5,
+   "explode": [
+    -0.5,
+    0,
+    -2
+   ],
+   "note": "NEMA 17 behind the elbow (balances the forearm), 1:4 belt to the wrist.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "w_brg_bottom",
+   "label": "Wrist bearing low",
+   "stl": "w_brg_bottom.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 6,
+   "explode": [
+    0,
+    0,
+    -1.2
+   ],
+   "note": "6704 (20\u00d727\u00d74).",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "w_brg_top",
+   "label": "Wrist bearing top",
+   "stl": "w_brg_top.stl",
+   "color": "#3a3f47",
+   "group": "drive",
+   "step": 6,
+   "explode": [
+    0,
+    0,
+    1.2
+   ],
+   "note": "6704.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "wrist_flange",
+   "label": "Quick-change flange",
+   "stl": "wrist_flange.stl",
+   "color": "#e0782d",
+   "group": "hand",
+   "step": 6,
+   "explode": [
+    0,
+    0,
+    -0.6
+   ],
+   "note": "Three V-grooves underneath. Three steel balls on the hand drop into them: one exact position every time (~40 \u00b5m, Jubilee pattern). Magnets only pull it together; the balls carry the load.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "ball_0",
+   "label": "Steel ball",
+   "stl": "ball_0.stl",
+   "color": "#c9a227",
+   "group": "grip",
+   "step": 7,
+   "explode": [
+    0,
+    0,
+    -1.2
+   ],
+   "note": "\u00d810 hardened ball, pressed into the hand. Sits 2.8 mm proud so the faces never touch \u2014 only the 6 ball/groove contacts do.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "ball_1",
+   "label": "Steel ball",
+   "stl": "ball_1.stl",
+   "color": "#c9a227",
+   "group": "grip",
+   "step": 7,
+   "explode": [
+    0,
+    0,
+    -1.2
+   ],
+   "note": "Kinematic coupling ball (2 of 3).",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "ball_2",
+   "label": "Steel ball",
+   "stl": "ball_2.stl",
+   "color": "#c9a227",
+   "group": "grip",
+   "step": 7,
+   "explode": [
+    0,
+    0,
+    -1.2
+   ],
+   "note": "Kinematic coupling ball (3 of 3).",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "hand_body",
+   "label": "Hand body",
+   "stl": "hand_body.stl",
+   "color": "#e0782d",
+   "group": "hand",
+   "step": 7,
+   "explode": [
+    0,
+    0,
+    -1.6
+   ],
+   "note": "Holds the gripper servo, jaw rail, the stylus barrel (right end) and the door hook (left end). Camera window on the side.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "servo",
+   "label": "Gripper servo",
+   "stl": "servo.stl",
+   "color": "#c9a227",
+   "group": "grip",
+   "step": 7,
+   "explode": [
+    0,
+    1.8,
+    -1.6
+   ],
+   "note": "Feetech STS3215. Reports its load, so the robot knows how hard it is squeezing.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "mgn9_rail",
+   "label": "Jaw rail",
+   "stl": "mgn9_rail.stl",
+   "color": "#c9a227",
+   "group": "grip",
+   "step": 8,
+   "explode": [
+    0,
+    0,
+    -2.2
+   ],
+   "note": "MGN9. Both jaws on one rail, driven opposite ways: the part always ends up centred.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "mgn9_car_l",
+   "label": "Jaw carriage",
+   "stl": "mgn9_car_l.stl",
+   "color": "#c9a227",
+   "group": "grip",
+   "step": 8,
+   "explode": [
+    -0.6,
+    0,
+    -2.4
+   ],
+   "note": "MGN9 carriage, left jaw.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "mgn9_car_r",
+   "label": "Jaw carriage",
+   "stl": "mgn9_car_r.stl",
+   "color": "#c9a227",
+   "group": "grip",
+   "step": 8,
+   "explode": [
+    0.6,
+    0,
+    -2.4
+   ],
+   "note": "MGN9 carriage, right jaw.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "jaw_left",
+   "label": "Jaw",
+   "stl": "jaw_left.stl",
+   "color": "#e0782d",
+   "group": "hand",
+   "step": 8,
+   "explode": [
+    -1.2,
+    0,
+    -2.6
+   ],
+   "note": "Rigid core + slot for a 2 mm steel 'nail' at the tip (fin-ray tips lose force on edges and thin plates).",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "jaw_right",
+   "label": "Jaw",
+   "stl": "jaw_right.stl",
+   "color": "#e0782d",
+   "group": "hand",
+   "step": 8,
+   "explode": [
+    1.2,
+    0,
+    -2.6
+   ],
+   "note": "Same STL as the left jaw, turned 180\u00b0.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "finray_pad",
+   "label": "Fin-ray pad",
+   "stl": "finray_pad.stl",
+   "color": "#e0782d",
+   "group": "hand",
+   "step": 8,
+   "explode": [
+    2.2,
+    0,
+    -2.6
+   ],
+   "note": "TPU. Ribs fold toward the object when squeezed, so the pad wraps odd shapes instead of pushing them away.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  },
+  {
+   "id": "plate_shoe",
+   "label": "Plate shoe",
+   "stl": "plate_shoe.stl",
+   "color": "#e0782d",
+   "group": "hand",
+   "step": 9,
+   "explode": [
+    0,
+    0,
+    1
+   ],
+   "note": "Clamps on the front notch of every build plate. The robot always grabs this tab, never the bare plate.",
+   "transform": [
+    {
+     "scale": 0.5
+    }
+   ]
+  }
+ ]
+}

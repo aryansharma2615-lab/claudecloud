@@ -131,17 +131,19 @@ parts["wrist_flange"] = (wf, "PETG-CF", "Bambu H2S", "V-seats need stiffness; ba
                          Pos(L1 + L2, 0, FA_Z1 - BEAM_H - 1))
 
 # ---------------- 5. hand body (gripper + stylus + hook + camera) ----------------
-hb = box(-60, 60, -27, 27, -32, 0)
+BALL_SEAT_GAP = BALL / 2 * 2 ** 0.5 - 3 * 2 ** 0.5   # ball centre sits r·√2 above a 90° V apex (groove 4.24 deep) -> 2.83 mm gap
+HB_Z = -40.0                                                     # hand body bottom
+hb = box(-60, 60, -27, 27, HB_Z, 0)
 for k in range(3):                                               # ball sockets matching the V-grooves
     hb -= Rot(0, 0, 120 * k) * Pos(25, 0, 0) * Cylinder(BALL / 2 + 0.05, BALL)
     hb -= Rot(0, 0, 120 * k + 60) * Pos(25, 0, 0) * Cylinder(4.1, 6)
-hb -= box(-STS3215["l"] / 2 - 0.2, STS3215["l"] / 2 + 0.2, -STS3215["w"] / 2 - 0.2, STS3215["w"] / 2 + 0.2, -22, -WALL)
-hb -= box(-60.1, 60.1, -MGN9["rail_w"] / 2 - 0.1, MGN9["rail_w"] / 2 + 0.1, -32.1, -32 + MGN9["rail_h"] - 1)  # rail groove
-hb += box(60, 78, -10, 10, -32, -4) - cyl(14.2, -33, -3, 69, 0)  # stylus barrel boss (Ø14 plunger tube)
-hb += box(-78, -60, -6, 6, -8, 0) + box(-90, -78, -6, 6, -30, 0)   # door / AMS-lid hook
-hb += box(-20, 20, 27, 33, -30, 0) - box(-14, 14, 26, 34, -26, -6)  # wrist-camera window bracket
+hb -= box(-STS3215["l"] / 2 - 0.8, STS3215["l"] / 2 + 0.8, -STS3215["h"] / 2 - 0.8, STS3215["h"] / 2 + 0.8, -WALL - 3 - STS3215["w"] - 0.4, -WALL - 3)  # servo lies on its side, 3 mm under the ball sockets
+hb -= box(-60.1, 60.1, -MGN9["rail_w"] / 2 - 0.1, MGN9["rail_w"] / 2 + 0.1, HB_Z - 0.1, HB_Z + MGN9["rail_h"] - 1)  # rail groove
+hb += box(60, 78, -10, 10, HB_Z, -4) - cyl(14.2, HB_Z - 1, -3, 69, 0)  # stylus barrel boss (Ø14 plunger tube)
+hb += box(-78, -60, -6, 6, -8, 0) + box(-90, -78, -6, 6, HB_Z + 2, 0)   # door / AMS-lid hook
+hb += box(-20, 20, 27, 33, HB_Z + 2, 0) - box(-14, 14, 26, 34, HB_Z + 6, -6)  # wrist-camera window bracket
 parts["hand_body"] = (soften(hb, 1.5), "PETG-CF", "Bambu H2S or Ender", "small; balls pressed into sockets",
-                      Pos(L1 + L2, 0, FA_Z1 - BEAM_H - 11))
+                      Pos(L1 + L2, 0, FA_Z1 - BEAM_H - 11 - BALL_SEAT_GAP))
 
 # ---------------- 6. jaw (print 2) ----------------
 jw = box(-10, 10, -MGN9["car_w"] / 2, MGN9["car_w"] / 2, -6, 0)   # carriage plate
@@ -150,8 +152,12 @@ jw -= box(-3.1, 3.1, -9.1, 9.1, -92, -20)                        # dovetail-ish 
 jw -= box(-1.05, 1.05, -8, 8, -96, -84)                          # slot for the 2 mm steel "nail" strip
 for y in (-5, 5):
     jw -= cyl(M3_CLR, -7, 1, 0, y)                               # to MGN9 carriage
-parts["jaw"] = (jw, "PETG-CF", "Ender 3 S1 Pro", "print on its side so layers run along the finger (bending strength)",
-                Pos(L1 + L2 + 30, 0, FA_Z1 - BEAM_H - 11 - 32))
+HAND_Z = FA_Z1 - BEAM_H - 11 - BALL_SEAT_GAP                                     # hand-body top in the assembly
+JAW_Z = HAND_Z + HB_Z - MGN9["car_h"]                            # jaws hang under the MGN9 carriages
+parts["jaw_left"] = (jw, "PETG-CF", "Ender 3 S1 Pro", "print 2: on its side so layers run along the finger",
+                     Pos(L1 + L2 - 30, 0, JAW_Z))
+parts["jaw_right"] = (Rot(0, 0, 180) * jw, "PETG-CF", "Ender 3 S1 Pro", "mirror of jaw_left (same STL rotated)",
+                      Pos(L1 + L2 + 30, 0, JAW_Z))
 
 # ---------------- 7. fin-ray pad (TPU, print 2) ----------------
 tri = extrude(Polygon((0, 0), (14, 0), (0, 70), align=None), 18)
@@ -163,7 +169,7 @@ for i in range(1, 7):
 pad = pad & tri
 pad = Rot(90, 0, 0) * pad
 parts["finray_pad"] = (pad, "TPU 95A", "Ender 3 S1 Pro", "flexible: wraps the part; Ender has a direct-drive Sprite extruder",
-                       Pos(L1 + L2 + 37, 9, FA_Z1 - BEAM_H - 11 - 32 - 92))
+                       Pos(L1 + L2 + 50, 9, JAW_Z - 92))
 
 # ---------------- 8. plate shoe (H2S plate front notch is ~136 × 15.5 mm) ----------------
 ps = box(-60, 60, 0, 22, 0, 10)
@@ -174,7 +180,7 @@ for x in (-45, 0, 45):
 for x in range(-16, 17, 8):
     ps -= box(x - 1, x + 1, -26, -4, 7, 8.1)                     # grip ribs
 parts["plate_shoe"] = (ps, "PETG", "Ender 3 S1 Pro", "one per plate; screws clamp it on, no glue on the PEI",
-                       Pos(900, -400, 0))
+                       Pos(L1 + L2, -20, JAW_Z - 140))
 
 # ---------------- 9. Z-motor mount (bottom of the 2040 column) ----------------
 zm = box(-25, 25, -10, 52, 0, 8) + box(-25, 25, -10, -2, 8, 60)
@@ -183,8 +189,57 @@ for z in (20, 50):
     zm -= Pos(-10, -6, z) * Rot(90, 0, 0) * Cylinder(M5_CLR / 2, 10)
     zm -= Pos(10, -6, z) * Rot(90, 0, 0) * Cylinder(M5_CLR / 2, 10)
 parts["z_motor_mount"] = (zm, "PETG-CF", "Ender 3 S1 Pro", "takes the screw thrust; motor hangs below, T8 coupler above",
-                          Pos(0, -200, -300))
+                          Pos(35, -141, -390))
 
+
+# ---------------- bought parts as crude primitives (placed in the assembly frame) ----------------
+def ring(brg, x, y, z0):
+    return cyl(brg[1], z0, z0 + brg[2], x, y) - cyl(brg[0], z0 - 1, z0 + brg[2] + 1, x, y)
+
+
+def nema(x, y, z0, up=True):
+    n = NEMA17
+    body = box(x - n["side"] / 2, x + n["side"] / 2, y - n["side"] / 2, y + n["side"] / 2, z0, z0 + n["len"]) if up else \
+        box(x - n["side"] / 2, x + n["side"] / 2, y - n["side"] / 2, y + n["side"] / 2, z0 - n["len"], z0)
+    return body
+
+
+def gt2(teeth, x, y, z0, h=8):
+    return cyl(GT2_PD[teeth] + 1.5, z0, z0 + h, x, y)
+
+
+UAZ1 = UA_Z0 + BEAM_H
+bought = {
+    "x_beam": (box(-650, 850, -135, -95, -480, -460), "2040 V-slot 1.5 m — the X rail"),
+    "x_plate": (box(-90, 60, -160, -70, -454, -448), "X gantry plate + 4 V-wheels"),
+    "x_motor": (nema(880, -115, -480), "NEMA 17 + GT2 20T pulley — drives X by belt"),
+    "z_column": (box(-40, 0, -125, -105, -448, 552), "2040 V-slot 1.0 m — the Z column"),
+    "z_plate": (box(-65, 45, -92, -86, -65, 65), "Z gantry plate (bought) — the shoulder housing bolts to it"),
+    "z_screw": (cyl(8, -382, 552, 35, -115), "T8×2 lead screw 1000 mm (self-locking)"),
+    "z_nut": (cyl(22, -10, 5, 35, -115) - cyl(8.5, -11, 6, 35, -115), "Brass T8 nut, bolted to the Z plate"),
+    "z_motor": (nema(35, -115, -390, up=False), "NEMA 17 — Z lift, turns the lead screw"),
+    "j1_motor": (nema(-45, -45, 8), "NEMA 17 — J1 shoulder, 1:16 through two GT2 stages under the deck"),
+    "j1_brg_bottom": (ring(B6806, 0, 0, 0), "6806 bearing (30×42×7) — J1 lower"),
+    "j1_brg_top": (ring(B6806, 0, 0, 60 - B6806[2]), "6806 bearing — J1 upper; the pair takes the 14.4 N·m arm moment"),
+    "j1_pulley_out": (gt2(64, 0, 0, -22) - cyl(30.2, -23, -13), "GT2 64T — J1 output pulley clamped on the spigot"),
+    "j1_pulley_mid": (gt2(64, 0, -45, -12) + gt2(16, 0, -45, -22, 8) - cyl(8, -23, -3, 0, -45), "64T + 16T on the 8 mm intermediate shaft"),
+    "j2_motor": (nema(-50, 0, UAZ1), "NEMA 17 — J2 elbow, behind J1 so it barely adds J1 inertia"),
+    "j2_brg_bottom": (ring(B6805, L1, 0, UA_Z0), "6805 bearing (25×37×7) — elbow lower"),
+    "j2_brg_top": (ring(B6805, L1, 0, UAZ1 - B6805[2]), "6805 bearing — elbow upper"),
+    "w_motor": (nema(L1 - 45, 0, FA_Z1 - BEAM_H, up=False), "NEMA 17 — wrist yaw, 1:4 belt inside the forearm"),
+    "w_brg_bottom": (ring(B6704, L1 + L2, 0, FA_Z1 - BEAM_H), "6704 bearing (20×27×4) — wrist lower"),
+    "w_brg_top": (ring(B6704, L1 + L2, 0, FA_Z1 - B6704[2]), "6704 bearing — wrist upper"),
+    "servo": (box(L1 + L2 - 22.6, L1 + L2 + 22.6, -17.5, 17.5, HAND_Z - WALL - 3 - STS3215["w"], HAND_Z - WALL - 3),
+              "Feetech STS3215 — gripper servo, reports position and load (grip force)"),
+    "mgn9_rail": (box(L1 + L2 - 58, L1 + L2 + 58, -4.5, 4.5, HAND_Z + HB_Z, HAND_Z + HB_Z + MGN9["rail_h"] - 1.2),
+                  "MGN9 rail — both jaws slide on it, so they close symmetrically (self-centring)"),
+    "mgn9_car_l": (box(L1 + L2 - 30 - 14.85, L1 + L2 - 30 + 14.85, -10, 10, JAW_Z, HAND_Z + HB_Z), "MGN9 carriage — left jaw"),
+    "mgn9_car_r": (box(L1 + L2 + 30 - 14.85, L1 + L2 + 30 + 14.85, -10, 10, JAW_Z, HAND_Z + HB_Z), "MGN9 carriage — right jaw"),
+}
+for k in range(3):
+    from build123d import Sphere
+    bought[f"ball_{k}"] = (Pos(L1 + L2, 0, HAND_Z) * Rot(0, 0, 120 * k) * Pos(25, 0, 0) * Sphere(BALL / 2 - 0.05),
+                           "Ø10 hardened steel ball — kinematic seat (3 balls in 3 V-grooves = one exact position)")
 
 # ---------------- export + checks ----------------
 def fits(size, bed):
@@ -215,12 +270,20 @@ for name, (solid, mat, printer, why, place) in parts.items():
     rows.append((name, mat, printer, size, mass, solid.is_valid, {b: fits(size, d) for b, d in BEDS.items()}, why))
     placed[name] = place * solid
 
+ASM = os.path.join(OUT, "asm")
+os.makedirs(ASM, exist_ok=True)
+for name, (solid, _) in bought.items():
+    placed[name] = solid
+for name, solid in placed.items():
+    export_stl(solid, os.path.join(ASM, f"{name}.stl"), tolerance=0.2, angular_tolerance=0.3)
 asm = Compound(list(placed.values()))
 export_step(asm, os.path.join(OUT, "farmhand_scara_v1_assembly.step"))
 
 clash = []
 for (a, sa), (b, sb) in itertools.combinations(placed.items(), 2):
-    if not sa.bounding_box().overlaps(sb.bounding_box()) if hasattr(sa.bounding_box(), "overlaps") else False:
+    ba, bb_ = sa.bounding_box(), sb.bounding_box()
+    if (ba.max.X < bb_.min.X or bb_.max.X < ba.min.X or ba.max.Y < bb_.min.Y or bb_.max.Y < ba.min.Y
+            or ba.max.Z < bb_.min.Z or bb_.max.Z < ba.min.Z):
         continue
     try:
         v = (sa & sb).volume
@@ -231,14 +294,14 @@ for (a, sa), (b, sb) in itertools.combinations(placed.items(), 2):
 
 with open(os.path.join(os.path.dirname(__file__), "..", "docs", "DFM_REPORT.md"), "w") as f:
     f.write("# FarmHand rail-SCARA v1 — DFM report (generated by `cad/build_parts.py`)\n\n")
-    f.write("First-pass printed parts. Bought parts (motors, bearings, rails, screw) are not modelled yet. "
+    f.write("First-pass printed parts. Bought parts are crude primitives (motors as boxes, bearings as rings). "
             "Mass = solid volume × density (upper bound; real prints use 40 % infill).\n\n")
     f.write("| Part | Material | Print on | Size X×Y×Z (mm) | Mass ≤ (g) | Valid solid | Fits Ender | Fits H2S | Why |\n")
     f.write("|---|---|---|---|---|---|---|---|---|\n")
     for n, m, p, s, g, ok, fit, why in rows:
         f.write(f"| {n} | {m} | {p} | {s[0]:.0f}×{s[1]:.0f}×{s[2]:.0f} | {g:.0f} | {'yes' if ok else 'NO'} | "
                 f"{fit['Ender 3 S1 Pro']} | {fit['Bambu H2S']} | {why} |\n")
-    f.write(f"\n**Clash check (assembly, arm stretched):** {len(clash)} overlaps > 1 mm³")
+    f.write(f"\n**Clash check (assembly, arm stretched, {len(placed)} bodies incl. {len(bought)} bought parts as primitives; bearings in seats and spigots in bearings included):** {len(clash)} overlaps > 1 mm³")
     f.write(":\n\n" + "\n".join(f"- {a} ∩ {b}: {v:.0f} mm³" for a, b, v in clash) + "\n" if clash else " ✓\n")
 
 for r in rows:
