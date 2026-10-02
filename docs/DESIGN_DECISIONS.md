@@ -17,7 +17,8 @@ while designing and checking. Each says what, why (with the number), and where i
 | D250 | Hand = one multi-mode hand on a 3-ball kinematic flange; ball seats sit 2.8 mm proud | a ball in a 90° V-groove sits r·√2 above the apex → faces never touch (clash check caught it) | cad/build_parts.py, docs/DFM_REPORT.md |
 | D251 | Stylus barrel must point horizontally (screens are on vertical faces, the wrist has no pitch) | path sweep models a horizontal stylus; CAD barrel now runs along +y (done) | sim/paths.py, cad/build_parts.py |
 | D253 | Planning margins: J1 ±140°, J2 ±140°, reach ≤ 530 mm (plate pull ≤ 540) | the first sweep planned poses at J1 = −150° and 549/550 mm reach: no room for calibration error | sim/paths.py |
-| D252 | Viewer renders at 1:2 scale | the viewer template's far clip is 2 m and the robot spans ~1.5 m | cad/viewer_config.py |
+| D254 | Z carriage plate mounted 10 mm lower (top at z +55, arm underside at +62) | the SP engine's mesh collision sweep found the upper-arm tail hitting the bought gantry plate at J1 ≈ 205° (3 mm overlap); my box sweep had no plate in it | av/farmhand_artifact_v1.html Motion → Path: 0 collisions over 7 jobs |
+| D252 | Viewer renders at 1:2 scale (generic viewer only; the SP engine v5.3 renders 1:1) | the viewer template's far clip is 2 m and the robot spans ~1.5 m | cad/viewer_config.py |
 
 ## Assumptions ledger (replace with measurements)
 Table 1500 × 750 × 750, printers against the back wall, 100 mm gap, H2S on the left with a left-hinged door

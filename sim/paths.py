@@ -216,6 +216,7 @@ def run_job(name, waypoints, obstacles_fn, allow=None, steps=12, fixed_first=Tru
             samples.append(tuple((a[k] + (b[k] - a[k]) * f) if isinstance(a[k], float) and isinstance(b[k], float) else a[k]
                                  for k in range(7)))
     prev, hits, worst, reach, zs, jr, xs = None, [], 1e9, [], [], [], []
+    traj = []
     if fixed_first and all(smp[0] is None for smp in samples):     # one rail stop for the whole job, if one exists
         for el in (1, -1):
             for x in sorted(X_GRID, key=lambda v: abs(v - (samples[0][2] - 250))):
@@ -247,11 +248,12 @@ def run_job(name, waypoints, obstacles_fn, allow=None, steps=12, fixed_first=Tru
         prev = (x, el)
         worst = min(worst, clr)
         reach.append(math.hypot(wx - x, wy)); zs.append(Zs); jr.append(sol); xs.append(x)
+        traj.append((x, Zs, sol[0], sol[1], yaw, el))
     return dict(name=name, n=len(samples), hits=hits, clear=worst if worst < 1e9 else 0,
                 reach=(min(reach), max(reach)) if reach else (0, 0), zs=(min(zs), max(zs)) if zs else (0, 0),
                 j1=(min(j[0] for j in jr), max(j[0] for j in jr)) if jr else (0, 0),
                 j2=(min(j[1] for j in jr), max(j[1] for j in jr)) if jr else (0, 0),
-                x=(min(xs), max(xs)) if xs else (0, 0))
+                x=(min(xs), max(xs)) if xs else (0, 0), traj=traj)
 
 
 def main():
@@ -348,6 +350,7 @@ def main():
             lines += [f"- {h}" for h in j["hits"][:8]]
     open(os.path.join(os.path.dirname(__file__), "PATHS_REPORT.md"), "w").write("\n".join(lines) + "\n")
     print("\n".join(lines))
+    return jobs
 
 
 if __name__ == "__main__":

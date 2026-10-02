@@ -239,7 +239,7 @@ bought = {
     "x_plate": (box(-90, 60, -160, -70, -454, -448), "X gantry plate + 4 V-wheels"),
     "x_motor": (nema(880, -115, -480), "NEMA 17 + GT2 20T pulley — drives X by belt"),
     "z_column": (box(-40, 0, -125, -105, -448, 552), "2040 V-slot 1.0 m — the Z column"),
-    "z_plate": (box(-65, 45, -92, -86, -65, 65), "Z gantry plate (bought) — the shoulder housing bolts to it"),
+    "z_plate": (box(-65, 45, -92, -86, -75, 55), "Z gantry plate (bought) — top kept 7 mm under the arm so the upper-arm tail clears it (D254)"),
     "z_screw": (cyl(8, -382, 552, 35, -115), "T8×2 lead screw 1000 mm (self-locking)"),
     "z_nut": (cyl(22, -10, 5, 35, -115) - cyl(8.5, -11, 6, 35, -115), "Brass T8 nut, bolted to the Z plate"),
     "z_motor": (nema(35, -115, -390, up=False), "NEMA 17 — Z lift, turns the lead screw"),
