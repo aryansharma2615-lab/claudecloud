@@ -39,6 +39,67 @@ s = patch(s, "const P = M.persp(FOV, r.width/r.height, 1, plateMode?4000:2000);"
 s = patch(s, "const P = M.persp(FOV, r.width/r.height, 1, 2000); P[9] = -viewShiftY;\n  return {MVP",
           "const P = M.persp(FOV, r.width/r.height, 1, farClip()); P[9] = -viewShiftY;\n  return {MVP", "curMVP far")
 
+# ---------------- R9: CHECKS lane (design gates as tiles) ----------------
+s = patch(s, '<button id="dPlate" aria-pressed="false"><span class="ic">▤</span>Plate</button>',
+          '<button id="dPlate" aria-pressed="false"><span class="ic">▤</span>Plate</button>\n'
+          '    <button id="dCheck" aria-pressed="false"><span class="ic">✓</span>Checks</button>', "dock button")
+s = patch(s, 'for (const id of ["dParts","dBuild","dMotion","dBom","dWire","dPlate"])\n    $(id).setAttribute("aria-pressed","false");\n  viewShiftY = 0;',
+          'for (const id of ["dParts","dBuild","dMotion","dBom","dWire","dPlate","dCheck"])\n    $(id).setAttribute("aria-pressed","false");\n  viewShiftY = 0;', "closeSheet list")
+s = patch(s, 'function setDock(tab){\n  for (const id of ["dParts","dBuild","dMotion","dBom","dWire","dPlate"])',
+          'function setDock(tab){\n  for (const id of ["dParts","dBuild","dMotion","dBom","dWire","dPlate","dCheck"])', "setDock list")
+s = patch(s, 'wire:"dWire",plate:"dPlate",motion:"dMotion"}[tab])', 'wire:"dWire",plate:"dPlate",motion:"dMotion",check:"dCheck"}[tab])', "setDock map")
+s = patch(s, '["build","dBuild"],["bom","dBom"],["plate","dPlate"]]){', '["build","dBuild"],["bom","dBom"],["plate","dPlate"],["check","dCheck"]]){', "openSheet list")
+s = patch(s, 'wire:showWire, plate:showPlate, motion:showMotion}[tab] || showParts)();',
+          'wire:showWire, plate:showPlate, motion:showMotion, check:showChecks}[tab] || showParts)();', "goTab map")
+s = patch(s, '["dBom","bom"],["dWire","wire"],["dPlate","plate"]]){', '["dBom","bom"],["dWire","wire"],["dPlate","plate"],["dCheck","check"]]){', "tab registration")
+s = patch(s, 'if (!MO){ $("dMotion").style.display="none"; }',
+          'if (!MO){ $("dMotion").style.display="none"; }\nif (!(META.checks||[]).length){ $("dCheck").style.display="none"; }', "hide checks")
+s = patch(s, "function showPlate(){", r"""/* RATCHET R9 (v5.3, FarmHand): CHECKS lane. Every gate the project's scripts computed, as one
+   screen of tiles: status first (colour + glyph, never colour alone), the number against its limit
+   as a meter, and the script that proves it. META.checks = [{group,label,value,limit,unit,
+   status:"pass"|"warn"|"fail",lower_is_better,source,note}]. */
+function showChecks(){
+  const C = META.checks || [];
+  shTitle.textContent = "Checks · " + C.length + " gates";
+  shBody.textContent = "";
+  const n = s => C.filter(c => c.status === s).length;
+  const k = el("div","kpis"); k.style.gridTemplateColumns = "repeat(3,1fr)";
+  const tile = (lab, v, cls) => { const t = el("div","kpi"+(cls?" "+cls:"")); t.appendChild(el("div","k",lab));
+    t.appendChild(el("div","v",String(v))); return t; };
+  k.appendChild(tile("Pass", n("pass"), n("pass")===C.length ? "accent" : ""));
+  k.appendChild(tile("Warn", n("warn"), ""));
+  k.appendChild(tile("Fail", n("fail"), n("fail") ? "bad" : ""));
+  shBody.appendChild(k);
+  const groups = [...new Set(C.map(c => c.group || "Checks"))];
+  for (const g of groups){
+    shBody.appendChild(el("div","grp",g));
+    const box = el("div","lbars");
+    for (const c of C.filter(c => (c.group||"Checks") === g)){
+      const st = c.status || "pass";
+      const r = el("div","lbar" + (st==="fail" ? " bad" : st==="warn" ? " warn" : ""));
+      const glyph = st==="fail" ? "✗ " : st==="warn" ? "! " : "✓ ";
+      r.appendChild(el("div","lbl", glyph + c.label));
+      const num = typeof c.value === "number";
+      r.appendChild(el("div","lval", num ? (c.value.toFixed(Math.abs(c.value) < 10 ? 2 : 0) + (c.unit ? " " + c.unit : "")
+                                            + (c.limit != null ? "  / " + c.limit + (c.unit ? " " + c.unit : "") : "")) : String(c.value)));
+      if (num && c.limit){
+        const tr = el("div","ltrack"), f = el("div","lfill");
+        f.style.width = Math.max(1, Math.min(100, 100 * c.value / c.limit)) + "%";
+        tr.appendChild(f);
+        const lt = el("div","lt m"); lt.style.left = "calc(100% - 1px)"; tr.appendChild(lt);
+        r.appendChild(tr);
+      }
+      box.appendChild(r);
+      if (c.source || c.note){
+        const s2 = el("div","formula", (c.note ? c.note + " · " : "") + (c.source || ""));
+        s2.style.padding = "0 0 6px"; box.appendChild(s2);
+      }
+    }
+    shBody.appendChild(box);
+  }
+}
+function showPlate(){""", "showChecks")
+
 s = s.replace("<!-- OneShot Arm v5.2 · SP assembly-viewer engine v2 + Motion · ratchets R1–R7 -->",
               "<!-- OneShot Arm v5.2 · SP assembly-viewer engine v5.3 + Motion · ratchets R1–R9 -->", 1)
 open(OUT, "w").write(s)

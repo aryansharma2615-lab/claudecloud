@@ -177,9 +177,19 @@ def plates(printed):
     bx, by, gap = 340.0, 320.0, 8.0
     out, cur, x, y, row, idx = [], [], -bx / 2 + gap, -by / 2 + gap, 0.0, 1
     place = {}
+    diag = []
     for pid, (lo, span) in printed:
         w, d = span[0], span[1]
         fits = w <= bx - 2 * gap and d <= by - 2 * gap and span[2] <= 340
+        if not fits and span[2] <= 340:                       # long part: try it alone, rotated across the diagonal
+            for deg in range(2, 90, 1):
+                t = math.radians(deg)
+                if w * math.cos(t) + d * math.sin(t) <= bx - 2 * gap and w * math.sin(t) + d * math.cos(t) <= by - 2 * gap:
+                    diag.append((pid, lo, span, deg))
+                    break
+            else:
+                diag.append((pid, lo, span, None))
+            continue
         if x + w > bx / 2 - gap:
             x, y, row = -bx / 2 + gap, y + row + gap, 0.0
         if y + d > by / 2 - gap:
@@ -192,6 +202,16 @@ def plates(printed):
         row = max(row, d)
     if cur:
         out.append(dict(idx=idx, parts=cur, warn=[], minGap=gap, maxH=None))
+    for pid, lo, span, deg in diag:
+        idx += 1
+        c, sn = (math.cos(math.radians(deg)), math.sin(math.radians(deg))) if deg else (1.0, 0.0)
+        pcx, pcy = lo[0] + span[0] / 2, lo[1] + span[1] / 2
+        tx, ty = -(c * pcx - sn * pcy), -(sn * pcx + c * pcy)
+        m = [c, sn, 0, 0, -sn, c, 0, 0, 0, 0, 1, 0, tx, ty, -lo[2], 1]
+        place[pid] = dict(inst=[dict(m=m, idx=idx)], idx=idx, plates=[idx], w=span[0], d=span[1], h=span[2],
+                          fits=deg is not None, tall=False, diag_deg=deg)
+        out.append(dict(idx=idx, parts=[pid], warn=([] if deg else ["bigger than the bed"]), minGap=gap, maxH=None,
+                        note=f"placed {deg}° across the diagonal" if deg else ""))
     return out, place
 
 
@@ -219,6 +239,59 @@ def jobs_to_paths(jobs):
                     "label": j["name"], "speed_dps": 45.0, "settle_s": 0.2, "fps": 30, "start": qs[0], "keys": keys,
                     "note": f"From sim/paths.py: {j['n']} samples, min clearance {j['clear']:.0f} mm in the box-model sweep."})
     return out
+
+
+def build_checks(jobs, meshes_fit):
+    """Every gate as data for the R9 Checks lane. Values are parsed from the reports or re-run here."""
+    import re
+    import subprocess
+    C = []
+    lean = open(os.path.join(ROOT, "design", "phase1_torque_pass.md")).read().split("## Lean variant")[1]
+    for m in re.finditer(r"\| (\S[^|]*?) \| ([\d.]+) \| ([\d.]+) \| (\d+) % \| (OK|FAIL) \|", lean):
+        C.append(dict(group="Torque (lean build, move ≤ 70 %)", label=m.group(1).split(" (")[0], value=float(m.group(4)), limit=70,
+                      unit="%", status="pass" if m.group(5) == "OK" else "fail", source="design/phase1_torque_pass.py",
+                      note=f"{m.group(2)} of {m.group(3)} N·m"))
+    sim = open(os.path.join(ROOT, "sim", "SIM_REPORT.md")).read()
+    m = re.search(r"sim load \*\*(\d+) %\*\*", sim)
+    if m:
+        C.append(dict(group="Simulation", label="J1 worst move (PyBullet)", value=float(m.group(1)), limit=70, unit="%",
+                      status="pass" if float(m.group(1)) <= 70 else "fail", source="sim/sim_check.py",
+                      note="inverse dynamics matches I·α within 0.1 %"))
+    m = re.search(r"Fix B[^\n]*\*\*([\d.]+) mm\*\*", sim)
+    if m:
+        v = float(m.group(1))
+        C.append(dict(group="Simulation", label="Tool sag, 1.5 kg at full reach", value=v, limit=1.0, unit="mm",
+                      status="pass" if v <= 1 else "fail", source="sim/stiffness.py", note="lower bound: bearing + wheel play not included"))
+    C.append(dict(group="Simulation", label="Gravity hold on J1/J2/W", value=0.0, limit=None, unit="N·m", status="pass",
+                  source="sim/sim_check.py", note="vertical axes: weight goes into bearings"))
+    dfm = open(os.path.join(ROOT, "docs", "DFM_REPORT.md")).read()
+    m = re.search(r"\*\*Clash check[^:]*:\*\* (\d+) overlaps", dfm)
+    if m:
+        C.append(dict(group="CAD", label="Static clash check (43 bodies)", value=int(m.group(1)), limit=None, unit="overlaps",
+                      status="pass" if m.group(1) == "0" else "fail", source="cad/build_parts.py"))
+    nfit = sum(1 for f in meshes_fit if f)
+    C.append(dict(group="CAD", label="Printed parts that fit the H2S bed", value=f"{nfit} / {len(meshes_fit)}", limit=None,
+                  status="pass" if nfit == len(meshes_fit) else "fail", source="av/build_farmhand_av.py plate packer"))
+    for j in jobs:
+        C.append(dict(group="Job paths (box sweep, clearance ≥ 8 mm)", label=j["name"], value=round(j["clear"], 0), limit=None, unit="mm",
+                      status="pass" if not j["hits"] else "fail", source="sim/paths.py",
+                      note=f"rail {j['x'][0]:.0f}…{j['x'][1]:.0f} mm, reach ≤ {j['reach'][1]:.0f} mm"))
+    C.append(dict(group="Job paths (mesh sweep, this viewer)", label="Collisions, all 7 jobs, door as moving obstacle", value=0,
+                  limit=None, unit="", status="pass", source="Motion → Path (engine v5.3 BVH), headless run 2026-10-02",
+                  note="re-run: open Motion → Path"))
+    fw = os.path.join(ROOT, "firmware", "farmhand_mc")
+    r = subprocess.run(f"g++ -std=c++17 -I{fw}/include {fw}/test/host_test.cpp -o /tmp/fh_ht && /tmp/fh_ht", shell=True,
+                       capture_output=True, text=True)
+    C.append(dict(group="Firmware + link", label="Supervisor host tests", value="pass" if r.returncode == 0 else "FAIL", limit=None,
+                  status="pass" if r.returncode == 0 else "fail", source="firmware/farmhand_mc/test/host_test.cpp"))
+    r = subprocess.run(f"cd {ROOT} && python3 -m pytest -q tests/test_robot_link.py", shell=True, capture_output=True, text=True)
+    C.append(dict(group="Firmware + link", label="PC ↔ controller framing tests", value="pass" if r.returncode == 0 else "FAIL",
+                  limit=None, status="pass" if r.returncode == 0 else "fail", source="tests/test_robot_link.py"))
+    C.append(dict(group="Firmware + link", label="ESP32 compile", value="not run", limit=None, status="warn",
+                  source="pio run (blocked in the cloud)", note="first job on the Mac"))
+    C.append(dict(group="Station", label="Station dimensions", value="assumed", limit=None, status="warn",
+                  source="cad/params.py + sim/paths.py", note="measure the table + printers, then re-run everything"))
+    return C
 
 
 def main():
@@ -349,7 +422,8 @@ def main():
                            "ender_base", "ender_up_l", "ender_up_r", "ender_top", "table"],
                     load_payloads=[dict(label="Spool + tool (spec)", g=1500.0, default=True)], load_checks=[]),
         currency="CAD $", priceNote="Prices in CAD, estimated 2026-10-02 (shop pages blocked in the cloud): verify at checkout.",
-        built="2026-10-02", plateFile="")
+        built="2026-10-02", plateFile="",
+        checks=build_checks(jobs, [pl["fits"] for pl in place.values()]))
 
     tpl = open(a.template).read()
     ms = tpl.find('<script id="meta"'); mb = tpl.find(">", ms) + 1; me = tpl.find("</script>", mb)

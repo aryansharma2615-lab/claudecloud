@@ -695,6 +695,7 @@ a.src{color:var(--info);text-decoration:none;font-family:var(--f-mono);font-size
     <button id="dBom"   aria-pressed="false"><span class="ic">$</span>BOM</button>
     <button id="dWire"  aria-pressed="false"><span class="ic">⌁</span>Wiring</button>
     <button id="dPlate" aria-pressed="false"><span class="ic">▤</span>Plate</button>
+    <button id="dCheck" aria-pressed="false"><span class="ic">✓</span>Checks</button>
   </nav>
  </div>
 
@@ -2472,7 +2473,7 @@ function openSheet(tab){
   if (!wide() && tab !== "motion") scrim.classList.add("open");
   else scrim.classList.remove("open");
   for (const [t,id] of [["parts","dParts"],["inspect","dParts"],["motion","dMotion"],
-                        ["build","dBuild"],["bom","dBom"],["plate","dPlate"]]){
+                        ["build","dBuild"],["bom","dBom"],["plate","dPlate"],["check","dCheck"]]){
     if (t===tab) $(id).setAttribute("aria-pressed","true");
   }
   // the sheet animates in, so re-measure once it has landed
@@ -2482,7 +2483,7 @@ function openSheet(tab){
 function closeSheet(){
   sheetOpen=false; sheet.classList.remove("open"); sheet.classList.add("closed");
   scrim.classList.remove("open");
-  for (const id of ["dParts","dBuild","dMotion","dBom","dWire","dPlate"])
+  for (const id of ["dParts","dBuild","dMotion","dBom","dWire","dPlate","dCheck"])
     $(id).setAttribute("aria-pressed","false");
   viewShiftY = 0; draw();
   setTimeout(()=>{ updateShift(); draw(); }, 260);
@@ -2510,10 +2511,10 @@ scrim.addEventListener("click", closeSheet);
 })();
 
 function setDock(tab){
-  for (const id of ["dParts","dBuild","dMotion","dBom","dWire","dPlate"])
+  for (const id of ["dParts","dBuild","dMotion","dBom","dWire","dPlate","dCheck"])
     $(id).setAttribute("aria-pressed","false");
   $({parts:"dParts",inspect:"dParts",build:"dBuild",bom:"dBom",
-     wire:"dWire",plate:"dPlate",motion:"dMotion"}[tab])
+     wire:"dWire",plate:"dPlate",motion:"dMotion",check:"dCheck"}[tab])
     .setAttribute("aria-pressed","true");
 }
 function goTab(tab){
@@ -2528,11 +2529,11 @@ function goTab(tab){
   if (tab==="wire"  && !wireMode)  setWireMode(true);
   openSheet(tab); setDock(tab);
   ({parts:showParts, build:showBuild, bom:showBom,
-    wire:showWire, plate:showPlate, motion:showMotion}[tab] || showParts)();
+    wire:showWire, plate:showPlate, motion:showMotion, check:showChecks}[tab] || showParts)();
   updateShift(); draw();
 }
 for (const [id,tab] of [["dParts","parts"],["dBuild","build"],["dMotion","motion"],
-                       ["dBom","bom"],["dWire","wire"],["dPlate","plate"]]){
+                       ["dBom","bom"],["dWire","wire"],["dPlate","plate"],["dCheck","check"]]){
   $(id).addEventListener("click", ()=>{
     const here = sheetOpen && (sheetTab===tab || (tab==="parts" && sheetTab==="inspect"));
     if (here && !wide()) closeSheet();        // tap the lit tab to get the model back
@@ -3363,6 +3364,50 @@ function setPlateMode(on){
 }
 function syncSect0(){ $("secRow").classList.remove("on");
                       $("bSect").setAttribute("aria-pressed","false"); }
+/* RATCHET R9 (v5.3, FarmHand): CHECKS lane. Every gate the project's scripts computed, as one
+   screen of tiles: status first (colour + glyph, never colour alone), the number against its limit
+   as a meter, and the script that proves it. META.checks = [{group,label,value,limit,unit,
+   status:"pass"|"warn"|"fail",lower_is_better,source,note}]. */
+function showChecks(){
+  const C = META.checks || [];
+  shTitle.textContent = "Checks · " + C.length + " gates";
+  shBody.textContent = "";
+  const n = s => C.filter(c => c.status === s).length;
+  const k = el("div","kpis"); k.style.gridTemplateColumns = "repeat(3,1fr)";
+  const tile = (lab, v, cls) => { const t = el("div","kpi"+(cls?" "+cls:"")); t.appendChild(el("div","k",lab));
+    t.appendChild(el("div","v",String(v))); return t; };
+  k.appendChild(tile("Pass", n("pass"), n("pass")===C.length ? "accent" : ""));
+  k.appendChild(tile("Warn", n("warn"), ""));
+  k.appendChild(tile("Fail", n("fail"), n("fail") ? "bad" : ""));
+  shBody.appendChild(k);
+  const groups = [...new Set(C.map(c => c.group || "Checks"))];
+  for (const g of groups){
+    shBody.appendChild(el("div","grp",g));
+    const box = el("div","lbars");
+    for (const c of C.filter(c => (c.group||"Checks") === g)){
+      const st = c.status || "pass";
+      const r = el("div","lbar" + (st==="fail" ? " bad" : st==="warn" ? " warn" : ""));
+      const glyph = st==="fail" ? "✗ " : st==="warn" ? "! " : "✓ ";
+      r.appendChild(el("div","lbl", glyph + c.label));
+      const num = typeof c.value === "number";
+      r.appendChild(el("div","lval", num ? (c.value.toFixed(Math.abs(c.value) < 10 ? 2 : 0) + (c.unit ? " " + c.unit : "")
+                                            + (c.limit != null ? "  / " + c.limit + (c.unit ? " " + c.unit : "") : "")) : String(c.value)));
+      if (num && c.limit){
+        const tr = el("div","ltrack"), f = el("div","lfill");
+        f.style.width = Math.max(1, Math.min(100, 100 * c.value / c.limit)) + "%";
+        tr.appendChild(f);
+        const lt = el("div","lt m"); lt.style.left = "calc(100% - 1px)"; tr.appendChild(lt);
+        r.appendChild(tr);
+      }
+      box.appendChild(r);
+      if (c.source || c.note){
+        const s2 = el("div","formula", (c.note ? c.note + " · " : "") + (c.source || ""));
+        s2.style.padding = "0 0 6px"; box.appendChild(s2);
+      }
+    }
+    shBody.appendChild(box);
+  }
+}
 function showPlate(){
   shTitle.textContent = "Print plates · "+BED.name;
   shBody.textContent="";
@@ -5868,6 +5913,7 @@ if (!S){ $("dBuild").style.display="none"; }
 if (!printed.length){ $("dPlate").style.display="none"; }
 if (!RUNS.length){ $("dWire").style.display="none"; }
 if (!MO){ $("dMotion").style.display="none"; }
+if (!(META.checks||[]).length){ $("dCheck").style.display="none"; }
 selNt.style.display="none";
 syncUI();
 const _hash = readHash();
