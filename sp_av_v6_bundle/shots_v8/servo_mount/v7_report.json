@@ -1,10 +1,10 @@
 {
- "ok": false,
+ "ok": true,
  "v73": {
   "tight": {
    "n": 2,
    "candidates": 10,
-   "ms": 224,
+   "ms": 184,
    "risk": [],
    "first": [
     {
@@ -37,31 +37,31 @@
   ],
   "gapTool": {
    "a": "cradle",
-   "b": "servo",
-   "caption": "Gap 0.00 mm",
-   "d": 0.0,
+   "b": "arm",
+   "caption": "Gap 13.40 mm",
+   "d": 13.4,
    "lineShown": true
   },
   "bomCsv": {
    "rows": 13,
    "tableRows": 13,
-   "csvTotal": 6.68,
-   "tile": "CAD $6.68"
+   "csvTotal": 7.16,
+   "tile": "CAD $7.16"
   },
   "section": {
    "ortho": {
-    "wantMm": 18.0,
-    "gotMm": 18.0,
+    "wantMm": 19.47,
+    "gotMm": 19.47,
     "handleOffPx": 0.0
    },
    "persp": {
-    "wantMm": 18.38,
-    "gotMm": 19.01,
-    "handleOffPx": 0.62
+    "wantMm": 19.04,
+    "gotMm": 18.35,
+    "handleOffPx": 0.7
    }
   },
   "errors": [],
   "ok": true
  },
- "v6_ok": false
+ "v6_ok": true
 }

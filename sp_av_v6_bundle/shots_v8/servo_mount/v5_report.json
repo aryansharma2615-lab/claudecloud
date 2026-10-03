@@ -1,5 +1,5 @@
 {
- "ok": false,
+ "ok": true,
  "v71": {
   "traces": {
    "exploded": 12,
@@ -29,7 +29,7 @@
   },
   "snap": {
    "name": "servo_mount_v8_view.png",
-   "bytes": 22755
+   "bytes": 24639
   },
   "peek": {
    "part": "servo",
@@ -42,22 +42,22 @@
   "scale": {
    "persp": {
     "mm": 20,
-    "px": 57.61,
+    "px": 55.81,
     "text": "20 mm at target",
-    "mmPerPx": 0.34718835892694955
+    "mmPerPx": 0.3583604417326022
    },
-   "relErr": 8e-05,
+   "relErr": 0.0,
    "ortho": {
     "mm": 20,
-    "px": 57.61,
+    "px": 55.81,
     "text": "20 mm",
-    "mmPerPx": 0.34718835892694955
+    "mmPerPx": 0.3583604417326022
    },
-   "orthoSegPx": 57.61,
-   "orthoErr": 8e-05
+   "orthoSegPx": 55.81,
+   "orthoErr": 0.0
   },
   "link": {
-   "hash": "#cam=-0.785,0.615,262.88,-9.378,-4.165,5.213,o",
+   "hash": "#cam=-0.785,0.615,271.339,-9.744,-4.328,5.416,o",
    "ok": true
   },
   "focus": {
@@ -69,14 +69,14 @@
   "artifactFiles": [
    {
     "name": "servo_mount_v8_view.png",
-    "size": 46891
+    "size": 54292
    }
   ],
   "errors": [],
   "warnings": [],
   "ok": true
  },
- "v4_ok": false,
+ "v4_ok": true,
  "v7": {
   "cube": [
    {
@@ -138,10 +138,10 @@
      0
     ],
     "got": [
-     -1.571,
-     0.785
+     0,
+     0
     ],
-    "ok": false
+    "ok": true
    },
    {
     "face": "FRONT",
@@ -178,13 +178,13 @@
   ],
   "pan": {
    "right": {
-    "targetMoved_mm": 26.14,
+    "targetMoved_mm": 26.7,
     "modelsSame": true,
     "yawSame": true,
     "distSame": true
    },
    "shift": {
-    "targetMoved_mm": 27.99,
+    "targetMoved_mm": 28.89,
     "modelsSame": true,
     "yawSame": true,
     "distSame": true
@@ -197,11 +197,11 @@
      289.4
     ],
     "after": [
-     255,
+     255.0,
      289.66
     ],
     "err_px": 0.26,
-    "dist": 159.3
+    "dist": 164.4
    },
    "ortho": {
     "cursor": [
@@ -213,7 +213,7 @@
      289.66
     ],
     "err_px": 0.26,
-    "dist": 159.3
+    "dist": 164.4
    }
   },
   "orbitPivot": {
@@ -221,7 +221,7 @@
   },
   "pinch": {
    "err_px": 0.0,
-   "dist": 91.7
+   "dist": 94.7
   },
   "dblFit": {
    "part": "servo",
@@ -229,8 +229,8 @@
     "servo"
    ],
    "inside": true,
-   "spanBefore": 138.1,
-   "spanAfter": 345.0
+   "spanBefore": 138.6,
+   "spanAfter": 346.1
   },
   "scrub": {
    "at500": {
@@ -248,7 +248,7 @@
     "n": 1,
     "keys": 1,
     "dur": 1020,
-    "midOff": 7.02,
+    "midOff": 7.44,
     "endU": 1,
     "endErr": 0
    },
@@ -256,7 +256,7 @@
     "n": 2,
     "keys": 2,
     "dur": 1140,
-    "midOff": 13.1,
+    "midOff": 19.43,
     "endU": 1,
     "endErr": 0
    },
@@ -264,7 +264,7 @@
     "n": 3,
     "keys": 1,
     "dur": 1020,
-    "midOff": 1.84,
+    "midOff": 11.76,
     "endU": 1,
     "endErr": 0
    },
@@ -280,7 +280,7 @@
     "n": 5,
     "keys": 1,
     "dur": 1020,
-    "midOff": 0,
+    "midOff": 27.03,
     "endU": 1,
     "endErr": 0
    },
@@ -288,7 +288,7 @@
     "n": 6,
     "keys": 2,
     "dur": 1220,
-    "midOff": 57.19,
+    "midOff": 67.49,
     "endU": 1,
     "endErr": 0
    },
@@ -296,7 +296,7 @@
     "n": 7,
     "keys": 1,
     "dur": 1020,
-    "midOff": 0,
+    "midOff": 13.34,
     "endU": 1,
     "endErr": 0
    },
@@ -304,7 +304,7 @@
     "n": 8,
     "keys": 1,
     "dur": 1020,
-    "midOff": 0,
+    "midOff": 23.29,
     "endU": 1,
     "endErr": 0
    },
@@ -312,7 +312,7 @@
     "n": 9,
     "keys": 1,
     "dur": 1060,
-    "midOff": 0,
+    "midOff": 90.24,
     "endU": 1,
     "endErr": 0
    },
@@ -320,7 +320,7 @@
     "n": 10,
     "keys": 1,
     "dur": 1020,
-    "midOff": 0,
+    "midOff": 18.77,
     "endU": 1,
     "endErr": 0
    }
@@ -343,44 +343,37 @@
    "saved": [
     {
      "name": "servo_mount_v8_plate1.zip",
-     "size": 52579,
+     "size": 52621,
      "type": "application/zip"
     }
    ]
   },
   "fps": {
-   "v7": 31.1,
-   "medianMs": 31.5,
+   "v7": 34.7,
+   "medianMs": 28.2,
    "runs7": [
-    31.2,
-    29.3,
-    31.1,
-    32.6,
-    30.1
+    36.2,
+    35.7,
+    34.7,
+    34.4,
+    34.4
    ],
-   "v6": 29.6,
+   "v6": 30.1,
    "runs6": [
+    33.6,
+    29.8,
+    29.1,
     30.1,
-    27.5,
-    29.6,
-    28.9,
-    29.8
+    30.8
    ]
   },
-  "errors": [
-   "view cube RIGHT zone [0, 0] landed [-1.571, 0.785], want [0, 0]",
-   "step 5 has 1 entering parts but nothing moved mid-animation",
-   "step 7 has 1 entering parts but nothing moved mid-animation",
-   "step 8 has 1 entering parts but nothing moved mid-animation",
-   "step 9 has 1 entering parts but nothing moved mid-animation",
-   "step 10 has 1 entering parts but nothing moved mid-animation"
-  ],
+  "errors": [],
   "warnings": [
-   "WARNING [.WebGL-0x3fdc0011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-   "WARNING [.WebGL-0x3fdc0011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-   "WARNING [.WebGL-0x3fdc0011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-   "WARNING [.WebGL-0x3fdc0011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+   "WARNING [.WebGL-0x1ca400119a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x1ca400119a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x1ca400119a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x1ca400119a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
   ],
-  "ok": false
+  "ok": true
  }
 }

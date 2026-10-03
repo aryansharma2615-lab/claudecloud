@@ -1,0 +1,127 @@
+
+=== verify servo_mount_v8.html ===
+  deepLinks : 4 forms OK
+  sheet     : {'imgs': 11, 'steps': 10, 'tables': 2, 'rows': 16, 'blank': 0, 'chars': 2566}
+  intro     : {'done': True, 'explode': 0, 'dprInt': 1.5}  skip={'midExplode': 1, 'after': {'done': True, 'explode': 0, 'dprInt': 2}}
+  state     : {'parts': 13, 'steps': 10, 'fasteners': 5, 'plates': 1, 'printed': 3, 'mode': {'stepMode': False, 'plateMode': False, 'wireMode': False, 'sectOn': False, 'measOn': False, 'isolate': False, 'explode': 0, 'motionMode': False}, 'screws': 5, 'joints': 1, 'runs': 0, 'selWire': [], 'hidden': 0, 'sel': []}
+  behaviour : {'orbit': True, 'explode': True, 'tapIdentify': True, 'selected': ['arm'], 'ghostBtn': True, 'isolate': True}
+  feat.presets               : ['front', 'top', 'right', 'exploded', 'collapsed', 'iso']
+  feat.sectionOn             : True
+  feat.sectionChangedPixels  : True
+  feat.sectionReadout        : -15.3 mm
+  feat.measure               : 48.69 mm
+  feat.fastenerPins          : ['M2x8 · FRONT', 'M2x8 · FRONT', 'M2x8 · FRONT', 'M3x8 · BOTTOM', 'M3x8 · BOTTOM']
+  feat.timelineNext          : ('STEP 01 / 10', 'STEP 02 / 10')
+  feat.timelinePlay          : ('STEP 02 / 10', 'STEP 03 / 10')
+  feat.inspectorTitle        : Load arm
+  feat.inspectorSections     : ['Why it is like this', 'Print settings · Creality Ender 3 S1 Pro', 'Its fasteners', 'Cost', 'Slicer handoff']
+  feat.bom                   : {'rows': 13, 'lineSum': 7.16, 'tbd': 1, 'tiles': [['Unit cost ×1', 'CAD $7.16'], ['at ×10', 'CAD $5.15'], ['at ×50', 'CAD $4.76'], ['at ×100', 'CAD $4.49'], ['To buy now', 'CAD $0.00 0 lines'], ['Already own', 'CAD $4.87 9 lines'], ['Filament + time', 'CAD $2.29 3 printed'], ['Lines', '13'], ['Printed', '3'], ['Unsourced', '1'], ['Running total', 'CAD $7.16']]}
+  feat.bomLinks              : ['https://www.amazon.ca/s?k=ruthex+m3+heat+set+inserts', 'https://www.amazon.ca/s?k=ruthex+m3+heat+set+inserts', 'https://www.amazon.ca/s?k=m3+socket+head+screw+assortment+kit', 'https://www.amazon.ca/s?k=m3+socket+head+screw+assortment+kit', 'https://www.canadarobotix.com/products/1713', 'https://www.amazon.ca/s?k=m2+self+tapping+screw+assortment']
+  feat.plateChips            : 1
+  feat.fullExplodeOnScreen   : {'pinsShown': 13, 'w': 390}
+  feat.offscreenParts        : []
+  motion.frame               : {"x0": 112.77260940862324, "y0": 40.25755011035858, "x1": 279.06309805014934, "y1": 195.06778815936661, "W": 390, "H": 614, "band": 213, "n": 64, "shift": 0.6530944625407166, "wide": false}
+  motion.loadCheck           : [{"label": "arm level \u00b7 0.2 kg at 35 mm", "joint": "shaft", "got": -0.7035, "want": 0.7035, "err": 0, "source": "calc_v8: \u03c4 = g\u00b7\u03a3 m\u00b7x (PyBullet agrees 0.1 %)", "closed": true}, {"label": "arm +60\u00b0 \u00b7 0.2 kg", "joint": "shaft", "got": -0.3518, "want": 0.3518, "err": 0.0001, "source": "calc_v8: \u03c4(\u03b8) = g\u00b7\u03a3 m\u00b7(x cos\u03b8 \u2212 z sin\u03b8)",
+  motion.physics             : {"cases": 8, "worstRel": 5.0804755716231795e-09, "bad": [], "loop": null}
+  motion.bvh                 : {"pairs": 4, "agree": 4, "hits": 0, "bad": [], "ms": 74}
+  motion.tunnel              : [{"joint": "shaft", "end": -90, "jump": -90, "walk": -89.8, "ok": true}, {"joint": "shaft", "end": 90, "jump": 90, "walk": 89.8, "ok": true}]
+  motion.grip                : null
+  motion.path                : {"frames": 200, "dur": 6.633333333333333, "events": [], "peak": 0.3908419622222222, "deadStops": [], "through": []}
+  motion.dragBench           : {"joint": "shaft", "frames": 36, "fps": 24.630541872147184, "medianMs": 40.59999999962747, "p95Ms": 61.09999999962747}
+  fps       : 44.6  (median frame 21.8 ms, p95 28.7 ms, 134 frames, dprCap 2)
+  overflow  : scrollW 390 vs 390
+  hover css : 1 rules
+  WARN  WARNING [.WebGL-0x141c0011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+  WARN  WARNING [.WebGL-0x141c0011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+  WARN  WARNING [.WebGL-0x141c0011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+  WARN  WARNING [.WebGL-0x141c0011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+  => PASS
+
+=== verify v7 gates servo_mount_v8.html ===
+  v7.cube            : [{"face": "FRONT", "zone": [1, 1], "want": [-0.785, 0.615], "got": [-0.785, 0.615], "ok": true}, {"face": "TOP", "zone": [0, 0], "want": [-1.571, 1.45], "got": [-1.571, 1.45], "ok": true}, {"face": "FRONT", "zone": [0, 1], "want": [-1.571, 0.785], "got": [-1.571, 0.785], "ok": true}, {"face": "RIGHT", "zone": [0, 0], "want": [0, 0], "got": [0, 0], "ok": true}, {"face": "FRONT", "zone": [0, 0], "want": [-1.571, 0], "got": [-1.571, 0], "ok": true}, {"face": "RIGHT", "zone": [-1, -1], "want": [-0.785, -0.615], "got": [-0.785, -0.615], "ok": true}]
+  v7.pan             : {"right": {"targetMoved_mm": 26.7, "modelsSame": true, "yawSame": true, "distSame": true}, "shift": {"targetMoved_mm": 28.89, "modelsSame": true, "yawSame": true, "distSame": true}}
+  v7.zoom            : {"persp": {"cursor": [255.0, 289.4], "after": [255.0, 289.66], "err_px": 0.26, "dist": 164.4}, "ortho": {"cursor": [255.0, 289.4], "after": [255.0, 289.66], "err_px": 0.26, "dist": 164.4}}
+  v7.orbitPivot      : {"err_px": 0.0}
+  v7.pinch           : {"err_px": 0.0, "dist": 94.7}
+  v7.dblFit          : {"part": "servo", "sel": ["servo"], "inside": true, "spanBefore": 138.6, "spanAfter": 346.1}
+  v7.scrub           : {"at500": {"n": 10, "u": 0.5, "paused": true, "dur": 1020, "keys": 1}, "endErr": 0}
+  v7.playWhole       : "STEP 04 / 10"
+  v7.steps           : [{"n": 1, "keys": 1, "dur": 1020, "midOff": 7.44, "endU": 1, "endErr": 0}, {"n": 2, "keys": 2, "dur": 1140, "midOff": 19.43, "endU": 1, "endErr": 0}, {"n": 3, "keys": 1, "dur": 1020, "midOff": 11.76, "endU": 1, "endErr": 0}, {"n": 4, "keys": 2, "dur": 1220, "midOff": 39.12, "endU": 1, "endErr": 0}, {"n": 5, "keys": 1, "dur": 1020, "midOff": 27.03, "endU": 1, "endErr": 0}, {"n": 6, "keys": 2, "dur": 1220, "midOff": 67.49, "endU": 1, "endErr": 0}, {"n": 7, "keys": 1, "dur": 1020, "midOff": 13.34, "endU": 1, "endErr": 0}, {"n": 8, "keys": 1, "dur": 1020, "midOff": 23.29, "endU": 1, "endErr": 0}, 
+  v7.platePath       : ["/home/user/claudecloud/sp_av_v6_bundle/examples/v8_demo/servo_mount_v8_plates_plate1.3mf", "/home/user/claudecloud/sp_av_v6_bundle/examples/v8_demo/servo_mount_v8_plates.3mf"]
+  v7.plateBtnLocal   : "\u2913 3MF \u00b7 plate 1"
+  v7.materials       : {"gloss": 3, "brass": 2, "steel": 6, "plastic": 2}
+  v7.edgesChangePixels: true
+  v7.glError         : 0
+  v7.artifact        : {"label": "\u2913 3MF \u00b7 zipped by the viewer \u2014 tap to unzip", "saved": [{"name": "servo_mount_v8_plate1.zip", "size": 52621, "type": "application/zip"}]}
+  v7.fps             : {"v7": 34.7, "medianMs": 28.2, "runs7": [36.2, 35.7, 34.7, 34.4, 34.4], "v6": 30.1, "runs6": [33.6, 29.8, 29.1, 30.1, 30.8]}
+  => PASS
+
+=== verify_av_v4 servo_mount_v8.html: v3 PASS · v7 PASS => PASS
+
+=== verify v7.1 gates servo_mount_v8.html ===
+  v71.traces        : {"exploded": 12, "traces": 12, "shown": 12, "shownAt0": 0}
+  v71.search        : {"q": "M3\u00d75.7", "visible": 2, "of": 8, "sel": ["ins_a"], "title": "M3\u00d75.7 heat-set insert"}
+  v71.bench         : {"afterTick": [2], "afterReload": [2], "tickOk": true, "progress": "1 / 10 built", "afterClear": []}
+  v71.snap          : {"name": "servo_mount_v8_view.png", "bytes": 24639}
+  v71.peek          : {"part": "servo", "sel": ["servo"], "title": "SG90 micro servo", "sheetOpen": true}
+  v71.scale         : {"persp": {"mm": 20, "px": 55.81, "text": "20 mm at target", "mmPerPx": 0.3583604417326022}, "relErr": 0.0, "ortho": {"mm": 20, "px": 55.81, "text": "20 mm", "mmPerPx": 0.3583604417326022}, "orthoSegPx": 55.81, "orthoErr": 0.0}
+  v71.link          : {"hash": "#cam=-0.785,0.615,271.339,-9.744,-4.328,5.416,o", "ok": true}
+  v71.focus         : {"stageBefore": 570, "stageFocus": 799, "header": "none", "stageAfter": 570}
+  v71.artifactFiles : [{"name": "servo_mount_v8_view.png", "size": 54292}]
+  => PASS
+
+=== verify_av_v5 servo_mount_v8.html: v4 PASS · v7.1 PASS => PASS
+
+=== verify v7.2 gates servo_mount_v8.html ===
+  v72.checksTab   : {"visible": true, "title": "Checks", "metaChecks": 0, "tiles": 0}
+  v72.clash       : {"pairs": 10, "brute": 10, "kinds": {"design": 10}, "candidates": 23, "ms": 165, "clashes": [], "rowSel": ["servo", "horn_screw"]}
+  v72.cog         : {"g": 248.529, "margin": 12.084, "h": 46.281, "tipDeg": 14.633, "hull": 4, "missing": 0, "com": [-33.173, -11.916, 46.281], "independent": {"g": 248.529, "com": [-33.173, -11.916, 46.281], "err_mm": 0.0}, "markerShown": true}
+  v72.circle3     : {"d": 15, "c": [2.999999999999999, -1.9999999999999996, 11]}
+  => PASS
+
+=== verify_av_v6 servo_mount_v8.html: v5 PASS · v7.2 PASS => PASS
+
+=== verify v7.3 gates servo_mount_v8.html ===
+  v73.tight       : {"n": 2, "candidates": 10, "ms": 184, "risk": [], "first": [{"a": "arm", "b": "weight", "d": 0.399, "printed": true}, {"a": "servo", "b": "arm", "d": 1, "printed": true}]}
+  v73.gapVsBrute  : [{"a": "arm", "b": "weight", "bvh": 0.398844, "brute": 0.398844}, {"a": "servo", "b": "arm", "bvh": 1.00001, "brute": 1.00001}]
+  v73.gapTool     : {"a": "cradle", "b": "arm", "caption": "Gap 13.40 mm", "d": 13.4, "lineShown": true}
+  v73.bomCsv      : {"rows": 13, "tableRows": 13, "csvTotal": 7.16, "tile": "CAD $7.16"}
+  v73.section     : {"ortho": {"wantMm": 19.47, "gotMm": 19.47, "handleOffPx": 0.0}, "persp": {"wantMm": 19.04, "gotMm": 18.35, "handleOffPx": 0.7}}
+  => PASS
+
+=== verify_av_v7 servo_mount_v8.html: v6 PASS · v7.3 PASS => PASS
+
+=== verify v7.4 gates servo_mount_v8.html ===
+  v74.angleMath   : [90, 60.00000000000001]
+  v74.history     : {"backOk": true, "fwdOk": true, "n": 2}
+  v74.swipe       : {"left": "Step 03 / 10", "right": "Step 02 / 10"}
+  v74.keys        : {"open": true, "afterEsc": false}
+  => PASS
+
+=== verify_av_v8 servo_mount_v8.html: v7 PASS · v7.4 PASS => PASS
+pybullet build time: Jan 29 2025 23:17:20
+
+=== verify v8 gates servo_mount_v8.html ===
+  v8.schema        : {"py_missing": 0, "page_missing": 0}
+  v8.measure_rows  : 9
+  v8.checks        : {"n": 26, "worst_rel": 1.0990223419892346e-05, "statuses": {"pass": 5, "unverified": 12, "warn": 0, "fail": 1, "na": 8}}
+  v8.formulas      : {"n": 9, "bad": []}
+  v8.stress_worst_rel: 2.2432170791065634e-16
+  v8.motion_vs_calc: {"motion_kgcm": -0.7035155319999999, "calc_kgcm": 0.7035155319999999}
+  v8.stall_warning : "\u2717SG90 stalls. Needs 5.25 kgf\u00b7cmCALC, has"
+  v8.ranking       : [{"id": "servo", "sf": 0.3426277107274002}, {"id": "arm", "sf": 1.4950623350368302}, {"id": "wall", "sf": 6.366330198089019}, {"id": "tabs", "sf": 11.68014184756234}, {"id": "inserts", "sf": null}]
+  v8.labels        : {"load": {"bad": 0, "nums": 20, "eg": []}, "fit": {"bad": 0, "nums": 63, "eg": []}, "secure": {"bad": 0, "nums": 5, "eg": []}, "test": {"bad": 0, "nums": 12, "eg": []}, "checks": {"bad": 0, "nums": 110, "eg": []}, "inspector": {"bad": 0, "nums": 19, "eg": []}}
+  v8.tol           : {"rings": 9, "want": 9, "mismatch": [], "recoloured_from_profile": true}
+  v8.caliper       : {"got": {"d": 80, "pts": 2}, "want": 80.0, "diag": [{"px": [773, 433], "hit": "base", "state": {"xray": false, "wire": false, "tol": true, "heat": false, "kg": 0.2, "lever": 35, "explode": 0, "sectOn": false, "sectAxis": 0, "sectT": 1, "step": 1, "stepMode": false, "motionMode": false, "sel": []}, "after": "Caliper \u00b7 1 / 2"}, {"px": [466, 376], "hit": "base", "state": {"xray": false, "wire": 
+  v8.cap           : {"px": [157, 108, 58], "cut": [201, 139, 75], "bg": [7, 11, 10], "cap": true, "isBg": false, "at": [640, 255.26757480250293]}
+  v8.perf          : {"scene_tris": 13812, "lod_close": true, "lod_tris": 41290, "orbit_fps": {"fps": 31.465328394469324, "runs": [32.8, 31.5, 30.9], "desktop_1280": 30.7, "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"}, "fps": 31.465328394469324}
+  v8.hash          : {"fit": {"hash": "#phase=fit&ex=0.620&cam=0.7,0.3,179.106,0,0,0", "bad": []}, "secure": {"hash": "#phase=secure&ex=0.620&st=6&cam=0.7,0.3,82.3,0,0,0", "bad": []}, "test": {"hash": "#phase=test&ex=0.000&sec=1,0.4000,0&kg=0.75&lev=22.5&xr=1&cam=0.7,0.3,107.698,0,0,0", "bad": []}, "load": {"hash": "#phase=load&ex=0.000&sec=1,0.4000,0&cam=0.7,0.3,197.284,0,0,0", "bad": []}}
+  v8.phone         : {"phases": {"load": {"scrollW": 390, "small": []}, "fit": {"scrollW": 390, "small": []}, "secure": {"scrollW": 390, "small": []}, "test": {"scrollW": 390, "small": []}}, "tree": {"drawer": false, "sheet": true}}
+  v8.screws        : {"sides": [{"id": "m3a", "side": "BOTTOM", "axis": [0, 0, 1], "step": 4, "screw": "m3a"}, {"id": "m3b", "side": "BOTTOM", "axis": [0, 0, 1], "step": 4, "screw": "m3b"}, {"id": "tab0", "side": "FRONT", "axis": [0, 1, 0], "step": 6, "screw": "tab0"}, {"id": "tab1", "side": "FRONT", "axis": [0, 1, 0], "step": 6, "screw": "tab1"}, {"id": "horn_screw", "side": "FRONT", "axis": [0, 1, 0], "step": 9, "sc
+  v8.bom           : {"owned_chips": 9, "all_owned_label": true, "note": true}
+  v8.coupon        : {"phases": [["load", true], ["fit", true], ["secure", false], ["test", false]], "rings": 9}
+  v8.exports       : {"stl_watertight": true, "3mf": {"files": 2, "ok": true}, "glb": true, "urdf": true, "urdf_pybullet_joints": 2}
+  v8.dataviz       : {"light": true, "dark": true}
+  => PASS
+
+=== verify_av_v9 servo_mount_v8.html: v3…v7.4 PASS · v8 PASS => PASS

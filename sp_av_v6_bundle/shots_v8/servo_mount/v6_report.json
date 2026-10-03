@@ -1,5 +1,5 @@
 {
- "ok": false,
+ "ok": true,
  "v72": {
   "checksTab": {
    "visible": true,
@@ -14,7 +14,7 @@
     "design": 10
    },
    "candidates": 23,
-   "ms": 180,
+   "ms": 165,
    "clashes": [],
    "rowSel": [
     "servo",
@@ -22,23 +22,23 @@
    ]
   },
   "cog": {
-   "g": 240.509,
-   "margin": -8.022,
-   "h": 44.009,
-   "tipDeg": -10.331,
+   "g": 248.529,
+   "margin": 12.084,
+   "h": 46.281,
+   "tipDeg": 14.633,
    "hull": 4,
    "missing": 0,
    "com": [
-    -33.729,
-    -12.022,
-    44.009
+    -33.173,
+    -11.916,
+    46.281
    ],
    "independent": {
-    "g": 240.509,
+    "g": 248.529,
     "com": [
-     -33.729,
-     -12.022,
-     44.009
+     -33.173,
+     -11.916,
+     46.281
     ],
     "err_mm": 0.0
    },
@@ -52,10 +52,8 @@
     11
    ]
   },
-  "errors": [
-   "CoG not inside its footprint at the home pose: {'g': 240.509, 'margin': -8.022, 'h': 44.009, 'tipDeg': -10.331, 'hull': 4, 'missing': 0, 'com': [-33.729, -12.022, 44.009], 'independent': {'g': 240.509, 'com': [-33.729, -12.022, 44.009], 'err_mm': 0.0}}"
-  ],
-  "ok": false
+  "errors": [],
+  "ok": true
  },
- "v5_ok": false
+ "v5_ok": true
 }

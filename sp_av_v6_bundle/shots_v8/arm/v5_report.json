@@ -36,7 +36,7 @@
   },
   "snap": {
    "name": "oneshot_arm_v5_view.png",
-   "bytes": 44997
+   "bytes": 44987
   },
   "cutList": {
    "name": "oneshot_arm_v5_wire_cut_list.csv",
@@ -264,7 +264,7 @@
     "n": 1,
     "keys": 5,
     "dur": 1580,
-    "midOff": 79.81,
+    "midOff": 59.16,
     "endU": 1,
     "endErr": 0
    },
@@ -272,7 +272,7 @@
     "n": 2,
     "keys": 7,
     "dur": 1380,
-    "midOff": 16.68,
+    "midOff": 27.64,
     "endU": 1,
     "endErr": 0
    },
@@ -280,7 +280,7 @@
     "n": 3,
     "keys": 2,
     "dur": 1180,
-    "midOff": 11.89,
+    "midOff": 14,
     "endU": 1,
     "endErr": 0
    },
@@ -288,7 +288,7 @@
     "n": 4,
     "keys": 5,
     "dur": 1660,
-    "midOff": 31.42,
+    "midOff": 31.16,
     "endU": 1,
     "endErr": 0
    },
@@ -296,7 +296,7 @@
     "n": 5,
     "keys": 4,
     "dur": 1460,
-    "midOff": 153.38,
+    "midOff": 120.0,
     "endU": 1,
     "endErr": 0
    },
@@ -304,7 +304,7 @@
     "n": 6,
     "keys": 6,
     "dur": 1740,
-    "midOff": 125.58,
+    "midOff": 254.64,
     "endU": 1,
     "endErr": 0
    },
@@ -312,7 +312,7 @@
     "n": 7,
     "keys": 5,
     "dur": 1620,
-    "midOff": 238.78,
+    "midOff": 293.18,
     "endU": 1,
     "endErr": 0
    },
@@ -320,7 +320,7 @@
     "n": 8,
     "keys": 11,
     "dur": 1860,
-    "midOff": 259.09,
+    "midOff": 19.8,
     "endU": 1,
     "endErr": 0
    },
@@ -328,7 +328,7 @@
     "n": 9,
     "keys": 4,
     "dur": 1500,
-    "midOff": 101.63,
+    "midOff": 299.35,
     "endU": 1,
     "endErr": 0
    },
@@ -336,7 +336,7 @@
     "n": 10,
     "keys": 12,
     "dur": 2000,
-    "midOff": 45.02,
+    "midOff": 155.03,
     "endU": 1,
     "endErr": 0
    },
@@ -352,7 +352,7 @@
     "n": 12,
     "keys": 1,
     "dur": 1020,
-    "midOff": 0.73,
+    "midOff": 30.02,
     "endU": 1,
     "endErr": 0
    }
@@ -629,33 +629,32 @@
    ]
   },
   "fps": {
-   "v7": 19.6,
-   "medianMs": 51.7,
+   "v7": 21.3,
+   "medianMs": 47.2,
    "runs7": [
-    20.6,
-    17.7,
-    20.6,
-    18.1,
-    19.6
-   ],
-   "v6": 22.4,
-   "runs6": [
-    22.7,
-    21.4,
-    22.4,
+    21.3,
     21.0,
-    23.1
+    21.4,
+    19.9,
+    23.5
+   ],
+   "v6": 20.8,
+   "runs6": [
+    20.8,
+    20.3,
+    21.5,
+    20.4,
+    21.0
    ]
   },
   "errors": [
-   "fps 19.6 below the v6 floor 22.4 on this machine",
-   "fps 19.6 below the 30 fps floor"
+   "fps 21.3 below the 30 fps floor"
   ],
   "warnings": [
-   "WARNING [.WebGL-0x12440011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-   "WARNING [.WebGL-0x12440011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-   "WARNING [.WebGL-0x12440011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-   "WARNING [.WebGL-0x12440011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+   "WARNING [.WebGL-0x2f440011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x2f440011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x2f440011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x2f440011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
   ],
   "ok": false
  }

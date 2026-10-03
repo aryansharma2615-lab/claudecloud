@@ -1,0 +1,109 @@
+
+=== verify oneshot_v6_bench_v8.html ===
+  deepLinks : 5 forms OK
+  sheet     : {'imgs': 10, 'steps': 9, 'tables': 3, 'rows': 34, 'blank': 0, 'chars': 5194}
+  intro     : {'done': True, 'explode': 0, 'dprInt': 1.25}  skip={'midExplode': 1, 'after': {'done': True, 'explode': 0, 'dprInt': 2}}
+  state     : {'parts': 33, 'steps': 9, 'fasteners': 13, 'plates': 1, 'printed': 10, 'mode': {'stepMode': False, 'plateMode': False, 'wireMode': False, 'sectOn': False, 'measOn': False, 'isolate': False, 'explode': 0, 'motionMode': False}, 'screws': 13, 'joints': 6, 'runs': 6, 'selWire': [], 'hidden': 0, 'sel': []}
+  behaviour : {'orbit': True, 'explode': True, 'tapIdentify': True, 'selected': ['A_stand'], 'ghostBtn': True, 'isolate': True}
+  feat.presets               : ['front', 'top', 'right', 'exploded', 'collapsed', 'iso']
+  feat.sectionOn             : True
+  feat.sectionChangedPixels  : True
+  feat.sectionReadout        : -45.9 mm
+  feat.measure               : 90.19 mm
+  feat.fastenerPins          : ['M3×10 · FRONT', 'M3×12 · FRONT', 'M3×10 · FRONT', 'M2×8 · BACK', 'M2×8 · FRONT', 'M3×10 · FRONT', 'M3×12 · FRONT', 'M3×10 · FRONT', 'M3×12 · FRONT', 'M3×10 · FRONT', 'M3×16 · TOP', 'M2×8 · BACK', 'M3×16 · TOP']
+  feat.timelineNext          : ('STEP 01 / 9', 'STEP 02 / 9')
+  feat.timelinePlay          : ('STEP 02 / 9', 'STEP 03 / 9')
+  feat.inspectorTitle        : Pot bracket
+  feat.inspectorSections     : ['Why it is like this', 'Print settings · Creality Ender 3 S1 Pro', 'Mates with', 'Its fasteners', 'Cost', 'Slicer handoff']
+  feat.bom                   : {'rows': 22, 'lineSum': 39.76, 'tbd': 0, 'tiles': [['Unit cost ×1', 'CAD $39.76'], ['at ×10', 'CAD $19.52'], ['at ×50', 'CAD $16.72'], ['at ×100', 'CAD $15.26'], ['To buy now', 'CAD $0.00 0 lines'], ['Already own', 'CAD $36.49 12 lines'], ['Filament + time', 'CAD $3.27 10 printed'], ['Lines', '22'], ['Printed', '10'], ['Unsourced', '0'], ['Running total', 'CAD $39.76']]}
+  feat.bomLinks              : ['https://www.digitmakers.ca/collections/petg-1-75-mm', 'https://www.digitmakers.ca/collections/petg-1-75-mm', 'https://www.canadarobotix.com/products/1713', 'https://www.digitmakers.ca/collections/pla-1-75-mm', 'https://www.digitmakers.ca/collections/pla-1-75-mm', 'https://www.digitmakers.ca/collections/pla-1-75-mm', 'https://www.digitmakers.ca/collections/pla-1-75-mm', 'https://www.digitmakers.ca/collections/pla-1-75-mm', 'https://www.digitmakers.ca/collections/pla-1-75-mm', 'https://www.digitmakers.ca/collections/petg-1-75-mm', 'https://www.digitmakers.ca/collections/petg-1-75-mm', 'https://www.amazon.ca/s?k=elegoo+uno+r3', 'https://www.amazon.ca/s?k=m3+socket+head+screw+assortment+kit']
+  feat.wire                  : {'mode': True, 'runs': 6, 'edges': 6, 'labels': ['SIG·D5', '+5V/GND', 'POT×3', '+5V', 'GND', 'GND'], 'nodes': 5, 'rows': 6, 'clipped': 0, 'crossings': 1, 'shared': [], 'inPartsList': 0}
+  feat.wireTrace             : {'sel': ['pot'], 'hi': 1, 'dim': 5, 'caption': 'Pot leads → servo board  ·  26 AWG', 'detail': '121 mm · 0.005 A · 0.0486 Ω · drop 0.0002 V (0.005%)'}
+  feat.plateChips            : 1
+  feat.fullExplodeOnScreen   : {'pinsShown': 27, 'w': 390}
+  feat.offscreenParts        : []
+  motion.frame               : {"x0": 103.51619056155066, "y0": 47.45373550267693, "x1": 262.5971738829051, "y1": 220.93363191351781, "W": 390, "H": 663, "band": 262, "n": 112, "shift": 0.6048265460030166, "wide": false}
+  motion.loadCheck           : [{"label": "lever level \u00b7 100 g at 90 mm", "joint": "servo", "got": -0.3853, "want": -0.3853, "err": 0.0001, "source": "\u03a3 m\u00b7g\u00b7x of every part on the carrier = -0.925 kgf\u00b7cm at the joint, \u00f7 4 \u00f7 \u03b7 0.6", "closed": true}, {"label": "lever +30\u00b0 \u00b7 100 g", "joint": "servo", "got": -0.3337, "want": -0.3337, "err": 0.0001, "source": "\u03a3 m\u00b7g\u00b7x 
+  motion.physics             : {"cases": 0, "worstRel": 0, "bad": [], "loop": null}
+  motion.bvh                 : {"pairs": 121, "agree": 121, "hits": 0, "bad": [], "ms": 482}
+  motion.tunnel              : [{"joint": "servo", "end": -180, "jump": -137.108, "walk": -137.108, "ok": true}, {"joint": "servo", "end": 180, "jump": 180, "walk": 180, "ok": true}]
+  motion.grip                : null
+  motion.path                : {"frames": 155, "dur": 5.133333333333333, "events": [], "peak": 0.21404025061708862, "deadStops": [], "through": []}
+  motion.dragBench           : {"joint": "servo", "frames": 25, "fps": 16.155088852891467, "medianMs": 61.90000000037253, "p95Ms": 77}
+  fps       : 26.1  (median frame 37.7 ms, p95 49.7 ms, 79 frames, dprCap 2)
+  overflow  : scrollW 390 vs 390
+  hover css : 1 rules
+  WARN  WARNING [.WebGL-0x20cc0011d400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+  WARN  WARNING [.WebGL-0x20cc0011d400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+  WARN  WARNING [.WebGL-0x20cc0011d400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+  WARN  WARNING [.WebGL-0x20cc0011d400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+  => PASS  (fps below 30 floor)
+
+=== verify v7 gates oneshot_v6_bench_v8.html ===
+  v7.cube            : [{"face": "FRONT", "zone": [1, 1], "want": [-0.785, 0.615], "got": [-0.785, 0.615], "ok": true}, {"face": "TOP", "zone": [0, 0], "want": [-1.571, 1.45], "got": [-1.571, 1.45], "ok": true}, {"face": "FRONT", "zone": [0, 1], "want": [-1.571, 0.785], "got": [-1.571, 0.785], "ok": true}, {"face": "RIGHT", "zone": [0, 0], "want": [0, 0], "got": [0, 0], "ok": true}, {"face": "FRONT", "zone": [0, 0], "want": [-1.571, 0], "got": [-1.571, 0], "ok": true}, {"face": "RIGHT", "zone": [-1, -1], "want": [-0.785, -0.615], "got": [-0.785, -0.615], "ok": true}]
+  v7.pan             : {"right": {"targetMoved_mm": 71.16, "modelsSame": true, "yawSame": true, "distSame": true}, "shift": {"targetMoved_mm": 72.11, "modelsSame": true, "yawSame": true, "distSame": true}}
+  v7.zoom            : {"persp": {"cursor": [225.0, 310.0], "after": [225.0, 310.62], "err_px": 0.641, "dist": 445.6}, "ortho": {"cursor": [225.0, 310.0], "after": [225.0, 310.62], "err_px": 0.637, "dist": 445.6}}
+  v7.orbitPivot      : {"err_px": 0.0}
+  v7.pinch           : {"err_px": 0.0, "dist": 256.5}
+  v7.dblFit          : {"part": "A_ring_housing", "sel": ["A_ring_housing"], "inside": true, "spanBefore": 74.3, "spanAfter": 275.6}
+  v7.scrub           : {"at500": {"n": 9, "u": 0.5, "paused": true, "dur": 1020, "keys": 1}, "endErr": 0}
+  v7.playWhole       : "STEP 04 / 9"
+  v7.steps           : [{"n": 1, "keys": 1, "dur": 1020, "midOff": 17.68, "endU": 1, "endErr": 0}, {"n": 2, "keys": 1, "dur": 1020, "midOff": 21.45, "endU": 1, "endErr": 0}, {"n": 3, "keys": 3, "dur": 1340, "midOff": 144.97, "endU": 1, "endErr": 0}, {"n": 4, "keys": 3, "dur": 1300, "midOff": 161.78, "endU": 1, "endErr": 0}, {"n": 5, "keys": 7, "dur": 1860, "midOff": 44.47, "endU": 1, "endErr": 0}, {"n": 6, "keys": 5, "dur": 1580, "midOff": 201.51, "endU": 1, "endErr": 0}, {"n": 7, "keys": 2, "dur": 1220, "midOff": 38.68, "endU": 1, "endErr": 0}, {"n": 8, "keys": 4, "dur": 1500, "midOff": 168.7, "endU": 1, "endErr": 
+  v7.wire            : {"nodes": 5, "cards": 5, "cardInfo": [{"node": "chg", "orders": [1, 2], "swatches": 2, "rows": 2, "src": ["label", "label"], "connector": "USB lead \u00b7 cut + soldered"}, {"node": "rail", "orders": [1, 2], "swatches": 2, "rows": 2, "src": ["run", "run"], "connector": "Breadboard 2.54 mm"}, {"node": "servo", "orders": [1, 2, 3, 4, 5, 6], "swatches": 6, "rows": 6, "src": ["label", "library", "library", "any", "any", "any"], "connector": "JR servo 3-pin \u00b7 2.54 mm"}, {"node": "pot", "orders": [1, 2, 3], "swatches": 3, "rows": 3, "src": ["any", "any", "any"], "connector": "Solder joint"}, {"
+  v7.flow            : {"eflow": 1, "flow3": 1, "anim": "avflow"}
+  v7.platePath       : ["~/Claude/OneShot/v6/av/plates/oneshot_v6_bench_all_plates_plate1.3mf", "~/Claude/OneShot/v6/av/plates/oneshot_v6_bench_all_plates.3mf"]
+  v7.plateBtnLocal   : "\u2913 3MF \u00b7 plate 1"
+  v7.materials       : {"gloss": 4, "plastic": 4, "matte": 6, "steel": 13, "satin": 6}
+  v7.edgesChangePixels: true
+  v7.glError         : 0
+  v7.artifact        : {"label": "\u2913 3MF \u00b7 zipped by the viewer \u2014 tap to unzip", "saved": [{"name": "oneshot_v6_bench_plate1.zip", "size": 147137, "type": "application/zip"}]}
+  v7.fps             : {"v7": 29.6, "medianMs": 33.4, "runs7": [30.3, 28.6, 30.2, 29.6, 29.3], "v6": 30.9, "runs6": [32.3, 30.9, 29.9, 32.1, 24.1]}
+  ERROR fps 29.6 below the 30 fps floor
+  => FAIL
+
+=== verify_av_v4 oneshot_v6_bench_v8.html: v3 PASS · v7 FAIL => FAIL
+
+=== verify v7.1 gates oneshot_v6_bench_v8.html ===
+  v71.wireSources   : {"label": 3, "run": 3, "library": 2, "any": 6, "convention": 1}
+  v71.traces        : {"exploded": 25, "traces": 25, "shown": 25, "shownAt0": 0}
+  v71.search        : {"q": "SG90", "visible": 3, "of": 14, "sel": ["A_servo"], "title": "SG90 \u00b7 pot moved out"}
+  v71.bench         : {"afterTick": [2], "afterReload": [2], "tickOk": true, "progress": "1 / 9 built", "afterClear": []}
+  v71.snap          : {"name": "oneshot_v6_bench_view.png", "bytes": 18926}
+  v71.cutList       : {"name": "oneshot_v6_bench_wire_cut_list.csv", "rows": 6, "header": "run,label,from,to,net,kind,gauge,routed_mm,cut_mm,conductors,colours_from_end,connector_from,connector_to,amps,drop_v"}
+  v71.peek          : {"part": "A_ring_housing", "sel": ["A_ring_housing"], "title": "Ring housing \u00b7 36 T internal", "sheetOpen": true}
+  v71.scale         : {"persp": {"mm": 100, "px": 111.81, "text": "100 mm at target", "mmPerPx": 0.8943946979158749}, "relErr": 2e-05, "ortho": {"mm": 100, "px": 111.81, "text": "100 mm", "mmPerPx": 0.8943946979158749}, "orthoSegPx": 111.81, "orthoErr": 2e-05}
+  v71.link          : {"hash": "#cam=-0.785,0.615,735.423,-26.006,-11.55,14.455,o", "ok": true}
+  v71.focus         : {"stageBefore": 619, "stageFocus": 799, "header": "none", "stageAfter": 619}
+  v71.artifactFiles : [{"name": "oneshot_v6_bench_view.png", "size": 50334}, {"name": "oneshot_v6_bench_wire_cut_list.csv", "size": 908}]
+  => PASS
+
+=== verify_av_v5 oneshot_v6_bench_v8.html: v4 FAIL · v7.1 PASS => FAIL
+
+=== verify v7.2 gates oneshot_v6_bench_v8.html ===
+  v72.checksTab   : {"visible": true, "title": "Checks", "metaChecks": 0, "tiles": 0}
+  v72.clash       : {"pairs": 15, "brute": 15, "kinds": {"clash": 2, "design": 13}, "candidates": 63, "ms": 194, "clashes": [["A_ring_housing", "A_servo", 4.5], ["A_torque_lever", "A_weight", 4.3]], "rowSel": ["A_ring_housing", "A_servo"]}
+  v72.cog         : {"g": 215.85, "margin": 12.792, "h": 83.266, "tipDeg": 8.734, "hull": 4, "missing": 0, "com": [42.208, -13.816, 83.266], "independent": {"g": 215.85, "com": [42.208, -13.816, 83.266], "err_mm": 0.0}, "markerShown": true}
+  v72.circle3     : {"d": 15, "c": [2.999999999999999, -1.9999999999999996, 11]}
+  => PASS
+
+=== verify_av_v6 oneshot_v6_bench_v8.html: v5 FAIL · v7.2 PASS => FAIL
+
+=== verify v7.3 gates oneshot_v6_bench_v8.html ===
+  v73.tight       : {"n": 28, "candidates": 36, "ms": 350, "risk": [{"a": "A_pot_gear", "b": "A_pot", "d": 0.064}, {"a": "A_ring_housing", "b": "A_carrier", "d": 0.1}, {"a": "A_sun", "b": "A_carrier", "d": 0.1}, {"a": "A_ring_housing", "b": "A_planet_0", "d": 0.118}, {"a": "A_ring_housing", "b": "A_planet_1", "d": 0.118}, {"a": "A_ring_housing", "b": "A_planet_2", "d": 0.119}, {"a": "A_horn", "b": "A_sun", "d": 0.137}], "first": [{"a": 
+  v73.gapVsBrute  : [{"a": "A_servo", "b": "A_horn", "bvh": 0.049446, "brute": 0.049446}, {"a": "A_pot_gear", "b": "A_pot", "bvh": 0.063718, "brute": 0.063718}, {"a": "A_ring_housing", "b": "A_carrier", "bvh": 0.099763, "brute": 0.099763}]
+  v73.gapTool     : {"a": "A_ring_housing", "b": "A_stand", "caption": "Gap 0.00 mm", "d": 0, "lineShown": false}
+  v73.bomCsv      : {"rows": 22, "tableRows": 22, "csvTotal": 39.76, "tile": "CAD $39.76"}
+  v73.section     : {"ortho": {"wantMm": 53.95, "gotMm": 53.95, "handleOffPx": 0.0}, "persp": {"wantMm": 58.38, "gotMm": 55.81, "handleOffPx": 0.11}}
+  => PASS
+
+=== verify_av_v7 oneshot_v6_bench_v8.html: v6 FAIL · v7.3 PASS => FAIL
+
+=== verify v7.4 gates oneshot_v6_bench_v8.html ===
+  v74.angleMath   : [90, 60.00000000000001]
+  v74.history     : {"backOk": true, "fwdOk": true, "n": 2}
+  v74.swipe       : {"left": "Step 03 / 9", "right": "Step 02 / 9"}
+  v74.wireToBuy   : {"got_mm": {"26 AWG": 1219, "22 AWG": 279}, "want_mm": {"26 AWG": 1219, "22 AWG": 279}}
+  v74.keys        : {"open": true, "afterEsc": false}
+  => PASS
+
+=== verify_av_v8 oneshot_v6_bench_v8.html: v7 FAIL · v7.4 PASS => FAIL

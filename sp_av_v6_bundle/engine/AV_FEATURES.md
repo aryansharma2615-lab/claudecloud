@@ -573,3 +573,49 @@ Proved on the OneShot v6 bench, the OneShot v5.2 arm and `examples/v7_demo` (num
 **Proof (final run, v7.3 pages, every layer v3 → v7.3):** OneShot v6 bench PASS (fps median of 5: 42.7 vs v6 37.3);
 OneShot v5.2 arm PASS (36.1 vs 36.7). The demo run was still going at hand-off.
 **v7.4 (R33–R37) is built and has its verifier (`verify_av_v8.py`), but has NOT been run yet: next step.**
+
+---
+
+## 2026-10-03 — engine v8 ratchet (`viewer_template_motion_v8.html`, `patch_engine_v8.py` + `engine_v8.js/.css`, `calc_v8.py`, `build_av_v8.py`, `verify_av_v9.py`)
+
+Built in the cloud on `sp-av-v8` from v7.4. Guided **LOAD → FIT → SECURE → TEST** over the existing tabs, and an
+**engineering-data contract** behind every number. Demo: `examples/v8_demo` — Shawarma Servo Mount v1 (SG90 bracket,
+build123d CAD, PrusaSlicer G-code, URDF/SRDF/SDF + PyBullet check) + a hole-coupon test-print AV.
+
+* **R38 phases.** A stepper over the tabs; each phase is a URL-hash state (`#phase=test&kg=…&lev=…&sec=…&xr=1&cam=…`).
+  Leaving through the dock ends the phase. Gate: every phase restored from the hash alone in a fresh page.
+* **R39 source labels.** Every engineering number is `value · unit · SOURCE` (MEASURED · CALC · CAD · SLICER ·
+  DATASHEET · ASSUMED · SPEC); CALC carries its formula. Gate: DOM scan of every v8 panel / overlay — 0 unlabelled
+  numerals (229 labelled numbers across LOAD, FIT, SECURE, TEST, Checks, inspector).
+* **R40 caliper** (animated jaws, snapped points). Gate: reads the base plate's 80.00 mm front edge to 0.01 mm.
+* **R41 tolerance rings** on every hole / window, coloured from `tolerance_profile_<printer>.json` (coupon fit when
+  measured, ASSUMED model until then). Gate: ring colours = Python `band_of`; recolouring the profile in the page
+  recolours the rings.
+* **R42 stack-ups** (worst case + RSS, contribution bars, "eats most") + a CAD → printed → measured → class calculator.
+* **R43 SECURE**: auto-plays the sequence; insert iron temperature and screw torque chips with their source.
+* **R44 TEST**: load slider (kg + lever) → CALC stress heatmap (σ_vm ÷ strength, servo τ ÷ stall), torque meter,
+  stall warning, τ(θ) chart, load arrow; the test weight's mass feeds the Motion lane. Gates: JS model = `calc_v8.Model`
+  at 6 load cases (worst 2e-16 relative); Motion lane r × F = hand calc (0.7035 kgf·cm both); PyBullet inverse dynamics
+  = hand calc within 0.10 %.
+* **R45 what breaks first** (sorted SF, fly-to, fillet fix Kt 2.43 → 1.34: arm breaks at 2.24 kg sharp vs 4.05 kg
+  filleted; SG90 stalls at 0.51 kg — the servo is the fuse).
+* **R46 X-ray + true wireframe** (barycentric edges from gl_VertexID on the triangle soup). **R47 capped section**
+  (flat hatched cap; gate: the pixel inside the cut = the cap colour).
+* **R48 parts tree** drawer (bottom sheet < 768 px) + engineering card in the inspector. **R49 Share View.**
+  **R50 STL per part + Send to slicer (3MF).** **R51 BOM OWNED $0.** **R52 perf HUD + LOD** (13.8k default, 41.3k
+  past 2× zoom). **R53 checks contract** (26 tiles; ASSUMED input → UNVERIFIED, missing field → MISSING; MEASURE_ME).
+* **R54 fix:** v7.4's view-history gate had never run; it failed (◀ returned to a pre-Reset view). Fixed; v7.4 gates
+  now PASS on all three builds.
+* **R55 build steps** draw at interaction resolution with the clock clamped to 50 ms/frame — the servo mount's steps
+  5–10 finished in 3–4 frames on SwiftShader (gate: "nothing moved mid-animation"); now every step moves and lands
+  bit-exact. **R56** CSS variables cached. **R57** interaction-resolution ladder gains a 0.75× rung + double step when
+  frames run > 50 ms (arm: v8 21.9 fps vs v6 21.1 vs v7.4 19.2, same machine, interleaved).
+* **Shader lesson:** a uniform branch costs both sides on SwiftShader — heat + wireframe in the base program cost
+  ~15 % fps. They live in a second program used only when on; v8 ≥ v7.4 fps on the same model.
+* **Found by the AV on the demo part (fixed in CAD):** the CoG gate showed the mount tipping forward with 200 g on the
+  arm (CoG 8.0 mm outside the footprint) → base extended under the load: 12.1 mm inside, tips past 14.6°.
+
+**Proof (clean sequential run):** servo mount — every v3 → v7.4 gate + every v8 gate **PASS** (v7 fps gate 34.7 vs v6
+floor 30.1; v8 orbit 31.5 fps at 390 px). OneShot v6 bench and v5.2 arm upgraded to v8 (`refs_v8/`): every functional
+gate PASS; **FAIL only on the absolute 30 fps floor** — bench 29.6 (v6 page 30.9), arm 21.3 (v6 page 20.8). A container
+limit, not a v8 regression (ratio to v6: 0.96× / 1.02×). Screens: `shots_v8/` (390 + 1280 px, dark + light, all phases).

@@ -36,7 +36,7 @@
   },
   "snap": {
    "name": "oneshot_v6_bench_view.png",
-   "bytes": 37724
+   "bytes": 18926
   },
   "cutList": {
    "name": "oneshot_v6_bench_wire_cut_list.csv",
@@ -264,7 +264,7 @@
     "n": 1,
     "keys": 1,
     "dur": 1020,
-    "midOff": 19.63,
+    "midOff": 17.68,
     "endU": 1,
     "endErr": 0
    },
@@ -272,7 +272,7 @@
     "n": 2,
     "keys": 1,
     "dur": 1020,
-    "midOff": 13.57,
+    "midOff": 21.45,
     "endU": 1,
     "endErr": 0
    },
@@ -280,7 +280,7 @@
     "n": 3,
     "keys": 3,
     "dur": 1340,
-    "midOff": 192.21,
+    "midOff": 144.97,
     "endU": 1,
     "endErr": 0
    },
@@ -288,7 +288,7 @@
     "n": 4,
     "keys": 3,
     "dur": 1300,
-    "midOff": 37.0,
+    "midOff": 161.78,
     "endU": 1,
     "endErr": 0
    },
@@ -296,7 +296,7 @@
     "n": 5,
     "keys": 7,
     "dur": 1860,
-    "midOff": 227.95,
+    "midOff": 44.47,
     "endU": 1,
     "endErr": 0
    },
@@ -304,7 +304,7 @@
     "n": 6,
     "keys": 5,
     "dur": 1580,
-    "midOff": 0,
+    "midOff": 201.51,
     "endU": 1,
     "endErr": 0
    },
@@ -312,7 +312,7 @@
     "n": 7,
     "keys": 2,
     "dur": 1220,
-    "midOff": 35.39,
+    "midOff": 38.68,
     "endU": 1,
     "endErr": 0
    },
@@ -320,7 +320,7 @@
     "n": 8,
     "keys": 4,
     "dur": 1500,
-    "midOff": 29.93,
+    "midOff": 168.7,
     "endU": 1,
     "endErr": 0
    },
@@ -328,7 +328,7 @@
     "n": 9,
     "keys": 1,
     "dur": 1020,
-    "midOff": 18.51,
+    "midOff": 52.68,
     "endU": 1,
     "endErr": 0
    }
@@ -477,34 +477,32 @@
    ]
   },
   "fps": {
-   "v7": 26.0,
-   "medianMs": 37.9,
+   "v7": 29.6,
+   "medianMs": 33.4,
    "runs7": [
-    28.9,
-    26.0,
-    25.2,
-    25.2,
-    26.2
+    30.3,
+    28.6,
+    30.2,
+    29.6,
+    29.3
    ],
-   "v6": 29.9,
+   "v6": 30.9,
    "runs6": [
-    31.9,
-    28.9,
-    33.2,
+    32.3,
+    30.9,
     29.9,
-    29.6
+    32.1,
+    24.1
    ]
   },
   "errors": [
-   "step 6 has 5 entering parts but nothing moved mid-animation",
-   "fps 26.0 below the v6 floor 29.9 on this machine",
-   "fps 26.0 below the 30 fps floor"
+   "fps 29.6 below the 30 fps floor"
   ],
   "warnings": [
-   "WARNING [.WebGL-0x2a640011ce00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-   "WARNING [.WebGL-0x2a640011ce00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-   "WARNING [.WebGL-0x2a640011ce00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-   "WARNING [.WebGL-0x2a640011ce00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+   "WARNING [.WebGL-0x179400108e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x179400108e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x179400108e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x179400108e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
   ],
   "ok": false
  }
