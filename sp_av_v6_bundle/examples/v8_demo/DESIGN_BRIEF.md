@@ -36,4 +36,4 @@ SG90 clones vary: body 22.2 → 23.0 mm, pitch 27.5 → 28.0 mm. The window is s
 4. Spool brand → datasheet (or a dog-bone pull in XY and Z)
 
 ## 5. Envelope + machine
-Ender 3 S1 Pro 220 × 220 × 270, PETG, brass nozzle, open frame. Largest part (cradle) 26 × 39.4 × 52 — fits.
+Ender 3 S1 Pro 220 × 220 × 270, PETG, brass nozzle, open frame. Largest part (base, after D15) 80 × 54 × 6.6; tallest (cradle) 26 × 39.4 × 56 — fits.

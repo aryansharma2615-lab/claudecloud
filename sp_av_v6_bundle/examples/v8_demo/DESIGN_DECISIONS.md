@@ -20,8 +20,9 @@
 | D10 | 5 kg test load | slider **0–5 kg, lever 10–40 mm**, default **0.2 kg @ 35 mm** | 5 kg at 35 mm = 17.5 kgf·cm = 9.7 × SG90 stall. Default sits at 39 % of stall (< 50 % continuous rule). |
 | D11 | design arm on +Y | turned **180° about Z**: arm side faces the engine's FRONT (−Y) | Engine convention FRONT = −Y; built the other way, the screws read "BACK" and the default view showed the back. Physics unchanged (same SFs to 4 figures) — the calc now uses CAD direction vectors, not assumed axes. |
 | D12 | emboss 0.5 mm | **0.6 mm** | 3 layers at 0.2; 0.5 is 2.5 layers and the slicer rounds it unpredictably. |
-| D13 | Prusa MK4 / Bambu 3MF | Ender 3 S1 Pro; G-code from **PrusaSlicer 2.7 CLI** with the stock Creality Ender-3 S1 Pro profile | Real grams/minutes (base 9.43 g / 55 min, cradle 15.63 g / 2 h 02, arm 2.07 g / 15.5 min). Creality Print on the Mac will read a few % different — labelled `SLICER · PrusaSlicer`. |
+| D13 | Prusa MK4 / Bambu 3MF | Ender 3 S1 Pro; G-code from **PrusaSlicer 2.7 CLI** with the stock Creality Ender-3 S1 Pro profile | Real grams/minutes (after D15: base 16.54 g / 1 h 35, cradle 16.54 g / 2 h 09, arm 2.07 g / 15.5 min). Creality Print on the Mac will read a few % different — labelled `SLICER · PrusaSlicer`. |
 | D14 | PETG-CF | **PETG** | CF eats a brass nozzle in a few hundred grams. H2S nozzle unconfirmed → no CF offer. |
+| D15 | base 70 × 34, shaft at 48 | base **80 × 54**, reaching under the load; shaft **52** | The AV's CoG gate (v7.2) caught it: with 200 g on the arm the CoG sat **8.0 mm OUTSIDE** the footprint — the mount tips forward unless screwed down. Now **12.1 mm inside**, tips only past **14.6°**. Shaft +4 mm keeps the hanging arm **2 mm** over the bigger base (sweep 0 clashes). Cost: base 9.4 → **16.5 g**, 55 → 95 min. Rejected: "just screw it down" — the TEST bench should stand on its own. |
 
 ## §2 Assumptions (most dangerous first)
 | assumption | value | basis | risk |
