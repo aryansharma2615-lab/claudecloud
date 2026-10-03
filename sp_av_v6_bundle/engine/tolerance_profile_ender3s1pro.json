@@ -1,0 +1,47 @@
+{
+ "schema": "sp-tolerance-v1",
+ "printer": "Creality Ender 3 S1 Pro",
+ "nozzle_mm": 0.4,
+ "material": "PETG",
+ "layer_mm": 0.2,
+ "orientation": "hole axis perpendicular to the bed (vertical holes)",
+ "src": "ASSUMED",
+ "status": "STUB — print coupon/hole_coupon.3mf, caliper every hole (two readings 90° apart, take the smaller), type the numbers into coupon.measured, rebuild",
+ "why": "Small holes print undersize mostly from polygon faceting of the STL circle and first-layer squish pushing plastic inward, not from shrinkage — so the error is bigger on small holes and must be measured on THIS printer + spool.",
+ "model": {
+  "kind": "round_hole",
+  "formula": "printed = cad + a + b / cad",
+  "a": -0.10,
+  "b": -0.40,
+  "src": "ASSUMED",
+  "note": "placeholder curve: -0.23 mm at Ø3, -0.37 mm at Ø1.5, -0.12 mm at Ø23; replaced by the coupon fit once measured"
+ },
+ "rect": {"delta": -0.10, "src": "ASSUMED", "note": "per dimension, straight-walled windows"},
+ "coupon": [
+  {"cad": 2.8, "measured": null}, {"cad": 2.9, "measured": null}, {"cad": 3.0, "measured": null},
+  {"cad": 3.1, "measured": null}, {"cad": 3.2, "measured": null}, {"cad": 3.3, "measured": null},
+  {"cad": 3.4, "measured": null}, {"cad": 3.5, "measured": null}, {"cad": 3.6, "measured": null}
+ ],
+ "bands": {
+  "clearance": [
+   {"max": 0.0, "cls": "tight", "label": "interference — will not go in", "color": "red"},
+   {"min": 0.0, "max": 0.1, "cls": "snug", "label": "0–0.1 mm snug", "color": "green"},
+   {"min": 0.1, "max": 0.3, "cls": "running", "label": "0.1–0.3 mm running", "color": "yellow"},
+   {"min": 0.3, "cls": "sloppy", "label": "> 0.3 mm sloppy", "color": "red"}
+  ],
+  "self_tap": [
+   {"min": -0.6, "max": -0.3, "cls": "bite", "label": "self-tap bite −0.3…−0.6 mm", "color": "green"},
+   {"min": -0.3, "max": 0.0, "cls": "weak", "label": "weak bite", "color": "yellow"},
+   {"max": -0.6, "cls": "split", "label": "too tight — boss may split", "color": "red"},
+   {"min": 0.0, "cls": "none", "label": "no bite", "color": "red"}
+  ],
+  "insert_bore": [
+   {"min": -0.8, "max": -0.4, "cls": "melt", "label": "insert melt-in −0.4…−0.8 mm", "color": "green"},
+   {"min": -0.4, "max": 0.0, "cls": "loose", "label": "little to grip", "color": "yellow"},
+   {"max": -0.8, "cls": "crack", "label": "too much plastic displaced", "color": "red"},
+   {"min": 0.0, "cls": "slip", "label": "slip fit — nothing to grip", "color": "red"}
+  ]
+ },
+ "colors": {"green": "#0ca30c", "yellow": "#fab219", "red": "#d03b3b"},
+ "colors_src": "dataviz status palette (good / warning / critical) — always shipped with an icon + label"
+}

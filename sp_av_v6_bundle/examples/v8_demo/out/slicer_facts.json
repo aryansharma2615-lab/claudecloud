@@ -1,0 +1,53 @@
+{
+ "slicer": "PrusaSlicer 2.7.2 CLI",
+ "printer": "Creality Ender-3 S1 Pro (0.4 mm nozzle)",
+ "print": "0.20 mm NORMAL (0.4 mm nozzle) @CREALITY",
+ "filament": "Generic PETG @CREALITY",
+ "parts": {
+  "base": {
+   "grams": 9.43,
+   "filament_mm": 3087.92,
+   "time_s": 3300,
+   "time_txt": "55m 0s",
+   "layers": 33,
+   "settings": {
+    "layer": 0.2,
+    "walls": 3,
+    "top_bottom": 4,
+    "infill": 25,
+    "pattern": "gyroid"
+   },
+   "gcode": "out/gcode/base.gcode"
+  },
+  "cradle": {
+   "grams": 15.63,
+   "filament_mm": 5118.09,
+   "time_s": 7300,
+   "time_txt": "2h 1m 40s",
+   "layers": 260,
+   "settings": {
+    "layer": 0.2,
+    "walls": 4,
+    "top_bottom": 5,
+    "infill": 40,
+    "pattern": "gyroid"
+   },
+   "gcode": "out/gcode/cradle.gcode"
+  },
+  "arm": {
+   "grams": 2.07,
+   "filament_mm": 677.44,
+   "time_s": 933,
+   "time_txt": "15m 33s",
+   "layers": 25,
+   "settings": {
+    "layer": 0.2,
+    "walls": 4,
+    "top_bottom": 5,
+    "infill": 60,
+    "pattern": "gyroid"
+   },
+   "gcode": "out/gcode/arm.gcode"
+  }
+ }
+}

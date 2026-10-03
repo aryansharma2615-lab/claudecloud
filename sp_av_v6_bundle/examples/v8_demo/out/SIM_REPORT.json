@@ -1,0 +1,107 @@
+{
+ "fk": [
+  {
+   "deg": 0,
+   "err_mm": 1e-06
+  },
+  {
+   "deg": 90,
+   "err_mm": 3e-06
+  },
+  {
+   "deg": -90,
+   "err_mm": 1e-06
+  },
+  {
+   "deg": 0,
+   "err_mm": 1e-06
+  }
+ ],
+ "tau": [
+  {
+   "kg": 0.0,
+   "deg": 0,
+   "pybullet_nmm": 0.3451,
+   "calc_nmm": 0.3448,
+   "rel": 0.000996
+  },
+  {
+   "kg": 0.0,
+   "deg": 90,
+   "pybullet_nmm": 0.0,
+   "calc_nmm": 0.0,
+   "rel": 0.0
+  },
+  {
+   "kg": 0.0,
+   "deg": -90,
+   "pybullet_nmm": 0.0,
+   "calc_nmm": 0.0,
+   "rel": 0.0
+  },
+  {
+   "kg": 0.0,
+   "deg": 0,
+   "pybullet_nmm": 0.3451,
+   "calc_nmm": 0.3448,
+   "rel": 0.000996
+  },
+  {
+   "kg": 0.2,
+   "deg": 0,
+   "pybullet_nmm": 68.9914,
+   "calc_nmm": 68.9913,
+   "rel": 1e-06
+  },
+  {
+   "kg": 0.2,
+   "deg": 90,
+   "pybullet_nmm": 0.0,
+   "calc_nmm": 0.0,
+   "rel": 0.0
+  },
+  {
+   "kg": 0.2,
+   "deg": -90,
+   "pybullet_nmm": 0.0,
+   "calc_nmm": 0.0,
+   "rel": 0.0
+  },
+  {
+   "kg": 0.2,
+   "deg": 0,
+   "pybullet_nmm": 68.9914,
+   "calc_nmm": 68.9913,
+   "rel": 1e-06
+  },
+  {
+   "kg": 0.5,
+   "deg": 0,
+   "pybullet_nmm": 171.9608,
+   "calc_nmm": 171.9611,
+   "rel": 2e-06
+  },
+  {
+   "kg": 0.5,
+   "deg": 90,
+   "pybullet_nmm": 0.0,
+   "calc_nmm": 0.0,
+   "rel": 0.0
+  },
+  {
+   "kg": 0.5,
+   "deg": -90,
+   "pybullet_nmm": 0.0,
+   "calc_nmm": 0.0,
+   "rel": 0.0
+  },
+  {
+   "kg": 0.5,
+   "deg": 0,
+   "pybullet_nmm": 171.9608,
+   "calc_nmm": 171.9611,
+   "rel": 2e-06
+  }
+ ],
+ "ok": true
+}

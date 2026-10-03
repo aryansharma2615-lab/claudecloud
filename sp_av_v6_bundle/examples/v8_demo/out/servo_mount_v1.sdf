@@ -1,0 +1,299 @@
+<sdf version="1.7">
+  <model name="servo_mount_v1">
+    <link name="base_link">
+      <inertial>
+        <pose>-0.000074 0.008750 0.022622 0 0 0</pose>
+        <mass>0.037828</mass>
+        <inertia>
+          <ixx>1.731e-05</ixx>
+          <ixy>-6.371e-08</ixy>
+          <ixz>6.455e-08</ixz>
+          <iyy>2.152e-05</iyy>
+          <iyz>3.527e-06</iyz>
+          <izz>1.016e-05</izz>
+        </inertia>
+      </inertial>
+      <visual name="base_v">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/base.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name="cradle_v">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/cradle.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name="servo_v">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/servo.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name="tab0_v">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/tab0.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name="tab1_v">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/tab1.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name="m3a_v">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/m3a.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name="m3b_v">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/m3b.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name="ins_a_v">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/ins_a.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name="ins_b_v">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/ins_b.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="base_c">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/base.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="cradle_c">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/cradle.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="servo_c">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/servo.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="tab0_c">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/tab0.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="tab1_c">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/tab1.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="m3a_c">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/m3a.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="m3b_c">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/m3b.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="ins_a_c">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/ins_a.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="ins_b_c">
+        <pose>-0.000000 -0.000000 -0.000000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/ins_b.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+    <link name="arm_link">
+      <pose>-0.005300 -0.014000 0.048000 0 0 0</pose>
+      <inertial>
+        <pose>-0.034710 -0.001899 0.000000 0 0 0</pose>
+        <mass>0.202683</mass>
+        <inertia>
+          <ixx>2.401e-08</ixx>
+          <ixy>-9.218e-09</ixy>
+          <ixz>1.606e-21</ixz>
+          <iyy>1.744e-06</iyy>
+          <iyz>1.396e-22</iyz>
+          <izz>1.738e-06</izz>
+        </inertia>
+      </inertial>
+      <visual name="horn_v">
+        <pose>0.005300 0.014000 -0.048000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/horn.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name="arm_v">
+        <pose>0.005300 0.014000 -0.048000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/arm.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name="horn_screw_v">
+        <pose>0.005300 0.014000 -0.048000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/horn_screw.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <visual name="weight_v">
+        <pose>0.005300 0.014000 -0.048000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/weight.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="horn_c">
+        <pose>0.005300 0.014000 -0.048000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/horn.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="arm_c">
+        <pose>0.005300 0.014000 -0.048000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/arm.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="horn_screw_c">
+        <pose>0.005300 0.014000 -0.048000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/horn_screw.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name="weight_c">
+        <pose>0.005300 0.014000 -0.048000 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>stl/weight.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+    <link name="load_point">
+      <pose>-0.040300 -0.015900 0.048000 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.000001</mass>
+        <inertia>
+          <ixx>1e-12</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-12</iyy>
+          <iyz>0</iyz>
+          <izz>1e-12</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name="shaft" type="revolute">
+      <parent>base_link</parent>
+      <child>arm_link</child>
+      <axis>
+        <xyz>0.0 1.0 0</xyz>
+        <limit>
+          <lower>-1.57080</lower>
+          <upper>1.57080</upper>
+          <effort>0.17652</effort>
+          <velocity>10.47198</velocity>
+        </limit>
+      </axis>
+    </joint>
+    <joint name="load_point_fixed" type="fixed">
+      <parent>arm_link</parent>
+      <child>load_point</child>
+    </joint>
+  </model>
+</sdf>

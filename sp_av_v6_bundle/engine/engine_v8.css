@@ -1,0 +1,163 @@
+/* ===========================================================================
+   SP AV ENGINE v8 — LOAD → FIT → SECURE → TEST (semantic tokens only, both themes)
+   =========================================================================== */
+:root{
+  --accent:#ff6b35; --accent-ink:#141413;                 /* Shawarma Orange */
+  --src-measured:var(--good); --src-calc:var(--info); --src-cad:var(--mut);
+  --src-slicer:#5598e7; --src-datasheet:var(--body); --src-assumed:var(--warn); --src-spec:var(--accent);
+  /* stress ramp (dataviz sequential blue, validated --ordinal on the dark stage #070b0a) + status critical */
+  --heat-0:#1c5cab; --heat-1:#2a78d6; --heat-2:#5598e7; --heat-3:#86b6ef; --heat-over:#d03b3b;
+  --st-good:#0ca30c; --st-warn:#fab219; --st-bad:#d03b3b;
+}
+:root[data-theme="light"]{
+  --accent:#c2410c; --accent-ink:#ffffff;
+  --src-slicer:#256abf;
+  /* validated --ordinal on the light stage #dfe4de */
+  --heat-0:#5598e7; --heat-1:#2a78d6; --heat-2:#1c5cab; --heat-3:#104281;
+}
+
+/* ---- phase stepper ---- */
+#v8phase{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:6px var(--sp-4) 0;background:var(--ground);position:relative;z-index:44}
+#v8phase button{appearance:none;min-height:var(--tap);border:1px solid var(--line);border-radius:var(--r-md);background:var(--panel);
+  color:var(--mut);font:700 12px/1.1 var(--f-mono);letter-spacing:.06em;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;padding:0 4px}
+#v8phase button i{font-style:normal;display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;border:1.5px solid currentColor;font-size:10px}
+#v8phase button[aria-current="step"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+#v8phase button[aria-current="step"] i{border-color:var(--accent-ink)}
+#v8phase button.done{color:var(--ink)}
+#v8phase button:disabled{opacity:.38;cursor:not-allowed}
+html.av-focus #v8phase{display:none}
+
+/* ---- source labels: every engineering number carries one ---- */
+.num{white-space:nowrap;font-variant-numeric:tabular-nums}
+.num small{color:var(--mut);font-size:.8em;margin-left:1px}
+.src{display:inline-block;font:700 8.5px/1 var(--f-mono);letter-spacing:.05em;padding:2px 4px 1.5px;margin-left:5px;border-radius:4px;
+  border:1px solid currentColor;vertical-align:2px;cursor:help;background:transparent}
+button.src{appearance:none;min-height:0}
+.src.s-MEASURED{color:var(--src-measured)} .src.s-CALC{color:var(--src-calc)} .src.s-CAD{color:var(--src-cad)}
+.src.s-SLICER{color:var(--src-slicer)} .src.s-DATASHEET{color:var(--src-datasheet)} .src.s-ASSUMED{color:var(--src-assumed);border-style:dashed}
+.src.s-SPEC{color:var(--src-spec)}
+.v8f{margin:6px 0 2px;padding:8px 10px;border-radius:var(--r-sm);background:var(--sunk);font:12px/1.45 var(--f-mono);color:var(--body);white-space:pre-wrap}
+.v8miss{display:inline-flex;align-items:center;gap:4px;font:700 10px var(--f-mono);color:var(--accent-ink);background:var(--accent);border-radius:4px;padding:3px 6px}
+
+/* ---- status pills (icon + label, never colour alone) ---- */
+.v8st{display:inline-flex;align-items:center;gap:4px;font:700 10px/1 var(--f-mono);letter-spacing:.04em;padding:3px 6px;border-radius:4px;border:1px solid currentColor}
+.v8st.pass{color:var(--good)} .v8st.fail{color:var(--bad)} .v8st.warn{color:var(--warn)}
+.v8st.unverified{color:var(--warn);border-style:dashed} .v8st.na{color:var(--faint)}
+.v8row{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:9px 0;border-bottom:1px solid var(--line);align-items:center}
+.v8row:last-child{border-bottom:0}
+.v8row .lb{color:var(--ink);font-size:13px}
+.v8row .vl{text-align:right;font:12.5px var(--f-mono);color:var(--body)}
+.v8row .sub{grid-column:1/-1;font-size:11.5px;color:var(--mut)}
+.v8row button.lnk{appearance:none;border:0;background:none;color:inherit;font:inherit;text-align:left;padding:0;cursor:pointer;min-height:0}
+
+/* ---- cards / sliders inside the sheet ---- */
+.v8card{background:var(--raised);border:1px solid var(--line);border-radius:var(--r-md);padding:12px;margin:0 0 12px}
+.v8card h3{margin:0 0 8px;font:700 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.v8sl{display:grid;grid-template-columns:72px 1fr auto;align-items:center;gap:10px;min-height:var(--tap)}
+.v8sl label{font:12px var(--f-mono);color:var(--mut)}
+.v8sl input[type=range]{width:100%;height:var(--tap);accent-color:var(--accent)}
+.v8btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.v8btns .btn{min-height:var(--tap)}
+.v8warn{display:flex;gap:8px;align-items:flex-start;border:1.5px solid var(--st-bad);border-radius:var(--r-md);padding:10px;margin:0 0 12px;color:var(--ink);font-size:13px}
+.v8warn b{color:var(--bad)}
+.v8warn.soft{border-color:var(--st-warn)}
+.v8warn.soft b{color:var(--warn)}
+
+/* ---- meter: torque vs stall (dataviz: one bar, thin, reference ticks) ---- */
+.v8meter{position:relative;height:12px;border-radius:6px;background:var(--sunk);margin:8px 0 18px}
+.v8meter i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--heat-1)}
+.v8meter i.over{background:var(--heat-over)}
+.v8meter u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);opacity:.55}
+.v8meter u span{position:absolute;top:16px;left:-14px;font:10px var(--f-mono);color:var(--mut);text-decoration:none;white-space:nowrap}
+
+/* ---- heat legend ---- */
+.v8leg{display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center;font:11px var(--f-mono);color:var(--mut)}
+.v8leg .rmp{height:10px;border-radius:5px;background:linear-gradient(90deg,var(--heat-0),var(--heat-1),var(--heat-2),var(--heat-3))}
+.v8leg .ticks{display:flex;justify-content:space-between;grid-column:1/2;margin-top:-2px}
+.v8leg .ov{display:inline-flex;align-items:center;gap:5px}
+.v8leg .ov i{width:14px;height:10px;border-radius:3px;background:var(--heat-over)}
+
+/* ---- chart (tau vs theta) ---- */
+.v8chart{width:100%;height:auto;display:block;overflow:visible}
+.v8chart .ax{stroke:var(--line);stroke-width:1}
+.v8chart .gl{stroke:var(--line);stroke-width:1;stroke-dasharray:2 3;opacity:.7}
+.v8chart .ln{fill:none;stroke:var(--heat-1);stroke-width:2;stroke-linejoin:round}
+.v8chart .ref{stroke:var(--st-bad);stroke-width:1.5;stroke-dasharray:5 3}
+.v8chart .ref2{stroke:var(--st-warn);stroke-width:1.5;stroke-dasharray:2 3}
+.v8chart text{fill:var(--mut);font:10px var(--f-mono)}
+.v8chart .hov{stroke:var(--ink);stroke-width:1;opacity:.5}
+.v8chart circle{fill:var(--heat-1);stroke:var(--panel);stroke-width:2}
+.v8tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:4px 7px;font:11px var(--f-mono);color:var(--ink);white-space:nowrap;transform:translate(-50%,-120%)}
+.v8chartw{position:relative}
+
+/* ---- contribution bars (stack-up) ---- */
+.v8bars{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:5px 10px;align-items:center;font-size:12px}
+.v8bars .bt{height:8px;border-radius:4px;background:var(--heat-1)}
+.v8bars .bt.top{background:var(--accent)}
+.v8bars .nm{color:var(--body);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.v8range{position:relative;height:26px;margin:10px 0 6px}
+.v8range .want{position:absolute;top:8px;height:10px;background:color-mix(in srgb,var(--good) 25%,transparent);border:1px solid var(--good);border-radius:3px}
+.v8range .wc{position:absolute;top:4px;height:18px;border:2px solid var(--warn);border-radius:3px}
+.v8range .rs{position:absolute;top:8px;height:10px;background:var(--heat-1);border-radius:3px}
+.v8range .nom{position:absolute;top:0;bottom:0;width:2px;background:var(--ink)}
+
+/* ---- overlays on the stage ---- */
+.v8cal{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round}
+.v8cal.beam{stroke-width:3}
+.v8tol{fill:none;stroke-width:3;stroke-linejoin:round}
+.v8arrow{stroke:var(--st-bad);stroke-width:3;fill:none}
+.v8lbl{position:absolute;left:0;top:0;pointer-events:none;font:700 11px/1.2 var(--f-mono);color:var(--ink);background:color-mix(in srgb,var(--panel) 88%,transparent);
+  border:1px solid var(--line);border-radius:6px;padding:3px 6px;white-space:nowrap;z-index:3}
+.v8lbl.cal{border-color:var(--accent)}
+.v8lbl .src{margin-left:4px}
+.v8tipbox{position:absolute;left:0;top:0;pointer-events:none;z-index:6;background:var(--panel);border:1.5px solid var(--accent);border-radius:8px;
+  padding:7px 9px;font:12px/1.45 var(--f-disp);color:var(--body);min-width:170px;box-shadow:0 6px 22px rgba(0,0,0,.35)}
+.v8tipbox b{color:var(--ink);font-size:13px;display:block;margin-bottom:2px}
+
+/* ---- perf HUD ---- */
+#v8perf{position:absolute;right:62px;top:10px;z-index:5;font:10.5px/1.35 var(--f-mono);color:var(--ink);background:color-mix(in srgb,var(--panel) 85%,transparent);
+  border:1px solid var(--line);border-radius:6px;padding:5px 8px;pointer-events:none;white-space:pre}
+#v8perf .bad{color:var(--bad)}
+
+/* ---- left drawer: parts tree (desktop ≥ 768 px); a bottom sheet below ---- */
+#v8tree{position:absolute;left:0;top:0;bottom:0;width:260px;z-index:7;background:var(--panel);border-right:1px solid var(--line);
+  transform:translateX(-102%);transition:transform .22s ease;overflow:auto;padding:10px 10px 20px}
+#v8tree.open{transform:none}
+html.v8tree-open #vcube{left:272px}
+html.v8tree-open #scalebar{left:276px}
+@media (max-width:767.98px){ #v8tree{display:none} html.v8tree-open #vcube{left:12px} html.v8tree-open #scalebar{left:16px} }
+.v8tr{list-style:none;margin:0;padding:0}
+.v8tr li{margin:0}
+.v8tr .row{display:grid;grid-template-columns:44px 1fr auto;align-items:center;min-height:var(--tap);border-radius:6px;gap:2px}
+.v8tr .row:hover{background:var(--raised)}
+.v8tr .row button{appearance:none;border:0;background:none;color:var(--body);font:inherit;min-height:var(--tap);cursor:pointer;text-align:left;padding:0 4px}
+.v8tr .row .eye{color:var(--mut);font-size:15px;text-align:center}
+.v8tr .row .eye[aria-pressed="false"]{opacity:.35}
+.v8tr .row.sel{background:color-mix(in srgb,var(--accent) 16%,transparent)}
+.v8tr .kids{padding-left:20px}
+.v8tr .feat{font:11.5px var(--f-mono);color:var(--mut)}
+.v8tr .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* ---- loader + footer ---- */
+#load .v8brand{display:block;margin-top:8px;color:var(--accent);font:700 12px var(--f-mono);letter-spacing:.06em}
+#v8foot{flex:0 0 auto;text-align:center;font:10px/1 var(--f-mono);color:var(--faint);padding:4px 8px;background:var(--panel);border-top:1px solid var(--line)}
+html.av-focus #v8foot{display:none}
+
+/* ---- phone: keep the stage usable ---- */
+@media (max-width:420px){
+  #v8phase{gap:4px;padding:5px 10px 0}
+  #v8phase button{font-size:10.5px;letter-spacing:.03em;gap:4px}
+  #v8phase button i{width:16px;height:16px}
+  #v8perf{right:58px;font-size:9.5px}
+}
+@media (prefers-reduced-motion:reduce){ #v8tree{transition:none} }
+
+#shClose,#shLink{min-height:var(--tap)}
+#bShare{font:700 11px var(--f-mono);letter-spacing:.04em;padding:0 10px;min-height:var(--tap)}
+@media (max-width:420px){ #bShare .t{display:none} #bShare{min-width:var(--tap);padding:0} }
+/* every control a thumb can hit: 44 × 44 minimum (R38) */
+.tbtn{min-width:var(--tap);justify-content:center}
+#bTheme{min-width:var(--tap);min-height:var(--tap)}
+.v8row{padding:2px 0}
+.v8row button.lnk{min-height:var(--tap);display:flex;align-items:center;width:100%}
+#bShare{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}

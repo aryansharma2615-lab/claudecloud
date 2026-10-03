@@ -1,0 +1,94 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://shawarmaprints.ca/schema/sp-eng-v8.json",
+ "title": "SP engineering data contract — AV v8",
+ "description": "One file per design (engineering_data_<assembly>.yaml). Every number carries a source label. calc_v8.py validates against this; a missing required field becomes an orange MISSING badge in the AV and fails verify_av_v9.py.",
+ "type": "object",
+ "required": ["schema", "assembly", "printers", "params", "materials", "parts", "fasteners", "joints", "actuators", "supply", "targets", "load_cases", "fits", "stackups"],
+ "$defs": {
+  "src": {"enum": ["MEASURED", "CALC", "CAD", "SLICER", "DATASHEET", "ASSUMED", "SPEC"]},
+  "val": {
+   "type": "object",
+   "required": ["v", "src"],
+   "properties": {"v": {}, "u": {"type": "string"}, "src": {"$ref": "#/$defs/src"}, "note": {"type": "string"}, "why": {"type": "string"}}
+  },
+  "num": {
+   "type": "object",
+   "required": ["v", "src"],
+   "properties": {"v": {"type": ["number", "null"]}, "u": {"type": "string"}, "src": {"$ref": "#/$defs/src"}, "note": {"type": "string"}}
+  },
+  "cost": {
+   "type": "object",
+   "required": ["each", "supplier", "src"],
+   "properties": {"each": {"type": "number"}, "url": {"type": ["string", "null"]}, "supplier": {"type": "string"}, "bulk": {"type": "object"}, "src": {"$ref": "#/$defs/src"}}
+  },
+  "print": {
+   "type": "object",
+   "required": ["orientation", "layer", "walls", "top_bottom", "infill", "pattern", "supports"],
+   "properties": {
+    "orientation": {"allOf": [{"$ref": "#/$defs/val"}, {"required": ["why"]}]},
+    "layer": {"$ref": "#/$defs/num"}, "walls": {"$ref": "#/$defs/num"}, "top_bottom": {"$ref": "#/$defs/num"},
+    "infill": {"$ref": "#/$defs/num"}, "pattern": {"$ref": "#/$defs/val"}, "supports": {"$ref": "#/$defs/val"}
+   }
+  }
+ },
+ "properties": {
+  "schema": {"const": "sp-eng-v8"},
+  "assembly": {"type": "object", "required": ["id", "name", "version", "units", "printer"]},
+  "params": {"type": "object", "additionalProperties": {"$ref": "#/$defs/num"}},
+  "materials": {
+   "type": "object",
+   "additionalProperties": {"type": "object", "required": ["density"], "properties": {"density": {"$ref": "#/$defs/num"}}}
+  },
+  "parts": {
+   "type": "array", "minItems": 1,
+   "items": {
+    "type": "object",
+    "required": ["id", "name", "kind", "qty", "color"],
+    "properties": {
+     "id": {"type": "string"}, "name": {"type": "string"}, "kind": {"enum": ["printed", "bought"]}, "qty": {"type": "integer", "minimum": 1},
+     "material": {"type": ["string", "null"]}, "print": {"$ref": "#/$defs/print"}, "mass": {"$ref": "#/$defs/num"},
+     "measured_mass": {"$ref": "#/$defs/num"}, "cost": {"$ref": "#/$defs/cost"}, "owned": {"type": "boolean"}
+    },
+    "allOf": [
+     {"if": {"properties": {"kind": {"const": "printed"}}}, "then": {"required": ["material", "print", "measured_mass"]}},
+     {"if": {"properties": {"kind": {"const": "bought"}}}, "then": {"required": ["mass"]}}
+    ]
+   }
+  },
+  "fasteners": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": ["id", "spec", "size", "length", "head", "side", "into", "holds", "engagement", "torque", "owned"],
+    "properties": {
+     "side": {"enum": ["FRONT", "BACK", "TOP", "BOTTOM", "LEFT", "RIGHT"]},
+     "length": {"$ref": "#/$defs/num"}, "engagement": {"$ref": "#/$defs/num"}, "torque": {"$ref": "#/$defs/num"}
+    }
+   }
+  },
+  "joints": {
+   "type": "array",
+   "items": {"type": "object", "required": ["id", "type", "parts", "axis", "limits", "zero", "bearing", "actuator"],
+             "properties": {"type": {"enum": ["revolute", "prismatic", "fixed"]}, "limits": {"$ref": "#/$defs/val"}}}
+  },
+  "actuators": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "object", "required": ["type"],
+    "allOf": [{"if": {"properties": {"type": {"const": "servo"}}},
+               "then": {"required": ["stall_kgcm", "speed_s60", "travel", "pwm_us", "deadband_us", "stall_a", "gears", "horn_spline", "volts"]}}]
+   }
+  },
+  "supply": {"type": "object", "required": ["name", "volts", "amps"]},
+  "targets": {"type": "object", "required": ["sf_xy", "sf_z", "hold_frac", "dyn_frac"]},
+  "load_cases": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "mass", "lever", "direction", "kind"]}},
+  "fits": {"type": "array", "items": {"type": "object", "required": ["id", "part", "kind", "cad", "mate", "mate_size", "mate_src", "purpose"],
+                                      "properties": {"purpose": {"enum": ["clearance", "self_tap", "insert_bore"]}}}},
+  "stackups": {"type": "array", "items": {"type": "object", "required": ["id", "label", "links", "want"]}},
+  "mechanisms": {"type": "array"},
+  "sections": {"type": "array"},
+  "fastener_groups": {"type": "array"},
+  "electronics": {"type": "object"}
+ }
+}

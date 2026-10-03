@@ -1,0 +1,760 @@
+{
+ "title": "Hole coupon \u00b7 Ender 3 S1 Pro",
+ "subtitle": "test print \u2192 tolerance_profile_ender3s1pro.json",
+ "slug": "hole_coupon_v8",
+ "currency": "CAD $",
+ "explode_scale": 10,
+ "home": {
+  "yaw": -1.2,
+  "pitch": 0.75
+ },
+ "base_dir": "..",
+ "printer": {
+  "name": "Creality Ender 3 S1 Pro",
+  "x": 220,
+  "y": 220,
+  "z": 270,
+  "nozzle": 0.4,
+  "gap": 8,
+  "margin": 5,
+  "sequential": false
+ },
+ "materials": {
+  "PETG": {
+   "density": 1.27,
+   "price": 25.0,
+   "spool_g": 1000
+  }
+ },
+ "machine_rate_per_h": 0.35,
+ "groups": {
+  "printed": "Printed"
+ },
+ "steps": [
+  {
+   "n": 1,
+   "title": "Print flat, measure every hole",
+   "caption": "Two readings 90\u00b0 apart \u2014 keep the smaller.",
+   "tool": "calipers",
+   "time": "46 min print"
+  }
+ ],
+ "parts": [
+  {
+   "id": "coupon",
+   "label": "Hole coupon \u00d82.8\u20133.6",
+   "color": "#26292d",
+   "group": "printed",
+   "step": 1,
+   "kind": "printed",
+   "material": "PETG",
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "stl": "out/coupon/hole_coupon.stl",
+   "print": {
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "layer": 0.2,
+    "walls": 3,
+    "infill": 100,
+    "support": "none",
+    "orientation": "Flat: hole axes vertical, like the part's holes.",
+    "grams": 6.75,
+    "time_min": 46
+   }
+  }
+ ],
+ "fasteners": [],
+ "eng_json": {
+  "schema": "sp-eng-v8",
+  "kind": "coupon",
+  "assembly": {
+   "id": "hole_coupon",
+   "name": "Hole coupon \u00d82.8\u20133.6",
+   "version": 1,
+   "printer": "ender3s1pro"
+  },
+  "sources": {
+   "MEASURED": "calipers / scale / bench test",
+   "CALC": "formula \u2014 tap to see it",
+   "CAD": "from the CAD geometry",
+   "SLICER": "from real G-code",
+   "DATASHEET": "from a published spec",
+   "ASSUMED": "not measured yet \u2014 on MEASURE_ME",
+   "SPEC": "a requirement you set"
+  },
+  "missing": [],
+  "phases": [
+   "load",
+   "fit"
+  ],
+  "parts": {
+   "coupon": {
+    "name": "Hole coupon",
+    "kind": "printed",
+    "material": "PETG",
+    "mass": {
+     "v": 6.75,
+     "u": "g",
+     "src": "SLICER",
+     "note": "G-code filament used (PrusaSlicer 2.7.2 CLI)"
+    },
+    "volume": {
+     "v": 5170.524,
+     "u": "mm\u00b3",
+     "src": "CAD"
+    },
+    "slicer": {
+     "grams": {
+      "v": 6.75,
+      "u": "g",
+      "src": "SLICER"
+     },
+     "time_min": {
+      "v": 45.7,
+      "u": "min",
+      "src": "SLICER"
+     }
+    }
+   }
+  },
+  "fits": [
+   {
+    "id": "h28",
+    "part": "coupon",
+    "label": "\u00d82.8 hole",
+    "kind": "hole",
+    "at": [
+     -32.0,
+     3.0,
+     4.0
+    ],
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "cad": {
+     "v": 2.8,
+     "u": "mm",
+     "src": "CAD"
+    },
+    "printed": {
+     "v": 2.557,
+     "u": "mm",
+     "src": "CALC",
+     "formula": "cad + a + b/cad \u2014 profile ASSUMED"
+    },
+    "comp_src": "ASSUMED",
+    "measured": {
+     "v": null,
+     "u": "mm",
+     "src": "MEASURED"
+    },
+    "mate": "M3 screw shank",
+    "mate_size": {
+     "v": 3.0,
+     "u": "mm",
+     "src": "DATASHEET"
+    },
+    "clearance": {
+     "v": -0.443,
+     "u": "mm",
+     "src": "CALC"
+    },
+    "purpose": "clearance",
+    "band": {
+     "cls": "tight",
+     "label": "interference \u2014 will not go in",
+     "color": "#d03b3b",
+     "tone": "red"
+    },
+    "d": 2.8
+   },
+   {
+    "id": "h29",
+    "part": "coupon",
+    "label": "\u00d82.9 hole",
+    "kind": "hole",
+    "at": [
+     -24.0,
+     3.0,
+     4.0
+    ],
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "cad": {
+     "v": 2.9,
+     "u": "mm",
+     "src": "CAD"
+    },
+    "printed": {
+     "v": 2.662,
+     "u": "mm",
+     "src": "CALC",
+     "formula": "cad + a + b/cad \u2014 profile ASSUMED"
+    },
+    "comp_src": "ASSUMED",
+    "measured": {
+     "v": null,
+     "u": "mm",
+     "src": "MEASURED"
+    },
+    "mate": "M3 screw shank",
+    "mate_size": {
+     "v": 3.0,
+     "u": "mm",
+     "src": "DATASHEET"
+    },
+    "clearance": {
+     "v": -0.338,
+     "u": "mm",
+     "src": "CALC"
+    },
+    "purpose": "clearance",
+    "band": {
+     "cls": "tight",
+     "label": "interference \u2014 will not go in",
+     "color": "#d03b3b",
+     "tone": "red"
+    },
+    "d": 2.9
+   },
+   {
+    "id": "h30",
+    "part": "coupon",
+    "label": "\u00d83.0 hole",
+    "kind": "hole",
+    "at": [
+     -16.0,
+     3.0,
+     4.0
+    ],
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "cad": {
+     "v": 3.0,
+     "u": "mm",
+     "src": "CAD"
+    },
+    "printed": {
+     "v": 2.767,
+     "u": "mm",
+     "src": "CALC",
+     "formula": "cad + a + b/cad \u2014 profile ASSUMED"
+    },
+    "comp_src": "ASSUMED",
+    "measured": {
+     "v": null,
+     "u": "mm",
+     "src": "MEASURED"
+    },
+    "mate": "M3 screw shank",
+    "mate_size": {
+     "v": 3.0,
+     "u": "mm",
+     "src": "DATASHEET"
+    },
+    "clearance": {
+     "v": -0.233,
+     "u": "mm",
+     "src": "CALC"
+    },
+    "purpose": "clearance",
+    "band": {
+     "cls": "tight",
+     "label": "interference \u2014 will not go in",
+     "color": "#d03b3b",
+     "tone": "red"
+    },
+    "d": 3.0
+   },
+   {
+    "id": "h31",
+    "part": "coupon",
+    "label": "\u00d83.1 hole",
+    "kind": "hole",
+    "at": [
+     -8.0,
+     3.0,
+     4.0
+    ],
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "cad": {
+     "v": 3.1,
+     "u": "mm",
+     "src": "CAD"
+    },
+    "printed": {
+     "v": 2.871,
+     "u": "mm",
+     "src": "CALC",
+     "formula": "cad + a + b/cad \u2014 profile ASSUMED"
+    },
+    "comp_src": "ASSUMED",
+    "measured": {
+     "v": null,
+     "u": "mm",
+     "src": "MEASURED"
+    },
+    "mate": "M3 screw shank",
+    "mate_size": {
+     "v": 3.0,
+     "u": "mm",
+     "src": "DATASHEET"
+    },
+    "clearance": {
+     "v": -0.129,
+     "u": "mm",
+     "src": "CALC"
+    },
+    "purpose": "clearance",
+    "band": {
+     "cls": "tight",
+     "label": "interference \u2014 will not go in",
+     "color": "#d03b3b",
+     "tone": "red"
+    },
+    "d": 3.1
+   },
+   {
+    "id": "h32",
+    "part": "coupon",
+    "label": "\u00d83.2 hole",
+    "kind": "hole",
+    "at": [
+     0.0,
+     3.0,
+     4.0
+    ],
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "cad": {
+     "v": 3.2,
+     "u": "mm",
+     "src": "CAD"
+    },
+    "printed": {
+     "v": 2.975,
+     "u": "mm",
+     "src": "CALC",
+     "formula": "cad + a + b/cad \u2014 profile ASSUMED"
+    },
+    "comp_src": "ASSUMED",
+    "measured": {
+     "v": null,
+     "u": "mm",
+     "src": "MEASURED"
+    },
+    "mate": "M3 screw shank",
+    "mate_size": {
+     "v": 3.0,
+     "u": "mm",
+     "src": "DATASHEET"
+    },
+    "clearance": {
+     "v": -0.025,
+     "u": "mm",
+     "src": "CALC"
+    },
+    "purpose": "clearance",
+    "band": {
+     "cls": "tight",
+     "label": "interference \u2014 will not go in",
+     "color": "#d03b3b",
+     "tone": "red"
+    },
+    "d": 3.2
+   },
+   {
+    "id": "h33",
+    "part": "coupon",
+    "label": "\u00d83.3 hole",
+    "kind": "hole",
+    "at": [
+     8.0,
+     3.0,
+     4.0
+    ],
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "cad": {
+     "v": 3.3,
+     "u": "mm",
+     "src": "CAD"
+    },
+    "printed": {
+     "v": 3.079,
+     "u": "mm",
+     "src": "CALC",
+     "formula": "cad + a + b/cad \u2014 profile ASSUMED"
+    },
+    "comp_src": "ASSUMED",
+    "measured": {
+     "v": null,
+     "u": "mm",
+     "src": "MEASURED"
+    },
+    "mate": "M3 screw shank",
+    "mate_size": {
+     "v": 3.0,
+     "u": "mm",
+     "src": "DATASHEET"
+    },
+    "clearance": {
+     "v": 0.079,
+     "u": "mm",
+     "src": "CALC"
+    },
+    "purpose": "clearance",
+    "band": {
+     "cls": "snug",
+     "label": "0\u20130.1 mm snug",
+     "color": "#0ca30c",
+     "tone": "green"
+    },
+    "d": 3.3
+   },
+   {
+    "id": "h34",
+    "part": "coupon",
+    "label": "\u00d83.4 hole",
+    "kind": "hole",
+    "at": [
+     16.0,
+     3.0,
+     4.0
+    ],
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "cad": {
+     "v": 3.4,
+     "u": "mm",
+     "src": "CAD"
+    },
+    "printed": {
+     "v": 3.182,
+     "u": "mm",
+     "src": "CALC",
+     "formula": "cad + a + b/cad \u2014 profile ASSUMED"
+    },
+    "comp_src": "ASSUMED",
+    "measured": {
+     "v": null,
+     "u": "mm",
+     "src": "MEASURED"
+    },
+    "mate": "M3 screw shank",
+    "mate_size": {
+     "v": 3.0,
+     "u": "mm",
+     "src": "DATASHEET"
+    },
+    "clearance": {
+     "v": 0.182,
+     "u": "mm",
+     "src": "CALC"
+    },
+    "purpose": "clearance",
+    "band": {
+     "cls": "running",
+     "label": "0.1\u20130.3 mm running",
+     "color": "#fab219",
+     "tone": "yellow"
+    },
+    "d": 3.4
+   },
+   {
+    "id": "h35",
+    "part": "coupon",
+    "label": "\u00d83.5 hole",
+    "kind": "hole",
+    "at": [
+     24.0,
+     3.0,
+     4.0
+    ],
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "cad": {
+     "v": 3.5,
+     "u": "mm",
+     "src": "CAD"
+    },
+    "printed": {
+     "v": 3.286,
+     "u": "mm",
+     "src": "CALC",
+     "formula": "cad + a + b/cad \u2014 profile ASSUMED"
+    },
+    "comp_src": "ASSUMED",
+    "measured": {
+     "v": null,
+     "u": "mm",
+     "src": "MEASURED"
+    },
+    "mate": "M3 screw shank",
+    "mate_size": {
+     "v": 3.0,
+     "u": "mm",
+     "src": "DATASHEET"
+    },
+    "clearance": {
+     "v": 0.286,
+     "u": "mm",
+     "src": "CALC"
+    },
+    "purpose": "clearance",
+    "band": {
+     "cls": "running",
+     "label": "0.1\u20130.3 mm running",
+     "color": "#fab219",
+     "tone": "yellow"
+    },
+    "d": 3.5
+   },
+   {
+    "id": "h36",
+    "part": "coupon",
+    "label": "\u00d83.6 hole",
+    "kind": "hole",
+    "at": [
+     32.0,
+     3.0,
+     4.0
+    ],
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "cad": {
+     "v": 3.6,
+     "u": "mm",
+     "src": "CAD"
+    },
+    "printed": {
+     "v": 3.389,
+     "u": "mm",
+     "src": "CALC",
+     "formula": "cad + a + b/cad \u2014 profile ASSUMED"
+    },
+    "comp_src": "ASSUMED",
+    "measured": {
+     "v": null,
+     "u": "mm",
+     "src": "MEASURED"
+    },
+    "mate": "M3 screw shank",
+    "mate_size": {
+     "v": 3.0,
+     "u": "mm",
+     "src": "DATASHEET"
+    },
+    "clearance": {
+     "v": 0.389,
+     "u": "mm",
+     "src": "CALC"
+    },
+    "purpose": "clearance",
+    "band": {
+     "cls": "sloppy",
+     "label": "> 0.3 mm sloppy",
+     "color": "#d03b3b",
+     "tone": "red"
+    },
+    "d": 3.6
+   }
+  ],
+  "stackups": [],
+  "checks": [],
+  "ranking": [],
+  "measure": [
+   {
+    "key": "coupon",
+    "what": "caliper all 9 holes (two readings 90\u00b0 apart, keep the smaller)",
+    "tool": "calipers",
+    "unlocks": [
+     "every FIT colour in every SP AV"
+    ],
+    "n": 9
+   }
+  ],
+  "tolerance": {
+   "profile": "Creality Ender 3 S1 Pro \u00b7 PETG",
+   "src": "ASSUMED",
+   "status": "STUB \u2014 print coupon/hole_coupon.3mf, caliper every hole (two readings 90\u00b0 apart, take the smaller), type the numbers into coupon.measured, rebuild",
+   "bands": {
+    "clearance": [
+     {
+      "max": 0.0,
+      "cls": "tight",
+      "label": "interference \u2014 will not go in",
+      "color": "red"
+     },
+     {
+      "min": 0.0,
+      "max": 0.1,
+      "cls": "snug",
+      "label": "0\u20130.1 mm snug",
+      "color": "green"
+     },
+     {
+      "min": 0.1,
+      "max": 0.3,
+      "cls": "running",
+      "label": "0.1\u20130.3 mm running",
+      "color": "yellow"
+     },
+     {
+      "min": 0.3,
+      "cls": "sloppy",
+      "label": "> 0.3 mm sloppy",
+      "color": "red"
+     }
+    ],
+    "self_tap": [
+     {
+      "min": -0.6,
+      "max": -0.3,
+      "cls": "bite",
+      "label": "self-tap bite \u22120.3\u2026\u22120.6 mm",
+      "color": "green"
+     },
+     {
+      "min": -0.3,
+      "max": 0.0,
+      "cls": "weak",
+      "label": "weak bite",
+      "color": "yellow"
+     },
+     {
+      "max": -0.6,
+      "cls": "split",
+      "label": "too tight \u2014 boss may split",
+      "color": "red"
+     },
+     {
+      "min": 0.0,
+      "cls": "none",
+      "label": "no bite",
+      "color": "red"
+     }
+    ],
+    "insert_bore": [
+     {
+      "min": -0.8,
+      "max": -0.4,
+      "cls": "melt",
+      "label": "insert melt-in \u22120.4\u2026\u22120.8 mm",
+      "color": "green"
+     },
+     {
+      "min": -0.4,
+      "max": 0.0,
+      "cls": "loose",
+      "label": "little to grip",
+      "color": "yellow"
+     },
+     {
+      "max": -0.8,
+      "cls": "crack",
+      "label": "too much plastic displaced",
+      "color": "red"
+     },
+     {
+      "min": 0.0,
+      "cls": "slip",
+      "label": "slip fit \u2014 nothing to grip",
+      "color": "red"
+     }
+    ]
+   },
+   "colors": {
+    "green": "#0ca30c",
+    "yellow": "#fab219",
+    "red": "#d03b3b"
+   },
+   "model": {
+    "kind": "round_hole",
+    "formula": "printed = cad + a + b / cad",
+    "a": -0.1,
+    "b": -0.4,
+    "src": "ASSUMED",
+    "note": "placeholder curve: -0.23 mm at \u00d83, -0.37 mm at \u00d81.5, -0.12 mm at \u00d823; replaced by the coupon fit once measured"
+   },
+   "rect": {
+    "delta": -0.1,
+    "src": "ASSUMED",
+    "note": "per dimension, straight-walled windows"
+   },
+   "coupon": [
+    {
+     "cad": 2.8,
+     "measured": null
+    },
+    {
+     "cad": 2.9,
+     "measured": null
+    },
+    {
+     "cad": 3.0,
+     "measured": null
+    },
+    {
+     "cad": 3.1,
+     "measured": null
+    },
+    {
+     "cad": 3.2,
+     "measured": null
+    },
+    {
+     "cad": 3.3,
+     "measured": null
+    },
+    {
+     "cad": 3.4,
+     "measured": null
+    },
+    {
+     "cad": 3.5,
+     "measured": null
+    },
+    {
+     "cad": 3.6,
+     "measured": null
+    }
+   ],
+   "why": "Small holes print undersize mostly from polygon faceting of the STL circle and first-layer squish pushing plastic inward, not from shrinkage \u2014 so the error is bigger on small holes and must be measured on THIS printer + spool."
+  }
+ }
+}

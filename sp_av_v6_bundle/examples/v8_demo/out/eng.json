@@ -1,0 +1,3873 @@
+{
+ "schema": "sp-eng-v8",
+ "assembly": {
+  "id": "servo_mount_v1",
+  "name": "Shawarma Servo Mount v1",
+  "version": 1,
+  "units": "mm",
+  "printer": "ender3s1pro",
+  "axis_note": "Z up. FRONT = \u2212Y (engine convention): the servo shaft points out of the wall front along \u2212Y, the arm sweeps the XZ plane, 0\u00b0 = arm level along \u2212X, + = up."
+ },
+ "sources": {
+  "MEASURED": "calipers / scale / bench test",
+  "CALC": "formula \u2014 tap to see it",
+  "CAD": "from the CAD geometry",
+  "SLICER": "from real G-code",
+  "DATASHEET": "from a published spec",
+  "ASSUMED": "not measured yet \u2014 on MEASURE_ME",
+  "SPEC": "a requirement you set"
+ },
+ "missing": [],
+ "parts": {
+  "base": {
+   "name": "Base plate",
+   "kind": "printed",
+   "material": "PETG",
+   "mass": {
+    "v": 9.43,
+    "u": "g",
+    "src": "SLICER",
+    "note": "G-code filament used (PrusaSlicer 2.7.2 CLI)"
+   },
+   "com": {
+    "v": [
+     -0.017,
+     12.993,
+     3.002
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 14288.947,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 6036.511,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      -35.0,
+      -4.0,
+      0.0
+     ],
+     [
+      35.0,
+      30.0,
+      6.6
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   },
+   "slicer": {
+    "grams": {
+     "v": 9.43,
+     "u": "g",
+     "src": "SLICER"
+    },
+    "time_min": {
+     "v": 55.0,
+     "u": "min",
+     "src": "SLICER"
+    },
+    "layers": {
+     "v": 33,
+     "u": "",
+     "src": "SLICER"
+    },
+    "slicer": "PrusaSlicer 2.7.2 CLI"
+   },
+   "print": {
+    "orientation": {
+     "v": "bottom face down",
+     "u": "",
+     "src": "SPEC",
+     "why": "counterbores open downward; the 0.6 mm SP emboss and the clamp face are on top \u2014 no supports"
+    },
+    "layer": {
+     "v": 0.2,
+     "u": "mm",
+     "src": "SPEC",
+     "why": null
+    },
+    "walls": {
+     "v": 3,
+     "u": "",
+     "src": "SPEC",
+     "why": null
+    },
+    "top_bottom": {
+     "v": 4,
+     "u": "",
+     "src": "SPEC",
+     "why": null
+    },
+    "infill": {
+     "v": 25,
+     "u": "%",
+     "src": "SPEC",
+     "why": null
+    },
+    "pattern": {
+     "v": "gyroid",
+     "u": "",
+     "src": "SPEC",
+     "why": null
+    },
+    "supports": {
+     "v": "none",
+     "u": "",
+     "src": "SPEC",
+     "why": null
+    }
+   },
+   "measured_mass": {
+    "v": null,
+    "u": "g",
+    "src": "MEASURED"
+   },
+   "mat": {
+    "brand": {
+     "v": "generic PETG 1.75 (Digitmakers.ca)",
+     "src": "ASSUMED",
+     "note": "tell me the spool brand -> datasheet values replace these"
+    },
+    "density": {
+     "v": 1.27,
+     "u": "g/cm3",
+     "src": "ASSUMED"
+    },
+    "tensile_xy": {
+     "v": 47.5,
+     "u": "MPa",
+     "src": "ASSUMED",
+     "note": "fallback 45-50 MPa"
+    },
+    "yield_xy": {
+     "v": 45.0,
+     "u": "MPa",
+     "src": "ASSUMED"
+    },
+    "z_factor": {
+     "v": 0.5,
+     "u": "",
+     "src": "ASSUMED",
+     "note": "Z (between layers) = 50 % of XY until a coupon says otherwise"
+    },
+    "E": {
+     "v": 2000,
+     "u": "MPa",
+     "src": "ASSUMED"
+    },
+    "tg": {
+     "v": 80,
+     "u": "degC",
+     "src": "ASSUMED"
+    },
+    "mu_self": {
+     "v": 0.3,
+     "u": "",
+     "src": "ASSUMED",
+     "note": "PETG on PETG, dry"
+    },
+    "price_g": {
+     "v": 0.025,
+     "u": "CAD/g",
+     "src": "DATASHEET",
+     "note": "$25/kg spool, digitmakers.ca listing 2026-09-13"
+    },
+    "iron_c": {
+     "v": 240,
+     "u": "degC",
+     "src": "DATASHEET",
+     "note": "/sp-print-dfm insert table: PETG ~240 \u00b0C, straight in, cool before load"
+    }
+   }
+  },
+  "cradle": {
+   "name": "Servo cradle",
+   "kind": "printed",
+   "material": "PETG",
+   "mass": {
+    "v": 15.63,
+    "u": "g",
+    "src": "SLICER",
+    "note": "G-code filament used (PrusaSlicer 2.7.2 CLI)"
+   },
+   "com": {
+    "v": [
+     0.0,
+     7.764,
+     22.179
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 16746.97,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 7109.875,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      -19.7,
+      -0.0,
+      6.0
+     ],
+     [
+      19.7,
+      26.0,
+      58.0
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   },
+   "slicer": {
+    "grams": {
+     "v": 15.63,
+     "u": "g",
+     "src": "SLICER"
+    },
+    "time_min": {
+     "v": 121.7,
+     "u": "min",
+     "src": "SLICER"
+    },
+    "layers": {
+     "v": 260,
+     "u": "",
+     "src": "SLICER"
+    },
+    "slicer": "PrusaSlicer 2.7.2 CLI"
+   },
+   "print": {
+    "orientation": {
+     "v": "foot down",
+     "u": "",
+     "src": "SPEC",
+     "why": "inserts go in from the bed face in shear; wall grows straight up. Cost: wall bending runs ACROSS layers (Z) \u2014 checked below at Z strength"
+    },
+    "layer": {
+     "v": 0.2,
+     "u": "mm",
+     "src": "SPEC",
+     "why": null
+    },
+    "walls": {
+     "v": 4,
+     "u": "",
+     "src": "SPEC",
+     "why": null
+    },
+    "top_bottom": {
+     "v": 5,
+     "u": "",
+     "src": "SPEC",
+     "why": null
+    },
+    "infill": {
+     "v": 40,
+     "u": "%",
+     "src": "SPEC",
+     "why": null
+    },
+    "pattern": {
+     "v": "gyroid",
+     "u": "",
+     "src": "SPEC",
+     "why": null
+    },
+    "supports": {
+     "v": "none",
+     "u": "",
+     "src": "SPEC",
+     "why": null
+    }
+   },
+   "measured_mass": {
+    "v": null,
+    "u": "g",
+    "src": "MEASURED"
+   },
+   "mat": {
+    "brand": {
+     "v": "generic PETG 1.75 (Digitmakers.ca)",
+     "src": "ASSUMED",
+     "note": "tell me the spool brand -> datasheet values replace these"
+    },
+    "density": {
+     "v": 1.27,
+     "u": "g/cm3",
+     "src": "ASSUMED"
+    },
+    "tensile_xy": {
+     "v": 47.5,
+     "u": "MPa",
+     "src": "ASSUMED",
+     "note": "fallback 45-50 MPa"
+    },
+    "yield_xy": {
+     "v": 45.0,
+     "u": "MPa",
+     "src": "ASSUMED"
+    },
+    "z_factor": {
+     "v": 0.5,
+     "u": "",
+     "src": "ASSUMED",
+     "note": "Z (between layers) = 50 % of XY until a coupon says otherwise"
+    },
+    "E": {
+     "v": 2000,
+     "u": "MPa",
+     "src": "ASSUMED"
+    },
+    "tg": {
+     "v": 80,
+     "u": "degC",
+     "src": "ASSUMED"
+    },
+    "mu_self": {
+     "v": 0.3,
+     "u": "",
+     "src": "ASSUMED",
+     "note": "PETG on PETG, dry"
+    },
+    "price_g": {
+     "v": 0.025,
+     "u": "CAD/g",
+     "src": "DATASHEET",
+     "note": "$25/kg spool, digitmakers.ca listing 2026-09-13"
+    },
+    "iron_c": {
+     "v": 240,
+     "u": "degC",
+     "src": "DATASHEET",
+     "note": "/sp-print-dfm insert table: PETG ~240 \u00b0C, straight in, cool before load"
+    }
+   }
+  },
+  "servo": {
+   "name": "SG90 micro servo",
+   "kind": "bought",
+   "material": null,
+   "mass": {
+    "v": 9.0,
+    "u": "g",
+    "src": "DATASHEET",
+    "note": "SG90 datasheet 9 g"
+   },
+   "com": {
+    "v": [
+     -0.294,
+     3.413,
+     48.0
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 7111.827,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 2714.37,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      -16.1,
+      -14.0,
+      41.9
+     ],
+     [
+      19.4,
+      15.9,
+      54.1
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   }
+  },
+  "horn": {
+   "name": "SG90 single horn",
+   "kind": "bought",
+   "material": "POM",
+   "mass": {
+    "v": 0.3,
+    "u": "g",
+    "src": "ASSUMED"
+   },
+   "com": {
+    "v": [
+     -9.766,
+     -13.673,
+     48.0
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 177.54,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 356.985,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      -21.3,
+      -15.0,
+      44.5
+     ],
+     [
+      -1.8,
+      -11.0,
+      51.5
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   },
+   "mat": {
+    "density": {
+     "v": 1.41,
+     "u": "g/cm3",
+     "src": "ASSUMED",
+     "note": "SG90 horn"
+    }
+   }
+  },
+  "arm": {
+   "name": "Load arm",
+   "kind": "printed",
+   "material": "PETG",
+   "mass": {
+    "v": 2.07,
+    "u": "g",
+    "src": "SLICER",
+    "note": "G-code filament used (PrusaSlicer 2.7.2 CLI)"
+   },
+   "com": {
+    "v": [
+     -21.636,
+     -16.055,
+     48.0
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 1688.821,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 1416.01,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      -45.3,
+      -18.4,
+      42.0
+     ],
+     [
+      0.7,
+      -13.4,
+      54.0
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   },
+   "slicer": {
+    "grams": {
+     "v": 2.07,
+     "u": "g",
+     "src": "SLICER"
+    },
+    "time_min": {
+     "v": 15.6,
+     "u": "min",
+     "src": "SLICER"
+    },
+    "layers": {
+     "v": 25,
+     "u": "",
+     "src": "SLICER"
+    },
+    "slicer": "PrusaSlicer 2.7.2 CLI"
+   },
+   "print": {
+    "orientation": {
+     "v": "flat, horn pocket up",
+     "u": "",
+     "src": "SPEC",
+     "why": "bending stress runs along the arm = in the layer plane (XY strength)"
+    },
+    "layer": {
+     "v": 0.2,
+     "u": "mm",
+     "src": "SPEC",
+     "why": null
+    },
+    "walls": {
+     "v": 4,
+     "u": "",
+     "src": "SPEC",
+     "why": null
+    },
+    "top_bottom": {
+     "v": 5,
+     "u": "",
+     "src": "SPEC",
+     "why": null
+    },
+    "infill": {
+     "v": 60,
+     "u": "%",
+     "src": "SPEC",
+     "why": null
+    },
+    "pattern": {
+     "v": "gyroid",
+     "u": "",
+     "src": "SPEC",
+     "why": null
+    },
+    "supports": {
+     "v": "none",
+     "u": "",
+     "src": "SPEC",
+     "why": null
+    }
+   },
+   "measured_mass": {
+    "v": null,
+    "u": "g",
+    "src": "MEASURED"
+   },
+   "mat": {
+    "brand": {
+     "v": "generic PETG 1.75 (Digitmakers.ca)",
+     "src": "ASSUMED",
+     "note": "tell me the spool brand -> datasheet values replace these"
+    },
+    "density": {
+     "v": 1.27,
+     "u": "g/cm3",
+     "src": "ASSUMED"
+    },
+    "tensile_xy": {
+     "v": 47.5,
+     "u": "MPa",
+     "src": "ASSUMED",
+     "note": "fallback 45-50 MPa"
+    },
+    "yield_xy": {
+     "v": 45.0,
+     "u": "MPa",
+     "src": "ASSUMED"
+    },
+    "z_factor": {
+     "v": 0.5,
+     "u": "",
+     "src": "ASSUMED",
+     "note": "Z (between layers) = 50 % of XY until a coupon says otherwise"
+    },
+    "E": {
+     "v": 2000,
+     "u": "MPa",
+     "src": "ASSUMED"
+    },
+    "tg": {
+     "v": 80,
+     "u": "degC",
+     "src": "ASSUMED"
+    },
+    "mu_self": {
+     "v": 0.3,
+     "u": "",
+     "src": "ASSUMED",
+     "note": "PETG on PETG, dry"
+    },
+    "price_g": {
+     "v": 0.025,
+     "u": "CAD/g",
+     "src": "DATASHEET",
+     "note": "$25/kg spool, digitmakers.ca listing 2026-09-13"
+    },
+    "iron_c": {
+     "v": 240,
+     "u": "degC",
+     "src": "DATASHEET",
+     "note": "/sp-print-dfm insert table: PETG ~240 \u00b0C, straight in, cool before load"
+    }
+   }
+  },
+  "tab0": {
+   "name": "tab0",
+   "kind": "hardware",
+   "material": null,
+   "mass": {
+    "v": 0.313,
+    "u": "g",
+    "src": "CALC",
+    "note": "CAD volume 39.9 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
+   },
+   "com": {
+    "v": [
+     13.9,
+     -0.219,
+     48.0
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 39.876,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 88.467,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      12.0,
+      -3.8,
+      46.1
+     ],
+     [
+      15.8,
+      5.5,
+      49.9
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   }
+  },
+  "tab1": {
+   "name": "tab1",
+   "kind": "hardware",
+   "material": null,
+   "mass": {
+    "v": 0.313,
+    "u": "g",
+    "src": "CALC",
+    "note": "CAD volume 39.9 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
+   },
+   "com": {
+    "v": [
+     -13.9,
+     -0.219,
+     48.0
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 39.876,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 88.467,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      -15.8,
+      -3.8,
+      46.1
+     ],
+     [
+      -12.0,
+      5.5,
+      49.9
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   }
+  },
+  "horn_screw": {
+   "name": "horn_screw",
+   "kind": "hardware",
+   "material": null,
+   "mass": {
+    "v": 0.313,
+    "u": "g",
+    "src": "CALC",
+    "note": "CAD volume 39.9 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
+   },
+   "com": {
+    "v": [
+     -5.3,
+     -16.119,
+     48.0
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 39.876,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 88.467,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      -7.2,
+      -19.7,
+      46.1
+     ],
+     [
+      -3.4,
+      -10.4,
+      49.9
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   }
+  },
+  "m3a": {
+   "name": "m3a",
+   "kind": "hardware",
+   "material": null,
+   "mass": {
+    "v": 1.003,
+    "u": "g",
+    "src": "CALC",
+    "note": "CAD volume 127.8 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
+   },
+   "com": {
+    "v": [
+     14.0,
+     18.0,
+     4.333
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 127.824,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 174.751,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      11.25,
+      15.25,
+      0.4
+     ],
+     [
+      16.75,
+      20.75,
+      11.4
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   }
+  },
+  "m3b": {
+   "name": "m3b",
+   "kind": "hardware",
+   "material": null,
+   "mass": {
+    "v": 1.003,
+    "u": "g",
+    "src": "CALC",
+    "note": "CAD volume 127.8 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
+   },
+   "com": {
+    "v": [
+     -14.0,
+     18.0,
+     4.333
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 127.824,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 174.751,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      -16.75,
+      15.25,
+      0.4
+     ],
+     [
+      -11.25,
+      20.75,
+      11.4
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   }
+  },
+  "ins_a": {
+   "name": "ins_a",
+   "kind": "hardware",
+   "material": null,
+   "mass": {
+    "v": 0.567,
+    "u": "g",
+    "src": "CALC",
+    "note": "CAD volume 66.7 mm\u00b3 \u00d7 brass 8.5 g/cm\u00b3"
+   },
+   "com": {
+    "v": [
+     14.0,
+     18.0,
+     8.85
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 66.749,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 150.561,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      11.7,
+      15.7,
+      6.0
+     ],
+     [
+      16.3,
+      20.3,
+      11.7
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   }
+  },
+  "ins_b": {
+   "name": "ins_b",
+   "kind": "hardware",
+   "material": null,
+   "mass": {
+    "v": 0.567,
+    "u": "g",
+    "src": "CALC",
+    "note": "CAD volume 66.7 mm\u00b3 \u00d7 brass 8.5 g/cm\u00b3"
+   },
+   "com": {
+    "v": [
+     -14.0,
+     18.0,
+     8.85
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 66.749,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 150.561,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      -16.3,
+      15.7,
+      6.0
+     ],
+     [
+      -11.7,
+      20.3,
+      11.7
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   }
+  },
+  "weight": {
+   "name": "Test weight (hangs from the load hole)",
+   "kind": "bought",
+   "material": "steel",
+   "mass": {
+    "v": 200,
+    "u": "g",
+    "src": "SPEC",
+    "note": "set by the TEST load slider"
+   },
+   "com": {
+    "v": [
+     -40.3,
+     -15.9,
+     48.0
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "note": "CAD centroid (uniform-density approximation)"
+   },
+   "volume": {
+    "v": 93.714,
+    "u": "mm\u00b3",
+    "src": "CAD"
+   },
+   "area": {
+    "v": 197.355,
+    "u": "mm\u00b2",
+    "src": "CAD"
+   },
+   "bbox": {
+    "v": [
+     [
+      -43.3,
+      -20.4,
+      45.0
+     ],
+     [
+      -37.3,
+      -11.4,
+      51.0
+     ]
+    ],
+    "u": "mm",
+    "src": "CAD"
+   },
+   "mat": {
+    "density": {
+     "v": 7.85,
+     "u": "g/cm3",
+     "src": "DATASHEET"
+    }
+   }
+  }
+ },
+ "materials": {
+  "PETG": {
+   "brand": {
+    "v": "generic PETG 1.75 (Digitmakers.ca)",
+    "src": "ASSUMED",
+    "note": "tell me the spool brand -> datasheet values replace these"
+   },
+   "density": {
+    "v": 1.27,
+    "u": "g/cm3",
+    "src": "ASSUMED"
+   },
+   "tensile_xy": {
+    "v": 47.5,
+    "u": "MPa",
+    "src": "ASSUMED",
+    "note": "fallback 45-50 MPa"
+   },
+   "yield_xy": {
+    "v": 45.0,
+    "u": "MPa",
+    "src": "ASSUMED"
+   },
+   "z_factor": {
+    "v": 0.5,
+    "u": "",
+    "src": "ASSUMED",
+    "note": "Z (between layers) = 50 % of XY until a coupon says otherwise"
+   },
+   "E": {
+    "v": 2000,
+    "u": "MPa",
+    "src": "ASSUMED"
+   },
+   "tg": {
+    "v": 80,
+    "u": "degC",
+    "src": "ASSUMED"
+   },
+   "mu_self": {
+    "v": 0.3,
+    "u": "",
+    "src": "ASSUMED",
+    "note": "PETG on PETG, dry"
+   },
+   "price_g": {
+    "v": 0.025,
+    "u": "CAD/g",
+    "src": "DATASHEET",
+    "note": "$25/kg spool, digitmakers.ca listing 2026-09-13"
+   },
+   "iron_c": {
+    "v": 240,
+    "u": "degC",
+    "src": "DATASHEET",
+    "note": "/sp-print-dfm insert table: PETG ~240 \u00b0C, straight in, cool before load"
+   }
+  },
+  "PLA": {
+   "density": {
+    "v": 1.24,
+    "u": "g/cm3",
+    "src": "ASSUMED"
+   },
+   "yield_xy": {
+    "v": 55,
+    "u": "MPa",
+    "src": "ASSUMED"
+   },
+   "tg": {
+    "v": 60,
+    "u": "degC",
+    "src": "ASSUMED"
+   },
+   "iron_c": {
+    "v": 210,
+    "u": "degC",
+    "src": "DATASHEET",
+    "note": "/sp-print-dfm: PLA 200-220 \u00b0C"
+   }
+  },
+  "TPU": {
+   "density": {
+    "v": 1.21,
+    "u": "g/cm3",
+    "src": "ASSUMED"
+   }
+  },
+  "POM": {
+   "density": {
+    "v": 1.41,
+    "u": "g/cm3",
+    "src": "ASSUMED",
+    "note": "SG90 horn"
+   }
+  },
+  "steel": {
+   "density": {
+    "v": 7.85,
+    "u": "g/cm3",
+    "src": "DATASHEET"
+   }
+  },
+  "brass": {
+   "density": {
+    "v": 8.5,
+    "u": "g/cm3",
+    "src": "DATASHEET"
+   }
+  }
+ },
+ "actuators": {
+  "sg90": {
+   "type": "servo",
+   "model": "TowerPro SG90",
+   "stall_kgcm": {
+    "v": 1.8,
+    "u": "kgf\u00b7cm",
+    "src": "DATASHEET",
+    "note": "@ 4.8 V \u2014 bench-test yours"
+   },
+   "speed_s60": {
+    "v": 0.1,
+    "u": "s/60\u00b0",
+    "src": "DATASHEET"
+   },
+   "travel": {
+    "v": 180,
+    "u": "deg",
+    "src": "DATASHEET"
+   },
+   "pwm_us": {
+    "v": [
+     500,
+     2400
+    ],
+    "u": "\u00b5s",
+    "src": "DATASHEET"
+   },
+   "deadband_us": {
+    "v": 10,
+    "u": "\u00b5s",
+    "src": "DATASHEET"
+   },
+   "stall_a": {
+    "v": 0.65,
+    "u": "A",
+    "src": "ASSUMED",
+    "note": "not on the SG90 sheet; widely quoted ~650 mA"
+   },
+   "gears": {
+    "v": "nylon",
+    "src": "DATASHEET"
+   },
+   "horn_spline": {
+    "v": "21T (ASSUMED)",
+    "src": "ASSUMED"
+   },
+   "volts": {
+    "v": 5.0,
+    "u": "V",
+    "src": "SPEC"
+   }
+  }
+ },
+ "supply": {
+  "name": {
+   "v": "5 V 2 A USB wall adapter",
+   "src": "ASSUMED",
+   "note": "which brick? its label = DATASHEET"
+  },
+  "volts": {
+   "v": 5.0,
+   "u": "V",
+   "src": "ASSUMED"
+  },
+  "amps": {
+   "v": 2.0,
+   "u": "A",
+   "src": "ASSUMED"
+  },
+  "rejected": [
+   {
+    "name": "MB-V2 breadboard power module",
+    "amps": {
+     "v": 0.7,
+     "u": "A",
+     "src": "DATASHEET"
+    },
+    "why": "700 mA max \u2014 one SG90 stall (~0.65 A) eats it; never power servos from it"
+   }
+  ]
+ },
+ "fasteners": [
+  {
+   "id": "tab0",
+   "spec": "M2x8 pan self-tapper",
+   "size": "M2",
+   "length": {
+    "v": 8,
+    "u": "mm",
+    "src": "DATASHEET"
+   },
+   "head": "pan",
+   "side": "FRONT",
+   "into": "cradle",
+   "holds": "servo",
+   "engagement": {
+    "v": 5.5,
+    "u": "mm",
+    "src": "CAD",
+    "note": "8 - 2.5 tab"
+   },
+   "torque": {
+    "v": 0.15,
+    "u": "N\u00b7m",
+    "src": "ASSUMED",
+    "note": "guide \u2014 verify on a test boss; self-tappers strip PETG easily"
+   },
+   "owned": true,
+   "supplier": "in the servo bag"
+  },
+  {
+   "id": "tab1",
+   "spec": "M2x8 pan self-tapper",
+   "size": "M2",
+   "length": {
+    "v": 8,
+    "u": "mm",
+    "src": "DATASHEET"
+   },
+   "head": "pan",
+   "side": "FRONT",
+   "into": "cradle",
+   "holds": "servo",
+   "engagement": {
+    "v": 5.5,
+    "u": "mm",
+    "src": "CAD"
+   },
+   "torque": {
+    "v": 0.15,
+    "u": "N\u00b7m",
+    "src": "ASSUMED",
+    "note": "guide \u2014 verify on a test boss"
+   },
+   "owned": true,
+   "supplier": "in the servo bag"
+  },
+  {
+   "id": "horn_screw",
+   "spec": "M2x8 horn screw (through the arm)",
+   "size": "M2",
+   "length": {
+    "v": 8,
+    "u": "mm",
+    "src": "DATASHEET"
+   },
+   "head": "pan",
+   "side": "FRONT",
+   "into": "servo",
+   "holds": "arm",
+   "engagement": {
+    "v": 3.6,
+    "u": "mm",
+    "src": "CAD",
+    "note": "into the servo spline \u2014 bite not measurable on a bought part"
+   },
+   "torque": {
+    "v": 0.1,
+    "u": "N\u00b7m",
+    "src": "ASSUMED"
+   },
+   "owned": true,
+   "supplier": "SP screw box (the bag screw is too short through a 5 mm arm)"
+  },
+  {
+   "id": "m3a",
+   "spec": "M3x8 socket head",
+   "size": "M3",
+   "length": {
+    "v": 8,
+    "u": "mm",
+    "src": "DATASHEET"
+   },
+   "head": "socket",
+   "side": "BOTTOM",
+   "into": "cradle",
+   "holds": "base",
+   "insert": "M3x5.7 heat-set",
+   "engagement": {
+    "v": 5.4,
+    "u": "mm",
+    "src": "CAD",
+    "note": "seat at z 3.4 -> tip at z 11.4; insert from z 6"
+   },
+   "torque": {
+    "v": 0.6,
+    "u": "N\u00b7m",
+    "src": "ASSUMED",
+    "note": "guide \u2014 verify on a test boss (no pull-out/strip data yet)"
+   },
+   "owned": true,
+   "supplier": "SP screw box"
+  },
+  {
+   "id": "m3b",
+   "spec": "M3x8 socket head",
+   "size": "M3",
+   "length": {
+    "v": 8,
+    "u": "mm",
+    "src": "DATASHEET"
+   },
+   "head": "socket",
+   "side": "BOTTOM",
+   "into": "cradle",
+   "holds": "base",
+   "insert": "M3x5.7 heat-set",
+   "engagement": {
+    "v": 5.4,
+    "u": "mm",
+    "src": "CAD"
+   },
+   "torque": {
+    "v": 0.6,
+    "u": "N\u00b7m",
+    "src": "ASSUMED",
+    "note": "guide \u2014 verify on a test boss"
+   },
+   "owned": true,
+   "supplier": "SP screw box"
+  }
+ ],
+ "inserts": [
+  {
+   "id": "ins_a",
+   "spec": "ruthex RX-M3x5.7 brass heat-set",
+   "bore": {
+    "d": 4.0,
+    "h": 6.2,
+    "src": "DATASHEET"
+   },
+   "boss_wall": {
+    "v": null,
+    "u": "mm",
+    "src": "CAD",
+    "note": "nearest face to bore edge \u2014 written by the CAD"
+   },
+   "iron_c": {
+    "v": 240,
+    "u": "degC",
+    "src": "DATASHEET"
+   },
+   "owned": true,
+   "cost": {
+    "each": 0.12,
+    "url": "https://www.amazon.ca/s?k=ruthex+m3+heat+set+inserts",
+    "supplier": "Amazon.ca (ruthex RX-M3x5.7)",
+    "src": "DATASHEET"
+   }
+  },
+  {
+   "id": "ins_b",
+   "spec": "ruthex RX-M3x5.7 brass heat-set",
+   "bore": {
+    "d": 4.0,
+    "h": 6.2,
+    "src": "DATASHEET"
+   },
+   "boss_wall": {
+    "v": null,
+    "u": "mm",
+    "src": "CAD"
+   },
+   "iron_c": {
+    "v": 240,
+    "u": "degC",
+    "src": "DATASHEET"
+   },
+   "owned": true,
+   "cost": {
+    "each": 0.12,
+    "url": "https://www.amazon.ca/s?k=ruthex+m3+heat+set+inserts",
+    "supplier": "Amazon.ca (ruthex RX-M3x5.7)",
+    "src": "DATASHEET"
+   }
+  }
+ ],
+ "joints": [
+  {
+   "id": "shaft",
+   "type": "revolute",
+   "label": "SG90 output -> arm",
+   "parts": [
+    "horn",
+    "arm",
+    "weight",
+    "horn_screw"
+   ],
+   "origin": "CAD",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "limits": {
+    "v": [
+     -90,
+     90
+    ],
+    "u": "deg",
+    "src": "SPEC",
+    "note": "SG90 travel 180\u00b0; 0\u00b0 = arm level"
+   },
+   "zero": {
+    "v": 0,
+    "u": "deg",
+    "src": "SPEC"
+   },
+   "bearing": {
+    "v": "servo output bushing (internal)",
+    "src": "DATASHEET"
+   },
+   "radial_clear": {
+    "v": null,
+    "u": "mm",
+    "src": "ASSUMED",
+    "note": "inside the servo \u2014 not ours"
+   },
+   "friction_torque": {
+    "v": 0.0,
+    "u": "N\u00b7m",
+    "src": "ASSUMED"
+   },
+   "actuator": "sg90",
+   "touch": [
+    [
+     "servo",
+     "horn"
+    ],
+    [
+     "horn",
+     "arm"
+    ],
+    [
+     "arm",
+     "horn_screw"
+    ],
+    [
+     "horn_screw",
+     "servo"
+    ],
+    [
+     "weight",
+     "arm"
+    ],
+    [
+     "horn_screw",
+     "horn"
+    ]
+   ]
+  }
+ ],
+ "targets": {
+  "sf_xy": {
+   "v": 2.0,
+   "u": "",
+   "src": "SPEC"
+  },
+  "sf_z": {
+   "v": 3.0,
+   "u": "",
+   "src": "SPEC",
+   "note": "load pulls layers apart"
+  },
+  "hold_frac": {
+   "v": 0.5,
+   "u": "",
+   "src": "SPEC",
+   "note": "holding torque <= 50 % of stall (continuous duty)"
+  },
+  "dyn_frac": {
+   "v": 0.7,
+   "u": "",
+   "src": "SPEC",
+   "note": "hold + I\u00b7\u03b1 <= 70 % of stall"
+  },
+  "defl_max": {
+   "v": 0.5,
+   "u": "mm",
+   "src": "SPEC",
+   "note": "arm tip sag at the load"
+  },
+  "temp_op": {
+   "v": 30,
+   "u": "degC",
+   "src": "SPEC"
+  }
+ },
+ "load_cases": [
+  {
+   "id": "test",
+   "what": "test weight on the arm",
+   "mass": {
+    "v": 0.2,
+    "u": "kg",
+    "src": "SPEC",
+    "note": "TEST slider default; 0-5 kg"
+   },
+   "lever": {
+    "v": 35,
+    "u": "mm",
+    "src": "SPEC",
+    "note": "TEST slider default; 10-40 mm"
+   },
+   "direction": [
+    0,
+    0,
+    -1
+   ],
+   "kind": "static",
+   "dynamic_factor": {
+    "v": 2.0,
+    "u": "",
+    "src": "SPEC",
+    "note": "impact = 2 x static"
+   },
+   "duty": {
+    "v": "intermittent",
+    "src": "SPEC"
+   }
+  }
+ ],
+ "electronics": {
+  "pins": [
+   {
+    "node": "sg90",
+    "pin": "GND",
+    "wire": "brown",
+    "src": "DATASHEET"
+   },
+   {
+    "node": "sg90",
+    "pin": "+5V",
+    "wire": "red",
+    "src": "DATASHEET"
+   },
+   {
+    "node": "sg90",
+    "pin": "SIG",
+    "wire": "orange",
+    "src": "DATASHEET"
+   }
+  ],
+  "connector": {
+   "v": "JR 3-pin 2.54 mm",
+   "src": "DATASHEET"
+  },
+  "plug_boot": {
+   "v": [
+    7.6,
+    2.6,
+    14.0
+   ],
+   "u": "mm",
+   "src": "ASSUMED",
+   "note": "servo plug body W x H x L \u2014 sizes the cable path (SmartCount lesson)"
+  },
+  "cable_exit": {
+   "v": "servo bottom end, behind the wall \u2014 clear path, no pinch",
+   "src": "CAD"
+  }
+ },
+ "printers": {
+  "ender3s1pro": {
+   "name": "Creality Ender 3 S1 Pro",
+   "bed": {
+    "v": [
+     220,
+     220,
+     270
+    ],
+    "u": "mm",
+    "src": "DATASHEET",
+    "note": "single colour, stock brass nozzle, open frame (PLA/PETG/TPU only)"
+   },
+   "nozzle": {
+    "v": 0.4,
+    "u": "mm",
+    "src": "DATASHEET",
+    "note": "brass \u2014 no carbon-fibre filament"
+   },
+   "slicer": "Creality Print (house) \u00b7 PrusaSlicer 2.7 CLI used here for the G-code numbers"
+  },
+  "bambu_h2s": {
+   "name": "Bambu Lab H2S + AMS 2 Pro (arriving)",
+   "nozzle": {
+    "v": null,
+    "u": "mm",
+    "src": "ASSUMED",
+    "note": "confirm hardened-steel nozzle before offering PETG-CF"
+   },
+   "slicer": "Bambu Studio"
+  }
+ },
+ "fits": [
+  {
+   "id": "window",
+   "part": "cradle",
+   "label": "SG90 window",
+   "kind": "rect",
+   "at": [
+    0.0,
+    3.0,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    -1.0,
+    0
+   ],
+   "cad": {
+    "v": [
+     23.1,
+     12.5
+    ],
+    "u": "mm",
+    "src": "CAD"
+   },
+   "printed": {
+    "v": [
+     23.0,
+     12.4
+    ],
+    "u": "mm",
+    "src": "CALC",
+    "formula": "cad + rect delta \u2014 profile ASSUMED"
+   },
+   "comp_src": "ASSUMED",
+   "measured": {
+    "v": null,
+    "u": "mm",
+    "src": "MEASURED"
+   },
+   "mate": "SG90 body",
+   "mate_size": {
+    "v": [
+     22.8,
+     12.2
+    ],
+    "u": "mm",
+    "src": "ASSUMED"
+   },
+   "clearance": {
+    "v": 0.2,
+    "u": "mm",
+    "src": "CALC"
+   },
+   "purpose": "clearance",
+   "band": {
+    "cls": "running",
+    "label": "0.1\u20130.3 mm running",
+    "color": "#fab219",
+    "tone": "yellow"
+   },
+   "size": [
+    23.1,
+    12.5
+   ],
+   "d": null
+  },
+  {
+   "id": "pilot0",
+   "part": "cradle",
+   "label": "M2 pilot (tab)",
+   "kind": "hole",
+   "at": [
+    13.9,
+    3.0,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    -1.0,
+    0
+   ],
+   "cad": {
+    "v": 1.8,
+    "u": "mm",
+    "src": "CAD"
+   },
+   "printed": {
+    "v": 1.478,
+    "u": "mm",
+    "src": "CALC",
+    "formula": "cad + a + b/cad (profile) \u2014 profile ASSUMED"
+   },
+   "comp_src": "ASSUMED",
+   "measured": {
+    "v": null,
+    "u": "mm",
+    "src": "MEASURED"
+   },
+   "mate": "M2 self-tapper",
+   "mate_size": {
+    "v": 2.0,
+    "u": "mm",
+    "src": "DATASHEET"
+   },
+   "clearance": {
+    "v": -0.522,
+    "u": "mm",
+    "src": "CALC"
+   },
+   "purpose": "self_tap",
+   "band": {
+    "cls": "bite",
+    "label": "self-tap bite \u22120.3\u2026\u22120.6 mm",
+    "color": "#0ca30c",
+    "tone": "green"
+   },
+   "size": null,
+   "d": 1.8
+  },
+  {
+   "id": "pilot1",
+   "part": "cradle",
+   "label": "M2 pilot (tab)",
+   "kind": "hole",
+   "at": [
+    -13.9,
+    3.0,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    -1.0,
+    0
+   ],
+   "cad": {
+    "v": 1.8,
+    "u": "mm",
+    "src": "CAD"
+   },
+   "printed": {
+    "v": 1.478,
+    "u": "mm",
+    "src": "CALC",
+    "formula": "cad + a + b/cad (profile) \u2014 profile ASSUMED"
+   },
+   "comp_src": "ASSUMED",
+   "measured": {
+    "v": null,
+    "u": "mm",
+    "src": "MEASURED"
+   },
+   "mate": "M2 self-tapper",
+   "mate_size": {
+    "v": 2.0,
+    "u": "mm",
+    "src": "DATASHEET"
+   },
+   "clearance": {
+    "v": -0.522,
+    "u": "mm",
+    "src": "CALC"
+   },
+   "purpose": "self_tap",
+   "band": {
+    "cls": "bite",
+    "label": "self-tap bite \u22120.3\u2026\u22120.6 mm",
+    "color": "#0ca30c",
+    "tone": "green"
+   },
+   "size": null,
+   "d": 1.8
+  },
+  {
+   "id": "bore_a",
+   "part": "cradle",
+   "label": "M3 insert bore",
+   "kind": "hole",
+   "at": [
+    14.0,
+    18.0,
+    6.0
+   ],
+   "axis": [
+    0.0,
+    0.0,
+    1
+   ],
+   "cad": {
+    "v": 4.0,
+    "u": "mm",
+    "src": "CAD"
+   },
+   "printed": {
+    "v": 3.8,
+    "u": "mm",
+    "src": "CALC",
+    "formula": "cad + a + b/cad (profile) \u2014 profile ASSUMED"
+   },
+   "comp_src": "ASSUMED",
+   "measured": {
+    "v": null,
+    "u": "mm",
+    "src": "MEASURED"
+   },
+   "mate": "RX-M3x5.7 knurl",
+   "mate_size": {
+    "v": 4.6,
+    "u": "mm",
+    "src": "DATASHEET"
+   },
+   "clearance": {
+    "v": -0.8,
+    "u": "mm",
+    "src": "CALC"
+   },
+   "purpose": "insert_bore",
+   "band": {
+    "cls": "melt",
+    "label": "insert melt-in \u22120.4\u2026\u22120.8 mm",
+    "color": "#0ca30c",
+    "tone": "green"
+   },
+   "size": null,
+   "d": 4.0
+  },
+  {
+   "id": "bore_b",
+   "part": "cradle",
+   "label": "M3 insert bore",
+   "kind": "hole",
+   "at": [
+    -14.0,
+    18.0,
+    6.0
+   ],
+   "axis": [
+    0.0,
+    0.0,
+    1
+   ],
+   "cad": {
+    "v": 4.0,
+    "u": "mm",
+    "src": "CAD"
+   },
+   "printed": {
+    "v": 3.8,
+    "u": "mm",
+    "src": "CALC",
+    "formula": "cad + a + b/cad (profile) \u2014 profile ASSUMED"
+   },
+   "comp_src": "ASSUMED",
+   "measured": {
+    "v": null,
+    "u": "mm",
+    "src": "MEASURED"
+   },
+   "mate": "RX-M3x5.7 knurl",
+   "mate_size": {
+    "v": 4.6,
+    "u": "mm",
+    "src": "DATASHEET"
+   },
+   "clearance": {
+    "v": -0.8,
+    "u": "mm",
+    "src": "CALC"
+   },
+   "purpose": "insert_bore",
+   "band": {
+    "cls": "melt",
+    "label": "insert melt-in \u22120.4\u2026\u22120.8 mm",
+    "color": "#0ca30c",
+    "tone": "green"
+   },
+   "size": null,
+   "d": 4.0
+  },
+  {
+   "id": "clr_a",
+   "part": "base",
+   "label": "M3 clearance",
+   "kind": "hole",
+   "at": [
+    14.0,
+    18.0,
+    6.0
+   ],
+   "axis": [
+    0.0,
+    0.0,
+    1
+   ],
+   "cad": {
+    "v": 3.4,
+    "u": "mm",
+    "src": "CAD"
+   },
+   "printed": {
+    "v": 3.182,
+    "u": "mm",
+    "src": "CALC",
+    "formula": "cad + a + b/cad (profile) \u2014 profile ASSUMED"
+   },
+   "comp_src": "ASSUMED",
+   "measured": {
+    "v": null,
+    "u": "mm",
+    "src": "MEASURED"
+   },
+   "mate": "M3 shank",
+   "mate_size": {
+    "v": 3.0,
+    "u": "mm",
+    "src": "DATASHEET"
+   },
+   "clearance": {
+    "v": 0.182,
+    "u": "mm",
+    "src": "CALC"
+   },
+   "purpose": "clearance",
+   "band": {
+    "cls": "running",
+    "label": "0.1\u20130.3 mm running",
+    "color": "#fab219",
+    "tone": "yellow"
+   },
+   "size": null,
+   "d": 3.4
+  },
+  {
+   "id": "clr_b",
+   "part": "base",
+   "label": "M3 clearance",
+   "kind": "hole",
+   "at": [
+    -14.0,
+    18.0,
+    6.0
+   ],
+   "axis": [
+    0.0,
+    0.0,
+    1
+   ],
+   "cad": {
+    "v": 3.4,
+    "u": "mm",
+    "src": "CAD"
+   },
+   "printed": {
+    "v": 3.182,
+    "u": "mm",
+    "src": "CALC",
+    "formula": "cad + a + b/cad (profile) \u2014 profile ASSUMED"
+   },
+   "comp_src": "ASSUMED",
+   "measured": {
+    "v": null,
+    "u": "mm",
+    "src": "MEASURED"
+   },
+   "mate": "M3 shank",
+   "mate_size": {
+    "v": 3.0,
+    "u": "mm",
+    "src": "DATASHEET"
+   },
+   "clearance": {
+    "v": 0.182,
+    "u": "mm",
+    "src": "CALC"
+   },
+   "purpose": "clearance",
+   "band": {
+    "cls": "running",
+    "label": "0.1\u20130.3 mm running",
+    "color": "#fab219",
+    "tone": "yellow"
+   },
+   "size": null,
+   "d": 3.4
+  },
+  {
+   "id": "hornhole",
+   "part": "arm",
+   "label": "horn screw hole",
+   "kind": "hole",
+   "at": [
+    -5.3,
+    -18.4,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    -1.0,
+    0
+   ],
+   "cad": {
+    "v": 2.4,
+    "u": "mm",
+    "src": "CAD"
+   },
+   "printed": {
+    "v": 2.133,
+    "u": "mm",
+    "src": "CALC",
+    "formula": "cad + a + b/cad (profile) \u2014 profile ASSUMED"
+   },
+   "comp_src": "ASSUMED",
+   "measured": {
+    "v": null,
+    "u": "mm",
+    "src": "MEASURED"
+   },
+   "mate": "M2 shank",
+   "mate_size": {
+    "v": 2.0,
+    "u": "mm",
+    "src": "DATASHEET"
+   },
+   "clearance": {
+    "v": 0.133,
+    "u": "mm",
+    "src": "CALC"
+   },
+   "purpose": "clearance",
+   "band": {
+    "cls": "running",
+    "label": "0.1\u20130.3 mm running",
+    "color": "#fab219",
+    "tone": "yellow"
+   },
+   "size": null,
+   "d": 2.4
+  },
+  {
+   "id": "loadhole",
+   "part": "arm",
+   "label": "load hole",
+   "kind": "hole",
+   "at": [
+    -40.3,
+    -18.4,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    -1.0,
+    0
+   ],
+   "cad": {
+    "v": 3.4,
+    "u": "mm",
+    "src": "CAD"
+   },
+   "printed": {
+    "v": 3.182,
+    "u": "mm",
+    "src": "CALC",
+    "formula": "cad + a + b/cad (profile) \u2014 profile ASSUMED"
+   },
+   "comp_src": "ASSUMED",
+   "measured": {
+    "v": null,
+    "u": "mm",
+    "src": "MEASURED"
+   },
+   "mate": "M3 hook",
+   "mate_size": {
+    "v": 3.0,
+    "u": "mm",
+    "src": "ASSUMED"
+   },
+   "clearance": {
+    "v": 0.182,
+    "u": "mm",
+    "src": "CALC"
+   },
+   "purpose": "clearance",
+   "band": {
+    "cls": "running",
+    "label": "0.1\u20130.3 mm running",
+    "color": "#fab219",
+    "tone": "yellow"
+   },
+   "size": null,
+   "d": 3.4
+  }
+ ],
+ "stackups": [
+  {
+   "id": "window_x",
+   "label": "SG90 in the window \u2014 long side",
+   "nominal": 0.2,
+   "worst": [
+    -0.1,
+    0.5
+   ],
+   "rss": [
+    -0.0236,
+    0.4236
+   ],
+   "eats": "SG90 body length",
+   "eats_t": 0.2,
+   "links": [
+    {
+     "name": "window (CAD)",
+     "t": 0.0,
+     "nominal": 23.1,
+     "src": "CAD",
+     "sign": 1
+    },
+    {
+     "name": "printer comp on a rect window",
+     "t": 0.1,
+     "nominal": -0.1,
+     "src": "ASSUMED",
+     "sign": 1
+    },
+    {
+     "name": "SG90 body length",
+     "t": 0.2,
+     "nominal": -22.8,
+     "src": "ASSUMED",
+     "sign": 1,
+     "note": "datasheets span 22.2-23.0"
+    }
+   ],
+   "want": {
+    "min": 0.0,
+    "max": 0.6,
+    "u": "mm",
+    "src": "SPEC",
+    "note": "must slide in, must not rattle"
+   },
+   "ok_worst": false,
+   "ok_rss": false
+  },
+  {
+   "id": "tab_ligament",
+   "label": "Tab-hole ligament as printed (window edge -> pilot edge)",
+   "nominal": 1.66,
+   "worst": [
+    1.31,
+    2.01
+   ],
+   "rss": [
+    1.4002,
+    1.9198
+   ],
+   "eats": "half SG90 hole pitch",
+   "eats_t": 0.25,
+   "links": [
+    {
+     "name": "half SG90 hole pitch",
+     "t": 0.25,
+     "nominal": 13.9,
+     "src": "ASSUMED",
+     "sign": 1
+    },
+    {
+     "name": "half window (CAD)",
+     "t": 0.0,
+     "nominal": -11.55,
+     "src": "CAD",
+     "sign": 1
+    },
+    {
+     "name": "window prints smaller (half)",
+     "t": 0.05,
+     "nominal": 0.05,
+     "src": "ASSUMED",
+     "sign": 1
+    },
+    {
+     "name": "pilot radius (CAD)",
+     "t": 0.0,
+     "nominal": -0.9,
+     "src": "CAD",
+     "sign": 1
+    },
+    {
+     "name": "pilot prints smaller (radius)",
+     "t": 0.05,
+     "nominal": 0.16,
+     "src": "ASSUMED",
+     "sign": 1
+    }
+   ],
+   "want": {
+    "min": 1.6,
+    "max": 9,
+    "u": "mm",
+    "src": "DATASHEET",
+    "note": "/sp-print-dfm minimum wall 1.60 mm"
+   },
+   "ok_worst": false,
+   "ok_rss": false
+  }
+ ],
+ "checks": [
+  {
+   "id": "torque_hold",
+   "group": "Actuator",
+   "label": "Holding torque vs SG90 stall (worst pose)",
+   "value": 39.084,
+   "limit": 50.0,
+   "unit": "% stall",
+   "status": "unverified",
+   "would": "pass",
+   "cmp": "le",
+   "inputs": [
+    {
+     "k": "load mass",
+     "v": 0.2,
+     "u": "kg",
+     "src": "SPEC"
+    },
+    {
+     "k": "lever arm",
+     "v": 35,
+     "u": "mm",
+     "src": "SPEC"
+    },
+    {
+     "k": "mass arm",
+     "v": 2.07,
+     "u": "g",
+     "src": "SLICER"
+    },
+    {
+     "k": "mass horn",
+     "v": 0.3,
+     "u": "g",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "SG90 stall",
+     "v": 1.8,
+     "u": "kgf\u00b7cm",
+     "src": "DATASHEET"
+    }
+   ],
+   "formula": "\u03c4 = g\u00b7\u03a3 m\u1d62\u00b7(x\u1d62 cos\u03b8 \u2212 z\u1d62 sin\u03b8), max over the joint range; \u00f7 stall",
+   "src": "CALC",
+   "assumed": [
+    "mass horn"
+   ],
+   "where": [
+    -5.3,
+    -14.0,
+    48.0
+   ],
+   "note": ""
+  },
+  {
+   "id": "torque_dyn",
+   "group": "Actuator",
+   "label": "Hold + I\u00b7\u03b1 on the TEST sweep",
+   "value": 41.327,
+   "limit": 70.0,
+   "unit": "% stall",
+   "status": "unverified",
+   "would": "pass",
+   "cmp": "le",
+   "inputs": [
+    {
+     "k": "load mass",
+     "v": 0.2,
+     "u": "kg",
+     "src": "SPEC"
+    },
+    {
+     "k": "lever arm",
+     "v": 35,
+     "u": "mm",
+     "src": "SPEC"
+    },
+    {
+     "k": "mass arm",
+     "v": 2.07,
+     "u": "g",
+     "src": "SLICER"
+    },
+    {
+     "k": "mass horn",
+     "v": 0.3,
+     "u": "g",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "SG90 stall",
+     "v": 1.8,
+     "u": "kgf\u00b7cm",
+     "src": "DATASHEET"
+    },
+    {
+     "k": "peak \u03b1 (min-jerk)",
+     "v": 16.124,
+     "u": "rad/s\u00b2",
+     "src": "CALC"
+    }
+   ],
+   "formula": "\u03b1 = 5.774\u00b7\u0394\u03b8/T\u00b2 ; \u03c4 = I\u00b7\u03b1, I = \u03a3 m r\u00b2 ; (\u03c4_hold + \u03c4_dyn) \u00f7 stall",
+   "src": "CALC",
+   "assumed": [
+    "mass horn"
+   ],
+   "where": [
+    -5.3,
+    -14.0,
+    48.0
+   ],
+   "note": ""
+  },
+  {
+   "id": "sf_arm",
+   "group": "Structure",
+   "label": "Arm root safety factor (XY, Kt sharp)",
+   "value": 11.174,
+   "limit": 2.0,
+   "unit": "",
+   "status": "unverified",
+   "would": "pass",
+   "cmp": "ge",
+   "inputs": [
+    {
+     "k": "load mass",
+     "v": 0.2,
+     "u": "kg",
+     "src": "SPEC"
+    },
+    {
+     "k": "lever arm",
+     "v": 35,
+     "u": "mm",
+     "src": "SPEC"
+    },
+    {
+     "k": "PETG yield XY",
+     "v": 45.0,
+     "u": "MPa",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "Kt (r 0.2)",
+     "v": 2.4269,
+     "u": "",
+     "src": "CALC"
+    },
+    {
+     "k": "t at root",
+     "v": 3.4,
+     "u": "mm",
+     "src": "CAD"
+    }
+   ],
+   "formula": "\u03c3 = Kt\u00b7M\u00b7c/I, I = t\u00b7d\u00b3/12 ; \u03c4 = 1.5\u00b7V/A ; \u03c3_vm = \u221a(\u03c3\u00b2 + 3\u03c4\u00b2) ; SF = yield / \u03c3_vm",
+   "src": "CALC",
+   "assumed": [
+    "PETG yield XY"
+   ],
+   "where": [
+    -9.772,
+    -15.9,
+    52.0
+   ],
+   "note": ""
+  },
+  {
+   "id": "sf_arm_stall",
+   "group": "Structure",
+   "label": "Bracket outlives the servo: arm SF at SG90 stall",
+   "value": 4.3646,
+   "limit": 1.0,
+   "unit": "",
+   "status": "unverified",
+   "would": "pass",
+   "cmp": "ge",
+   "inputs": [
+    {
+     "k": "SG90 stall",
+     "v": 1.8,
+     "u": "kgf\u00b7cm",
+     "src": "DATASHEET"
+    },
+    {
+     "k": "load at stall",
+     "v": 0.51328,
+     "u": "kg",
+     "src": "CALC"
+    },
+    {
+     "k": "PETG yield XY",
+     "v": 45.0,
+     "u": "MPa",
+     "src": "ASSUMED"
+    }
+   ],
+   "formula": "the heaviest load the servo can hold (\u03c4 = stall) \u2192 arm-root \u03c3_vm \u2192 SF must stay > 1",
+   "src": "CALC",
+   "assumed": [
+    "PETG yield XY"
+   ],
+   "where": [
+    -9.772,
+    -15.9,
+    52.0
+   ],
+   "note": ""
+  },
+  {
+   "id": "sf_wall",
+   "group": "Structure",
+   "label": "Cradle wall root SF (Z \u2014 layers pulled apart)",
+   "value": 47.221,
+   "limit": 3.0,
+   "unit": "",
+   "status": "unverified",
+   "would": "pass",
+   "cmp": "ge",
+   "inputs": [
+    {
+     "k": "load mass",
+     "v": 0.2,
+     "u": "kg",
+     "src": "SPEC"
+    },
+    {
+     "k": "lever arm",
+     "v": 35,
+     "u": "mm",
+     "src": "SPEC"
+    },
+    {
+     "k": "mass servo",
+     "v": 9.0,
+     "u": "g",
+     "src": "DATASHEET"
+    },
+    {
+     "k": "PETG yield XY",
+     "v": 45.0,
+     "u": "MPa",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "Z factor",
+     "v": 0.5,
+     "u": "",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "Kt bound",
+     "v": 3.0,
+     "u": "",
+     "src": "ASSUMED"
+    }
+   ],
+   "formula": "\u03c3 = Kt\u00b7M\u00b7c/I, M = \u03a3 m\u00b7g\u00b7(y \u2212 y_mid), I = b\u00b7h\u00b3/12 ; SF = z\u00b7yield / \u03c3",
+   "src": "CALC",
+   "assumed": [
+    "PETG yield XY",
+    "Z factor",
+    "Kt bound"
+   ],
+   "where": [
+    0.0,
+    3.0,
+    14.0
+   ],
+   "note": ""
+  },
+  {
+   "id": "sf_tabs",
+   "group": "Fasteners",
+   "label": "Servo tab screws \u2014 thread strip SF",
+   "value": 86.599,
+   "limit": 3.0,
+   "unit": "",
+   "status": "unverified",
+   "would": "pass",
+   "cmp": "ge",
+   "inputs": [
+    {
+     "k": "load mass",
+     "v": 0.2,
+     "u": "kg",
+     "src": "SPEC"
+    },
+    {
+     "k": "lever arm",
+     "v": 35,
+     "u": "mm",
+     "src": "SPEC"
+    },
+    {
+     "k": "pivot lever",
+     "v": 6.1,
+     "u": "mm",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "PETG yield XY",
+     "v": 45.0,
+     "u": "MPa",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "engagement",
+     "v": 5.5,
+     "u": "mm",
+     "src": "CAD"
+    }
+   ],
+   "formula": "F = M\u2093/(n\u00b7lever) ; \u03c4 = F/(\u03c0\u00b7d\u00b7Le\u00b70.5) ; allow = 0.577\u00b7z\u00b7yield",
+   "src": "CALC",
+   "assumed": [
+    "pivot lever",
+    "PETG yield XY"
+   ],
+   "where": [
+    13.9,
+    -2.5,
+    48.0
+   ],
+   "note": ""
+  },
+  {
+   "id": "insert_pull",
+   "group": "Fasteners",
+   "label": "M3 insert pull-out load (each)",
+   "value": 0.87784,
+   "limit": null,
+   "unit": "N",
+   "status": "unverified",
+   "would": "unverified",
+   "cmp": "le",
+   "inputs": [
+    {
+     "k": "load mass",
+     "v": 0.2,
+     "u": "kg",
+     "src": "SPEC"
+    },
+    {
+     "k": "lever arm",
+     "v": 35,
+     "u": "mm",
+     "src": "SPEC"
+    },
+    {
+     "k": "pull-out limit",
+     "v": null,
+     "u": "N",
+     "src": "ASSUMED"
+    }
+   ],
+   "formula": "F = \u03a3 m\u00b7g\u00b7(y \u2212 y_edge)/(n\u00b7arm), tipping about the foot front edge",
+   "src": "CALC",
+   "assumed": [
+    "pull-out limit"
+   ],
+   "where": [
+    14.0,
+    18.0,
+    3.4
+   ],
+   "note": "no pull-out data \u2014 test boss on MEASURE_ME"
+  },
+  {
+   "id": "defl",
+   "group": "Structure",
+   "label": "Arm sag at the load",
+   "value": 0.043594,
+   "limit": 0.5,
+   "unit": "mm",
+   "status": "unverified",
+   "would": "pass",
+   "cmp": "le",
+   "inputs": [
+    {
+     "k": "load mass",
+     "v": 0.2,
+     "u": "kg",
+     "src": "SPEC"
+    },
+    {
+     "k": "lever arm",
+     "v": 35,
+     "u": "mm",
+     "src": "SPEC"
+    },
+    {
+     "k": "PETG E",
+     "v": 2000,
+     "u": "MPa",
+     "src": "ASSUMED"
+    }
+   ],
+   "formula": "\u03b4 = F\u00b7L\u00b3/(3\u00b7E\u00b7I)",
+   "src": "CALC",
+   "assumed": [
+    "PETG E"
+   ],
+   "where": [
+    -40.3,
+    -15.9,
+    48.0
+   ],
+   "note": ""
+  },
+  {
+   "id": "temp",
+   "group": "Material",
+   "label": "Operating temp below Tg \u2212 20 \u00b0C",
+   "value": 30,
+   "limit": 60,
+   "unit": "\u00b0C",
+   "status": "unverified",
+   "would": "pass",
+   "cmp": "le",
+   "inputs": [
+    {
+     "k": "operating",
+     "v": 30,
+     "u": "\u00b0C",
+     "src": "SPEC"
+    },
+    {
+     "k": "PETG Tg",
+     "v": 80,
+     "u": "\u00b0C",
+     "src": "ASSUMED"
+    }
+   ],
+   "formula": "T_op \u2264 Tg \u2212 20 \u00b0C (PETG: no creep flag; PLA under constant load would be)",
+   "src": "CALC",
+   "assumed": [
+    "PETG Tg"
+   ],
+   "where": null,
+   "note": ""
+  },
+  {
+   "id": "psu",
+   "group": "Electrical",
+   "label": "\u03a3 stall currents vs 80 % of the supply",
+   "value": 0.65,
+   "limit": 1.6,
+   "unit": "A",
+   "status": "unverified",
+   "would": "pass",
+   "cmp": "le",
+   "inputs": [
+    {
+     "k": "SG90 stall current",
+     "v": 0.65,
+     "u": "A",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "supply",
+     "v": 2.0,
+     "u": "A",
+     "src": "ASSUMED"
+    }
+   ],
+   "formula": "\u03a3 I_stall \u2264 0.8 \u00b7 I_supply",
+   "src": "CALC",
+   "assumed": [
+    "SG90 stall current",
+    "supply"
+   ],
+   "where": null,
+   "note": "MB-V2 breadboard module (0.7 A) rejected: one stall eats it"
+  },
+  {
+   "id": "insert_cover",
+   "group": "Print / DFM",
+   "label": "Plastic over the insert bore",
+   "value": 1.8,
+   "limit": 1.4,
+   "unit": "mm",
+   "status": "pass",
+   "would": "pass",
+   "cmp": "ge",
+   "inputs": [
+    {
+     "k": "cover",
+     "v": 1.8,
+     "u": "mm",
+     "src": "CAD"
+    },
+    {
+     "k": "rule",
+     "v": 1.4,
+     "u": "mm",
+     "src": "DATASHEET"
+    }
+   ],
+   "formula": "foot top \u2212 (base top + bore depth) \u2265 1.4 (/sp-print-dfm)",
+   "src": "CALC",
+   "assumed": [],
+   "where": [
+    14.0,
+    18.0,
+    6.0
+   ],
+   "note": ""
+  },
+  {
+   "id": "insert_engage",
+   "group": "Print / DFM",
+   "label": "M3 thread engagement in the insert",
+   "value": 5.4,
+   "limit": 4.5,
+   "unit": "mm",
+   "status": "pass",
+   "would": "pass",
+   "cmp": "ge",
+   "inputs": [
+    {
+     "k": "engagement",
+     "v": 5.4,
+     "u": "mm",
+     "src": "CAD"
+    },
+    {
+     "k": "rule 1.5\u00b7d",
+     "v": 4.5,
+     "u": "mm",
+     "src": "DATASHEET"
+    }
+   ],
+   "formula": "seat + length \u2212 insert start \u2265 1.5\u00b7d",
+   "src": "CALC",
+   "assumed": [],
+   "where": null,
+   "note": ""
+  },
+  {
+   "id": "insert_tip",
+   "group": "Print / DFM",
+   "label": "M3 tip clear of the bore end",
+   "value": 0.8,
+   "limit": 0.0,
+   "unit": "mm",
+   "status": "pass",
+   "would": "pass",
+   "cmp": "ge",
+   "inputs": [
+    {
+     "k": "tip gap",
+     "v": 0.8,
+     "u": "mm",
+     "src": "CAD"
+    }
+   ],
+   "formula": "bore end \u2212 screw tip > 0",
+   "src": "CALC",
+   "assumed": [],
+   "where": null,
+   "note": ""
+  },
+  {
+   "id": "ligament",
+   "group": "Print / DFM",
+   "label": "Tab-hole ligament as printed (CAD 1.45 mm)",
+   "value": 1.6611,
+   "limit": 1.6,
+   "unit": "mm",
+   "status": "unverified",
+   "would": "pass",
+   "cmp": "ge",
+   "inputs": [
+    {
+     "k": "CAD ligament",
+     "v": 1.45,
+     "u": "mm",
+     "src": "CAD"
+    },
+    {
+     "k": "SG90 hole pitch",
+     "v": 27.8,
+     "u": "mm",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "hole shrink (profile)",
+     "v": 0.322,
+     "u": "mm",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "min wall",
+     "v": 1.6,
+     "u": "mm",
+     "src": "DATASHEET"
+    }
+   ],
+   "formula": "pitch/2 \u2212 printed window/2 \u2212 printed pilot/2 \u2265 1.60",
+   "src": "CALC",
+   "assumed": [
+    "SG90 hole pitch",
+    "hole shrink (profile)"
+   ],
+   "where": [
+    13.9,
+    3.0,
+    48.0
+   ],
+   "note": "CAD alone reads below 1.60 \u2014 D-v8-04"
+  },
+  {
+   "id": "sweep",
+   "group": "Motion",
+   "label": "Full-range sweep collisions (\u221290\u2026+90\u00b0)",
+   "value": 0,
+   "limit": 0,
+   "unit": "hits",
+   "status": "pass",
+   "would": "pass",
+   "cmp": "le",
+   "inputs": [
+    {
+     "k": "sweep step",
+     "v": 5,
+     "u": "\u00b0",
+     "src": "SPEC"
+    },
+    {
+     "k": "CAD booleans",
+     "v": 0,
+     "u": "",
+     "src": "CAD"
+    }
+   ],
+   "formula": "moving set rotated every 5\u00b0, booleaned against every static part",
+   "src": "CALC",
+   "assumed": [],
+   "where": null,
+   "note": ""
+  },
+  {
+   "id": "envelope",
+   "group": "Print / DFM",
+   "label": "Every printed part fits 220\u00d7220\u00d7270",
+   "value": 0,
+   "limit": 0,
+   "unit": "too big",
+   "status": "pass",
+   "would": "pass",
+   "cmp": "le",
+   "inputs": [
+    {
+     "k": "bed",
+     "v": "220\u00d7220\u00d7270",
+     "u": "mm",
+     "src": "DATASHEET"
+    }
+   ],
+   "formula": "sorted extents \u2264 sorted bed",
+   "src": "CALC",
+   "assumed": [],
+   "where": null,
+   "note": ""
+  },
+  {
+   "id": "lewis",
+   "group": "Mechanisms",
+   "label": "Gear tooth bending (Lewis)",
+   "value": null,
+   "limit": null,
+   "unit": "",
+   "status": "na",
+   "would": "na",
+   "cmp": "le",
+   "inputs": [],
+   "formula": "\u03c3 = F\u209c/(b\u00b7m\u00b7Y) \u2264 Z strength / 2",
+   "src": "CALC",
+   "assumed": [],
+   "where": null,
+   "note": "N/A \u2014 no such mechanism in v1"
+  },
+  {
+   "id": "grashof",
+   "group": "Mechanisms",
+   "label": "Linkage Grashof",
+   "value": null,
+   "limit": null,
+   "unit": "",
+   "status": "na",
+   "would": "na",
+   "cmp": "le",
+   "inputs": [],
+   "formula": "s + l \u2264 p + q",
+   "src": "CALC",
+   "assumed": [],
+   "where": null,
+   "note": "N/A \u2014 no such mechanism in v1"
+  },
+  {
+   "id": "trans_angle",
+   "group": "Mechanisms",
+   "label": "Linkage transmission angle",
+   "value": null,
+   "limit": null,
+   "unit": "",
+   "status": "na",
+   "would": "na",
+   "cmp": "le",
+   "inputs": [],
+   "formula": "40\u00b0 \u2264 \u03bc \u2264 140\u00b0 over the travel",
+   "src": "CALC",
+   "assumed": [],
+   "where": null,
+   "note": "N/A \u2014 no such mechanism in v1"
+  },
+  {
+   "id": "grip",
+   "group": "Mechanisms",
+   "label": "Grip force",
+   "value": null,
+   "limit": null,
+   "unit": "",
+   "status": "na",
+   "would": "na",
+   "cmp": "le",
+   "inputs": [],
+   "formula": "N \u2265 m\u00b7g/(2\u03bc) \u00d7 2",
+   "src": "CALC",
+   "assumed": [],
+   "where": null,
+   "note": "N/A \u2014 no such mechanism in v1"
+  },
+  {
+   "id": "belt",
+   "group": "Mechanisms",
+   "label": "Belt teeth in mesh",
+   "value": null,
+   "limit": null,
+   "unit": "",
+   "status": "na",
+   "would": "na",
+   "cmp": "le",
+   "inputs": [],
+   "formula": "\u2265 6 teeth",
+   "src": "CALC",
+   "assumed": [],
+   "where": null,
+   "note": "N/A \u2014 no such mechanism in v1"
+  },
+  {
+   "id": "leadscrew",
+   "group": "Mechanisms",
+   "label": "Leadscrew force",
+   "value": null,
+   "limit": null,
+   "unit": "",
+   "status": "na",
+   "would": "na",
+   "cmp": "le",
+   "inputs": [],
+   "formula": "F = 2\u03c0\u00b7\u03c4\u00b7\u03b7 / lead",
+   "src": "CALC",
+   "assumed": [],
+   "where": null,
+   "note": "N/A \u2014 no such mechanism in v1"
+  },
+  {
+   "id": "spring",
+   "group": "Mechanisms",
+   "label": "Spring below solid height",
+   "value": null,
+   "limit": null,
+   "unit": "",
+   "status": "na",
+   "would": "na",
+   "cmp": "le",
+   "inputs": [],
+   "formula": "F = k\u00b7x at every pose",
+   "src": "CALC",
+   "assumed": [],
+   "where": null,
+   "note": "N/A \u2014 no such mechanism in v1"
+  },
+  {
+   "id": "prismatic",
+   "group": "Mechanisms",
+   "label": "Slide anti-racking",
+   "value": null,
+   "limit": null,
+   "unit": "",
+   "status": "na",
+   "would": "na",
+   "cmp": "le",
+   "inputs": [],
+   "formula": "L/W \u2265 1.5 and drive > \u03bc\u00b7N",
+   "src": "CALC",
+   "assumed": [],
+   "where": null,
+   "note": "N/A \u2014 no such mechanism in v1"
+  },
+  {
+   "id": "stack_window_x",
+   "group": "Fits",
+   "label": "Stack-up: SG90 in the window \u2014 long side (worst case)",
+   "value": -0.1,
+   "limit": 0.0,
+   "unit": "mm min",
+   "status": "fail",
+   "would": "fail",
+   "cmp": "ge",
+   "inputs": [
+    {
+     "k": "window (CAD)",
+     "v": 23.1,
+     "u": "mm",
+     "src": "CAD"
+    },
+    {
+     "k": "printer comp on a rect window",
+     "v": -0.1,
+     "u": "mm",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "SG90 body length",
+     "v": -22.8,
+     "u": "mm",
+     "src": "ASSUMED"
+    }
+   ],
+   "formula": "worst = nominal \u2212 \u03a3|t\u1d62| ; RSS = nominal \u2212 \u221a\u03a3t\u1d62\u00b2",
+   "src": "CALC",
+   "assumed": [
+    "printer comp on a rect window",
+    "SG90 body length"
+   ],
+   "where": null,
+   "note": ""
+  },
+  {
+   "id": "stack_tab_ligament",
+   "group": "Fits",
+   "label": "Stack-up: Tab-hole ligament as printed (window edge -> pilot edge) (worst case)",
+   "value": 1.31,
+   "limit": 1.6,
+   "unit": "mm min",
+   "status": "unverified",
+   "would": "warn",
+   "cmp": "ge",
+   "inputs": [
+    {
+     "k": "half SG90 hole pitch",
+     "v": 13.9,
+     "u": "mm",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "half window (CAD)",
+     "v": -11.55,
+     "u": "mm",
+     "src": "CAD"
+    },
+    {
+     "k": "window prints smaller (half)",
+     "v": 0.05,
+     "u": "mm",
+     "src": "ASSUMED"
+    },
+    {
+     "k": "pilot radius (CAD)",
+     "v": -0.9,
+     "u": "mm",
+     "src": "CAD"
+    },
+    {
+     "k": "pilot prints smaller (radius)",
+     "v": 0.16,
+     "u": "mm",
+     "src": "ASSUMED"
+    }
+   ],
+   "formula": "worst = nominal \u2212 \u03a3|t\u1d62| ; RSS = nominal \u2212 \u221a\u03a3t\u1d62\u00b2",
+   "src": "CALC",
+   "assumed": [
+    "half SG90 hole pitch",
+    "window prints smaller (half)",
+    "pilot prints smaller (radius)"
+   ],
+   "where": null,
+   "note": ""
+  }
+ ],
+ "ranking": [
+  {
+   "id": "servo",
+   "label": "SG90 stalls (torque)",
+   "sf": 2.559,
+   "where": [
+    -5.3,
+    -14.0,
+    48.0
+   ],
+   "part": "servo",
+   "how": "stall \u00f7 holding torque",
+   "src": "DATASHEET"
+  },
+  {
+   "id": "arm",
+   "label": "Arm root snaps (bending, sharp step)",
+   "sf": 11.17,
+   "where": [
+    -9.772,
+    -15.9,
+    52.0
+   ],
+   "part": "arm",
+   "how": "yield \u00f7 \u03c3_vm with Kt",
+   "src": "CALC",
+   "fix": {
+    "r": 2.0,
+    "kt_before": 2.4268566256749446,
+    "kt_after": 1.3410782521595108,
+    "sf_after": 20.170025954514646
+   }
+  },
+  {
+   "id": "wall",
+   "label": "Cradle wall root peels (Z)",
+   "sf": 47.22,
+   "where": [
+    0.0,
+    3.0,
+    14.0
+   ],
+   "part": "cradle",
+   "how": "z\u00b7yield \u00f7 Kt\u00b7\u03c3",
+   "src": "CALC"
+  },
+  {
+   "id": "tabs",
+   "label": "Tab screws strip out",
+   "sf": 86.6,
+   "where": [
+    13.9,
+    -2.5,
+    48.0
+   ],
+   "part": "tab0",
+   "how": "0.577\u00b7z\u00b7yield \u00f7 thread shear",
+   "src": "CALC"
+  },
+  {
+   "id": "inserts",
+   "label": "M3 inserts pull out",
+   "sf": null,
+   "where": [
+    14.0,
+    18.0,
+    3.4
+   ],
+   "part": "ins_a",
+   "how": "0.88 N each \u2014 no pull-out data",
+   "src": "ASSUMED"
+  }
+ ],
+ "measure": [
+  {
+   "key": "coupon",
+   "what": "print the hole coupon, measure 9 holes",
+   "tool": "calipers",
+   "unlocks": [
+    "fit:bore_a",
+    "fit:bore_b",
+    "fit:clr_a",
+    "fit:clr_b",
+    "fit:hornhole",
+    "fit:loadhole",
+    "fit:pilot0",
+    "fit:pilot1",
+    "fit:window",
+    "ligament",
+    "stack_tab_ligament",
+    "stack_window_x"
+   ],
+   "n": 12
+  },
+  {
+   "key": "petg",
+   "what": "spool brand \u2192 its datasheet (or print + pull a dog-bone in XY and Z)",
+   "tool": "datasheet / tensile coupon",
+   "unlocks": [
+    "defl",
+    "sf_arm",
+    "sf_arm_stall",
+    "sf_tabs",
+    "sf_wall",
+    "temp"
+   ],
+   "n": 6
+  },
+  {
+   "key": "mass",
+   "what": "weigh each printed part and the horn",
+   "tool": "kitchen scale (0.1 g)",
+   "unlocks": [
+    "mass:arm",
+    "mass:base",
+    "mass:cradle",
+    "torque_dyn",
+    "torque_hold"
+   ],
+   "n": 5
+  },
+  {
+   "key": "sg90",
+   "what": "every SG90 dimension \u2014 body L \u00d7 W \u00d7 H, tab span, hole pitch, tab height, shaft offset",
+   "tool": "calipers",
+   "unlocks": [
+    "ligament",
+    "stack_tab_ligament",
+    "stack_window_x"
+   ],
+   "n": 3
+  },
+  {
+   "key": "kt",
+   "what": "keep \u2014 or model the fillet and run FreeCAD FEM (CalculiX) offline",
+   "tool": "design",
+   "unlocks": [
+    "sf_wall"
+   ],
+   "n": 1
+  },
+  {
+   "key": "pivot",
+   "what": "tab edge to screw centre on the real SG90",
+   "tool": "calipers",
+   "unlocks": [
+    "sf_tabs"
+   ],
+   "n": 1
+  },
+  {
+   "key": "pullout",
+   "what": "hang weights off an M3 insert in a PETG test boss until it lets go",
+   "tool": "test boss",
+   "unlocks": [
+    "insert_pull"
+   ],
+   "n": 1
+  },
+  {
+   "key": "stall_a",
+   "what": "SG90 stall current at 5 V",
+   "tool": "USB power meter",
+   "unlocks": [
+    "psu"
+   ],
+   "n": 1
+  },
+  {
+   "key": "supply",
+   "what": "read the wall adapter's label (V, A)",
+   "tool": "label",
+   "unlocks": [
+    "psu"
+   ],
+   "n": 1
+  }
+ ],
+ "model": {
+  "g": 9.80665,
+  "kgcm": 98.0665,
+  "stall_nmm": 176.5197,
+  "yield_xy": 45.0,
+  "z_factor": 0.5,
+  "E": 2000,
+  "shaft": {
+   "origin": [
+    -5.3,
+    -14.0,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    1.0,
+    0
+   ]
+  },
+  "arm_dir": [
+   -1.0,
+   0.0,
+   0
+  ],
+  "front": [
+   0.0,
+   -1.0,
+   0
+  ],
+  "load_point": [
+   -40.3,
+   -15.9,
+   48.0
+  ],
+  "arm_root": {
+   "x_from_shaft": 4.4721,
+   "D": 12.0,
+   "d": 8.0,
+   "t_min": 3.4,
+   "point": [
+    -9.772,
+    -15.9,
+    52.0
+   ]
+  },
+  "wall_root": {
+   "z": 14.0,
+   "b": 39.4,
+   "h": 6.0,
+   "y_front": 0.0,
+   "y_mid": 3.0,
+   "point": [
+    0.0,
+    3.0,
+    14.0
+   ]
+  },
+  "limits": [
+   -90,
+   90
+  ],
+  "moving": [
+   "arm",
+   "horn",
+   "horn_screw",
+   "weight"
+  ],
+  "masses": {
+   "base": {
+    "g": 9.43,
+    "com": [
+     -0.017,
+     12.993,
+     3.002
+    ]
+   },
+   "cradle": {
+    "g": 15.63,
+    "com": [
+     0.0,
+     7.764,
+     22.179
+    ]
+   },
+   "servo": {
+    "g": 9.0,
+    "com": [
+     -0.294,
+     3.413,
+     48.0
+    ]
+   },
+   "horn": {
+    "g": 0.3,
+    "com": [
+     -9.766,
+     -13.673,
+     48.0
+    ]
+   },
+   "arm": {
+    "g": 2.07,
+    "com": [
+     -21.636,
+     -16.055,
+     48.0
+    ]
+   },
+   "tab0": {
+    "g": 0.31302659999999993,
+    "com": [
+     13.9,
+     -0.219,
+     48.0
+    ]
+   },
+   "tab1": {
+    "g": 0.31302659999999993,
+    "com": [
+     -13.9,
+     -0.219,
+     48.0
+    ]
+   },
+   "horn_screw": {
+    "g": 0.31302659999999993,
+    "com": [
+     -5.3,
+     -16.119,
+     48.0
+    ]
+   },
+   "m3a": {
+    "g": 1.0034184,
+    "com": [
+     14.0,
+     18.0,
+     4.333
+    ]
+   },
+   "m3b": {
+    "g": 1.0034184,
+    "com": [
+     -14.0,
+     18.0,
+     4.333
+    ]
+   },
+   "ins_a": {
+    "g": 0.5673664999999999,
+    "com": [
+     14.0,
+     18.0,
+     8.85
+    ]
+   },
+   "ins_b": {
+    "g": 0.5673664999999999,
+    "com": [
+     -14.0,
+     18.0,
+     8.85
+    ]
+   },
+   "weight": {
+    "g": 200,
+    "com": [
+     -40.3,
+     -15.9,
+     48.0
+    ]
+   }
+  },
+  "sections": {
+   "arm_root": {
+    "id": "arm_root",
+    "label": "Arm root \u2014 hub to bar step",
+    "part": "arm",
+    "type": "link_cantilever",
+    "joint": "shaft",
+    "x": null,
+    "d": 8.0,
+    "t": 3.4,
+    "D": 12.0,
+    "r": 0.2,
+    "r_fix": 2.0,
+    "dir": "XY"
+   },
+   "wall_root": {
+    "id": "wall_root",
+    "label": "Cradle wall root \u2014 layers pulled apart",
+    "part": "cradle",
+    "type": "fixed_plate",
+    "b": 39.4,
+    "h": 6.0,
+    "y_mid": 3.0,
+    "kt_bound": 3.0,
+    "dir": "Z"
+   }
+  },
+  "fgs": {
+   "tab_screws": {
+    "id": "tab_screws",
+    "label": "Servo tab screws \u2014 M2 self-tappers strip",
+    "type": "pull_from_moment",
+    "n": 2,
+    "lever": 6.1,
+    "d": 2.0,
+    "Le": 5.5,
+    "y_wall": 0.0,
+    "dir": "Z"
+   },
+   "inserts": {
+    "id": "inserts",
+    "label": "M3 inserts \u2014 pull-out when the mount tips forward",
+    "type": "pull_from_tip",
+    "n": 2,
+    "y_edge": 0.0,
+    "arm": 18.0,
+    "limit": null
+   }
+  },
+  "kt_table": [
+   [
+    1.01,
+    0.91938,
+    -0.17032
+   ],
+   [
+    1.02,
+    0.96048,
+    -0.17711
+   ],
+   [
+    1.03,
+    0.98061,
+    -0.18381
+   ],
+   [
+    1.05,
+    0.98137,
+    -0.19653
+   ],
+   [
+    1.07,
+    0.97527,
+    -0.20958
+   ],
+   [
+    1.1,
+    0.9512,
+    -0.23757
+   ],
+   [
+    1.2,
+    0.97098,
+    -0.21796
+   ],
+   [
+    1.5,
+    0.93836,
+    -0.25759
+   ],
+   [
+    2.0,
+    0.90879,
+    -0.28598
+   ],
+   [
+    3.0,
+    0.89334,
+    -0.3086
+   ],
+   [
+    6.0,
+    0.87868,
+    -0.33243
+   ]
+  ],
+  "path": {
+   "id": "sweep",
+   "label": "TEST sweep: level -> +90\u00b0 -> -90\u00b0 -> level",
+   "speed_dps": 120,
+   "keys": [
+    0,
+    90,
+    -90,
+    0
+   ]
+  },
+  "targets": {
+   "sf_xy": 2.0,
+   "sf_z": 3.0,
+   "hold_frac": 0.5,
+   "dyn_frac": 0.7,
+   "defl_max": 0.5,
+   "temp_op": 30
+  },
+  "kg": {
+   "v": 0.2,
+   "min": 0.0,
+   "max": 5.0,
+   "step": 0.01
+  },
+  "lever": {
+   "v": 35,
+   "min": 10.0,
+   "max": 40.0,
+   "step": 0.5
+  },
+  "arm_t_full": 5.0,
+  "break_kg": {
+   "sharp": 2.242993124843183,
+   "fillet": 4.049599607171158
+  }
+ },
+ "tolerance": {
+  "profile": "Creality Ender 3 S1 Pro \u00b7 PETG",
+  "src": "ASSUMED",
+  "status": "STUB \u2014 print coupon/hole_coupon.3mf, caliper every hole (two readings 90\u00b0 apart, take the smaller), type the numbers into coupon.measured, rebuild",
+  "bands": {
+   "clearance": [
+    {
+     "max": 0.0,
+     "cls": "tight",
+     "label": "interference \u2014 will not go in",
+     "color": "red"
+    },
+    {
+     "min": 0.0,
+     "max": 0.1,
+     "cls": "snug",
+     "label": "0\u20130.1 mm snug",
+     "color": "green"
+    },
+    {
+     "min": 0.1,
+     "max": 0.3,
+     "cls": "running",
+     "label": "0.1\u20130.3 mm running",
+     "color": "yellow"
+    },
+    {
+     "min": 0.3,
+     "cls": "sloppy",
+     "label": "> 0.3 mm sloppy",
+     "color": "red"
+    }
+   ],
+   "self_tap": [
+    {
+     "min": -0.6,
+     "max": -0.3,
+     "cls": "bite",
+     "label": "self-tap bite \u22120.3\u2026\u22120.6 mm",
+     "color": "green"
+    },
+    {
+     "min": -0.3,
+     "max": 0.0,
+     "cls": "weak",
+     "label": "weak bite",
+     "color": "yellow"
+    },
+    {
+     "max": -0.6,
+     "cls": "split",
+     "label": "too tight \u2014 boss may split",
+     "color": "red"
+    },
+    {
+     "min": 0.0,
+     "cls": "none",
+     "label": "no bite",
+     "color": "red"
+    }
+   ],
+   "insert_bore": [
+    {
+     "min": -0.8,
+     "max": -0.4,
+     "cls": "melt",
+     "label": "insert melt-in \u22120.4\u2026\u22120.8 mm",
+     "color": "green"
+    },
+    {
+     "min": -0.4,
+     "max": 0.0,
+     "cls": "loose",
+     "label": "little to grip",
+     "color": "yellow"
+    },
+    {
+     "max": -0.8,
+     "cls": "crack",
+     "label": "too much plastic displaced",
+     "color": "red"
+    },
+    {
+     "min": 0.0,
+     "cls": "slip",
+     "label": "slip fit \u2014 nothing to grip",
+     "color": "red"
+    }
+   ]
+  },
+  "colors": {
+   "green": "#0ca30c",
+   "yellow": "#fab219",
+   "red": "#d03b3b"
+  },
+  "model": {
+   "kind": "round_hole",
+   "formula": "printed = cad + a + b / cad",
+   "a": -0.1,
+   "b": -0.4,
+   "src": "ASSUMED",
+   "note": "placeholder curve: -0.23 mm at \u00d83, -0.37 mm at \u00d81.5, -0.12 mm at \u00d823; replaced by the coupon fit once measured"
+  },
+  "rect": {
+   "delta": -0.1,
+   "src": "ASSUMED",
+   "note": "per dimension, straight-walled windows"
+  },
+  "coupon": [
+   {
+    "cad": 2.8,
+    "measured": null
+   },
+   {
+    "cad": 2.9,
+    "measured": null
+   },
+   {
+    "cad": 3.0,
+    "measured": null
+   },
+   {
+    "cad": 3.1,
+    "measured": null
+   },
+   {
+    "cad": 3.2,
+    "measured": null
+   },
+   {
+    "cad": 3.3,
+    "measured": null
+   },
+   {
+    "cad": 3.4,
+    "measured": null
+   },
+   {
+    "cad": 3.5,
+    "measured": null
+   },
+   {
+    "cad": 3.6,
+    "measured": null
+   }
+  ],
+  "why": "Small holes print undersize mostly from polygon faceting of the STL circle and first-layer squish pushing plastic inward, not from shrinkage \u2014 so the error is bigger on small holes and must be measured on THIS printer + spool."
+ },
+ "slicer": {
+  "name": "PrusaSlicer 2.7.2 CLI",
+  "printer": "Creality Ender-3 S1 Pro (0.4 mm nozzle)",
+  "print": "0.20 mm NORMAL (0.4 mm nozzle) @CREALITY",
+  "filament": "Generic PETG @CREALITY"
+ },
+ "dfm": {
+  "pass": true,
+  "designed": [
+   [
+    "base",
+    "m3a",
+    89.653
+   ],
+   [
+    "base",
+    "m3b",
+    89.653
+   ],
+   [
+    "cradle",
+    "tab0",
+    3.283
+   ],
+   [
+    "cradle",
+    "tab1",
+    3.283
+   ],
+   [
+    "cradle",
+    "ins_a",
+    21.074
+   ],
+   [
+    "cradle",
+    "ins_b",
+    21.074
+   ],
+   [
+    "servo",
+    "horn_screw",
+    11.31
+   ],
+   [
+    "m3a",
+    "ins_a",
+    11.663
+   ],
+   [
+    "m3b",
+    "ins_b",
+    11.663
+   ]
+  ],
+  "clashes": [],
+  "sweep": [],
+  "envelope": {
+   "base": {
+    "extent": [
+     6.6,
+     34.0,
+     70.0
+    ],
+    "fits": true
+   },
+   "cradle": {
+    "extent": [
+     26.0,
+     39.4,
+     52.0
+    ],
+    "fits": true
+   },
+   "arm": {
+    "extent": [
+     5.0,
+     12.0,
+     46.0
+    ],
+    "fits": true
+   }
+  }
+ },
+ "at_default": {
+  "kg": 0.2,
+  "lever": 35,
+  "tau_hold_nmm": 68.991,
+  "frac_hold": 0.39084,
+  "tau_dyn_nmm": 3.9594,
+  "frac_dyn": 0.41327,
+  "alpha": 16.124,
+  "arm_sigma": 1.6576,
+  "arm_kt": 2.4269,
+  "arm_vm": 4.0272,
+  "arm_sf": 11.174,
+  "arm_sf_fix": 20.17,
+  "arm_kt_fix": 1.3411,
+  "wall_sigma": 0.15883,
+  "wall_sf": 47.221,
+  "tab_F": 2.5903,
+  "tab_sf": 86.599,
+  "insert_F": 0.87784,
+  "defl": 0.043594,
+  "kg_stall": 0.51328,
+  "arm_sf_at_stall": 4.3646
+ }
+}

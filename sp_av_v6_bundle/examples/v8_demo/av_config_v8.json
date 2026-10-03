@@ -1,0 +1,1099 @@
+{
+ "title": "Shawarma Servo Mount v1",
+ "subtitle": "SG90 bracket \u00b7 LOAD \u2192 FIT \u2192 SECURE \u2192 TEST",
+ "slug": "servo_mount_v8",
+ "project_dir": "~/Claude/AV/examples/v8_demo",
+ "currency": "CAD $",
+ "explode_scale": 50,
+ "home": {
+  "yaw": -2.2,
+  "pitch": 0.38
+ },
+ "printer": {
+  "name": "Creality Ender 3 S1 Pro",
+  "x": 220,
+  "y": 220,
+  "z": 270,
+  "nozzle": 0.4,
+  "gap": 8,
+  "margin": 5,
+  "sequential": false
+ },
+ "materials": {
+  "PETG": {
+   "density": 1.27,
+   "price": 25.0,
+   "spool_g": 1000
+  }
+ },
+ "machine_rate_per_h": 0.35,
+ "groups": {
+  "printed": "Printed (PETG)",
+  "drive": "Servo + horn",
+  "hw": "Hardware",
+  "test": "Test load"
+ },
+ "steps": [
+  {
+   "n": 1,
+   "title": "Cradle on the bench",
+   "caption": "Foot up for the inserts.",
+   "tool": "\u2014",
+   "time": "1 min"
+  },
+  {
+   "n": 2,
+   "title": "Heat-set inserts into the foot",
+   "caption": "Iron 240 \u00b0C, straight in, let it cool.",
+   "tool": "soldering iron + insert tip",
+   "spec": "2\u00d7 M3\u00d75.7",
+   "time": "4 min"
+  },
+  {
+   "n": 3,
+   "title": "Base plate under the cradle",
+   "caption": "Counterbores face down.",
+   "tool": "\u2014",
+   "time": "1 min"
+  },
+  {
+   "n": 4,
+   "title": "M3\u00d78 up from the bottom",
+   "caption": "Into the inserts. Snug.",
+   "tool": "2.5 mm hex",
+   "spec": "0.6 N\u00b7m guide \u00b7 ASSUMED",
+   "time": "2 min"
+  },
+  {
+   "n": 5,
+   "title": "SG90 into the window",
+   "caption": "From the front, cable out the back.",
+   "tool": "\u2014",
+   "time": "1 min"
+  },
+  {
+   "n": 6,
+   "title": "Tab screws",
+   "caption": "From the front into the pilots.",
+   "tool": "PH0",
+   "spec": "2\u00d7 M2\u00d78 self-tapper",
+   "time": "2 min"
+  },
+  {
+   "n": 7,
+   "title": "Horn onto the spline",
+   "caption": "Centre the servo first (90\u00b0).",
+   "tool": "\u2014",
+   "time": "1 min"
+  },
+  {
+   "n": 8,
+   "title": "Arm over the horn",
+   "caption": "Horn sits in the pocket.",
+   "tool": "\u2014",
+   "time": "1 min"
+  },
+  {
+   "n": 9,
+   "title": "Horn screw",
+   "caption": "Through the arm into the spline.",
+   "tool": "PH0",
+   "spec": "M2\u00d78",
+   "time": "1 min"
+  },
+  {
+   "n": 10,
+   "title": "Load pin + test weight",
+   "caption": "Hang it, run the TEST sweep.",
+   "tool": "\u2014",
+   "time": "1 min"
+  }
+ ],
+ "parts": [
+  {
+   "id": "cradle",
+   "label": "Servo cradle",
+   "color": "#3a3d42",
+   "group": "printed",
+   "step": 1,
+   "kind": "printed",
+   "material": "PETG",
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "insert": null,
+   "stl": "out/stl/cradle.stl",
+   "stl_hi": "out/stl_hi/cradle.stl",
+   "mass": {
+    "g": 15.63,
+    "com": [
+     0.0,
+     7.764,
+     22.179
+    ],
+    "how": "SLICER \u00b7 G-code filament used (PrusaSlicer 2.7.2 CLI)"
+   },
+   "note": "Foot down on the bed. The wall root is the part's weak axis (Z) \u2014 checked.",
+   "print": {
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "layer": 0.2,
+    "walls": 4,
+    "infill": 40,
+    "support": "none",
+    "orientation": "Foot down: inserts go in from the bed face in shear; wall grows straight up. Cost: wall bending runs ACROSS layers (Z) \u2014 checked below at Z strength",
+    "grams": 15.63,
+    "time_min": 122,
+    "slicer": "PrusaSlicer 2.7.2 CLI \u00b7 Ender-3 S1 Pro profile"
+   }
+  },
+  {
+   "id": "ins_a",
+   "label": "M3\u00d75.7 heat-set insert",
+   "color": "#c9a227",
+   "group": "hw",
+   "step": 2,
+   "kind": "bought",
+   "finish": "brass",
+   "explode": [
+    0,
+    0,
+    -0.5
+   ],
+   "insert": {
+    "dir": [
+     0,
+     0,
+     -1
+    ],
+    "dist": 22
+   },
+   "stl": "out/stl/ins_a.stl",
+   "stl_hi": "out/stl_hi/ins_a.stl",
+   "mass": {
+    "g": 0.567,
+    "com": [
+     14.0,
+     18.0,
+     8.85
+    ],
+    "how": "CALC \u00b7 CAD volume 66.7 mm\u00b3 \u00d7 brass 8.5 g/cm\u00b3"
+   },
+   "cost": {
+    "each": 0.12,
+    "url": "https://www.amazon.ca/s?k=ruthex+m3+heat+set+inserts",
+    "supplier": "Amazon.ca (ruthex RX-M3\u00d75.7)",
+    "bulk": {
+     "10": 0.12,
+     "50": 0.1,
+     "100": 0.09
+    },
+    "est": true,
+    "checked": "2026-10-03",
+    "have": true,
+    "have_note": "SP insert stock (M2\u2013M5)",
+    "formula": "ruthex 100-pack \u00f7 100"
+   }
+  },
+  {
+   "id": "ins_b",
+   "label": "M3\u00d75.7 heat-set insert",
+   "color": "#c9a227",
+   "group": "hw",
+   "step": 2,
+   "kind": "bought",
+   "finish": "brass",
+   "explode": [
+    0,
+    0,
+    -0.5
+   ],
+   "insert": {
+    "dir": [
+     0,
+     0,
+     -1
+    ],
+    "dist": 22
+   },
+   "stl": "out/stl/ins_b.stl",
+   "stl_hi": "out/stl_hi/ins_b.stl",
+   "mass": {
+    "g": 0.567,
+    "com": [
+     -14.0,
+     18.0,
+     8.85
+    ],
+    "how": "CALC \u00b7 CAD volume 66.7 mm\u00b3 \u00d7 brass 8.5 g/cm\u00b3"
+   },
+   "cost": {
+    "each": 0.12,
+    "url": "https://www.amazon.ca/s?k=ruthex+m3+heat+set+inserts",
+    "supplier": "Amazon.ca (ruthex RX-M3\u00d75.7)",
+    "bulk": {
+     "10": 0.12,
+     "50": 0.1,
+     "100": 0.09
+    },
+    "est": true,
+    "checked": "2026-10-03",
+    "have": true,
+    "have_note": "SP insert stock (M2\u2013M5)",
+    "formula": "ruthex 100-pack \u00f7 100"
+   }
+  },
+  {
+   "id": "base",
+   "label": "Base plate",
+   "color": "#1d1f22",
+   "group": "printed",
+   "step": 3,
+   "kind": "printed",
+   "material": "PETG",
+   "explode": [
+    0,
+    0,
+    -0.6
+   ],
+   "insert": {
+    "dir": [
+     0,
+     0,
+     -1
+    ],
+    "dist": 30
+   },
+   "stl": "out/stl/base.stl",
+   "stl_hi": "out/stl_hi/base.stl",
+   "mass": {
+    "g": 9.43,
+    "com": [
+     -0.017,
+     12.993,
+     3.002
+    ],
+    "how": "SLICER \u00b7 G-code filament used (PrusaSlicer 2.7.2 CLI)"
+   },
+   "note": "Bottom down. 0.6 mm SP emboss = 3 layers at 0.2.",
+   "print": {
+    "rot": [
+     0,
+     0,
+     0
+    ],
+    "layer": 0.2,
+    "walls": 3,
+    "infill": 25,
+    "support": "none",
+    "orientation": "Bottom face down: counterbores open downward; the 0.6 mm SP emboss and the clamp face are on top \u2014 no supports",
+    "grams": 9.43,
+    "time_min": 55,
+    "slicer": "PrusaSlicer 2.7.2 CLI \u00b7 Ender-3 S1 Pro profile"
+   }
+  },
+  {
+   "id": "m3a",
+   "label": "M3\u00d78 socket head",
+   "color": "#9aa0a6",
+   "group": "hw",
+   "step": 4,
+   "kind": "screw",
+   "finish": "steel",
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "stl": "out/stl/m3a.stl",
+   "stl_hi": "out/stl_hi/m3a.stl",
+   "mass": {
+    "g": 1.003,
+    "com": [
+     14.0,
+     18.0,
+     4.333
+    ],
+    "how": "CALC \u00b7 CAD volume 127.8 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
+   },
+   "screw": {
+    "fid": "m3a",
+    "role": "screw",
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "at": [
+     14.0,
+     18.0,
+     3.4
+    ],
+    "d": 3.0,
+    "len": 8,
+    "head": "socket",
+    "side": "BOTTOM",
+    "host": "cradle",
+    "gid": "M3x8 socket head",
+    "spec": "M3x8 socket head",
+    "into": [
+     "cradle"
+    ]
+   },
+   "cost": {
+    "each": 0.05,
+    "url": "https://www.amazon.ca/s?k=m3+socket+head+screw+assortment+kit",
+    "supplier": "Amazon.ca (M3 kit)",
+    "bulk": {
+     "10": 0.05,
+     "50": 0.04,
+     "100": 0.03
+    },
+    "est": true,
+    "checked": "2026-10-03",
+    "have": true,
+    "have_note": "SP screw box",
+    "formula": "kit \u00f7 count"
+   }
+  },
+  {
+   "id": "m3b",
+   "label": "M3\u00d78 socket head",
+   "color": "#9aa0a6",
+   "group": "hw",
+   "step": 4,
+   "kind": "screw",
+   "finish": "steel",
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "stl": "out/stl/m3b.stl",
+   "stl_hi": "out/stl_hi/m3b.stl",
+   "mass": {
+    "g": 1.003,
+    "com": [
+     -14.0,
+     18.0,
+     4.333
+    ],
+    "how": "CALC \u00b7 CAD volume 127.8 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
+   },
+   "screw": {
+    "fid": "m3b",
+    "role": "screw",
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "at": [
+     -14.0,
+     18.0,
+     3.4
+    ],
+    "d": 3.0,
+    "len": 8,
+    "head": "socket",
+    "side": "BOTTOM",
+    "host": "cradle",
+    "gid": "M3x8 socket head",
+    "spec": "M3x8 socket head",
+    "into": [
+     "cradle"
+    ]
+   },
+   "cost": {
+    "each": 0.05,
+    "url": "https://www.amazon.ca/s?k=m3+socket+head+screw+assortment+kit",
+    "supplier": "Amazon.ca (M3 kit)",
+    "bulk": {
+     "10": 0.05,
+     "50": 0.04,
+     "100": 0.03
+    },
+    "est": true,
+    "checked": "2026-10-03",
+    "have": true,
+    "have_note": "SP screw box",
+    "formula": "kit \u00f7 count"
+   }
+  },
+  {
+   "id": "servo",
+   "label": "SG90 micro servo",
+   "color": "#2b4c7e",
+   "group": "drive",
+   "step": 5,
+   "kind": "bought",
+   "finish": "plastic",
+   "explode": [
+    0,
+    -0.5,
+    0
+   ],
+   "insert": {
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 36
+   },
+   "stl": "out/stl/servo.stl",
+   "stl_hi": "out/stl_hi/servo.stl",
+   "mass": {
+    "g": 9.0,
+    "com": [
+     -0.294,
+     3.413,
+     48.0
+    ],
+    "how": "DATASHEET \u00b7 SG90 datasheet 9 g"
+   },
+   "note": "Probe body from ASSUMED dims \u2014 caliper yours (MEASURE_ME #4).",
+   "cost": {
+    "each": 4.49,
+    "url": "https://www.canadarobotix.com/products/1713",
+    "supplier": "Canada Robotix",
+    "bulk": {
+     "10": 2.4,
+     "50": 2.1,
+     "100": 1.9
+    },
+    "est": false,
+    "checked": "2026-10-03",
+    "have": true,
+    "have_note": "one of your 6 SG90s",
+    "formula": "$4.49 single (listed). Bulk = 10-packs, estimated."
+   }
+  },
+  {
+   "id": "tab0",
+   "label": "M2\u00d78 self-tapper",
+   "color": "#9aa0a6",
+   "group": "hw",
+   "step": 6,
+   "kind": "screw",
+   "finish": "steel",
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "stl": "out/stl/tab0.stl",
+   "stl_hi": "out/stl_hi/tab0.stl",
+   "mass": {
+    "g": 0.313,
+    "com": [
+     13.9,
+     -0.219,
+     48.0
+    ],
+    "how": "CALC \u00b7 CAD volume 39.9 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
+   },
+   "screw": {
+    "fid": "tab0",
+    "role": "screw",
+    "axis": [
+     0.0,
+     1.0,
+     0
+    ],
+    "at": [
+     13.9,
+     -2.5,
+     48.0
+    ],
+    "d": 2.0,
+    "len": 8,
+    "head": "pan",
+    "side": "FRONT",
+    "host": "cradle",
+    "gid": "M2x8 pan self-tapper",
+    "spec": "M2x8 pan self-tapper",
+    "into": [
+     "cradle"
+    ]
+   },
+   "cost": {
+    "each": 0.0,
+    "url": null,
+    "supplier": "in the servo bag",
+    "bulk": {
+     "10": 0.04,
+     "50": 0.03,
+     "100": 0.02
+    },
+    "est": true,
+    "checked": "2026-10-03",
+    "have": true,
+    "have_note": "servo bag",
+    "formula": "ships with each SG90"
+   }
+  },
+  {
+   "id": "tab1",
+   "label": "M2\u00d78 self-tapper",
+   "color": "#9aa0a6",
+   "group": "hw",
+   "step": 6,
+   "kind": "screw",
+   "finish": "steel",
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "stl": "out/stl/tab1.stl",
+   "stl_hi": "out/stl_hi/tab1.stl",
+   "mass": {
+    "g": 0.313,
+    "com": [
+     -13.9,
+     -0.219,
+     48.0
+    ],
+    "how": "CALC \u00b7 CAD volume 39.9 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
+   },
+   "screw": {
+    "fid": "tab1",
+    "role": "screw",
+    "axis": [
+     0.0,
+     1.0,
+     0
+    ],
+    "at": [
+     -13.9,
+     -2.5,
+     48.0
+    ],
+    "d": 2.0,
+    "len": 8,
+    "head": "pan",
+    "side": "FRONT",
+    "host": "cradle",
+    "gid": "M2x8 pan self-tapper",
+    "spec": "M2x8 pan self-tapper",
+    "into": [
+     "cradle"
+    ]
+   },
+   "cost": {
+    "each": 0.0,
+    "url": null,
+    "supplier": "in the servo bag",
+    "bulk": {
+     "10": 0.04,
+     "50": 0.03,
+     "100": 0.02
+    },
+    "est": true,
+    "checked": "2026-10-03",
+    "have": true,
+    "have_note": "servo bag",
+    "formula": "ships with each SG90"
+   }
+  },
+  {
+   "id": "horn",
+   "label": "SG90 single horn",
+   "color": "#e8e6e0",
+   "group": "drive",
+   "step": 7,
+   "kind": "bought",
+   "finish": "plastic",
+   "explode": [
+    0,
+    -0.8,
+    0
+   ],
+   "insert": {
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 16
+   },
+   "stl": "out/stl/horn.stl",
+   "stl_hi": "out/stl_hi/horn.stl",
+   "mass": {
+    "g": 0.3,
+    "com": [
+     -9.766,
+     -13.673,
+     48.0
+    ],
+    "how": "ASSUMED \u00b7 "
+   },
+   "cost": {
+    "each": 0.0,
+    "url": null,
+    "supplier": "in the servo bag",
+    "bulk": {
+     "10": 0,
+     "50": 0,
+     "100": 0
+    },
+    "est": false,
+    "checked": "2026-10-03",
+    "have": true,
+    "have_note": "servo bag",
+    "formula": "ships with each SG90"
+   }
+  },
+  {
+   "id": "arm",
+   "label": "Load arm",
+   "color": "#26292d",
+   "group": "printed",
+   "step": 8,
+   "kind": "printed",
+   "material": "PETG",
+   "explode": [
+    0,
+    -1.1,
+    0
+   ],
+   "insert": {
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 26
+   },
+   "stl": "out/stl/arm.stl",
+   "stl_hi": "out/stl_hi/arm.stl",
+   "mass": {
+    "g": 2.07,
+    "com": [
+     -21.636,
+     -16.055,
+     48.0
+    ],
+    "how": "SLICER \u00b7 G-code filament used (PrusaSlicer 2.7.2 CLI)"
+   },
+   "note": "Flat, horn pocket up: bending runs in the layer plane (XY). Root step = the weak spot (what-breaks-first #1 after the servo).",
+   "print": {
+    "rot": [
+     -90,
+     0,
+     0
+    ],
+    "layer": 0.2,
+    "walls": 4,
+    "infill": 60,
+    "support": "none",
+    "orientation": "Flat, horn pocket up: bending stress runs along the arm = in the layer plane (XY strength)",
+    "grams": 2.07,
+    "time_min": 16,
+    "slicer": "PrusaSlicer 2.7.2 CLI \u00b7 Ender-3 S1 Pro profile"
+   }
+  },
+  {
+   "id": "horn_screw",
+   "label": "M2\u00d78 horn screw",
+   "color": "#9aa0a6",
+   "group": "hw",
+   "step": 9,
+   "kind": "screw",
+   "finish": "steel",
+   "explode": [
+    0,
+    0,
+    0
+   ],
+   "stl": "out/stl/horn_screw.stl",
+   "stl_hi": "out/stl_hi/horn_screw.stl",
+   "mass": {
+    "g": 0.313,
+    "com": [
+     -5.3,
+     -16.119,
+     48.0
+    ],
+    "how": "CALC \u00b7 CAD volume 39.9 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
+   },
+   "screw": {
+    "fid": "horn_screw",
+    "role": "screw",
+    "axis": [
+     0.0,
+     1.0,
+     0
+    ],
+    "at": [
+     -5.3,
+     -18.4,
+     48.0
+    ],
+    "d": 2.0,
+    "len": 8,
+    "head": "pan",
+    "side": "FRONT",
+    "host": "arm",
+    "gid": "M2x8 horn screw (through the arm)",
+    "spec": "M2x8 horn screw (through the arm)",
+    "into": [
+     "servo"
+    ]
+   },
+   "cost": {
+    "each": 0.04,
+    "url": "https://www.amazon.ca/s?k=m2+self+tapping+screw+assortment",
+    "supplier": "Amazon.ca (M2 kit)",
+    "bulk": {
+     "10": 0.04,
+     "50": 0.03,
+     "100": 0.02
+    },
+    "est": true,
+    "checked": "2026-10-03",
+    "have": true,
+    "have_note": "SP screw box",
+    "formula": "kit \u00f7 count"
+   }
+  },
+  {
+   "id": "weight",
+   "label": "Load pin + test weight",
+   "color": "#8a8f98",
+   "group": "test",
+   "step": 10,
+   "kind": "bought",
+   "finish": "steel",
+   "explode": [
+    0,
+    -1.4,
+    0
+   ],
+   "insert": {
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 20
+   },
+   "stl": "out/stl/weight.stl",
+   "stl_hi": "out/stl_hi/weight.stl",
+   "mass": {
+    "g": 200,
+    "com": [
+     -40.3,
+     -15.9,
+     48.0
+    ],
+    "how": "SPEC \u00b7 set by the TEST load slider"
+   },
+   "bom": false,
+   "note": "Mass follows the TEST slider (SPEC)."
+  }
+ ],
+ "fasteners": [
+  {
+   "id": "m3a",
+   "label": "M3x8",
+   "spec": "M3x8 socket head",
+   "qty": 1,
+   "at": [
+    14.0,
+    18.0,
+    3.4
+   ],
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "part": "cradle",
+   "screw": "m3a",
+   "step": 4,
+   "gid": "M3x8 socket head",
+   "side": "BOTTOM",
+   "tool": "2.5 mm hex",
+   "head": "socket",
+   "note": "Up through the base into the insert \u2014 0.6 N\u00b7m guide (ASSUMED).",
+   "holds": "base"
+  },
+  {
+   "id": "m3b",
+   "label": "M3x8",
+   "spec": "M3x8 socket head",
+   "qty": 1,
+   "at": [
+    -14.0,
+    18.0,
+    3.4
+   ],
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "part": "cradle",
+   "screw": "m3b",
+   "step": 4,
+   "gid": "M3x8 socket head",
+   "side": "BOTTOM",
+   "tool": "2.5 mm hex",
+   "head": "socket",
+   "note": "Up through the base into the insert \u2014 0.6 N\u00b7m guide (ASSUMED).",
+   "holds": "base"
+  },
+  {
+   "id": "tab0",
+   "label": "M2x8",
+   "spec": "M2x8 pan self-tapper",
+   "qty": 1,
+   "at": [
+    13.9,
+    -2.5,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    1.0,
+    0
+   ],
+   "part": "cradle",
+   "screw": "tab0",
+   "step": 6,
+   "gid": "M2x8 pan self-tapper",
+   "side": "FRONT",
+   "tool": "PH0",
+   "head": "pan",
+   "note": "Through the servo tab into the wall pilot \u2014 snug, do not strip (0.15 N\u00b7m guide, ASSUMED).",
+   "holds": "servo"
+  },
+  {
+   "id": "tab1",
+   "label": "M2x8",
+   "spec": "M2x8 pan self-tapper",
+   "qty": 1,
+   "at": [
+    -13.9,
+    -2.5,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    1.0,
+    0
+   ],
+   "part": "cradle",
+   "screw": "tab1",
+   "step": 6,
+   "gid": "M2x8 pan self-tapper",
+   "side": "FRONT",
+   "tool": "PH0",
+   "head": "pan",
+   "note": "Through the servo tab into the wall pilot \u2014 snug, do not strip (0.15 N\u00b7m guide, ASSUMED).",
+   "holds": "servo"
+  },
+  {
+   "id": "horn_screw",
+   "label": "M2x8",
+   "spec": "M2x8 horn screw (through the arm)",
+   "qty": 1,
+   "at": [
+    -5.3,
+    -18.4,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    1.0,
+    0
+   ],
+   "part": "arm",
+   "screw": "horn_screw",
+   "step": 9,
+   "gid": "M2x8 horn screw (through the arm)",
+   "side": "FRONT",
+   "tool": "PH0",
+   "head": "pan",
+   "note": "Through the arm hub into the spline.",
+   "holds": "arm"
+  }
+ ],
+ "motion": {
+  "joints": [
+   {
+    "id": "shaft",
+    "label": "SG90 \u2192 arm (servo)",
+    "type": "revolute",
+    "parent": null,
+    "parts": [
+     "horn",
+     "arm",
+     "horn_screw",
+     "weight"
+    ],
+    "origin": [
+     -5.3,
+     -14.0,
+     48.0
+    ],
+    "axis": [
+     0.0,
+     1.0,
+     0
+    ],
+    "cad": 0.0,
+    "home": 0.0,
+    "limits": [
+     -90.0,
+     90.0
+    ],
+    "eff": [
+     -90.0,
+     90.0
+    ],
+    "units": "deg",
+    "servo": {
+     "model": "SG90",
+     "channel": "D9",
+     "center": 90.0,
+     "direction": 1,
+     "offset": 0,
+     "range": [
+      0,
+      180
+     ],
+     "stall_kgcm": 1.8,
+     "kind": "servo",
+     "note": "SG90 1.8 kgf\u00b7cm @ 4.8 V (DATASHEET). 0\u00b0 = arm level."
+    },
+    "band": null,
+    "couple": null,
+    "drive": "servo",
+    "touch": [
+     [
+      "servo",
+      "horn"
+     ],
+     [
+      "horn",
+      "arm"
+     ],
+     [
+      "arm",
+      "horn_screw"
+     ],
+     [
+      "horn_screw",
+      "servo"
+     ],
+     [
+      "weight",
+      "arm"
+     ],
+     [
+      "horn_screw",
+      "horn"
+     ]
+    ],
+    "note": "Drag the arm: it turns about the SG90 output. The TEST slider sets the hanging mass."
+   }
+  ],
+  "loops": [],
+  "payloads": [],
+  "grip": null,
+  "springs": [],
+  "gravity": [
+   0,
+   0,
+   -1
+  ],
+  "paths": [
+   {
+    "id": "sweep",
+    "label": "TEST sweep: level -> +90\u00b0 -> -90\u00b0 -> level",
+    "speed_dps": 120,
+    "settle_s": 0.2,
+    "fps": 30,
+    "start": {
+     "shaft": 0.0
+    },
+    "keys": [
+     {
+      "label": "level",
+      "q": {
+       "shaft": 0.0
+      }
+     },
+     {
+      "wait": 0.3
+     },
+     {
+      "label": "up +90\u00b0",
+      "q": {
+       "shaft": 90.0
+      }
+     },
+     {
+      "wait": 0.3
+     },
+     {
+      "label": "down \u221290\u00b0",
+      "q": {
+       "shaft": -90.0
+      }
+     },
+     {
+      "wait": 0.3
+     },
+     {
+      "label": "level",
+      "q": {
+       "shaft": 0.0
+      }
+     }
+    ],
+    "note": "Minimum-jerk between keys. Watch the Load bar peak where the arm is level."
+   }
+  ],
+  "rules": {
+   "warn": 0.5,
+   "max": 0.7
+  },
+  "ghost": [],
+  "note": "One revolute joint at the SG90 output. Load = \u03a3 r \u00d7 F over the arm (engine) = calc_v8 = PyBullet.",
+  "load_payloads": [],
+  "load_checks": [
+   {
+    "label": "arm level \u00b7 0.2 kg at 35 mm",
+    "q": {
+     "shaft": 0.0
+    },
+    "payload_g": null,
+    "expect": {
+     "shaft": 0.7035
+    },
+    "source": "calc_v8: \u03c4 = g\u00b7\u03a3 m\u00b7x (PyBullet agrees 0.1 %)"
+   },
+   {
+    "label": "arm +60\u00b0 \u00b7 0.2 kg",
+    "q": {
+     "shaft": 60.0
+    },
+    "payload_g": null,
+    "expect": {
+     "shaft": 0.3518
+    },
+    "source": "calc_v8: \u03c4(\u03b8) = g\u00b7\u03a3 m\u00b7(x cos\u03b8 \u2212 z sin\u03b8)"
+   }
+  ]
+ },
+ "eng": "engineering_data_servo_mount_v1.yaml"
+}

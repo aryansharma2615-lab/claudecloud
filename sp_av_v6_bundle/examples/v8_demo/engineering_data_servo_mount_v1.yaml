@@ -1,0 +1,409 @@
+# Shawarma Servo Mount v1 — engineering data (AV v8 contract, engineering_schema_v8.json)
+#
+# Every value is {v, u, src} where src is one of:
+#   MEASURED  calipers / scale / bench test        CALC      formula (shown on tap in the AV)
+#   CAD       from the build123d geometry          SLICER    from real G-code (PrusaSlicer CLI)
+#   DATASHEET from a published spec (link in note) ASSUMED   not measured yet -> MEASURE_ME.md
+#   SPEC      a requirement you set (the load case, the target safety factor)
+# CAD and SLICER values are NOT typed here: cad/servo_mount_v1.py and cad/slice.py write
+# out/cad_facts.json and out/slicer_facts.json, and calc_v8.py merges them.
+# The CAD script reads `params` from THIS file — one source of truth for every dimension.
+
+schema: sp-eng-v8
+assembly:
+  id: servo_mount_v1
+  name: Shawarma Servo Mount v1
+  version: 1
+  units: mm
+  printer: ender3s1pro
+  axis_note: "Z up. FRONT = −Y (engine convention): the servo shaft points out of the wall front along −Y, the arm sweeps the XZ plane, 0° = arm level along −X, + = up."
+
+printers:
+  ender3s1pro:
+    name: Creality Ender 3 S1 Pro
+    bed: {v: [220, 220, 270], u: mm, src: DATASHEET, note: "single colour, stock brass nozzle, open frame (PLA/PETG/TPU only)"}
+    nozzle: {v: 0.4, u: mm, src: DATASHEET, note: "brass — no carbon-fibre filament"}
+    slicer: Creality Print (house) · PrusaSlicer 2.7 CLI used here for the G-code numbers
+  bambu_h2s:
+    name: Bambu Lab H2S + AMS 2 Pro (arriving)
+    nozzle: {v: null, u: mm, src: ASSUMED, note: "confirm hardened-steel nozzle before offering PETG-CF"}
+    slicer: Bambu Studio
+
+# ---------------------------------------------------------------- params (CAD reads these)
+params:
+  # SG90 — every number ASSUMED until calipered (top rows of the assumption ledger)
+  sg90_body_l:     {v: 22.8, u: mm, src: ASSUMED, note: "datasheets disagree: 22.2-23.0"}
+  sg90_body_w:     {v: 12.2, u: mm, src: ASSUMED, note: "datasheets: 11.8-12.2"}
+  sg90_body_h:     {v: 22.7, u: mm, src: ASSUMED, note: "bottom to top face, without boss"}
+  sg90_tab_span:   {v: 32.2, u: mm, src: ASSUMED}
+  sg90_tab_t:      {v: 2.5,  u: mm, src: ASSUMED}
+  sg90_tab_z:      {v: 15.9, u: mm, src: ASSUMED, note: "body bottom to tab underside"}
+  sg90_hole_pitch: {v: 27.8, u: mm, src: ASSUMED, note: "tab hole centre to centre; datasheets 27.5-28"}
+  sg90_shaft_off:  {v: 5.3,  u: mm, src: ASSUMED, note: "shaft axis from body centre, along the long side"}
+  sg90_boss_d:     {v: 11.8, u: mm, src: ASSUMED}
+  sg90_boss_h:     {v: 4.0,  u: mm, src: ASSUMED}
+  sg90_spline_d:   {v: 4.8,  u: mm, src: ASSUMED}
+  sg90_spline_h:   {v: 3.2,  u: mm, src: ASSUMED}
+  # design choices (SPEC = we chose it; the why is in DESIGN_DECISIONS.md)
+  window_clear:    {v: 0.15, u: mm, src: SPEC, note: "per side; D-v8-03 — every 0.05 here costs 0.05 of tab-hole ligament"}
+  pilot_d:         {v: 1.8,  u: mm, src: SPEC, note: "M2 self-tapper pilot; prints ~Ø1.48 (profile) = 0.5 mm bite. D-v8-04"}
+  wall_t:          {v: 6.0,  u: mm, src: SPEC}
+  wall_w:          {v: 39.4, u: mm, src: SPEC}
+  wall_top_z:      {v: 58.0, u: mm, src: SPEC}
+  shaft_z:         {v: 48.0, u: mm, src: SPEC, note: "arm hangs straight down with 4 mm to the desk"}
+  base_l:          {v: 70.0, u: mm, src: SPEC}
+  base_w:          {v: 34.0, u: mm, src: SPEC}
+  base_t:          {v: 6.0,  u: mm, src: SPEC}
+  foot_t:          {v: 8.0,  u: mm, src: SPEC, note: "insert bore 6.2 + 1.4 cover + 0.4"}
+  foot_d:          {v: 26.0, u: mm, src: SPEC}
+  insert_x:        {v: 14.0, u: mm, src: SPEC}
+  insert_y:        {v: -18.0, u: mm, src: SPEC}
+  insert_bore_d:   {v: 4.0,  u: mm, src: DATASHEET, note: "/sp-print-dfm house insert table: M3x5.7 -> Ø4.0 x 6.2"}
+  insert_bore_h:   {v: 6.2,  u: mm, src: DATASHEET}
+  insert_od:       {v: 4.6,  u: mm, src: DATASHEET, note: "ruthex RX-M3x5.7 knurl"}
+  insert_l:        {v: 5.7,  u: mm, src: DATASHEET}
+  cb_d:            {v: 6.0,  u: mm, src: SPEC, note: "M3 socket head Ø5.5 + 0.5"}
+  cb_h:            {v: 3.4,  u: mm, src: SPEC}
+  clear_m3:        {v: 3.4,  u: mm, src: SPEC}
+  wall_fillet:     {v: 3.0,  u: mm, src: SPEC, note: "inside corner wall/foot"}
+  arm_len:         {v: 40.0, u: mm, src: SPEC, note: "shaft to arm tip"}
+  arm_load_r:      {v: 35.0, u: mm, src: SPEC, note: "shaft to load hole"}
+  arm_w:           {v: 8.0,  u: mm, src: SPEC}
+  arm_t:           {v: 5.0,  u: mm, src: SPEC}
+  arm_hub_d:       {v: 12.0, u: mm, src: SPEC}
+  arm_root_r:      {v: 0.2,  u: mm, src: SPEC, note: "v1 = sharp step (nozzle radius). Fix = 2.0 mm fillet, see failure ranking"}
+  arm_root_fix_r:  {v: 2.0,  u: mm, src: SPEC}
+  horn_pocket:     {v: 1.6,  u: mm, src: ASSUMED, note: "stock SG90 single horn arm thickness"}
+  horn_hub_d:      {v: 7.0,  u: mm, src: ASSUMED}
+  horn_len:        {v: 16.0, u: mm, src: ASSUMED}
+  emboss_h:        {v: 0.6,  u: mm, src: SPEC, note: "3 layers at 0.2 — 0.5 is not a whole layer count"}
+  layer_h:         {v: 0.2,  u: mm, src: SPEC}
+
+# ---------------------------------------------------------------- materials
+materials:
+  PETG:
+    brand: {v: "generic PETG 1.75 (Digitmakers.ca)", src: ASSUMED, note: "tell me the spool brand -> datasheet values replace these"}
+    density:     {v: 1.27, u: g/cm3, src: ASSUMED}
+    tensile_xy:  {v: 47.5, u: MPa, src: ASSUMED, note: "fallback 45-50 MPa"}
+    yield_xy:    {v: 45.0, u: MPa, src: ASSUMED}
+    z_factor:    {v: 0.5,  u: "",  src: ASSUMED, note: "Z (between layers) = 50 % of XY until a coupon says otherwise"}
+    E:           {v: 2000, u: MPa, src: ASSUMED}
+    tg:          {v: 80,   u: degC, src: ASSUMED}
+    mu_self:     {v: 0.3,  u: "",  src: ASSUMED, note: "PETG on PETG, dry"}
+    price_g:     {v: 0.025, u: CAD/g, src: DATASHEET, note: "$25/kg spool, digitmakers.ca listing 2026-09-13"}
+    iron_c:      {v: 240,  u: degC, src: DATASHEET, note: "/sp-print-dfm insert table: PETG ~240 °C, straight in, cool before load"}
+  PLA:
+    density: {v: 1.24, u: g/cm3, src: ASSUMED}
+    yield_xy: {v: 55, u: MPa, src: ASSUMED}
+    tg: {v: 60, u: degC, src: ASSUMED}
+    iron_c: {v: 210, u: degC, src: DATASHEET, note: "/sp-print-dfm: PLA 200-220 °C"}
+  TPU:
+    density: {v: 1.21, u: g/cm3, src: ASSUMED}
+  POM:
+    density: {v: 1.41, u: g/cm3, src: ASSUMED, note: "SG90 horn"}
+  steel:
+    density: {v: 7.85, u: g/cm3, src: DATASHEET}
+  brass:
+    density: {v: 8.5, u: g/cm3, src: DATASHEET}
+
+# ---------------------------------------------------------------- parts
+parts:
+  - id: base
+    name: Base plate
+    kind: printed
+    material: PETG
+    qty: 1
+    color: "#1d1f22"
+    print:
+      orientation: {v: "bottom face down", src: SPEC, why: "counterbores open downward; the 0.6 mm SP emboss and the clamp face are on top — no supports"}
+      layer:   {v: 0.2, u: mm, src: SPEC}
+      walls:   {v: 3,   u: "", src: SPEC}
+      top_bottom: {v: 4, u: "", src: SPEC}
+      infill:  {v: 25,  u: "%", src: SPEC}
+      pattern: {v: gyroid, src: SPEC}
+      supports: {v: none, src: SPEC}
+    measured_mass: {v: null, u: g, src: MEASURED}
+  - id: cradle
+    name: Servo cradle
+    kind: printed
+    material: PETG
+    qty: 1
+    color: "#3a3d42"
+    print:
+      orientation: {v: "foot down", src: SPEC, why: "inserts go in from the bed face in shear; wall grows straight up. Cost: wall bending runs ACROSS layers (Z) — checked below at Z strength"}
+      layer:   {v: 0.2, u: mm, src: SPEC}
+      walls:   {v: 4,   u: "", src: SPEC}
+      top_bottom: {v: 5, u: "", src: SPEC}
+      infill:  {v: 40,  u: "%", src: SPEC}
+      pattern: {v: gyroid, src: SPEC}
+      supports: {v: none, src: SPEC}
+    measured_mass: {v: null, u: g, src: MEASURED}
+  - id: arm
+    name: Load arm
+    kind: printed
+    material: PETG
+    qty: 1
+    color: "#26292d"
+    print:
+      orientation: {v: "flat, horn pocket up", src: SPEC, why: "bending stress runs along the arm = in the layer plane (XY strength)"}
+      layer:   {v: 0.2, u: mm, src: SPEC}
+      walls:   {v: 4,   u: "", src: SPEC}
+      top_bottom: {v: 5, u: "", src: SPEC}
+      infill:  {v: 60,  u: "%", src: SPEC}
+      pattern: {v: gyroid, src: SPEC}
+      supports: {v: none, src: SPEC}
+    measured_mass: {v: null, u: g, src: MEASURED}
+  - id: servo
+    name: SG90 micro servo
+    kind: bought
+    material: null
+    qty: 1
+    color: "#2b4c7e"
+    mass: {v: 9.0, u: g, src: DATASHEET, note: "SG90 datasheet 9 g"}
+    owned: true
+    cost: {each: 4.49, url: "https://www.canadarobotix.com/products/1713", supplier: Canada Robotix, bulk: {"10": 2.4, "50": 2.1, "100": 1.9}, checked: "2026-10-02", src: DATASHEET}
+  - id: horn
+    name: SG90 single horn
+    kind: bought
+    material: POM
+    qty: 1
+    color: "#e8e6e0"
+    mass: {v: 0.3, u: g, src: ASSUMED}
+    owned: true
+    cost: {each: 0.0, url: null, supplier: "in the servo bag", bulk: {"10": 0, "50": 0, "100": 0}, src: DATASHEET}
+  - id: weight
+    name: Test weight (hangs from the load hole)
+    kind: bought
+    material: steel
+    qty: 1
+    color: "#8a8f98"
+    mass: {v: 200, u: g, src: SPEC, note: "set by the TEST load slider"}
+    owned: true
+    bom: false
+
+# ---------------------------------------------------------------- fasteners (5.5)
+fasteners:
+  - id: tab0
+    spec: M2x8 pan self-tapper
+    size: M2
+    length: {v: 8, u: mm, src: DATASHEET}
+    head: pan
+    side: FRONT
+    into: cradle
+    holds: servo
+    engagement: {v: 5.5, u: mm, src: CAD, note: "8 - 2.5 tab"}
+    torque: {v: 0.15, u: N·m, src: ASSUMED, note: "guide — verify on a test boss; self-tappers strip PETG easily"}
+    owned: true
+    supplier: "in the servo bag"
+  - id: tab1
+    spec: M2x8 pan self-tapper
+    size: M2
+    length: {v: 8, u: mm, src: DATASHEET}
+    head: pan
+    side: FRONT
+    into: cradle
+    holds: servo
+    engagement: {v: 5.5, u: mm, src: CAD}
+    torque: {v: 0.15, u: N·m, src: ASSUMED, note: "guide — verify on a test boss"}
+    owned: true
+    supplier: "in the servo bag"
+  - id: horn_screw
+    spec: M2x8 horn screw (through the arm)
+    size: M2
+    length: {v: 8, u: mm, src: DATASHEET}
+    head: pan
+    side: FRONT
+    into: servo
+    holds: arm
+    engagement: {v: 3.6, u: mm, src: CAD, note: "into the servo spline — bite not measurable on a bought part"}
+    torque: {v: 0.1, u: N·m, src: ASSUMED}
+    owned: true
+    supplier: "SP screw box (the bag screw is too short through a 5 mm arm)"
+  - id: m3a
+    spec: M3x8 socket head
+    size: M3
+    length: {v: 8, u: mm, src: DATASHEET}
+    head: socket
+    side: BOTTOM
+    into: cradle
+    holds: base
+    insert: M3x5.7 heat-set
+    engagement: {v: 5.4, u: mm, src: CAD, note: "seat at z 3.4 -> tip at z 11.4; insert from z 6"}
+    torque: {v: 0.6, u: N·m, src: ASSUMED, note: "guide — verify on a test boss (no pull-out/strip data yet)"}
+    owned: true
+    supplier: "SP screw box"
+  - id: m3b
+    spec: M3x8 socket head
+    size: M3
+    length: {v: 8, u: mm, src: DATASHEET}
+    head: socket
+    side: BOTTOM
+    into: cradle
+    holds: base
+    insert: M3x5.7 heat-set
+    engagement: {v: 5.4, u: mm, src: CAD}
+    torque: {v: 0.6, u: N·m, src: ASSUMED, note: "guide — verify on a test boss"}
+    owned: true
+    supplier: "SP screw box"
+
+inserts:
+  - id: ins_a
+    spec: ruthex RX-M3x5.7 brass heat-set
+    bore: {d: 4.0, h: 6.2, src: DATASHEET}
+    boss_wall: {v: null, u: mm, src: CAD, note: "nearest face to bore edge — written by the CAD"}
+    iron_c: {v: 240, u: degC, src: DATASHEET}
+    owned: true
+    cost: {each: 0.12, url: "https://www.amazon.ca/s?k=ruthex+m3+heat+set+inserts", supplier: "Amazon.ca (ruthex RX-M3x5.7)", src: DATASHEET}
+  - id: ins_b
+    spec: ruthex RX-M3x5.7 brass heat-set
+    bore: {d: 4.0, h: 6.2, src: DATASHEET}
+    boss_wall: {v: null, u: mm, src: CAD}
+    iron_c: {v: 240, u: degC, src: DATASHEET}
+    owned: true
+    cost: {each: 0.12, url: "https://www.amazon.ca/s?k=ruthex+m3+heat+set+inserts", supplier: "Amazon.ca (ruthex RX-M3x5.7)", src: DATASHEET}
+
+# ---------------------------------------------------------------- joints (5.2)
+joints:
+  - id: shaft
+    type: revolute
+    label: SG90 output -> arm
+    parts: [horn, arm, weight, horn_screw]   # weight = load pin + hanger, mass set by the TEST slider
+    origin: CAD            # filled from the CAD shaft axis
+    axis: [0, 1, 0]       # after the 180° turn: the arm side faces the engine's FRONT (−Y)
+    limits: {v: [-90, 90], u: deg, src: SPEC, note: "SG90 travel 180°; 0° = arm level"}
+    zero: {v: 0, u: deg, src: SPEC}
+    bearing: {v: "servo output bushing (internal)", src: DATASHEET}
+    radial_clear: {v: null, u: mm, src: ASSUMED, note: "inside the servo — not ours"}
+    friction_torque: {v: 0.0, u: N·m, src: ASSUMED}
+    actuator: sg90
+    touch: [[servo, horn], [horn, arm], [arm, horn_screw], [horn_screw, servo], [weight, arm], [horn_screw, horn]]
+
+mechanisms: []   # no gears / belts / leadscrews / linkages / springs / gripper in v1 -> those Checks tiles read N/A
+
+# ---------------------------------------------------------------- actuators (5.3)
+actuators:
+  sg90:
+    type: servo
+    model: TowerPro SG90
+    stall_kgcm: {v: 1.8, u: kgf·cm, src: DATASHEET, note: "@ 4.8 V — bench-test yours"}
+    speed_s60:  {v: 0.1, u: s/60°, src: DATASHEET}
+    travel:     {v: 180, u: deg, src: DATASHEET}
+    pwm_us:     {v: [500, 2400], u: µs, src: DATASHEET}
+    deadband_us: {v: 10, u: µs, src: DATASHEET}
+    stall_a:    {v: 0.65, u: A, src: ASSUMED, note: "not on the SG90 sheet; widely quoted ~650 mA"}
+    gears:      {v: nylon, src: DATASHEET}
+    horn_spline: {v: "21T (ASSUMED)", src: ASSUMED}
+    volts:      {v: 5.0, u: V, src: SPEC}
+
+supply:
+  name: {v: "5 V 2 A USB wall adapter", src: ASSUMED, note: "which brick? its label = DATASHEET"}
+  volts: {v: 5.0, u: V, src: ASSUMED}
+  amps:  {v: 2.0, u: A, src: ASSUMED}
+  rejected:
+    - {name: "MB-V2 breadboard power module", amps: {v: 0.7, u: A, src: DATASHEET}, why: "700 mA max — one SG90 stall (~0.65 A) eats it; never power servos from it"}
+
+# ---------------------------------------------------------------- loads (5.4)
+targets:
+  sf_xy: {v: 2.0, u: "", src: SPEC}
+  sf_z:  {v: 3.0, u: "", src: SPEC, note: "load pulls layers apart"}
+  hold_frac: {v: 0.5, u: "", src: SPEC, note: "holding torque <= 50 % of stall (continuous duty)"}
+  dyn_frac:  {v: 0.7, u: "", src: SPEC, note: "hold + I·α <= 70 % of stall"}
+  defl_max:  {v: 0.5, u: mm, src: SPEC, note: "arm tip sag at the load"}
+  temp_op:   {v: 30, u: degC, src: SPEC}
+
+load_cases:
+  - id: test
+    what: test weight on the arm
+    mass: {v: 0.2, u: kg, src: SPEC, note: "TEST slider default; 0-5 kg"}
+    lever: {v: 35, u: mm, src: SPEC, note: "TEST slider default; 10-40 mm"}
+    direction: [0, 0, -1]
+    kind: static
+    dynamic_factor: {v: 2.0, u: "", src: SPEC, note: "impact = 2 x static"}
+    duty: {v: "intermittent", src: SPEC}
+
+# the path the Motion lane plays in TEST (minimum-jerk between keys)
+path:
+  id: sweep
+  label: "TEST sweep: level -> +90° -> -90° -> level"
+  speed_dps: 120
+  keys: [0, 90, -90, 0]
+
+# ---------------------------------------------------------------- fits (5.6) — CAD Ø from the CAD; printed from the tolerance profile
+fits:
+  - {id: window,   part: cradle, label: "SG90 window", kind: rect, cad: [23.1, 12.5], mate: "SG90 body", mate_size: [22.8, 12.2], mate_src: ASSUMED, purpose: clearance}
+  - {id: pilot0,   part: cradle, label: "M2 pilot (tab)", kind: hole, cad: 1.8, mate: "M2 self-tapper", mate_size: 2.0, mate_src: DATASHEET, purpose: self_tap}
+  - {id: pilot1,   part: cradle, label: "M2 pilot (tab)", kind: hole, cad: 1.8, mate: "M2 self-tapper", mate_size: 2.0, mate_src: DATASHEET, purpose: self_tap}
+  - {id: bore_a,   part: cradle, label: "M3 insert bore", kind: hole, cad: 4.0, mate: "RX-M3x5.7 knurl", mate_size: 4.6, mate_src: DATASHEET, purpose: insert_bore}
+  - {id: bore_b,   part: cradle, label: "M3 insert bore", kind: hole, cad: 4.0, mate: "RX-M3x5.7 knurl", mate_size: 4.6, mate_src: DATASHEET, purpose: insert_bore}
+  - {id: clr_a,    part: base,   label: "M3 clearance", kind: hole, cad: 3.4, mate: "M3 shank", mate_size: 3.0, mate_src: DATASHEET, purpose: clearance}
+  - {id: clr_b,    part: base,   label: "M3 clearance", kind: hole, cad: 3.4, mate: "M3 shank", mate_size: 3.0, mate_src: DATASHEET, purpose: clearance}
+  - {id: hornhole, part: arm,    label: "horn screw hole", kind: hole, cad: 2.4, mate: "M2 shank", mate_size: 2.0, mate_src: DATASHEET, purpose: clearance}
+  - {id: loadhole, part: arm,    label: "load hole", kind: hole, cad: 3.4, mate: "M3 hook", mate_size: 3.0, mate_src: ASSUMED, purpose: clearance}
+
+stackups:
+  - id: window_x
+    label: "SG90 in the window — long side"
+    links:
+      - {name: "window (CAD)", t: 0.0, nominal: 23.1, src: CAD, sign: 1}
+      - {name: "printer comp on a rect window", t: 0.10, nominal: -0.10, src: ASSUMED, sign: 1}
+      - {name: "SG90 body length", t: 0.20, nominal: -22.8, src: ASSUMED, sign: 1, note: "datasheets span 22.2-23.0"}
+    want: {min: 0.0, max: 0.6, u: mm, src: SPEC, note: "must slide in, must not rattle"}
+  - id: tab_ligament
+    label: "Tab-hole ligament as printed (window edge -> pilot edge)"
+    links:
+      - {name: "half SG90 hole pitch", t: 0.25, nominal: 13.9, src: ASSUMED, sign: 1}
+      - {name: "half window (CAD)", t: 0.0, nominal: -11.55, src: CAD, sign: 1}
+      - {name: "window prints smaller (half)", t: 0.05, nominal: 0.05, src: ASSUMED, sign: 1}
+      - {name: "pilot radius (CAD)", t: 0.0, nominal: -0.9, src: CAD, sign: 1}
+      - {name: "pilot prints smaller (radius)", t: 0.05, nominal: 0.16, src: ASSUMED, sign: 1}
+    want: {min: 1.6, max: 9, u: mm, src: DATASHEET, note: "/sp-print-dfm minimum wall 1.60 mm"}
+
+electronics:
+  pins:
+    - {node: sg90, pin: GND, wire: brown, src: DATASHEET}
+    - {node: sg90, pin: "+5V", wire: red, src: DATASHEET}
+    - {node: sg90, pin: SIG, wire: orange, src: DATASHEET}
+  connector: {v: "JR 3-pin 2.54 mm", src: DATASHEET}
+  plug_boot: {v: [7.6, 2.6, 14.0], u: mm, src: ASSUMED, note: "servo plug body W x H x L — sizes the cable path (SmartCount lesson)"}
+  cable_exit: {v: "servo bottom end, behind the wall — clear path, no pinch", src: CAD}
+
+# ---------------------------------------------------------------- stress sections (5.4) — the AV recomputes these live from the TEST slider
+sections:
+  - id: arm_root
+    label: Arm root — hub to bar step
+    part: arm
+    type: link_cantilever          # sigma = Kt·M·c/I, M = F·(lever − x)·cosθ ; tau = 1.5·V/A ; von Mises
+    joint: shaft
+    x: {cad: arm_root.x_from_shaft}
+    d: {v: 8.0, u: mm, src: CAD, note: "bar width = depth in the bending plane"}
+    t: {v: 3.4, u: mm, src: CAD, note: "5.0 arm − 1.6 horn pocket (thinnest at the root)"}
+    D: {v: 12.0, u: mm, src: CAD, note: "hub Ø — the step for Kt"}
+    r: {v: 0.2, u: mm, src: SPEC, note: "v1: sharp step, ~nozzle radius"}
+    r_fix: {v: 2.0, u: mm, src: SPEC}
+    dir: XY
+  - id: wall_root
+    label: Cradle wall root — layers pulled apart
+    part: cradle
+    type: fixed_plate              # sigma = Kt·M·c/I about the root line, M = Σ m·g·(y − y_mid)
+    b: {v: 39.4, u: mm, src: CAD}
+    h: {v: 6.0, u: mm, src: CAD}
+    y_mid: {v: 3.0, u: mm, src: CAD, note: "wall mid-plane; FRONT is −Y"}
+    kt_bound: {v: 3.0, u: "", src: ASSUMED, note: "upper bound for a sharp inside corner (2–3×); the root has a 3 mm fillet so the real Kt is lower"}
+    dir: Z
+fastener_groups:
+  - id: tab_screws
+    label: Servo tab screws — M2 self-tappers strip
+    type: pull_from_moment         # F_pull = M_x / (n·lever) ; thread strip tau = F/(pi·d·Le·0.5)
+    n: 2
+    lever: {v: 6.1, u: mm, src: ASSUMED, note: "pivot at the tab edge = half the body width"}
+    d: {v: 2.0, u: mm, src: DATASHEET}
+    Le: {v: 5.5, u: mm, src: CAD}
+    y_wall: {v: 0.0, u: mm, src: CAD}
+    dir: Z
+  - id: inserts
+    label: M3 inserts — pull-out when the mount tips forward
+    type: pull_from_tip            # tipping about the foot front edge: F_pull = Σ m·g·(y − y_edge) / (n·arm)
+    n: 2
+    y_edge: {v: 0.0, u: mm, src: CAD}
+    arm: {v: 18.0, u: mm, src: CAD, note: "front edge to insert line"}
+    limit: {v: null, u: N, src: ASSUMED, note: "no pull-out data yet — hang weights off a test boss (MEASURE_ME)"}

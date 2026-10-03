@@ -1,0 +1,736 @@
+{
+ "parts": {
+  "base": {
+   "volume_mm3": 14288.947,
+   "area_mm2": 6036.511,
+   "bbox": [
+    [
+     -35.0,
+     -4.0,
+     0.0
+    ],
+    [
+     35.0,
+     30.0,
+     6.6
+    ]
+   ],
+   "centroid": [
+    -0.017,
+    12.993,
+    3.002
+   ],
+   "solids": 1,
+   "valid": true
+  },
+  "cradle": {
+   "volume_mm3": 16746.97,
+   "area_mm2": 7109.875,
+   "bbox": [
+    [
+     -19.7,
+     -0.0,
+     6.0
+    ],
+    [
+     19.7,
+     26.0,
+     58.0
+    ]
+   ],
+   "centroid": [
+    0.0,
+    7.764,
+    22.179
+   ],
+   "solids": 1,
+   "valid": true
+  },
+  "servo": {
+   "volume_mm3": 7111.827,
+   "area_mm2": 2714.37,
+   "bbox": [
+    [
+     -16.1,
+     -14.0,
+     41.9
+    ],
+    [
+     19.4,
+     15.9,
+     54.1
+    ]
+   ],
+   "centroid": [
+    -0.294,
+    3.413,
+    48.0
+   ],
+   "solids": 1,
+   "valid": true
+  },
+  "horn": {
+   "volume_mm3": 177.54,
+   "area_mm2": 356.985,
+   "bbox": [
+    [
+     -21.3,
+     -15.0,
+     44.5
+    ],
+    [
+     -1.8,
+     -11.0,
+     51.5
+    ]
+   ],
+   "centroid": [
+    -9.766,
+    -13.673,
+    48.0
+   ],
+   "solids": 1,
+   "valid": true
+  },
+  "arm": {
+   "volume_mm3": 1688.821,
+   "area_mm2": 1416.01,
+   "bbox": [
+    [
+     -45.3,
+     -18.4,
+     42.0
+    ],
+    [
+     0.7,
+     -13.4,
+     54.0
+    ]
+   ],
+   "centroid": [
+    -21.636,
+    -16.055,
+    48.0
+   ],
+   "solids": 1,
+   "valid": true
+  },
+  "tab0": {
+   "volume_mm3": 39.876,
+   "area_mm2": 88.467,
+   "bbox": [
+    [
+     12.0,
+     -3.8,
+     46.1
+    ],
+    [
+     15.8,
+     5.5,
+     49.9
+    ]
+   ],
+   "centroid": [
+    13.9,
+    -0.219,
+    48.0
+   ],
+   "solids": 1,
+   "valid": true
+  },
+  "tab1": {
+   "volume_mm3": 39.876,
+   "area_mm2": 88.467,
+   "bbox": [
+    [
+     -15.8,
+     -3.8,
+     46.1
+    ],
+    [
+     -12.0,
+     5.5,
+     49.9
+    ]
+   ],
+   "centroid": [
+    -13.9,
+    -0.219,
+    48.0
+   ],
+   "solids": 1,
+   "valid": true
+  },
+  "horn_screw": {
+   "volume_mm3": 39.876,
+   "area_mm2": 88.467,
+   "bbox": [
+    [
+     -7.2,
+     -19.7,
+     46.1
+    ],
+    [
+     -3.4,
+     -10.4,
+     49.9
+    ]
+   ],
+   "centroid": [
+    -5.3,
+    -16.119,
+    48.0
+   ],
+   "solids": 1,
+   "valid": true
+  },
+  "m3a": {
+   "volume_mm3": 127.824,
+   "area_mm2": 174.751,
+   "bbox": [
+    [
+     11.25,
+     15.25,
+     0.4
+    ],
+    [
+     16.75,
+     20.75,
+     11.4
+    ]
+   ],
+   "centroid": [
+    14.0,
+    18.0,
+    4.333
+   ],
+   "solids": 1,
+   "valid": true
+  },
+  "m3b": {
+   "volume_mm3": 127.824,
+   "area_mm2": 174.751,
+   "bbox": [
+    [
+     -16.75,
+     15.25,
+     0.4
+    ],
+    [
+     -11.25,
+     20.75,
+     11.4
+    ]
+   ],
+   "centroid": [
+    -14.0,
+    18.0,
+    4.333
+   ],
+   "solids": 1,
+   "valid": true
+  },
+  "ins_a": {
+   "volume_mm3": 66.749,
+   "area_mm2": 150.561,
+   "bbox": [
+    [
+     11.7,
+     15.7,
+     6.0
+    ],
+    [
+     16.3,
+     20.3,
+     11.7
+    ]
+   ],
+   "centroid": [
+    14.0,
+    18.0,
+    8.85
+   ],
+   "solids": 1,
+   "valid": true
+  },
+  "ins_b": {
+   "volume_mm3": 66.749,
+   "area_mm2": 150.561,
+   "bbox": [
+    [
+     -16.3,
+     15.7,
+     6.0
+    ],
+    [
+     -11.7,
+     20.3,
+     11.7
+    ]
+   ],
+   "centroid": [
+    -14.0,
+    18.0,
+    8.85
+   ],
+   "solids": 1,
+   "valid": true
+  },
+  "weight": {
+   "volume_mm3": 93.714,
+   "area_mm2": 197.355,
+   "bbox": [
+    [
+     -43.3,
+     -20.4,
+     45.0
+    ],
+    [
+     -37.3,
+     -11.4,
+     51.0
+    ]
+   ],
+   "centroid": [
+    -40.3,
+    -15.9,
+    48.0
+   ],
+   "solids": 1,
+   "valid": true
+  }
+ },
+ "frames": {
+  "shaft": {
+   "origin": [
+    -5.3,
+    -14.0,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    1.0,
+    0
+   ]
+  },
+  "arm_dir": [
+   -1.0,
+   0.0,
+   0
+  ],
+  "front": [
+   0.0,
+   -1.0,
+   0
+  ],
+  "arm_root": {
+   "x_from_shaft": 4.4721,
+   "D": 12.0,
+   "d": 8.0,
+   "t_min": 3.4,
+   "point": [
+    -9.772,
+    -15.9,
+    52.0
+   ]
+  },
+  "load_point": [
+   -40.3,
+   -15.9,
+   48.0
+  ],
+  "wall_root": {
+   "z": 14.0,
+   "b": 39.4,
+   "h": 6.0,
+   "y_front": 0.0,
+   "y_mid": 3.0,
+   "point": [
+    0.0,
+    3.0,
+    14.0
+   ]
+  },
+  "tab_screws_dx": 27.8
+ },
+ "features": {
+  "window": {
+   "part": "cradle",
+   "at": [
+    0.0,
+    3.0,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    -1.0,
+    0
+   ],
+   "d": null,
+   "kind": "rect",
+   "size": [
+    23.1,
+    12.5
+   ]
+  },
+  "pilot0": {
+   "part": "cradle",
+   "at": [
+    13.9,
+    3.0,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    -1.0,
+    0
+   ],
+   "d": 1.8,
+   "kind": "hole",
+   "size": null
+  },
+  "pilot1": {
+   "part": "cradle",
+   "at": [
+    -13.9,
+    3.0,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    -1.0,
+    0
+   ],
+   "d": 1.8,
+   "kind": "hole",
+   "size": null
+  },
+  "bore_a": {
+   "part": "cradle",
+   "at": [
+    14.0,
+    18.0,
+    6.0
+   ],
+   "axis": [
+    0.0,
+    0.0,
+    1
+   ],
+   "d": 4.0,
+   "kind": "hole",
+   "size": null
+  },
+  "bore_b": {
+   "part": "cradle",
+   "at": [
+    -14.0,
+    18.0,
+    6.0
+   ],
+   "axis": [
+    0.0,
+    0.0,
+    1
+   ],
+   "d": 4.0,
+   "kind": "hole",
+   "size": null
+  },
+  "clr_a": {
+   "part": "base",
+   "at": [
+    14.0,
+    18.0,
+    6.0
+   ],
+   "axis": [
+    0.0,
+    0.0,
+    1
+   ],
+   "d": 3.4,
+   "kind": "hole",
+   "size": null
+  },
+  "clr_b": {
+   "part": "base",
+   "at": [
+    -14.0,
+    18.0,
+    6.0
+   ],
+   "axis": [
+    0.0,
+    0.0,
+    1
+   ],
+   "d": 3.4,
+   "kind": "hole",
+   "size": null
+  },
+  "hornhole": {
+   "part": "arm",
+   "at": [
+    -5.3,
+    -18.4,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    -1.0,
+    0
+   ],
+   "d": 2.4,
+   "kind": "hole",
+   "size": null
+  },
+  "loadhole": {
+   "part": "arm",
+   "at": [
+    -40.3,
+    -18.4,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    -1.0,
+    0
+   ],
+   "d": 3.4,
+   "kind": "hole",
+   "size": null
+  }
+ },
+ "fasteners": {
+  "tab0": {
+   "at": [
+    13.9,
+    -2.5,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    1.0,
+    0
+   ],
+   "d": 2.0,
+   "len": 8,
+   "head": "pan",
+   "host": "cradle"
+  },
+  "tab1": {
+   "at": [
+    -13.9,
+    -2.5,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    1.0,
+    0
+   ],
+   "d": 2.0,
+   "len": 8,
+   "head": "pan",
+   "host": "cradle"
+  },
+  "horn_screw": {
+   "at": [
+    -5.3,
+    -18.4,
+    48.0
+   ],
+   "axis": [
+    0.0,
+    1.0,
+    0
+   ],
+   "d": 2.0,
+   "len": 8,
+   "head": "pan",
+   "host": "arm"
+  },
+  "m3a": {
+   "at": [
+    14.0,
+    18.0,
+    3.4
+   ],
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "d": 3.0,
+   "len": 8,
+   "head": "socket",
+   "host": "cradle"
+  },
+  "m3b": {
+   "at": [
+    -14.0,
+    18.0,
+    3.4
+   ],
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "d": 3.0,
+   "len": 8,
+   "head": "socket",
+   "host": "cradle"
+  }
+ },
+ "dfm": {
+  "solid": {
+   "base": {
+    "valid": true,
+    "single_solid": true
+   },
+   "cradle": {
+    "valid": true,
+    "single_solid": true
+   },
+   "servo": {
+    "valid": true,
+    "single_solid": true
+   },
+   "horn": {
+    "valid": true,
+    "single_solid": true
+   },
+   "arm": {
+    "valid": true,
+    "single_solid": true
+   },
+   "tab0": {
+    "valid": true,
+    "single_solid": true
+   },
+   "tab1": {
+    "valid": true,
+    "single_solid": true
+   },
+   "horn_screw": {
+    "valid": true,
+    "single_solid": true
+   },
+   "m3a": {
+    "valid": true,
+    "single_solid": true
+   },
+   "m3b": {
+    "valid": true,
+    "single_solid": true
+   },
+   "ins_a": {
+    "valid": true,
+    "single_solid": true
+   },
+   "ins_b": {
+    "valid": true,
+    "single_solid": true
+   },
+   "weight": {
+    "valid": true,
+    "single_solid": true
+   }
+  },
+  "clashes_at_rest": [],
+  "designed_contacts": [
+   [
+    "base",
+    "m3a",
+    89.653
+   ],
+   [
+    "base",
+    "m3b",
+    89.653
+   ],
+   [
+    "cradle",
+    "tab0",
+    3.283
+   ],
+   [
+    "cradle",
+    "tab1",
+    3.283
+   ],
+   [
+    "cradle",
+    "ins_a",
+    21.074
+   ],
+   [
+    "cradle",
+    "ins_b",
+    21.074
+   ],
+   [
+    "servo",
+    "horn_screw",
+    11.31
+   ],
+   [
+    "m3a",
+    "ins_a",
+    11.663
+   ],
+   [
+    "m3b",
+    "ins_b",
+    11.663
+   ]
+  ],
+  "sweep_deg": [
+   -90,
+   90,
+   5
+  ],
+  "sweep_clashes": [],
+  "envelope": {
+   "base": {
+    "extent": [
+     6.6,
+     34.0,
+     70.0
+    ],
+    "fits": true
+   },
+   "cradle": {
+    "extent": [
+     26.0,
+     39.4,
+     52.0
+    ],
+    "fits": true
+   },
+   "arm": {
+    "extent": [
+     5.0,
+     12.0,
+     46.0
+    ],
+    "fits": true
+   }
+  },
+  "min_wall_ligament": 1.45,
+  "pass": true,
+  "warn": [
+   "CAD tab-hole ligament 1.45 mm < 1.60 house minimum \u2014 trade-off D-v8-04 (prints ~1.66 after hole shrink; measure the SG90 pitch)"
+  ]
+ },
+ "insert": {
+  "boss_wall": 3.7,
+  "cover": 1.8,
+  "engagement_m3": 5.4,
+  "tip_gap": 0.8
+ },
+ "ligament": 1.45,
+ "horn_screw_bite": 3.6
+}
