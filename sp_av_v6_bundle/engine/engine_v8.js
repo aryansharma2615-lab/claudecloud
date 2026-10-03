@@ -13,6 +13,8 @@
    R52 perf HUD (fps, triangles, draw calls) + LOD swap past 2× zoom
    R53 engineering data contract: checks tiles, UNVERIFIED / MISSING, MEASURE_ME
    R54 fix: view history ◀ returned to a view recorded before Reset (v7.4 gate failure)
+   R55 build-step fly-ins draw at interaction resolution, clock clamped to 50 ms/frame   R56 CSS variables cached (patch script)
+   R57 interaction-resolution ladder: 0.75× rung + double step when far over budget
    =========================================================================== */
 V7.ver = "8.0";
 const ENG = META.eng || null;
@@ -287,7 +289,7 @@ draw = (orig => function(){
   const t = performance.now(); drawT.push(t); while (drawT.length > 40) drawT.shift();
   if (V8.perf) perfPaint();
 })(draw);
-function fpsNow(){
+function fps8(){
   const t = performance.now(), d = drawT.filter(x => t - x < 1500);
   if (d.length < 3) return null;
   let run = [d[d.length-1]];
@@ -298,7 +300,7 @@ let perfT = 0;
 function perfPaint(){
   const t = performance.now(); if (t - perfT < 250 && perfEl && perfEl.textContent) return; perfT = t;
   if (!perfEl){ perfEl = el("div"); perfEl.id = "v8perf"; perfEl.setAttribute("aria-live", "off"); $("stage").appendChild(perfEl); }
-  const f = fpsNow();
+  const f = fps8();
   perfEl.textContent = `fps   ${f == null ? "idle" : f.toFixed(0)}\ntris  ${(V8.last.scene/1000).toFixed(1)}k scene${V8.lodNow ? " · LOD" : ""}\n      ${(V8.last.tris/1000).toFixed(1)}k drawn\ncalls ${V8.last.calls}`;
   perfEl.classList.toggle("bad", f != null && f < 30);
 }
@@ -1178,6 +1180,42 @@ $("bReset").addEventListener("click", () => {
   setTimeout(() => { if (!interacting) vhRecord(); }, V7RM() ? 0 : 520);
 });
 
+/* ===========================================================================
+   R55 — build-step fly-ins draw at interaction resolution (no edge pass, tuned DPR) and land on
+   one crisp full-resolution frame. v7.x drew every animated frame as a "still" frame: 100–350 ms
+   per frame on SwiftShader with the servo mount, so a 1 s step finished in 4 frames.
+   =========================================================================== */
+tickStep = (orig => function(){
+  const run = SA && !SA.paused && SA.u < 1;
+  if (run){
+    /* the animation clock advances at most 50 ms per frame: a slow GPU shows every stage of the
+       fly-in (a little slower) instead of jumping to the end in three frames */
+    const now = performance.now();
+    if (SA.v8last != null){ const dt = now - SA.v8last; if (dt > 50) SA.t0 += dt - 50; }
+    SA.v8last = now;
+    beginInteract();
+  }
+  orig();
+  if (!SA || SA.paused || SA.u >= 1) endInteract();
+})(tickStep);
+saResume = (orig => function(){ if (SA) SA.v8last = null; return orig(); })(saResume);   /* a pause is not a slow frame */
+
+/* ===========================================================================
+   R57 — the interaction-resolution ladder gets a 0.75× rung, and a run of frames far over budget
+   (median > 50 ms) drops two rungs at once. Dragging on a slow phone goes soft for a moment and
+   lands crisp on release (the still frame is always full resolution). v7.x: one rung per 0.5 s,
+   floor 1× — a 2.5 s orbit on a slow device spent most of its time at a resolution it couldn't hold.
+   =========================================================================== */
+if (RUNGS.indexOf(0.75) < 0) RUNGS.push(0.75);
+frameTick = (orig => function(){
+  const before = DPR_INT;
+  orig();
+  if (DPR_INT !== before && fTimes.length >= 12){
+    const last = fTimes.slice(-12).slice().sort((a, b) => a - b), i = RUNGS.indexOf(DPR_INT);
+    if (last[6] > 50 && DPR_INT < before && i >= 0 && i < RUNGS.length - 1) DPR_INT = RUNGS[i + 1];
+  }
+})(frameTick);
+
 /* keys: C caliper, X x-ray, W wireframe, T tree (desktop) */
 addEventListener("keydown", e => {
   if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT" || e.ctrlKey || e.metaKey) return;
@@ -1203,7 +1241,7 @@ window.__avV8 = {
   checks: () => liveChecks(V8.R || calc8()), fits: () => fits8().map(f => ({id: f.id, clr: f.clr, printed: f.printedJS, psrc: f.psrc, band: f.band})),
   rings: () => [...leads.querySelectorAll("path.v8tol")].filter(e => e.style.display !== "none").map(e => ({fit: e.dataset.fit, cls: e.dataset.cls, stroke: e.getAttribute("stroke")})),
   setCal, caliper: () => V8.cal ? {d: V8.cal.d, pts: V8.calPts.length} : null,
-  perf: () => ({fps: fpsNow(), scene: V8.last.scene, drawn: V8.last.tris, calls: V8.last.calls, lod: V8.lodNow}), setPerf,
+  perf: () => ({fps: fps8(), scene: V8.last.scene, drawn: V8.last.tris, calls: V8.last.calls, lod: V8.lodNow}), setPerf,
   hash: withCam => V8.phase ? v8Hash(!!withCam) : hashNow(), share: () => shareView(null),
   heat: () => [...HEAT].map(([k, h]) => ({id: k, s0: h.s0, s1: h.s1})), ranking: () => ranking8(V8.R || calc8()).map(r => ({id: r.id, sf: r.sf})),
   motionTau: q => { const st = poseFromQ({...homeQ(), shaft: q || 0}); const L = loads(st).find(l => l.id === "shaft"); return L ? L.kgcm : null; },

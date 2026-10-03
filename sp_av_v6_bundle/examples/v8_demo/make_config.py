@@ -147,7 +147,7 @@ def main():
              "expect": {"shaft": round(M.tau(lc["kg"], lc["lever"], 60) / calc_v8.KGCM, 4)}, "source": "calc_v8: τ(θ) = g·Σ m·(x cosθ − z sinθ)"}],
     }
     cfg = {"title": "Shawarma Servo Mount v1", "subtitle": "SG90 bracket · LOAD → FIT → SECURE → TEST", "slug": "servo_mount_v8",
-           "project_dir": "~/Claude/AV/examples/v8_demo", "currency": "CAD $", "explode_scale": 50, "home": {"yaw": -2.2, "pitch": 0.38},
+           "project_dir": "~/Claude/AV/examples/v8_demo", "currency": "CAD $", "explode_scale": 50, "home": {"yaw": -0.86, "pitch": 0.40},
            "printer": {"name": "Creality Ender 3 S1 Pro", "x": 220, "y": 220, "z": 270, "nozzle": 0.4, "gap": 8, "margin": 5, "sequential": False},
            "materials": {"PETG": {"density": 1.27, "price": 25.0, "spool_g": 1000}},
            "machine_rate_per_h": 0.35,

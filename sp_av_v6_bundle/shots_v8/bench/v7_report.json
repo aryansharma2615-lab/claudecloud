@@ -1,0 +1,133 @@
+{
+ "ok": false,
+ "v73": {
+  "tight": {
+   "n": 28,
+   "candidates": 36,
+   "ms": 337,
+   "risk": [
+    {
+     "a": "A_pot_gear",
+     "b": "A_pot",
+     "d": 0.064
+    },
+    {
+     "a": "A_ring_housing",
+     "b": "A_carrier",
+     "d": 0.1
+    },
+    {
+     "a": "A_sun",
+     "b": "A_carrier",
+     "d": 0.1
+    },
+    {
+     "a": "A_ring_housing",
+     "b": "A_planet_0",
+     "d": 0.118
+    },
+    {
+     "a": "A_ring_housing",
+     "b": "A_planet_1",
+     "d": 0.118
+    },
+    {
+     "a": "A_ring_housing",
+     "b": "A_planet_2",
+     "d": 0.119
+    },
+    {
+     "a": "A_horn",
+     "b": "A_sun",
+     "d": 0.137
+    }
+   ],
+   "first": [
+    {
+     "a": "A_servo",
+     "b": "A_horn",
+     "d": 0.049,
+     "printed": false
+    },
+    {
+     "a": "A_pot_gear",
+     "b": "A_pot",
+     "d": 0.064,
+     "printed": true
+    },
+    {
+     "a": "A_ring_housing",
+     "b": "A_carrier",
+     "d": 0.1,
+     "printed": true
+    },
+    {
+     "a": "A_sun",
+     "b": "A_carrier",
+     "d": 0.1,
+     "printed": true
+    },
+    {
+     "a": "A_ring_housing",
+     "b": "A_planet_0",
+     "d": 0.118,
+     "printed": true
+    },
+    {
+     "a": "A_ring_housing",
+     "b": "A_planet_1",
+     "d": 0.118,
+     "printed": true
+    }
+   ]
+  },
+  "gapVsBrute": [
+   {
+    "a": "A_servo",
+    "b": "A_horn",
+    "bvh": 0.049446,
+    "brute": 0.049446
+   },
+   {
+    "a": "A_pot_gear",
+    "b": "A_pot",
+    "bvh": 0.063718,
+    "brute": 0.063718
+   },
+   {
+    "a": "A_ring_housing",
+    "b": "A_carrier",
+    "bvh": 0.099763,
+    "brute": 0.099763
+   }
+  ],
+  "gapTool": {
+   "a": "A_ring_housing",
+   "b": "A_stand",
+   "caption": "Gap 0.00 mm",
+   "d": 0,
+   "lineShown": false
+  },
+  "bomCsv": {
+   "rows": 22,
+   "tableRows": 22,
+   "csvTotal": 39.76,
+   "tile": "CAD $39.76"
+  },
+  "section": {
+   "ortho": {
+    "wantMm": 53.95,
+    "gotMm": 53.95,
+    "handleOffPx": 0.0
+   },
+   "persp": {
+    "wantMm": 58.38,
+    "gotMm": 55.81,
+    "handleOffPx": 0.11
+   }
+  },
+  "errors": [],
+  "ok": true
+ },
+ "v6_ok": false
+}

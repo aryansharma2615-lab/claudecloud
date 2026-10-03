@@ -58,14 +58,14 @@ def solid_of(part):
 # ---------------------------------------------------------------- base plate
 with BuildPart() as base:
     Box(P["base_l"], P["base_w"], P["base_t"], align=(Align.CENTER, Align.MIN, Align.MIN))
-    base.part = base.part.moved(Location((0, -P["base_w"] + 4.0, 0)))
+    base.part = base.part.moved(Location((P["base_cx"], P["base_front"] - P["base_w"], 0)))
 for sx in (-1, 1):
     # counterbore from the bottom + clearance hole (the M3 screws go in from the BOTTOM)
     cb = Pos(sx * IX, IY, 0) * Cylinder(P["cb_d"] / 2, P["cb_h"], align=(Align.CENTER, Align.CENTER, Align.MIN))
     th = Pos(sx * IX, IY, 0) * Cylinder(P["clear_m3"] / 2, P["base_t"], align=(Align.CENTER, Align.CENTER, Align.MIN))
     base.part = base.part - cb - th
     # mounting slots for the user's own screws into the surface below
-    sl = Pos(sx * 29.0, -18.0, 0) * Box(3.4, 10.0, P["base_t"], align=(Align.CENTER, Align.CENTER, Align.MIN))
+    sl = Pos(P["base_cx"] + sx * P["slot_dx"], -18.0, 0) * Box(3.4, 10.0, P["base_t"], align=(Align.CENTER, Align.CENTER, Align.MIN))
     base.part = base.part - sl
 # SP emboss, 0.6 mm = 3 layers at 0.2
 with BuildSketch(Plane.XY.offset(P["base_t"])) as sk:
@@ -295,7 +295,7 @@ dfm["envelope"] = env
 dfm["min_wall_ligament"] = facts["ligament"]
 dfm["pass"] = (not clashes and not sweep_hits and all(v["valid"] and v["single_solid"] for v in dfm["solid"].values())
                and all(e["fits"] for e in env.values()))
-dfm["warn"] = [] if facts["ligament"] >= 1.6 - 1e-6 else [f"CAD tab-hole ligament {facts['ligament']} mm < 1.60 house minimum — trade-off D-v8-04 (prints ~1.66 after hole shrink; measure the SG90 pitch)"]
+dfm["warn"] = [] if facts["ligament"] >= 1.6 - 1e-6 else [f"CAD tab-hole ligament {facts['ligament']} mm < 1.60 house minimum — trade-off D4 (prints ~1.66 after hole shrink; measure the SG90 pitch)"]
 
 json.dump(facts, open(os.path.join(OUT, "cad_facts.json"), "w"), indent=1)
 
@@ -321,7 +321,7 @@ with open(os.path.join(OUT, "DFM_REPORT.md"), "w") as f:
     f.write(f"| arm sweep {lo}°…{hi}° every 5° | {len(sweep_hits)} clashes {sweep_hits[:6] if sweep_hits else ''} |\n")
     for pid, e in env.items():
         f.write(f"| envelope {pid} {e['extent']} mm vs bed {bed} | {'fits' if e['fits'] else 'TOO BIG'} |\n")
-    f.write(f"| tab-hole ligament (window edge → pilot edge, CAD) | {facts['ligament']} mm (house min 1.60) {'— WARN, see D-v8-04' if dfm['warn'] else ''} |\n")
+    f.write(f"| tab-hole ligament (window edge → pilot edge, CAD) | {facts['ligament']} mm (house min 1.60) {'— WARN, see D4' if dfm['warn'] else ''} |\n")
     f.write(f"| insert boss wall / cover over bore | {facts['insert']['boss_wall']} mm / {facts['insert']['cover']} mm (min 1.40) |\n")
     f.write(f"| M3 thread engagement in insert / tip gap to bore end | {facts['insert']['engagement_m3']} mm / {facts['insert']['tip_gap']} mm |\n")
     f.write(f"| horn screw bite into the spline | {facts['horn_screw_bite']} mm |\n")

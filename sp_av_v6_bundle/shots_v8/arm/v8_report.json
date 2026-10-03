@@ -1,0 +1,35 @@
+{
+ "ok": false,
+ "v74": {
+  "angleMath": [
+   90,
+   60.00000000000001
+  ],
+  "history": {
+   "backOk": true,
+   "fwdOk": true,
+   "n": 2
+  },
+  "swipe": {
+   "left": "Step 03 / 12",
+   "right": "Step 02 / 12"
+  },
+  "wireToBuy": {
+   "got_mm": {
+    "26 AWG": 3567,
+    "22 AWG": 392
+   },
+   "want_mm": {
+    "26 AWG": 3567,
+    "22 AWG": 392
+   }
+  },
+  "keys": {
+   "open": true,
+   "afterEsc": false
+  },
+  "errors": [],
+  "ok": true
+ },
+ "v7_ok": false
+}

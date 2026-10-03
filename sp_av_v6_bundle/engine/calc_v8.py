@@ -497,7 +497,7 @@ def compute(path):
                         [inp("CAD ligament", cad["ligament"], "mm", "CAD"), inp("SG90 hole pitch", v(P["sg90_hole_pitch"]), "mm", "ASSUMED"),
                          inp("hole shrink (profile)", round(v(P["pilot_d"]) - pp, 3), "mm", ppsrc), inp("min wall", 1.6, "mm", "DATASHEET")],
                         "pitch/2 − printed window/2 − printed pilot/2 ≥ 1.60", cmp="ge", where=cad["features"]["pilot0"]["at"],
-                        note="CAD alone reads below 1.60 — D-v8-04"))
+                        note="CAD alone reads below 1.60 — D4"))
     checks.append(check("sweep", "Motion", "Full-range sweep collisions (−90…+90°)", len(cad["dfm"]["sweep_clashes"]), 0, "hits", "le",
                         [inp("sweep step", 5, "°", "SPEC"), inp("CAD booleans", len(cad["dfm"]["sweep_clashes"]), "", "CAD")],
                         "moving set rotated every 5°, booleaned against every static part"))

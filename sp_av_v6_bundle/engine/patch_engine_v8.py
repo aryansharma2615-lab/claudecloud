@@ -47,6 +47,13 @@ def patch(s):
             "  /* RATCHET v8 R47: the cut face is a CAP — flat, hatched, opaque — never a see-through shell */\n"
             "  if (!gl_FrontFacing && uClipOn > 0.5){ float hb = step(0.5, fract((gl_FragCoord.x + gl_FragCoord.y)/9.0));\n"
             "    o = vec4(mix(uCut*0.78, uCut, hb), 1.0); return; }")
+    # ---- R56: CSS variables are read every frame (stage, cut, shadow, edges); right after the overlays
+    #      moved, each read forced a style recalc. Cache them; any theme / class change on <html> clears it.
+    s = sub(s, 'const cssVar = n => getComputedStyle(document.documentElement)\n                      .getPropertyValue(n).trim();',
+            'const CSSV = new Map();   /* RATCHET v8 R56 */\n'
+            'new MutationObserver(() => CSSV.clear()).observe(document.documentElement, {attributes: true, attributeFilter: ["data-theme", "class", "style"]});\n'
+            'try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => CSSV.clear()); } catch(e){}\n'
+            'const cssVar = n => { let v = CSSV.get(n); if (v === undefined){ v = getComputedStyle(document.documentElement).getPropertyValue(n).trim(); CSSV.set(n, v); } return v; };')
     # ---- draw: hover tint + per-part heat uniforms ----
     s = sub(s, "    gl.uniform3fv(uni.uCol,new Float32Array(moTint.get(p.id) || p.rgb));\n    gl.uniform4fv(uni.uMat, matOf(p));",
             "    gl.uniform3fv(uni.uCol,new Float32Array(v8Tint(p) || moTint.get(p.id) || p.rgb));\n    gl.uniform4fv(uni.uMat, matOf(p)); v8PartUniforms(p);")

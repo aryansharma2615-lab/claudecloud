@@ -45,14 +45,17 @@ params:
   sg90_spline_d:   {v: 4.8,  u: mm, src: ASSUMED}
   sg90_spline_h:   {v: 3.2,  u: mm, src: ASSUMED}
   # design choices (SPEC = we chose it; the why is in DESIGN_DECISIONS.md)
-  window_clear:    {v: 0.15, u: mm, src: SPEC, note: "per side; D-v8-03 — every 0.05 here costs 0.05 of tab-hole ligament"}
-  pilot_d:         {v: 1.8,  u: mm, src: SPEC, note: "M2 self-tapper pilot; prints ~Ø1.48 (profile) = 0.5 mm bite. D-v8-04"}
+  window_clear:    {v: 0.15, u: mm, src: SPEC, note: "per side; D3 — every 0.05 here costs 0.05 of tab-hole ligament"}
+  pilot_d:         {v: 1.8,  u: mm, src: SPEC, note: "M2 self-tapper pilot; prints ~Ø1.48 (profile) = 0.5 mm bite. D4"}
   wall_t:          {v: 6.0,  u: mm, src: SPEC}
   wall_w:          {v: 39.4, u: mm, src: SPEC}
-  wall_top_z:      {v: 58.0, u: mm, src: SPEC}
-  shaft_z:         {v: 48.0, u: mm, src: SPEC, note: "arm hangs straight down with 4 mm to the desk"}
-  base_l:          {v: 70.0, u: mm, src: SPEC}
-  base_w:          {v: 34.0, u: mm, src: SPEC}
+  wall_top_z:      {v: 62.0, u: mm, src: SPEC}
+  shaft_z:         {v: 52.0, u: mm, src: SPEC, note: "arm hangs straight down with 2 mm over the base top (D15)"}
+  base_l:          {v: 80.0, u: mm, src: SPEC, note: "D15: extended under the load so the CoG stays inside the footprint"}
+  base_w:          {v: 54.0, u: mm, src: SPEC}
+  base_cx:         {v: 8.0, u: mm, src: SPEC, note: "base centre offset toward the arm side (pre-turn +X)"}
+  base_front:      {v: 24.0, u: mm, src: SPEC, note: "base front edge, pre-turn +Y (under the arm plane)"}
+  slot_dx:         {v: 36.0, u: mm, src: SPEC, note: "mount slots at base_cx ± 36 -> 2.3 mm to the edge"}
   base_t:          {v: 6.0,  u: mm, src: SPEC}
   foot_t:          {v: 8.0,  u: mm, src: SPEC, note: "insert bore 6.2 + 1.4 cover + 0.4"}
   foot_d:          {v: 26.0, u: mm, src: SPEC}

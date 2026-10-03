@@ -6,8 +6,8 @@
  "currency": "CAD $",
  "explode_scale": 50,
  "home": {
-  "yaw": -2.2,
-  "pitch": 0.38
+  "yaw": -0.86,
+  "pitch": 0.4
  },
  "printer": {
   "name": "Creality Ender 3 S1 Pro",
@@ -127,11 +127,11 @@
    "stl": "out/stl/cradle.stl",
    "stl_hi": "out/stl_hi/cradle.stl",
    "mass": {
-    "g": 15.63,
+    "g": 16.54,
     "com": [
      0.0,
-     7.764,
-     22.179
+     7.51,
+     23.802
     ],
     "how": "SLICER \u00b7 G-code filament used (PrusaSlicer 2.7.2 CLI)"
    },
@@ -147,8 +147,8 @@
     "infill": 40,
     "support": "none",
     "orientation": "Foot down: inserts go in from the bed face in shear; wall grows straight up. Cost: wall bending runs ACROSS layers (Z) \u2014 checked below at Z strength",
-    "grams": 15.63,
-    "time_min": 122,
+    "grams": 16.54,
+    "time_min": 129,
     "slicer": "PrusaSlicer 2.7.2 CLI \u00b7 Ender-3 S1 Pro profile"
    }
   },
@@ -272,11 +272,11 @@
    "stl": "out/stl/base.stl",
    "stl_hi": "out/stl_hi/base.stl",
    "mass": {
-    "g": 9.43,
+    "g": 16.54,
     "com": [
-     -0.017,
-     12.993,
-     3.002
+     -8.007,
+     2.999,
+     3.001
     ],
     "how": "SLICER \u00b7 G-code filament used (PrusaSlicer 2.7.2 CLI)"
    },
@@ -292,8 +292,8 @@
     "infill": 25,
     "support": "none",
     "orientation": "Bottom face down: counterbores open downward; the 0.6 mm SP emboss and the clamp face are on top \u2014 no supports",
-    "grams": 9.43,
-    "time_min": 55,
+    "grams": 16.54,
+    "time_min": 95,
     "slicer": "PrusaSlicer 2.7.2 CLI \u00b7 Ender-3 S1 Pro profile"
    }
   },
@@ -453,7 +453,7 @@
     "com": [
      -0.294,
      3.413,
-     48.0
+     52.0
     ],
     "how": "DATASHEET \u00b7 SG90 datasheet 9 g"
    },
@@ -494,7 +494,7 @@
     "com": [
      13.9,
      -0.219,
-     48.0
+     52.0
     ],
     "how": "CALC \u00b7 CAD volume 39.9 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
    },
@@ -509,7 +509,7 @@
     "at": [
      13.9,
      -2.5,
-     48.0
+     52.0
     ],
     "d": 2.0,
     "len": 8,
@@ -558,7 +558,7 @@
     "com": [
      -13.9,
      -0.219,
-     48.0
+     52.0
     ],
     "how": "CALC \u00b7 CAD volume 39.9 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
    },
@@ -573,7 +573,7 @@
     "at": [
      -13.9,
      -2.5,
-     48.0
+     52.0
     ],
     "d": 2.0,
     "len": 8,
@@ -630,7 +630,7 @@
     "com": [
      -9.766,
      -13.673,
-     48.0
+     52.0
     ],
     "how": "ASSUMED \u00b7 "
    },
@@ -678,7 +678,7 @@
     "com": [
      -21.636,
      -16.055,
-     48.0
+     52.0
     ],
     "how": "SLICER \u00b7 G-code filament used (PrusaSlicer 2.7.2 CLI)"
    },
@@ -719,7 +719,7 @@
     "com": [
      -5.3,
      -16.119,
-     48.0
+     52.0
     ],
     "how": "CALC \u00b7 CAD volume 39.9 mm\u00b3 \u00d7 steel 7.85 g/cm\u00b3"
    },
@@ -734,7 +734,7 @@
     "at": [
      -5.3,
      -18.4,
-     48.0
+     52.0
     ],
     "d": 2.0,
     "len": 8,
@@ -791,7 +791,7 @@
     "com": [
      -40.3,
      -15.9,
-     48.0
+     52.0
     ],
     "how": "SPEC \u00b7 set by the TEST load slider"
    },
@@ -858,7 +858,7 @@
    "at": [
     13.9,
     -2.5,
-    48.0
+    52.0
    ],
    "axis": [
     0.0,
@@ -883,7 +883,7 @@
    "at": [
     -13.9,
     -2.5,
-    48.0
+    52.0
    ],
    "axis": [
     0.0,
@@ -908,7 +908,7 @@
    "at": [
     -5.3,
     -18.4,
-    48.0
+    52.0
    ],
    "axis": [
     0.0,
@@ -942,7 +942,7 @@
     "origin": [
      -5.3,
      -14.0,
-     48.0
+     52.0
     ],
     "axis": [
      0.0,

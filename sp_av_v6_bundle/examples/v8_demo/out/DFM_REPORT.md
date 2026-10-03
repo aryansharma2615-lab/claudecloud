@@ -20,10 +20,10 @@
 | clashes at rest (excluding designed contacts) | 0  |
 | designed contacts found | 9 (screw bites, insert melt-in, horn on spline) |
 | arm sweep -90°…90° every 5° | 0 clashes  |
-| envelope base [6.6, 34.0, 70.0] mm vs bed [220, 220, 270] | fits |
-| envelope cradle [26.0, 39.4, 52.0] mm vs bed [220, 220, 270] | fits |
+| envelope base [6.6, 54.0, 80.0] mm vs bed [220, 220, 270] | fits |
+| envelope cradle [26.0, 39.4, 56.0] mm vs bed [220, 220, 270] | fits |
 | envelope arm [5.0, 12.0, 46.0] mm vs bed [220, 220, 270] | fits |
-| tab-hole ligament (window edge → pilot edge, CAD) | 1.45 mm (house min 1.60) — WARN, see D-v8-04 |
+| tab-hole ligament (window edge → pilot edge, CAD) | 1.45 mm (house min 1.60) — WARN, see D4 |
 | insert boss wall / cover over bore | 3.7 mm / 1.8 mm (min 1.40) |
 | M3 thread engagement in insert / tip gap to bore end | 5.4 mm / 0.8 mm |
 | horn screw bite into the spline | 3.6 mm |

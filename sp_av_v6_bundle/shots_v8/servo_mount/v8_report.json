@@ -1,0 +1,25 @@
+{
+ "ok": false,
+ "v74": {
+  "angleMath": [
+   90,
+   60.00000000000001
+  ],
+  "history": {
+   "backOk": true,
+   "fwdOk": true,
+   "n": 2
+  },
+  "swipe": {
+   "left": "Step 03 / 10",
+   "right": "Step 02 / 10"
+  },
+  "keys": {
+   "open": true,
+   "afterEsc": false
+  },
+  "errors": [],
+  "ok": true
+ },
+ "v7_ok": false
+}

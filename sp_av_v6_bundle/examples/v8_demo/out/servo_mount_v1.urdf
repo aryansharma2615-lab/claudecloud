@@ -1,9 +1,9 @@
 <robot name="servo_mount_v1">
   <link name="base_link">
     <inertial>
-      <origin xyz="-0.000074 0.008750 0.022622" rpy="0 0 0" />
-      <mass value="0.037828" />
-      <inertia ixx="1.731e-05" ixy="-6.371e-08" ixz="6.455e-08" iyy="2.152e-05" iyz="3.527e-06" izz="1.016e-05" />
+      <origin xyz="-0.002946 0.005692 0.020996" rpy="0 0 0" />
+      <mass value="0.045848" />
+      <inertia ixx="2.603e-05" ixy="-4.112e-07" ixz="-2.301e-06" iyy="3.290e-05" iyz="1.472e-06" izz="1.900e-05" />
     </inertial>
     <visual name="base_v">
       <origin xyz="-0.000000 -0.000000 -0.000000" rpy="0 0 0" />
@@ -118,52 +118,52 @@
     <inertial>
       <origin xyz="-0.034710 -0.001899 0.000000" rpy="0 0 0" />
       <mass value="0.202683" />
-      <inertia ixx="2.401e-08" ixy="-9.218e-09" ixz="1.606e-21" iyy="1.744e-06" iyz="1.396e-22" izz="1.738e-06" />
+      <inertia ixx="2.401e-08" ixy="-9.218e-09" ixz="-4.101e-22" iyy="1.744e-06" iyz="-6.201e-22" izz="1.738e-06" />
     </inertial>
     <visual name="horn_v">
-      <origin xyz="0.005300 0.014000 -0.048000" rpy="0 0 0" />
+      <origin xyz="0.005300 0.014000 -0.052000" rpy="0 0 0" />
       <geometry>
         <mesh filename="stl/horn.stl" scale="0.001 0.001 0.001" />
       </geometry>
     </visual>
     <collision name="horn_c">
-      <origin xyz="0.005300 0.014000 -0.048000" rpy="0 0 0" />
+      <origin xyz="0.005300 0.014000 -0.052000" rpy="0 0 0" />
       <geometry>
         <mesh filename="stl/horn.stl" scale="0.001 0.001 0.001" />
       </geometry>
     </collision>
     <visual name="arm_v">
-      <origin xyz="0.005300 0.014000 -0.048000" rpy="0 0 0" />
+      <origin xyz="0.005300 0.014000 -0.052000" rpy="0 0 0" />
       <geometry>
         <mesh filename="stl/arm.stl" scale="0.001 0.001 0.001" />
       </geometry>
     </visual>
     <collision name="arm_c">
-      <origin xyz="0.005300 0.014000 -0.048000" rpy="0 0 0" />
+      <origin xyz="0.005300 0.014000 -0.052000" rpy="0 0 0" />
       <geometry>
         <mesh filename="stl/arm.stl" scale="0.001 0.001 0.001" />
       </geometry>
     </collision>
     <visual name="horn_screw_v">
-      <origin xyz="0.005300 0.014000 -0.048000" rpy="0 0 0" />
+      <origin xyz="0.005300 0.014000 -0.052000" rpy="0 0 0" />
       <geometry>
         <mesh filename="stl/horn_screw.stl" scale="0.001 0.001 0.001" />
       </geometry>
     </visual>
     <collision name="horn_screw_c">
-      <origin xyz="0.005300 0.014000 -0.048000" rpy="0 0 0" />
+      <origin xyz="0.005300 0.014000 -0.052000" rpy="0 0 0" />
       <geometry>
         <mesh filename="stl/horn_screw.stl" scale="0.001 0.001 0.001" />
       </geometry>
     </collision>
     <visual name="weight_v">
-      <origin xyz="0.005300 0.014000 -0.048000" rpy="0 0 0" />
+      <origin xyz="0.005300 0.014000 -0.052000" rpy="0 0 0" />
       <geometry>
         <mesh filename="stl/weight.stl" scale="0.001 0.001 0.001" />
       </geometry>
     </visual>
     <collision name="weight_c">
-      <origin xyz="0.005300 0.014000 -0.048000" rpy="0 0 0" />
+      <origin xyz="0.005300 0.014000 -0.052000" rpy="0 0 0" />
       <geometry>
         <mesh filename="stl/weight.stl" scale="0.001 0.001 0.001" />
       </geometry>
@@ -178,7 +178,7 @@
   <joint name="shaft" type="revolute">
     <parent link="base_link" />
     <child link="arm_link" />
-    <origin xyz="-0.005300 -0.014000 0.048000" rpy="0 0 0" />
+    <origin xyz="-0.005300 -0.014000 0.052000" rpy="0 0 0" />
     <axis xyz="0.0 1.0 0" />
     <limit lower="-1.57080" upper="1.57080" effort="0.1765" velocity="10.472" />
   </joint>

@@ -1,0 +1,385 @@
+{
+ "ok": false,
+ "v8": {
+  "schema": {
+   "py_missing": 0,
+   "page_missing": 0
+  },
+  "measure_rows": 9,
+  "checks": {
+   "n": 26,
+   "worst_rel": 1.0990223419892346e-05,
+   "statuses": {
+    "pass": 5,
+    "unverified": 12,
+    "warn": 0,
+    "fail": 1,
+    "na": 8
+   }
+  },
+  "formulas": {
+   "n": 9,
+   "bad": []
+  },
+  "stress_worst_rel": 2.2432170791065634e-16,
+  "motion_vs_calc": {
+   "motion_kgcm": -0.7035155319999999,
+   "calc_kgcm": 0.7035155319999999
+  },
+  "stall_warning": "\u2717SG90 stalls. Needs 5.25 kgf\u00b7cmCALC, has",
+  "ranking": [
+   {
+    "id": "servo",
+    "sf": 0.3426277107274002
+   },
+   {
+    "id": "arm",
+    "sf": 1.4950623350368302
+   },
+   {
+    "id": "wall",
+    "sf": 6.366330198089019
+   },
+   {
+    "id": "tabs",
+    "sf": 11.68014184756234
+   },
+   {
+    "id": "inserts",
+    "sf": null
+   }
+  ],
+  "labels": {
+   "load": {
+    "bad": 0,
+    "nums": 20,
+    "eg": []
+   },
+   "fit": {
+    "bad": 0,
+    "nums": 63,
+    "eg": []
+   },
+   "secure": {
+    "bad": 0,
+    "nums": 5,
+    "eg": []
+   },
+   "test": {
+    "bad": 0,
+    "nums": 12,
+    "eg": []
+   },
+   "checks": {
+    "bad": 0,
+    "nums": 110,
+    "eg": []
+   },
+   "inspector": {
+    "bad": 0,
+    "nums": 19,
+    "eg": []
+   }
+  },
+  "tol": {
+   "rings": 9,
+   "want": 9,
+   "mismatch": [],
+   "recoloured_from_profile": true
+  },
+  "caliper": {
+   "got": {
+    "d": 70,
+    "pts": 2
+   },
+   "want": 70.0,
+   "diag": [
+    {
+     "px": [
+      768,
+      306
+     ],
+     "hit": "base",
+     "state": {
+      "xray": false,
+      "wire": false,
+      "tol": true,
+      "heat": false,
+      "kg": 0.2,
+      "lever": 35,
+      "explode": 0,
+      "sectOn": false,
+      "sectAxis": 0,
+      "sectT": 1,
+      "step": 1,
+      "stepMode": false,
+      "motionMode": false,
+      "sel": []
+     },
+     "after": "Caliper \u00b7 1 / 2"
+    },
+    {
+     "px": [
+      562,
+      397
+     ],
+     "hit": "base",
+     "state": {
+      "xray": false,
+      "wire": false,
+      "tol": true,
+      "heat": false,
+      "kg": 0.2,
+      "lever": 35,
+      "explode": 0,
+      "sectOn": false,
+      "sectAxis": 0,
+      "sectT": 1,
+      "step": 1,
+      "stepMode": false,
+      "motionMode": false,
+      "sel": []
+     },
+     "after": "Caliper 70.00 mm"
+    }
+   ]
+  },
+  "cap": {
+   "px": [
+    157,
+    108,
+    58
+   ],
+   "cut": [
+    201,
+    139,
+    75
+   ],
+   "bg": [
+    7,
+    11,
+    10
+   ],
+   "cap": true,
+   "isBg": false,
+   "at": [
+    632.5185637927163,
+    245.89452058889523
+   ]
+  },
+  "perf": {
+   "scene_tris": 13812,
+   "lod_close": true,
+   "lod_tris": 41290,
+   "orbit_fps": {
+    "fps": 25.322465775110448,
+    "runs": [
+     26.9,
+     18.5,
+     25.3
+    ],
+    "desktop_1280": 21.5,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+   },
+   "fps": 25.322465775110448
+  },
+  "hash": {
+   "fit": {
+    "hash": "#phase=fit&ex=0.620&cam=0.7,0.3,173.522,0,0,0",
+    "bad": []
+   },
+   "secure": {
+    "hash": "#phase=secure&ex=0.620&st=6&cam=0.7,0.3,85.014,0,0,0",
+    "bad": []
+   },
+   "test": {
+    "hash": "#phase=test&ex=0.000&sec=1,0.4000,0&kg=0.75&lev=22.5&xr=1&cam=0.7,0.3,97.048,0,0,0",
+    "bad": []
+   },
+   "load": {
+    "hash": "#phase=load&ex=0.000&sec=1,0.4000,0&cam=0.7,0.3,191.773,0,0,0",
+    "bad": []
+   }
+  },
+  "phone": {
+   "phases": {
+    "load": {
+     "scrollW": 390,
+     "small": []
+    },
+    "fit": {
+     "scrollW": 390,
+     "small": []
+    },
+    "secure": {
+     "scrollW": 390,
+     "small": []
+    },
+    "test": {
+     "scrollW": 390,
+     "small": []
+    }
+   },
+   "tree": {
+    "drawer": false,
+    "sheet": true
+   }
+  },
+  "screws": {
+   "sides": [
+    {
+     "id": "m3a",
+     "side": "BOTTOM",
+     "axis": [
+      0,
+      0,
+      1
+     ],
+     "step": 4,
+     "screw": "m3a"
+    },
+    {
+     "id": "m3b",
+     "side": "BOTTOM",
+     "axis": [
+      0,
+      0,
+      1
+     ],
+     "step": 4,
+     "screw": "m3b"
+    },
+    {
+     "id": "tab0",
+     "side": "FRONT",
+     "axis": [
+      0,
+      1,
+      0
+     ],
+     "step": 6,
+     "screw": "tab0"
+    },
+    {
+     "id": "tab1",
+     "side": "FRONT",
+     "axis": [
+      0,
+      1,
+      0
+     ],
+     "step": 6,
+     "screw": "tab1"
+    },
+    {
+     "id": "horn_screw",
+     "side": "FRONT",
+     "axis": [
+      0,
+      1,
+      0
+     ],
+     "step": 9,
+     "screw": "horn_screw"
+    }
+   ],
+   "fly_from_side": [
+    {
+     "id": "m3a",
+     "side": "BOTTOM",
+     "dot": -5.3854244928625095,
+     "off": [
+      -2.7211286213211814,
+      2.4950376450236575,
+      -5.3854244928625095
+     ]
+    },
+    {
+     "id": "m3b",
+     "side": "BOTTOM",
+     "dot": -14,
+     "off": [
+      -5.411542731880143,
+      39.12435565298216,
+      -14
+     ]
+    },
+    {
+     "id": "tab0",
+     "side": "FRONT",
+     "dot": -5.3854244928625095,
+     "off": [
+      7.927783106448489,
+      -5.3854244928625095,
+      -1.6139357980837659
+     ]
+    },
+    {
+     "id": "tab1",
+     "side": "FRONT",
+     "dot": -14,
+     "off": [
+      -62.419219381653036,
+      -14,
+      59.96224688739639
+     ]
+    },
+    {
+     "id": "horn_screw",
+     "side": "FRONT",
+     "dot": -14,
+     "off": [
+      -49.519219381653016,
+      -14,
+      67.41006535994256
+     ]
+    }
+   ]
+  },
+  "bom": {
+   "owned_chips": 9,
+   "all_owned_label": true,
+   "note": true
+  },
+  "coupon": {
+   "phases": [
+    [
+     "load",
+     true
+    ],
+    [
+     "fit",
+     true
+    ],
+    [
+     "secure",
+     false
+    ],
+    [
+     "test",
+     false
+    ]
+   ],
+   "rings": 9
+  },
+  "exports": {
+   "stl_watertight": true,
+   "3mf": {
+    "files": 2,
+    "ok": true
+   },
+   "glb": true,
+   "urdf": true,
+   "urdf_pybullet_joints": 2
+  },
+  "dataviz": {
+   "light": true,
+   "dark": true
+  },
+  "errors": [
+   "orbit fps 25.322465775110448 < 30 (headless SwiftShader)"
+  ],
+  "ok": false
+ },
+ "earlier_ok": false
+}

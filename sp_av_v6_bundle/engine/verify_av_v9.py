@@ -232,13 +232,17 @@ def v8_gates(path, eng_yaml, shots=None, measure_md=None, exports=None, coupon=N
         js("() => document.getElementById('shClose').click()")
         pg.wait_for_timeout(400)
         js("() => __avV8.setCal(true)")
-        # two known CAD corners: the base plate's front top edge, 70.00 mm apart (base_l). Tap a hair
+        # two known CAD corners: the base plate's front top edge, base_l apart (YAML). Tap a hair
         # inside each corner; the raycast snaps to the corner vertex; the caliper must read 70.00.
-        P = [[35.0, -4.0, 6.0], [-35.0, -4.0, 6.0]]
-        ctr = [0.0, 13.0, 6.0]
+        bb = js("() => { const b = __avV8.meta('parts').find(p => p.id === 'base'); return [b.lo, b.span]; }")
+        lo, sp = bb
+        top = 6.0
+        P = [[lo[0] + sp[0], lo[1], top], [lo[0], lo[1], top]]          # front top edge corners of the base plate
+        ctr = [lo[0] + sp[0] / 2, lo[1] + sp[1] / 2, top]
+        known = float(__import__('yaml').safe_load(open(eng_yaml, encoding='utf-8'))['params']['base_l']['v'])   # the CAD param, not the mesh
         box = pg.locator("#cv").bounding_box()
         for z in (1.0, 1.3, 1.7, 2.2):     # a known camera with both corners on the canvas
-            js(f"() => __avV8.view({{yaw: -2.2, pitch: 0.5, zoom: {z}, pan: [0, 0, 0], explode: 0}})")
+            js(f"() => __avV8.view({{yaw: -1.3, pitch: 0.5, zoom: {z}, pan: [0, 0, 0], explode: 0}})")
             pg.wait_for_timeout(150)
             pts = [js(f"() => __avV7.project({json.dumps(p)})") for p in P]
             if all(pt and 20 < pt[0] < box["width"] - 20 and 20 < pt[1] < box["height"] - 20 for pt in pts):
@@ -253,9 +257,9 @@ def v8_gates(path, eng_yaml, shots=None, measure_md=None, exports=None, coupon=N
             diag[-1]["after"] = js("() => document.querySelector('#sel .nm').textContent")
         pg.wait_for_timeout(500)
         got = js("() => __avV8.caliper()")
-        res["caliper"] = {"got": got, "want": 70.0, "diag": diag}
-        if not got or abs(got["d"] - 70.0) > 0.01:
-            errors.append(f"caliper read {got} for a known 70.00 mm")
+        res["caliper"] = {"got": got, "want": round(known, 3), "diag": diag}
+        if not got or abs(got["d"] - known) > 0.01:
+            errors.append(f"caliper read {got} for a known {known:.2f} mm")
         if shots:
             pg.screenshot(path=os.path.join(shots, "v8_caliper.png"))
         js("() => __avV8.setCal(false)")

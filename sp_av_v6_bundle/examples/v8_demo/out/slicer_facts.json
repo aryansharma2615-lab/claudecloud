@@ -5,10 +5,10 @@
  "filament": "Generic PETG @CREALITY",
  "parts": {
   "base": {
-   "grams": 9.43,
-   "filament_mm": 3087.92,
-   "time_s": 3300,
-   "time_txt": "55m 0s",
+   "grams": 16.54,
+   "filament_mm": 5415.33,
+   "time_s": 5708,
+   "time_txt": "1h 35m 8s",
    "layers": 33,
    "settings": {
     "layer": 0.2,
@@ -20,11 +20,11 @@
    "gcode": "out/gcode/base.gcode"
   },
   "cradle": {
-   "grams": 15.63,
-   "filament_mm": 5118.09,
-   "time_s": 7300,
-   "time_txt": "2h 1m 40s",
-   "layers": 260,
+   "grams": 16.54,
+   "filament_mm": 5415.62,
+   "time_s": 7732,
+   "time_txt": "2h 8m 52s",
+   "layers": 280,
    "settings": {
     "layer": 0.2,
     "walls": 4,

@@ -1,0 +1,86 @@
+{
+ "ok": false,
+ "v72": {
+  "checksTab": {
+   "visible": true,
+   "title": "Checks",
+   "metaChecks": 0,
+   "tiles": 0
+  },
+  "clash": {
+   "pairs": 49,
+   "brute": 49,
+   "kinds": {
+    "clash": 5,
+    "design": 44
+   },
+   "candidates": 153,
+   "ms": 364,
+   "clashes": [
+    [
+     "yoke",
+     "servo_sh",
+     4.4
+    ],
+    [
+     "grip_module",
+     "servo_gr",
+     1.29
+    ],
+    [
+     "base_plate",
+     "motor_yaw",
+     0.8
+    ],
+    [
+     "horn_gr",
+     "grip_pinion",
+     0.35
+    ],
+    [
+     "horn_el",
+     "pinion_el",
+     0.2
+    ]
+   ],
+   "rowSel": [
+    "yoke",
+    "servo_sh"
+   ]
+  },
+  "cog": {
+   "g": 318.54,
+   "margin": 42.268,
+   "h": 49.879,
+   "tipDeg": 40.278,
+   "hull": 83,
+   "missing": 0,
+   "com": [
+    15.686,
+    -0.524,
+    49.879
+   ],
+   "independent": {
+    "g": 318.54,
+    "com": [
+     15.686,
+     -0.524,
+     49.879
+    ],
+    "err_mm": 0.0
+   },
+   "markerShown": true
+  },
+  "circle3": {
+   "d": 15,
+   "c": [
+    2.999999999999999,
+    -1.9999999999999996,
+    11
+   ]
+  },
+  "errors": [],
+  "ok": true
+ },
+ "v5_ok": false
+}
