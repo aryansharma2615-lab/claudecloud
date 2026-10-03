@@ -1,0 +1,52 @@
+<!doctype html><html><head><meta charset="utf-8"><title>AV v8 one-pager</title>
+<style>
+@page{size:Letter;margin:0}
+body{margin:0;font:11pt Arial,Helvetica,sans-serif;color:#141413;background:#fff}
+.pg{width:8.5in;height:11in;box-sizing:border-box;padding:.55in .6in;display:flex;flex-direction:column;gap:.18in}
+.k{color:#c2410c;font-weight:700;letter-spacing:.06em;font-size:10pt}
+h1{font-size:24pt;margin:0;line-height:1.1}
+.sub{color:#52514e;font-size:11.5pt}
+.row{display:grid;grid-template-columns:repeat(4,1fr);gap:.12in}
+.row img{width:100%;border-radius:6px;border:1px solid #ddd}
+.lab{font-weight:700;color:#c2410c;font-size:10pt;margin-top:3px}
+.cap{font-size:9pt;color:#52514e}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.12in}
+.st{border:1px solid #ddd;border-radius:8px;padding:.1in}
+.st b{display:block;font-size:20pt}
+.st span{font-size:9pt;color:#52514e}
+.src{font:700 7pt monospace;border:1px solid currentColor;border-radius:3px;padding:0 3px;margin-left:3px;vertical-align:2px}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:.2in}
+h2{font-size:12pt;margin:0 0 4px}
+ul{margin:0;padding-left:16px} li{margin:2px 0;font-size:10pt}
+.foot{margin-top:auto;font-size:8.5pt;color:#8a8f98;display:flex;justify-content:space-between}
+</style></head><body><div class="pg">
+<div><div class="k">SHAWARMA PRINTS · AV v8</div><h1>See if it fits, bolts up and holds — before you print it</h1>
+<div class="sub">One link. Spin it, explode it, measure it, load it until something gives. Every number says where it came from.</div></div>
+<div class="row">
+ <div><img src="file:///home/user/claudecloud/sp_av_v6_bundle/shots_v8/servo_mount/v8_load_390_light.png"><div class="lab">1 LOAD</div><div class="cap">mass + print time from real G-code</div></div>
+ <div><img src="file:///home/user/claudecloud/sp_av_v6_bundle/shots_v8/servo_mount/v8_fit_390_light.png"><div class="lab">2 FIT</div><div class="cap">holes coloured by how your printer prints</div></div>
+ <div><img src="file:///home/user/claudecloud/sp_av_v6_bundle/shots_v8/servo_mount/v8_secure_390_light.png"><div class="lab">3 SECURE</div><div class="cap">auto-build · 240 °C inserts · screw sides</div></div>
+ <div><img src="file:///home/user/claudecloud/sp_av_v6_bundle/shots_v8/servo_mount/v8_test_390_light.png"><div class="lab">4 TEST</div><div class="cap">drag the load · what breaks first</div></div>
+</div>
+<div class="stats">
+ <div class="st"><b style="color:#d03b3b">0.51 kg</b><span>SG90 stalls at 35 mm<span class="src">CALC</span></span></div>
+ <div class="st"><b style="color:#a47800">2.24 kg</b><span>arm root snaps, sharp step<span class="src">CALC</span></span></div>
+ <div class="st"><b style="color:#008300">4.05 kg</b><span>with a 2 mm fillet<span class="src">CALC</span></span></div>
+ <div class="st"><b style="color:#256abf">0.10 %</b><span>PyBullet vs hand calc</span></div>
+</div>
+<div class="two">
+ <div><h2>Caught before a gram was printed</h2><ul>
+  <li><b>Tips over:</b> CoG 8.0 mm outside the base with 200 g → base under the load, now 12.1 mm inside.</li>
+  <li><b>Pilot too tight:</b> Ø1.5 prints Ø1.13 → Ø1.8 in CAD prints Ø1.48, a clean M2 bite.</li>
+  <li><b>SG90 may not fit:</b> datasheets disagree by 0.8 mm → worst case −0.10 mm. Calipers first.</li></ul></div>
+ <div><h2>Every number has a source</h2><ul>
+  <li>MEASURED · CALC · CAD · SLICER · DATASHEET · ASSUMED · SPEC</li>
+  <li>Any ASSUMED input → the check reads UNVERIFIED, never PASS</li>
+  <li>Verified: 9 gate families, every legacy gate, 390 px phone, dark + light</li></ul></div>
+</div>
+<div class="two">
+ <div><h2>Specs</h2><ul><li>Ender 3 S1 Pro · PETG · 35.2 g · 4 h print (PrusaSlicer G-code)</li><li>Unit #1 out of pocket CAD $2.28 (hardware on the shelf)</li><li>One self-contained HTML · works offline · shares as a link</li></ul></div>
+ <div><h2>Get one</h2><ul><li>$450 — LOAD + FIT + SECURE</li><li>$1,200 — + TEST, checks, measurement list</li><li>First one free for a testimonial</li></ul></div>
+</div>
+<div class="foot"><span>Shawarma Prints · Designed in Vaughan, ON</span><span>Prototyped on Ender 3 S1 Pro · Toronto, Canada</span></div>
+</div></body></html>

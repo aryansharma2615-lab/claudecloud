@@ -334,9 +334,11 @@ def v8_gates(path, eng_yaml, shots=None, measure_md=None, exports=None, coupon=N
                         bad.append((k, g, w))
                 elif g != w:
                     bad.append((k, g, w))
-            m = re.search(r"cam=([^&]+)", h)
+            if not re.fullmatch(r"#[A-Za-z0-9._~-]+", h):
+                bad.append(("hash not artifact-safe (only [A-Za-z0-9._~-] survive a published link)", h, None))
+            m = re.search(r"~cam([^~]+)", h)
             if m:
-                c = [float(x) for x in m.group(1).split(",")[:3]]
+                c = [float(x) for x in m.group(1).split("_")[:3]]
                 if abs(st["cam"]["yaw"] - c[0]) > 0.01 or abs(st["cam"]["pitch"] - c[1]) > 0.01:
                     bad.append(("cam", [st["cam"]["yaw"], st["cam"]["pitch"]], c[:2]))
             hres[ph] = {"hash": h[:120], "bad": bad}

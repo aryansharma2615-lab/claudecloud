@@ -1024,6 +1024,7 @@ html.av-focus #v8foot{display:none}
 .v8row{padding:2px 0}
 .v8row button.lnk{min-height:var(--tap);display:flex;align-items:center;width:100%}
 #bShare{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+#bShare{justify-content:center}
 </style>
 <div id="app">
  <div id="left">
@@ -9713,21 +9714,47 @@ showBom = (orig => function(){
    R49 — SHARE VIEW + the hash: phase, camera, explode, section, load, toggles
    =========================================================================== */
 V8.camInHash = false;
+/* bare-token hash: a published artifact passes only [A-Za-z0-9._~-] through, so no "=" or "&":
+   #v8~test~kg0.75~lev22.5~ex0.000~sec1_0.4000_0~st6~xr~wf~tol0~m2.8_2.61_3.0_2.8~cam-0.86_0.4_173.5_0_0_0_o~pservo */
+const N8 = (v, d) => (+v).toFixed(d).replace(/^-0(\.0+)?$/, "0$1");
 function v8Hash(withCam){
-  const o = ["phase=" + V8.phase];
-  o.push("ex=" + (+explode).toFixed(3));
-  if (sectOn) o.push("sec=" + [sectAxis, (+sectT).toFixed(4), sectFlip ? 1 : 0].join(","));
-  if (V8.phase === "test") o.push("kg=" + (+V8.kg).toFixed(2), "lev=" + (+V8.lever).toFixed(1));
-  if (V8.phase === "secure" && stepMode) o.push("st=" + step);
-  if (V8.phase === "fit" && !V8.tol) o.push("tol=0");
-  if (V8.xray) o.push("xr=1");
-  if (V8.wire) o.push("wf=1");
-  if (sel.size === 1) o.push("part=" + encodeURIComponent([...sel][0]));
+  const o = ["v8", V8.phase, "ex" + N8(explode, 3)];
+  if (sectOn) o.push("sec" + [sectAxis, N8(sectT, 4), sectFlip ? 1 : 0].join("_"));
+  if (V8.phase === "test") o.push("kg" + N8(V8.kg, 2), "lev" + N8(V8.lever, 1));
+  if (V8.phase === "secure" && stepMode) o.push("st" + step);
+  if (V8.phase === "fit" && !V8.tol) o.push("tol0");
+  if (V8.xray) o.push("xr");
+  if (V8.wire) o.push("wf");
   const ms = Object.entries(V8.measured).filter(([k]) => !isNaN(+k));
-  if (ms.length) o.push("m=" + ms.map(([k, v]) => k + ":" + v).join(";"));
-  if (withCam) o.push("cam=" + [cam.yaw, cam.pitch, cam.dist, PAN[0], PAN[1], PAN[2]].map(v => +v.toFixed(3)).join(",") + (V7.ortho ? ",o" : ""));
-  return "#" + o.join("&");
+  if (ms.length) o.push("m" + ms.map(([k, v]) => k + "_" + v).join("_"));
+  if (withCam) o.push("cam" + [cam.yaw, cam.pitch, cam.dist, PAN[0], PAN[1], PAN[2]].map(v => N8(v, 3)).join("_") + (V7.ortho ? "_o" : ""));
+  if (sel.size === 1 && /^[A-Za-z0-9._-]+$/.test([...sel][0])) o.push("p" + [...sel][0]);
+  return "#" + o.join("~");
 }
+function parseV8(h){
+  const f = h.split("~"); if (f[0] !== "v8" || !f[1]) return null;
+  const o = {phase: f[1]};
+  for (const x of f.slice(2)){
+    let m;
+    if ((m = /^ex(-?[\d.]+)$/.exec(x))) o.ex = m[1];
+    else if ((m = /^sec(\d)_([\d.]+)_([01])$/.exec(x))) o.sec = [m[1], m[2], m[3]].join(",");
+    else if ((m = /^kg([\d.]+)$/.exec(x))) o.kg = m[1];
+    else if ((m = /^lev([\d.]+)$/.exec(x))) o.lev = m[1];
+    else if ((m = /^st(\d+)$/.exec(x))) o.st = m[1];
+    else if (x === "tol0") o.tol = "0";
+    else if (x === "xr") o.xr = "1";
+    else if (x === "wf") o.wf = "1";
+    else if ((m = /^m([\d._]+)$/.exec(x))){ const a = m[1].split("_"); const kv = []; for (let i = 0; i + 1 < a.length; i += 2) kv.push(a[i] + ":" + a[i+1]); o.m = kv.join(";"); }
+    else if ((m = /^cam(.+)$/.exec(x))){ const a = m[1].split("_"); o.cam = a.slice(0, 6).join(",") + (a[6] === "o" ? ",o" : ""); }
+    else if ((m = /^p(.+)$/.exec(x))) o.part = m[1];
+  }
+  return o;
+}
+readHash = (orig => function(){
+  const h = location.hash.replace(/^#/, "");
+  if (/^v8~/.test(h)) return parseV8(h);
+  return orig();
+})(readHash);
 hashNow = (orig => function(){
   if (!V8.phase) return orig();
   return v8Hash(V8.camInHash || V7.camLink);

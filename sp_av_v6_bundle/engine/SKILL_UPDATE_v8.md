@@ -26,7 +26,7 @@ Paste-ready lines for the skill (via `/skill-creator`). Everything else in the s
 ## "What every SP AV must have" — add
 
 14. **Guided phases — LOAD → FIT → SECURE → TEST.** A stepper over the tabs; each phase is a URL-hash state
-    (`#phase=test&kg=0.75&lev=22.5&sec=1,0.4,0&xr=1&cam=…`). LOAD: hover/tap tooltip (name, material, mass,
+    (bare token, because a published artifact passes only `[A-Za-z0-9._~-]`: `#v8~test~kg0.75~lev22.5~sec1_0.4000_0~xr~cam…`). LOAD: hover/tap tooltip (name, material, mass,
     print time). FIT: explode spacing (mm), **tolerance rings** on every hole coloured from the printer profile,
     **caliper**, **stack-up** (worst-case + RSS, "eats most"), fit calculator. SECURE: auto-assembly with insert
     iron temperature + screw torque chips (with their source). TEST: load slider (kg + lever) → **CALC stress
@@ -64,5 +64,6 @@ Full contract: `engineering_schema_v8.json`; worked example: `examples/v8_demo/`
 ## Lessons to keep
 - A uniform branch in a fragment shader is NOT free on SwiftShader (headless) — it cost ~15 % fps. Optional
   shading (heat, wireframe) lives in a second program used only when on.
+- Share state in a BARE hash token (`#v8~…`): artifacts strip `=` and `&`.
 - The engine's FRONT is −Y. Build the design's front facing −Y or every screw reads "BACK".
 - Size self-tap pilots to the PRINTED diameter (holes shrink); check ligaments on CAD and printed geometry.

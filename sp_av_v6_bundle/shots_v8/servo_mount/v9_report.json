@@ -21,7 +21,7 @@
    "n": 9,
    "bad": []
   },
-  "stress_worst_rel": 2.2432170791065634e-16,
+  "stress_worst_rel": 0.0,
   "motion_vs_calc": {
    "motion_kgcm": -0.7035155319999999,
    "calc_kgcm": 0.7035155319999999
@@ -172,32 +172,32 @@
    "lod_close": true,
    "lod_tris": 41290,
    "orbit_fps": {
-    "fps": 31.465328394469324,
+    "fps": 31.64306621310206,
     "runs": [
-     32.8,
+     31.6,
      31.5,
-     30.9
+     35.6
     ],
-    "desktop_1280": 30.7,
+    "desktop_1280": 28.8,
     "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
    },
-   "fps": 31.465328394469324
+   "fps": 31.64306621310206
   },
   "hash": {
    "fit": {
-    "hash": "#phase=fit&ex=0.620&cam=0.7,0.3,179.106,0,0,0",
+    "hash": "#v8~fit~ex0.620~cam0.700_0.300_179.106_0.000_0.000_0.000",
     "bad": []
    },
    "secure": {
-    "hash": "#phase=secure&ex=0.620&st=6&cam=0.7,0.3,82.3,0,0,0",
+    "hash": "#v8~secure~ex0.620~st6~cam0.700_0.300_84.604_0.000_0.000_0.000",
     "bad": []
    },
    "test": {
-    "hash": "#phase=test&ex=0.000&sec=1,0.4000,0&kg=0.75&lev=22.5&xr=1&cam=0.7,0.3,107.698,0,0,0",
+    "hash": "#v8~test~ex0.000~sec1_0.4000_0~kg0.75~lev22.5~xr~cam0.700_0.300_100.956_0.000_0.000_0.000",
     "bad": []
    },
    "load": {
-    "hash": "#phase=load&ex=0.000&sec=1,0.4000,0&cam=0.7,0.3,197.284,0,0,0",
+    "hash": "#v8~load~ex0.000~sec1_0.4000_0~cam0.700_0.300_197.268_0.000_0.000_0.000",
     "bad": []
    }
   },

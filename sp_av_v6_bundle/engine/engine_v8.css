@@ -161,3 +161,4 @@ html.av-focus #v8foot{display:none}
 .v8row{padding:2px 0}
 .v8row button.lnk{min-height:var(--tap);display:flex;align-items:center;width:100%}
 #bShare{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+#bShare{justify-content:center}

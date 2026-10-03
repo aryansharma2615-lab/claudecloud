@@ -29,7 +29,7 @@
   },
   "snap": {
    "name": "servo_mount_v8_view.png",
-   "bytes": 24639
+   "bytes": 18462
   },
   "peek": {
    "part": "servo",
@@ -248,7 +248,7 @@
     "n": 1,
     "keys": 1,
     "dur": 1020,
-    "midOff": 7.44,
+    "midOff": 7.5,
     "endU": 1,
     "endErr": 0
    },
@@ -256,7 +256,7 @@
     "n": 2,
     "keys": 2,
     "dur": 1140,
-    "midOff": 19.43,
+    "midOff": 19.52,
     "endU": 1,
     "endErr": 0
    },
@@ -264,7 +264,7 @@
     "n": 3,
     "keys": 1,
     "dur": 1020,
-    "midOff": 11.76,
+    "midOff": 12.9,
     "endU": 1,
     "endErr": 0
    },
@@ -280,7 +280,7 @@
     "n": 5,
     "keys": 1,
     "dur": 1020,
-    "midOff": 27.03,
+    "midOff": 30.06,
     "endU": 1,
     "endErr": 0
    },
@@ -288,7 +288,7 @@
     "n": 6,
     "keys": 2,
     "dur": 1220,
-    "midOff": 67.49,
+    "midOff": 65.96,
     "endU": 1,
     "endErr": 0
    },
@@ -296,7 +296,7 @@
     "n": 7,
     "keys": 1,
     "dur": 1020,
-    "midOff": 13.34,
+    "midOff": 15.49,
     "endU": 1,
     "endErr": 0
    },
@@ -304,7 +304,7 @@
     "n": 8,
     "keys": 1,
     "dur": 1020,
-    "midOff": 23.29,
+    "midOff": 21.66,
     "endU": 1,
     "endErr": 0
    },
@@ -312,7 +312,7 @@
     "n": 9,
     "keys": 1,
     "dur": 1060,
-    "midOff": 90.24,
+    "midOff": 93.77,
     "endU": 1,
     "endErr": 0
    },
@@ -320,7 +320,7 @@
     "n": 10,
     "keys": 1,
     "dur": 1020,
-    "midOff": 18.77,
+    "midOff": 13.04,
     "endU": 1,
     "endErr": 0
    }
@@ -349,30 +349,30 @@
    ]
   },
   "fps": {
-   "v7": 34.7,
-   "medianMs": 28.2,
+   "v7": 33.9,
+   "medianMs": 29,
    "runs7": [
-    36.2,
-    35.7,
-    34.7,
-    34.4,
-    34.4
+    34.0,
+    33.0,
+    32.4,
+    33.9,
+    38.5
    ],
-   "v6": 30.1,
+   "v6": 32.3,
    "runs6": [
+    28.6,
+    32.3,
+    32.2,
     33.6,
-    29.8,
-    29.1,
-    30.1,
-    30.8
+    34.4
    ]
   },
   "errors": [],
   "warnings": [
-   "WARNING [.WebGL-0x1ca400119a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-   "WARNING [.WebGL-0x1ca400119a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-   "WARNING [.WebGL-0x1ca400119a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-   "WARNING [.WebGL-0x1ca400119a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+   "WARNING [.WebGL-0x13d40011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x13d40011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x13d40011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+   "WARNING [.WebGL-0x13d40011c800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
   ],
   "ok": true
  }

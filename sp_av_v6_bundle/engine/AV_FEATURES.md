@@ -582,7 +582,7 @@ Built in the cloud on `sp-av-v8` from v7.4. Guided **LOAD → FIT → SECURE →
 **engineering-data contract** behind every number. Demo: `examples/v8_demo` — Shawarma Servo Mount v1 (SG90 bracket,
 build123d CAD, PrusaSlicer G-code, URDF/SRDF/SDF + PyBullet check) + a hole-coupon test-print AV.
 
-* **R38 phases.** A stepper over the tabs; each phase is a URL-hash state (`#phase=test&kg=…&lev=…&sec=…&xr=1&cam=…`).
+* **R38 phases.** A stepper over the tabs; each phase is a URL-hash state as a bare token (`#v8~test~kg0.75~lev22.5~sec1_0.4000_0~xr~cam…` — published artifacts pass only `[A-Za-z0-9._~-]`).
   Leaving through the dock ends the phase. Gate: every phase restored from the hash alone in a fresh page.
 * **R39 source labels.** Every engineering number is `value · unit · SOURCE` (MEASURED · CALC · CAD · SLICER ·
   DATASHEET · ASSUMED · SPEC); CALC carries its formula. Gate: DOM scan of every v8 panel / overlay — 0 unlabelled

@@ -54,3 +54,6 @@ python3 ../../engine/verify_av_v9.py servo_mount_v8.html --eng engineering_data_
 ```
 On the Mac: copy `engine/*v8*`, `engine/calc_v8.py`, `engine/engineering_schema_v8.json`,
 `engine/tolerance_profile_ender3s1pro.json`, `engine/verify_av_v9.py`, `engine/build_av_v8.py` into `~/Claude/AV/`.
+
+Published (private): servo mount https://claude.ai/artifact/8LWev7SooVSXCpPKmQtAJd · hole coupon https://claude.ai/artifact/Vd9YbPuT1jQEsMt7uDvm5g
+Media: `media_v8/` (30-s reel, 5-slide deck .pptx + .pdf, one-pager PDF) · `vercel/` (same HTML + SEO/OG tags, ready to deploy).
