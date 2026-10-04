@@ -128,7 +128,7 @@
    {
     "id": "h28",
     "part": "coupon",
-    "label": "\u00d82.8 hole",
+    "label": "hole A",
     "kind": "hole",
     "at": [
      -32.0,
@@ -180,7 +180,7 @@
    {
     "id": "h29",
     "part": "coupon",
-    "label": "\u00d82.9 hole",
+    "label": "hole B",
     "kind": "hole",
     "at": [
      -24.0,
@@ -232,7 +232,7 @@
    {
     "id": "h30",
     "part": "coupon",
-    "label": "\u00d83.0 hole",
+    "label": "hole C",
     "kind": "hole",
     "at": [
      -16.0,
@@ -284,7 +284,7 @@
    {
     "id": "h31",
     "part": "coupon",
-    "label": "\u00d83.1 hole",
+    "label": "hole D",
     "kind": "hole",
     "at": [
      -8.0,
@@ -336,7 +336,7 @@
    {
     "id": "h32",
     "part": "coupon",
-    "label": "\u00d83.2 hole",
+    "label": "hole E",
     "kind": "hole",
     "at": [
      0.0,
@@ -388,7 +388,7 @@
    {
     "id": "h33",
     "part": "coupon",
-    "label": "\u00d83.3 hole",
+    "label": "hole F",
     "kind": "hole",
     "at": [
      8.0,
@@ -440,7 +440,7 @@
    {
     "id": "h34",
     "part": "coupon",
-    "label": "\u00d83.4 hole",
+    "label": "hole G",
     "kind": "hole",
     "at": [
      16.0,
@@ -492,7 +492,7 @@
    {
     "id": "h35",
     "part": "coupon",
-    "label": "\u00d83.5 hole",
+    "label": "hole H",
     "kind": "hole",
     "at": [
      24.0,
@@ -544,7 +544,7 @@
    {
     "id": "h36",
     "part": "coupon",
-    "label": "\u00d83.6 hole",
+    "label": "hole I",
     "kind": "hole",
     "at": [
      32.0,

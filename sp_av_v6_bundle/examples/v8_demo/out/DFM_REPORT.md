@@ -20,6 +20,7 @@
 | clashes at rest (excluding designed contacts) | 0  |
 | designed contacts found | 9 (screw bites, insert melt-in, horn on spline) |
 | arm sweep -90°…90° every 5° | 0 clashes  |
+| boolean operations that failed (counted as FAIL, never as 'no clash') | 0  |
 | envelope base [6.6, 54.0, 80.0] mm vs bed [220, 220, 270] | fits |
 | envelope cradle [26.0, 39.4, 56.0] mm vs bed [220, 220, 270] | fits |
 | envelope arm [5.0, 12.0, 46.0] mm vs bed [220, 220, 270] | fits |

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Slice every printed part for REAL grams + minutes (source label SLICER).
 
-    python3 cad/slice.py   -> out/gcode/<part>.gcode, out/slicer_facts.json, out/ender3s1pro_petg.ini
+    python3 cad/slice.py   -> out/gcode/<part>.gcode, out/slicer_facts.json, out/ender3s1pro_petg.ini,
+                              out/coupon/hole_coupon.gcode (run cad/hole_coupon.py first)
 
 PrusaSlicer 2.7 CLI with the stock Creality bundle flattened: printer "Creality Ender-3 S1 Pro
 (0.4 mm nozzle)", print "0.20 mm NORMAL (0.4 mm nozzle) @CREALITY", filament "Generic PETG @CREALITY",
@@ -95,6 +96,23 @@ def main():
                                    "gcode": os.path.relpath(gco, ROOT)}
         print(f"{p['id']:8s} {grams:6.2f} g  {t:>10s}  {layers} layers")
     json.dump(facts, open(os.path.join(OUT, "slicer_facts.json"), "w"), indent=1)
+    # the hole coupon (test print AV): flat, 3 walls, 100 % — every hole is solid wall, like the part's holes
+    cst = os.path.join(OUT, "coupon", "hole_coupon.stl")
+    if os.path.exists(cst):
+        c = dict(cfg)
+        c.update({"layer_height": "0.2", "perimeters": "3", "top_solid_layers": "5", "bottom_solid_layers": "5",
+                  "fill_density": "100%", "fill_pattern": "rectilinear", "support_material": "0", "skirts": "0"})
+        ini = os.path.join(OUT, "coupon", "hole_coupon.ini")
+        with open(ini, "w") as f:
+            for k, v in c.items():
+                f.write(f"{k} = {v}\n")
+        gco = os.path.join(OUT, "coupon", "hole_coupon.gcode")
+        r = subprocess.run(["prusa-slicer", "--export-gcode", "--load", ini, "--center", "110,110", cst, "-o", gco],
+                           capture_output=True, text=True)
+        if r.returncode != 0:
+            print(r.stdout[-2000:], r.stderr[-2000:])
+            sys.exit(1)
+        print("coupon   sliced ->", os.path.relpath(gco, ROOT))
 
 
 if __name__ == "__main__":

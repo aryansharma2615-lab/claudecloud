@@ -124,7 +124,10 @@ def lab(val, src, u="", note=None, formula=None):
 
 
 def round_sig(x, n=5):
-    if x is None or not isinstance(x, (int, float)) or x == 0 or not math.isfinite(x):
+    if isinstance(x, float) and not math.isfinite(x):
+        # JSON has no Infinity: an infinite SF (nothing loads that section) ships as 1e9, NaN as null
+        return None if math.isnan(x) else math.copysign(1e9, x)
+    if x is None or not isinstance(x, (int, float)) or x == 0:
         return x
     return round(x, n - 1 - int(math.floor(math.log10(abs(x)))))
 
@@ -181,7 +184,9 @@ def printed_size(prof, cad, kind="hole"):
 
 def band_of(prof, purpose, clr):
     for b in prof["bands"][purpose]:
-        lo, hi = b.get("min", -1e9), b.get("max", 1e9)
+        lo, hi = b.get("min"), b.get("max")
+        lo = -1e9 if lo is None else lo
+        hi = 1e9 if hi is None else hi
         if lo <= clr < hi:
             return {"cls": b["cls"], "label": b["label"], "color": prof["colors"][b["color"]], "tone": b["color"]}
     return {"cls": "?", "label": "?", "color": "#888888", "tone": "red"}
@@ -286,8 +291,9 @@ class Model:
         amax = 0.0
         for a, b in zip(keys, keys[1:]):
             dth = math.radians(abs(b - a))
-            T = abs(b - a) / sp
-            amax = max(amax, minjerk_alpha(dth, T))
+            T = 1.875 * abs(b - a) / sp           # the path player's min-jerk duration: speed_dps is the PEAK speed
+            if T > 0:
+                amax = max(amax, minjerk_alpha(dth, T))
         I_kgm2 = self.inertia(kg, lever) * 1e-9
         return I_kgm2 * amax * 1000, amax          # N·mm, rad/s²
 
@@ -545,8 +551,13 @@ def compute(path):
         stack.append({"id": st["id"], "label": st["label"], "nominal": round(nom, 4), "worst": [round(nom - wc, 4), round(nom + wc, 4)],
                       "rss": [round(nom - rss, 4), round(nom + rss, 4)], "eats": eats["name"], "eats_t": eats["t"],
                       "links": st["links"], "want": w, "ok_worst": ok_wc, "ok_rss": ok_rss})
-        checks.append(check("stack_" + st["id"], "Fits", "Stack-up: " + st["label"] + " (worst case)", round(nom - wc, 4), w["min"], "mm min", "ge",
-                            inputs, "worst = nominal − Σ|tᵢ| ; RSS = nominal − √Σtᵢ²", cmp="ge"))
+        c = check("stack_" + st["id"], "Fits", "Stack-up: " + st["label"] + " (worst case)", round(nom - wc, 4), w["min"], "mm min", "ge",
+                  inputs, "worst = nominal ± Σ|tᵢ| inside [min, max] ; else RSS = nominal ± √Σtᵢ² inside → warn ; else fail", cmp="ge")
+        # both bounds decide it: a stack that only fails the MAX side (rattles) must not read pass
+        c["would"] = "pass" if ok_wc else ("warn" if ok_rss else "fail")
+        c["status"] = status_of(c["would"], inputs)
+        c["note"] = f"worst {nom - wc:.3f}…{nom + wc:.3f} · RSS {nom - rss:.3f}…{nom + rss:.3f} · want {w['min']}…{w['max']} mm"
+        checks.append(c)
 
     # ---- ranking at the default load (the AV re-ranks live)
     rank = rank_at(M, R, cad)
@@ -713,7 +724,7 @@ if __name__ == "__main__":
     eng, M = compute(sys.argv[1])
     arg = lambda k: sys.argv[sys.argv.index(k) + 1] if k in sys.argv else None
     out = arg("--out") or os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), "out", "eng.json")
-    json.dump(eng, open(out, "w"), indent=1, default=lambda o: sorted(o) if isinstance(o, set) else str(o))
+    json.dump(eng, open(out, "w"), indent=1, allow_nan=False, default=lambda o: sorted(o) if isinstance(o, set) else str(o))
     if arg("--measure"):
         write_measure_md(eng, arg("--measure"))
     print(json.dumps(eng["at_default"], indent=1))

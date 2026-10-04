@@ -2,7 +2,8 @@
 
 > **Header: provisional.** Two rows below are defects-with-a-paper-trail until the SG90 is calipered:
 > the worst-case window stack-up FAILS on datasheet spread, and the CAD tab-hole ligament (1.45 mm) is
-> under the 1.60 house minimum. Nothing here is GREEN until MEASURE_ME rows 1–2 are done.
+> under the 1.60 house minimum (as printed ~1.66 nominal, but the worst-case stack-up on the hole-pitch spread is
+> 1.31 → FAIL). Nothing here is GREEN until MEASURE_ME rows 1–2 are done.
 > Numbering starts here (first record for this part) and never restarts.
 
 ## §1 Decisions

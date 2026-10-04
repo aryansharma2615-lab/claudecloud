@@ -2284,7 +2284,7 @@
    "id": "torque_dyn",
    "group": "Actuator",
    "label": "Hold + I\u00b7\u03b1 on the TEST sweep",
-   "value": 41.327,
+   "value": 39.722,
    "limit": 70.0,
    "unit": "% stall",
    "status": "unverified",
@@ -2323,7 +2323,7 @@
     },
     {
      "k": "peak \u03b1 (min-jerk)",
-     "v": 16.124,
+     "v": 4.5864,
      "u": "rad/s\u00b2",
      "src": "CALC"
     }
@@ -3059,14 +3059,14 @@
      "src": "ASSUMED"
     }
    ],
-   "formula": "worst = nominal \u2212 \u03a3|t\u1d62| ; RSS = nominal \u2212 \u221a\u03a3t\u1d62\u00b2",
+   "formula": "worst = nominal \u00b1 \u03a3|t\u1d62| inside [min, max] ; else RSS = nominal \u00b1 \u221a\u03a3t\u1d62\u00b2 inside \u2192 warn ; else fail",
    "src": "CALC",
    "assumed": [
     "printer comp on a rect window",
     "SG90 body length"
    ],
    "where": null,
-   "note": ""
+   "note": "worst -0.100\u20260.500 \u00b7 RSS -0.024\u20260.424 \u00b7 want 0.0\u20260.6 mm"
   },
   {
    "id": "stack_tab_ligament",
@@ -3075,8 +3075,8 @@
    "value": 1.31,
    "limit": 1.6,
    "unit": "mm min",
-   "status": "unverified",
-   "would": "warn",
+   "status": "fail",
+   "would": "fail",
    "cmp": "ge",
    "inputs": [
     {
@@ -3110,7 +3110,7 @@
      "src": "ASSUMED"
     }
    ],
-   "formula": "worst = nominal \u2212 \u03a3|t\u1d62| ; RSS = nominal \u2212 \u221a\u03a3t\u1d62\u00b2",
+   "formula": "worst = nominal \u00b1 \u03a3|t\u1d62| inside [min, max] ; else RSS = nominal \u00b1 \u221a\u03a3t\u1d62\u00b2 inside \u2192 warn ; else fail",
    "src": "CALC",
    "assumed": [
     "half SG90 hole pitch",
@@ -3118,7 +3118,7 @@
     "pilot prints smaller (radius)"
    ],
    "where": null,
-   "note": ""
+   "note": "worst 1.310\u20262.010 \u00b7 RSS 1.400\u20261.920 \u00b7 want 1.6\u20269 mm"
   }
  ],
  "ranking": [
@@ -3852,9 +3852,9 @@
   "lever": 35,
   "tau_hold_nmm": 68.991,
   "frac_hold": 0.39084,
-  "tau_dyn_nmm": 3.9594,
-  "frac_dyn": 0.41327,
-  "alpha": 16.124,
+  "tau_dyn_nmm": 1.1262,
+  "frac_dyn": 0.39722,
+  "alpha": 4.5864,
   "arm_sigma": 1.6576,
   "arm_kt": 2.4269,
   "arm_vm": 4.0272,

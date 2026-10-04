@@ -67,7 +67,7 @@ def page(pw, url, viewport=DESK, mobile=False, theme=None):
     b = pw.chromium.launch()
     pg = b.new_page(viewport=viewport, device_scale_factor=2 if mobile else 1, has_touch=mobile, is_mobile=mobile)
     errs = []
-    pg.on("pageerror", lambda e: errs.append("PAGEERROR " + str(e)))
+    pg.on("pageerror", lambda e: errs.append("PAGEERROR " + str(e) + " @ " + (getattr(e, "stack", "") or "")[:400].replace("\n", " | ")))
     pg.on("console", lambda m: errs.append("CONSOLE " + m.text) if m.type == "error" else None)
     pg.goto(url)
     pg.wait_for_timeout(2600)
@@ -162,11 +162,20 @@ def v8_gates(path, eng_yaml, shots=None, measure_md=None, exports=None, coupon=N
             errors.append(f"TEST model differs from calc_v8 by {sw*100:.2f} % (> 1 %)")
         js("() => __avV8.setLoad(0.2, 35)")
         pg.wait_for_timeout(300)
-        mt = js("() => __avV8.motionTau(0)")
-        hc = M.tau(0.2, 35, 0) / calc_v8.KGCM
-        res["motion_vs_calc"] = {"motion_kgcm": mt, "calc_kgcm": hc}
-        if mt is None or rel(abs(mt), abs(hc)) > 0.01:
-            errors.append(f"Motion lane load {mt} vs hand calc {hc:.4f} kgf·cm")
+        mvc = []
+        for kg, lev in ((0.2, 35.0), (1.0, 22.5)):
+            js(f"() => __avV8.setLoad({kg}, {lev})")
+            pg.wait_for_timeout(250)
+            for q in (0, 60, -45):
+                mt = js(f"() => __avV8.motionTau({q})")
+                hc = M.tau(kg, lev, q) / calc_v8.KGCM
+                # the Motion lane reports the torque gravity APPLIES (about +axis); the hand calc the torque the servo must HOLD
+                ok = mt is not None and rel(-mt, hc) <= 0.01
+                mvc.append({"kg": kg, "lever": lev, "deg": q, "motion_kgcm": mt, "calc_kgcm": round(hc, 5), "ok": ok})
+        res["motion_vs_calc"] = mvc
+        if not all(m["ok"] for m in mvc):
+            errors.append(f"Motion lane load differs from the hand calc: {[m for m in mvc if not m['ok']]}")
+        js("() => __avV8.setLoad(0.2, 35)")
         js("() => __avV8.setLoad(1.5, 35)")
         pg.wait_for_timeout(500)
         res["stall_warning"] = js("() => !!document.getElementById('v8stall') && document.getElementById('v8stall').textContent.slice(0, 40)")
@@ -297,9 +306,15 @@ def v8_gates(path, eng_yaml, shots=None, measure_md=None, exports=None, coupon=N
             runs.append(pq.evaluate("() => __avBench(2500)")["fps"])
             bq.close()
         fps = {"fps": sorted(runs)[1], "runs": [round(r, 1) for r in runs], "desktop_1280": round(desk["fps"], 1), "renderer": desk.get("renderer")}
-        res["perf"] = {"scene_tris": pf["scene"], "lod_close": pl["lod"], "lod_tris": pl["scene"], "orbit_fps": fps}
         if pf["scene"] >= 50000:
             errors.append(f"default view {pf['scene']} triangles (≥ 50k)")
+        lodp = js("""() => __avV8.meta('parts').filter(p => p.lod).map(p => ({id: p.id, d: Math.max(...[0,1,2].map(i => Math.max(Math.abs(p.lod.lo[i] - p.lo[i]), Math.abs(p.lod.span[i] - p.span[i]))))}))""")
+        res["perf"] = {"scene_tris": pf["scene"], "lod_close": pl["lod"], "lod_tris": pl["scene"], "orbit_fps": fps,
+                       "lod_parts": len(lodp), "lod_worst_mm": max([x["d"] for x in lodp] or [0])}
+        if not lodp or pl["scene"] <= pf["scene"]:
+            errors.append(f"LOD meshes missing or not finer ({pf['scene']} -> {pl['scene']} triangles)")
+        if any(x["d"] > 0.1 for x in lodp):
+            errors.append(f"LOD mesh misplaced vs the part (> 0.1 mm): {[x for x in lodp if x['d'] > 0.1]}")
         if not pl["lod"]:
             errors.append("LOD did not swap in past 2× zoom")
         fv = fps.get("fps") if isinstance(fps, dict) else fps
@@ -310,7 +325,7 @@ def v8_gates(path, eng_yaml, shots=None, measure_md=None, exports=None, coupon=N
         # ---------------- HASH (fresh page per phase) ----------------
         hashes = {}
         js("() => __avV8.setPhase('fit')"); pg.wait_for_timeout(900)
-        js("() => __avV8.view({explode: 0.62, yaw: 0.7, pitch: 0.3})")
+        js("() => __avV8.view({explode: 0.62, yaw: 0.7, pitch: 0.3, zoom: 0.7, pan: [3, -2, 1]})")
         hashes["fit"] = (js("() => __avV8.hash(true)"), {"phase": "fit", "explode": 0.62, "tol": True})
         js("() => __avV8.setPhase('secure')"); pg.wait_for_timeout(900)
         js("() => __avV8.stepTo(6)"); pg.wait_for_timeout(300)
@@ -338,9 +353,16 @@ def v8_gates(path, eng_yaml, shots=None, measure_md=None, exports=None, coupon=N
                 bad.append(("hash not artifact-safe (only [A-Za-z0-9._~-] survive a published link)", h, None))
             m = re.search(r"~cam([^~]+)", h)
             if m:
-                c = [float(x) for x in m.group(1).split("_")[:3]]
-                if abs(st["cam"]["yaw"] - c[0]) > 0.01 or abs(st["cam"]["pitch"] - c[1]) > 0.01:
-                    bad.append(("cam", [st["cam"]["yaw"], st["cam"]["pitch"]], c[:2]))
+                parts_ = m.group(1).split("_")
+                c = [float(x) for x in parts_[:6]]
+                got = p2.evaluate("() => __avV8.view({})")
+                pan = p2.evaluate("() => __avV8.state().pan || null")
+                if abs(st["cam"]["yaw"] - c[0]) > 0.01 or abs(st["cam"]["pitch"] - c[1]) > 0.01 or rel(got["dist"], c[2]) > 0.01:
+                    bad.append(("cam", [st["cam"]["yaw"], st["cam"]["pitch"], got["dist"]], c[:3]))
+                if pan is None or max(abs(pan[i] - c[3 + i]) for i in range(3)) > 0.05:
+                    bad.append(("pan", pan, c[3:6]))
+                if (parts_[6:7] == ["o"]) != bool(p2.evaluate("() => __avV8.state().ortho")):
+                    bad.append(("ortho", parts_[6:7], None))
             hres[ph] = {"hash": h[:120], "bad": bad}
             if bad:
                 errors.append(f"hash restore {ph}: {bad}")
@@ -388,12 +410,30 @@ def v8_gates(path, eng_yaml, shots=None, measure_md=None, exports=None, coupon=N
         p4.evaluate("() => __avV8.setPhase('secure')")
         p4.wait_for_timeout(800)
         fly = p4.evaluate("() => __avV8.screwFly()")
-        fbad = [f for f in fly if not f["dot"] < 0]
+        SIDE = {"FRONT": [0, -1, 0], "BACK": [0, 1, 0], "BOTTOM": [0, 0, -1], "TOP": [0, 0, 1], "LEFT": [-1, 0, 0], "RIGHT": [1, 0, 0]}
+        fbad = []
+        for f in fly:
+            o = f["off"]; L = math.sqrt(sum(x * x for x in o)) or 1.0
+            want = SIDE.get(decl.get(f["id"], ""), [0, 0, 0])
+            f["cos_to_side"] = round(sum(o[i] / L * want[i] for i in range(3)), 3)
+            if f["cos_to_side"] < 0.7:
+                fbad.append(f)
+        if {f["id"] for f in fly} != set(decl):
+            errors.append(f"screw fly-in probe covered {sorted(f['id'] for f in fly)}, declared {sorted(decl)}")
         res["screws"] = {"sides": sides, "fly_from_side": fly}
         if sbad:
             errors.append(f"screw side differs from the declared side: {sbad}")
         if fbad:
-            errors.append(f"screw does not enter from its side (offset · axis ≥ 0): {fbad}")
+            errors.append(f"screw does not start on its declared side (cos < 0.7): {fbad}")
+
+        # ---------------- RAMP (for DATAVIZ): the page's own stress ramp + stage, both themes ----------------
+        ramp = {}
+        for theme in ("dark", "light"):
+            if p4.evaluate("() => document.documentElement.dataset.theme || 'dark'") != theme:
+                p4.click("#bTheme"); p4.wait_for_timeout(250)
+            ramp[theme] = p4.evaluate("""() => { const cs = getComputedStyle(document.documentElement);
+                return {heat: [0,1,2,3].map(i => cs.getPropertyValue('--heat-' + i).trim()), stage: cs.getPropertyValue('--stage').trim()}; }""")
+        res["ramp"] = ramp
 
         # ---------------- BOM ----------------
         p4.evaluate("() => document.getElementById('dBom').click()")
@@ -441,9 +481,13 @@ def v8_gates(path, eng_yaml, shots=None, measure_md=None, exports=None, coupon=N
     if exports:
         import trimesh
         ex = {}
-        bad = [os.path.basename(f) for f in glob.glob(os.path.join(exports, "stl", "*.stl")) if not trimesh.load(f).is_watertight]
+        stls = glob.glob(os.path.join(exports, "stl", "*.stl"))
+        bad = [os.path.basename(f) for f in stls if not trimesh.load(f).is_watertight]
         ex["stl_watertight"] = not bad
-        mf = sorted(glob.glob(os.path.join(os.path.dirname(path), "*.3mf")))
+        ex["stl_count"] = len(stls)
+        if len(stls) < len(eng["parts"]):
+            errors.append(f"exports: {len(stls)} STL files for {len(eng['parts'])} parts")
+        mf = sorted(glob.glob(os.path.join(os.path.dirname(path), "*.3mf")) + glob.glob(os.path.join(exports, "*.3mf")))
         ok3 = True
         for f in mf:
             with zipfile.ZipFile(f) as z:
@@ -456,7 +500,16 @@ def v8_gates(path, eng_yaml, shots=None, measure_md=None, exports=None, coupon=N
         glbs = glob.glob(os.path.join(exports, "*.glb"))
         ex["glb"] = bool(glbs) and all(open(g, "rb").read(4) == b"glTF" and len(trimesh.load(g).geometry) > 0 for g in glbs)
         import xml.etree.ElementTree as ET
-        ex["urdf"] = all(ET.parse(f) is not None for f in glob.glob(os.path.join(exports, "*.urdf")) + glob.glob(os.path.join(exports, "*.srdf")) + glob.glob(os.path.join(exports, "*.sdf")))
+        ex["urdf"] = True
+        for kind in ("urdf", "srdf", "sdf"):
+            fs = glob.glob(os.path.join(exports, "*." + kind))
+            if len(fs) != 1:
+                ex["urdf"] = False; errors.append(f"exports: want exactly one .{kind}, found {len(fs)}")
+                continue
+            try:
+                ET.parse(fs[0])
+            except ET.ParseError as e:
+                ex["urdf"] = False; errors.append(f"exports: {os.path.basename(fs[0])} does not parse: {e}")
         try:
             import pybullet as pb
             cid = pb.connect(pb.DIRECT)
@@ -470,16 +523,19 @@ def v8_gates(path, eng_yaml, shots=None, measure_md=None, exports=None, coupon=N
             errors.append(f"exports: {ex} {bad}")
 
     # ---------------- DATAVIZ ----------------
-    if DATAVIZ:
+    ramp = res.get("ramp") or {}
+    if DATAVIZ and ramp:
         dv = {}
-        for mode, surf, pal in (("light", "#dfe4de", "#5598e7,#2a78d6,#1c5cab,#104281"), ("dark", "#070b0a", "#1c5cab,#2a78d6,#5598e7,#86b6ef")):
+        for mode in ("light", "dark"):
+            pal, surf = ",".join(ramp[mode]["heat"]), ramp[mode]["stage"]
             r = subprocess.run(["node", DATAVIZ[-1], pal, "--mode", mode, "--surface", surf, "--ordinal"], capture_output=True, text=True)
-            dv[mode] = r.returncode == 0
+            dv[mode] = {"palette": pal, "surface": surf, "pass": r.returncode == 0}
         res["dataviz"] = dv
-        if not all(dv.values()):
-            errors.append(f"stress ramp fails the dataviz validator: {dv}")
+        if not all(v["pass"] for v in dv.values()):
+            errors.append(f"the page's stress ramp fails the dataviz validator: {dv}")
     else:
-        res["dataviz"] = "validator not found"
+        res["dataviz"] = "validator not found" if not DATAVIZ else "ramp not read from the page"
+        errors.append("DATAVIZ gate could not run: " + res["dataviz"])
 
     res["errors"], res["ok"] = errors, not errors
     log(f"\n=== verify v8 gates {os.path.basename(path)} ===")

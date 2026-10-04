@@ -5,7 +5,7 @@ Paste-ready lines for the skill (via `/skill-creator`). Everything else in the s
 ## "The engine" block — replace the file list lines
 
 ```
-  viewer_template_motion_v8.html   the CURRENT engine: v7.4 + R38–R54 (LOAD → FIT → SECURE → TEST)
+  viewer_template_motion_v8.html   the CURRENT engine: v7.4 + R38–R58 (LOAD → FIT → SECURE → TEST)
   patch_engine_v8.py               anchored patches, each asserted once (+ engine_v8.js / engine_v8.css)
   build_av_v8.py                   build_av.py carried forward: eng (YAML -> calc_v8 -> META.eng), motion,
                                    checks, parts[].mass, parts[].stl_hi (LOD), brand
@@ -67,3 +67,6 @@ Full contract: `engineering_schema_v8.json`; worked example: `examples/v8_demo/`
 - Share state in a BARE hash token (`#v8~…`): artifacts strip `=` and `&`.
 - The engine's FRONT is −Y. Build the design's front facing −Y or every screw reads "BACK".
 - Size self-tap pilots to the PRINTED diameter (holes shrink); check ligaments on CAD and printed geometry.
+- Never type a slicer number: parse grams / minutes from the G-code footer, and fail the build if it is missing.
+- A failed CAD boolean is a FAIL, never "no clash".
+- Track a spinning screw by its seat point on the axis, not the mesh origin (the spin swings the origin sideways).

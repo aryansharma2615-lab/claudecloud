@@ -50,7 +50,7 @@ def load():
             '\n        "brand": cfg.get("brand"),')
     s = sub(s, '.replace("__AV_GEO__", base64.b64encode(blob).decode("ascii")))',
             '.replace("__AV_GEO__", base64.b64encode(blob).decode("ascii"))\n'
-            '            .replace("__META__", json.dumps(meta, separators=(",", ":")).replace("</", "<\\\\/"))\n'
+            '            .replace("__META__", json.dumps(meta, separators=(",", ":"), allow_nan=False).replace("<", "\\\\u003c"))\n'
             '            .replace("__GEO__", base64.b64encode(blob).decode("ascii"))\n'
             '            .replace("<title>OneShot Arm v3</title>", "<title>" + esc_html(cfg["title"]) + "</title>")\n'
             '            .replace("<h1>OneShot Arm v3</h1>", "<h1>" + esc_html(cfg["title"]) + "</h1>")\n'
@@ -59,7 +59,7 @@ def load():
     s = sub(s, '    blob, rec = G.pack(meshes)',
             '    for p in cfg["parts"]:\n'
             '        if p.get("stl_hi"):\n'
-            '            meshes.append((p["id"] + "__hi", G.load_part_mesh({"stl": p["stl_hi"]}, base)))\n'
+            '            meshes.append((p["id"] + "__hi", G.load_part_mesh({**p, "stl": p["stl_hi"]}, base)))\n'
             '    blob, rec = G.pack(meshes)')
     s = s.replace('if __name__ == "__main__":', 'if __name__ == "__build_av_main__":')
     mod = types.ModuleType("build_av_v8")
@@ -75,10 +75,11 @@ def prepare(cfg_path):
     if cfg.get("eng"):
         import calc_v8
         eng, _ = calc_v8.compute(os.path.join(base, cfg["eng"]))
-        cfg["_eng"] = json.loads(json.dumps(eng, default=lambda o: sorted(o) if isinstance(o, set) else str(o)))
+        cfg["_eng"] = json.loads(json.dumps(eng, allow_nan=False, default=lambda o: sorted(o) if isinstance(o, set) else str(o)))
     elif cfg.get("eng_json"):
         cfg["_eng"] = cfg["eng_json"]
     cfg["brand"] = {**SP_BRAND, **(cfg.get("brand") or {})}
+    cfg.setdefault("slug", os.path.splitext(os.path.basename(cfg_path))[0])   # never named after the temp file below
     out = os.path.join(base, "." + os.path.basename(cfg_path) + ".resolved.json")
     json.dump(cfg, open(out, "w", encoding="utf-8"))
     return out

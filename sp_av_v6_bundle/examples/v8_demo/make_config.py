@@ -7,6 +7,7 @@ mass from the slicer / datasheet, never typed twice.
 """
 import json
 import os
+import re
 import sys
 
 import yaml
@@ -158,25 +159,39 @@ def main():
     print("av_config_v8.json:", len(parts), "parts,", len(steps), "steps")
 
 
+def coupon_gcode():
+    """grams + minutes straight from the coupon's G-code (SLICER) — no number typed in; a missing file fails the build"""
+    p = os.path.join(HERE, "out", "coupon", "hole_coupon.gcode")
+    if not os.path.exists(p):
+        sys.exit("make_config: out/coupon/hole_coupon.gcode missing — run cad/hole_coupon.py (slices the coupon) first")
+    g = open(p, encoding="utf-8", errors="ignore").read()
+    mg = re.search(r"; (?:total )?filament used \[g\] = ([\d.]+)", g)
+    mt = re.search(r"; estimated printing time \(normal mode\) = (.+)", g)
+    if not (mg and mt):
+        sys.exit("make_config: hole_coupon.gcode has no PrusaSlicer grams/time footer")
+    sec = sum(int(v) * {"d": 86400, "h": 3600, "m": 60, "s": 1}[u] for v, u in re.findall(r"(\d+)([dhms])", mt.group(1)))
+    return {"grams": float(mg.group(1)), "time_min": round(sec / 60, 1)}
+
+
 def coupon():
     """the hole-coupon test-print AV: its own config + a reduced eng block (FIT only)"""
     cf = json.load(open(os.path.join(HERE, "out", "coupon", "coupon_facts.json")))
     prof = json.load(open(os.path.join(HERE, "..", "..", "engine", "tolerance_profile_ender3s1pro.json")))
     fits = []
-    for h in cf["holes"]:
+    for k, h in enumerate(cf["holes"]):
         printed, src = calc_v8.printed_size(prof, h["cad"])
         clr = printed - 3.0
-        fits.append({"id": h["id"], "part": "coupon", "label": f"Ø{h['cad']:.1f} hole", "kind": "hole", "at": h["at"], "axis": h["axis"],
+        fits.append({"id": h["id"], "part": "coupon", "label": "hole " + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[k], "kind": "hole", "at": h["at"], "axis": h["axis"],
                      "cad": {"v": h["cad"], "u": "mm", "src": "CAD"}, "printed": {"v": round(printed, 3), "u": "mm", "src": "CALC", "formula": f"cad + a + b/cad — profile {src}"},
                      "comp_src": src, "measured": {"v": None, "u": "mm", "src": "MEASURED"}, "mate": "M3 screw shank", "mate_size": {"v": 3.0, "u": "mm", "src": "DATASHEET"},
                      "clearance": {"v": round(clr, 3), "u": "mm", "src": "CALC"}, "purpose": "clearance", "band": calc_v8.band_of(prof, "clearance", clr), "d": h["cad"]})
-    gc = calc_v8.json.load(open(os.path.join(HERE, "out", "coupon", "hole_coupon.gcode.json"))) if os.path.exists(os.path.join(HERE, "out", "coupon", "hole_coupon.gcode.json")) else None
+    gc = coupon_gcode()
     eng = {"schema": "sp-eng-v8", "kind": "coupon", "assembly": {"id": "hole_coupon", "name": "Hole coupon Ø2.8–3.6", "version": 1, "printer": "ender3s1pro"},
            "sources": calc_v8.SRC_INFO, "missing": [], "phases": ["load", "fit"],
            "parts": {"coupon": {"name": "Hole coupon", "kind": "printed", "material": "PETG",
-                                "mass": {"v": gc["grams"] if gc else 6.75, "u": "g", "src": "SLICER", "note": "G-code filament used (PrusaSlicer 2.7.2 CLI)"},
+                                "mass": {"v": gc["grams"], "u": "g", "src": "SLICER", "note": "G-code filament used (PrusaSlicer 2.7.2 CLI)"},
                                 "volume": {"v": cf["volume_mm3"], "u": "mm³", "src": "CAD"},
-                                "slicer": {"grams": {"v": 6.75, "u": "g", "src": "SLICER"}, "time_min": {"v": 45.7, "u": "min", "src": "SLICER"}}}},
+                                "slicer": {"grams": {"v": gc["grams"], "u": "g", "src": "SLICER"}, "time_min": {"v": gc["time_min"], "u": "min", "src": "SLICER"}}}},
            "fits": fits, "stackups": [], "checks": [], "ranking": [],
            "measure": [{"key": "coupon", "what": "caliper all 9 holes (two readings 90° apart, keep the smaller)", "tool": "calipers",
                         "unlocks": ["every FIT colour in every SP AV"], "n": 9}],
@@ -187,11 +202,11 @@ def coupon():
            "currency": "CAD $", "explode_scale": 10, "home": {"yaw": -1.2, "pitch": 0.75}, "base_dir": "..",
            "printer": {"name": "Creality Ender 3 S1 Pro", "x": 220, "y": 220, "z": 270, "nozzle": 0.4, "gap": 8, "margin": 5, "sequential": False},
            "materials": {"PETG": {"density": 1.27, "price": 25.0, "spool_g": 1000}}, "machine_rate_per_h": 0.35, "groups": {"printed": "Printed"},
-           "steps": [{"n": 1, "title": "Print flat, measure every hole", "caption": "Two readings 90° apart — keep the smaller.", "tool": "calipers", "time": "46 min print"}],
+           "steps": [{"n": 1, "title": "Print flat, measure every hole", "caption": "Two readings 90° apart — keep the smaller.", "tool": "calipers", "time": f"{round(gc['time_min'])} min print"}],
            "parts": [{"id": "coupon", "label": "Hole coupon Ø2.8–3.6", "color": "#26292d", "group": "printed", "step": 1, "kind": "printed", "material": "PETG",
                       "explode": [0, 0, 0], "stl": "out/coupon/hole_coupon.stl",
                       "print": {"rot": [0, 0, 0], "layer": 0.2, "walls": 3, "infill": 100, "support": "none", "orientation": "Flat: hole axes vertical, like the part's holes.",
-                                "grams": 6.75, "time_min": 46}}],
+                                "grams": gc["grams"], "time_min": round(gc["time_min"])}}],
            "fasteners": [], "eng_json": eng}
     json.dump(cfg, open(os.path.join(HERE, "coupon", "av_config_coupon.json"), "w"), indent=1)
 

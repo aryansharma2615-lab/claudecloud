@@ -53,7 +53,13 @@ def patch(s):
             'const CSSV = new Map();   /* RATCHET v8 R56 */\n'
             'new MutationObserver(() => CSSV.clear()).observe(document.documentElement, {attributes: true, attributeFilter: ["data-theme", "class", "style"]});\n'
             'try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => CSSV.clear()); } catch(e){}\n'
-            'const cssVar = n => { let v = CSSV.get(n); if (v === undefined){ v = getComputedStyle(document.documentElement).getPropertyValue(n).trim(); CSSV.set(n, v); } return v; };')
+            'const cssVar = n => { const r = document.documentElement, k = (r.getAttribute("data-theme") || "") + "|" + r.className + "|" + n;\n'
+            '  let v = CSSV.get(k); if (v === undefined){ v = getComputedStyle(r).getPropertyValue(n).trim(); CSSV.set(k, v); } return v; };   /* keyed by theme: a synchronous theme flip (build sheet) never reads stale colours */')
+    # ---- R58: the theme button threw on every tap (v7.4 bug) — the page has no <meta name=theme-color>
+    #      (the artifact wrapper owns <head>), so querySelector(...) is null; theme flipped, draw() never ran
+    s = sub(s, "  document.querySelector('meta[name=theme-color]')\n          .setAttribute(\"content\", cur===\"light\" ? \"#eef1ec\" : \"#0d1211\");",
+            "  const tcm = document.querySelector('meta[name=theme-color]');   /* RATCHET v8 R58 */\n"
+            "  if (tcm) tcm.setAttribute(\"content\", cur===\"light\" ? \"#eef1ec\" : \"#0d1211\");")
     # ---- draw: hover tint + per-part heat uniforms ----
     s = sub(s, "    gl.uniform3fv(uni.uCol,new Float32Array(moTint.get(p.id) || p.rgb));\n    gl.uniform4fv(uni.uMat, matOf(p));",
             "    gl.uniform3fv(uni.uCol,new Float32Array(v8Tint(p) || moTint.get(p.id) || p.rgb));\n    gl.uniform4fv(uni.uMat, matOf(p)); v8PartUniforms(p);")

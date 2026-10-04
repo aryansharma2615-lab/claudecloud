@@ -720,6 +720,7 @@
    }
   },
   "min_wall_ligament": 1.45,
+  "boolean_errors": [],
   "pass": true,
   "warn": [
    "CAD tab-hole ligament 1.45 mm < 1.60 house minimum \u2014 trade-off D4 (prints ~1.66 after hole shrink; measure the SG90 pitch)"

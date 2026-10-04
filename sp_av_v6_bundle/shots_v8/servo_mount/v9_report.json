@@ -11,9 +11,9 @@
    "worst_rel": 1.0990223419892346e-05,
    "statuses": {
     "pass": 5,
-    "unverified": 12,
+    "unverified": 11,
     "warn": 0,
-    "fail": 1,
+    "fail": 2,
     "na": 8
    }
   },
@@ -22,10 +22,56 @@
    "bad": []
   },
   "stress_worst_rel": 0.0,
-  "motion_vs_calc": {
-   "motion_kgcm": -0.7035155319999999,
-   "calc_kgcm": 0.7035155319999999
-  },
+  "motion_vs_calc": [
+   {
+    "kg": 0.2,
+    "lever": 35.0,
+    "deg": 0,
+    "motion_kgcm": -0.7035155319999999,
+    "calc_kgcm": 0.70352,
+    "ok": true
+   },
+   {
+    "kg": 0.2,
+    "lever": 35.0,
+    "deg": 60,
+    "motion_kgcm": -0.35175776599999997,
+    "calc_kgcm": 0.35176,
+    "ok": true
+   },
+   {
+    "kg": 0.2,
+    "lever": 35.0,
+    "deg": -45,
+    "motion_kgcm": -0.4974606033472614,
+    "calc_kgcm": 0.49746,
+    "ok": true
+   },
+   {
+    "kg": 1.0,
+    "lever": 22.5,
+    "deg": 0,
+    "motion_kgcm": -2.2535155319999998,
+    "calc_kgcm": 2.25352,
+    "ok": true
+   },
+   {
+    "kg": 1.0,
+    "lever": 22.5,
+    "deg": 60,
+    "motion_kgcm": -1.126757766,
+    "calc_kgcm": 1.12676,
+    "ok": true
+   },
+   {
+    "kg": 1.0,
+    "lever": 22.5,
+    "deg": -45,
+    "motion_kgcm": -1.593476114186409,
+    "calc_kgcm": 1.59348,
+    "ok": true
+   }
+  ],
   "stall_warning": "\u2717SG90 stalls. Needs 5.25 kgf\u00b7cmCALC, has",
   "ranking": [
    {
@@ -52,32 +98,32 @@
   "labels": {
    "load": {
     "bad": 0,
-    "nums": 20,
+    "nums": 19,
     "eg": []
    },
    "fit": {
     "bad": 0,
-    "nums": 63,
+    "nums": 74,
     "eg": []
    },
    "secure": {
     "bad": 0,
-    "nums": 5,
+    "nums": 4,
     "eg": []
    },
    "test": {
     "bad": 0,
-    "nums": 12,
+    "nums": 15,
     "eg": []
    },
    "checks": {
     "bad": 0,
-    "nums": 110,
+    "nums": 49,
     "eg": []
    },
    "inspector": {
     "bad": 0,
-    "nums": 19,
+    "nums": 18,
     "eg": []
    }
   },
@@ -114,7 +160,13 @@
       "step": 1,
       "stepMode": false,
       "motionMode": false,
-      "sel": []
+      "sel": [],
+      "pan": [
+       0,
+       0,
+       0
+      ],
+      "ortho": false
      },
      "after": "Caliper \u00b7 1 / 2"
     },
@@ -138,7 +190,13 @@
       "step": 1,
       "stepMode": false,
       "motionMode": false,
-      "sel": []
+      "sel": [],
+      "pan": [
+       0,
+       0,
+       0
+      ],
+      "ortho": false
      },
      "after": "Caliper 80.00 mm"
     }
@@ -172,32 +230,34 @@
    "lod_close": true,
    "lod_tris": 41290,
    "orbit_fps": {
-    "fps": 31.64306621310206,
+    "fps": 35.647799738580176,
     "runs": [
-     31.6,
-     31.5,
-     35.6
+     33.0,
+     35.6,
+     35.9
     ],
-    "desktop_1280": 28.8,
+    "desktop_1280": 45.7,
     "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
    },
-   "fps": 31.64306621310206
+   "lod_parts": 13,
+   "lod_worst_mm": 0.0035999999999987153,
+   "fps": 35.647799738580176
   },
   "hash": {
    "fit": {
-    "hash": "#v8~fit~ex0.620~cam0.700_0.300_179.106_0.000_0.000_0.000",
+    "hash": "#v8~fit~ex0.620~cam0.700_0.300_125.374_3.000_-2.000_1.000",
     "bad": []
    },
    "secure": {
-    "hash": "#v8~secure~ex0.620~st6~cam0.700_0.300_84.604_0.000_0.000_0.000",
+    "hash": "#v8~secure~ex0.619~st6~cam0.700_0.300_83.175_0.000_0.000_0.000",
     "bad": []
    },
    "test": {
-    "hash": "#v8~test~ex0.000~sec1_0.4000_0~kg0.75~lev22.5~xr~cam0.700_0.300_100.956_0.000_0.000_0.000",
+    "hash": "#v8~test~ex0.000~sec1_0.4000_0~kg0.75~lev22.5~xr~cam0.700_0.300_197.284_0.000_0.000_0.000",
     "bad": []
    },
    "load": {
-    "hash": "#v8~load~ex0.000~sec1_0.4000_0~cam0.700_0.300_197.268_0.000_0.000_0.000",
+    "hash": "#v8~load~ex0.000~sec1_0.4000_0~cam0.700_0.300_197.284_0.000_0.000_0.000",
     "bad": []
    }
   },
@@ -289,52 +349,77 @@
      "side": "BOTTOM",
      "dot": -5.3854244928625095,
      "off": [
-      -2.7211286213211814,
-      2.4950376450236575,
+      0,
+      0,
       -5.3854244928625095
-     ]
+     ],
+     "cos_to_side": 1.0
     },
     {
      "id": "m3b",
      "side": "BOTTOM",
      "dot": -14,
      "off": [
-      -5.411542731880143,
-      39.12435565298216,
+      0,
+      3.552713678800501e-15,
       -14
-     ]
+     ],
+     "cos_to_side": 1.0
     },
     {
      "id": "tab0",
      "side": "FRONT",
      "dot": -5.3854244928625095,
      "off": [
-      8.573251123480123,
+      0,
       -5.3854244928625095,
-      -1.5615136679920028
-     ]
+      0
+     ],
+     "cos_to_side": 1.0
     },
     {
      "id": "tab1",
      "side": "FRONT",
      "dot": -14,
      "off": [
-      -65.88332099679079,
+      1.7763568394002505e-15,
       -14,
-      65.96224688739639
-     ]
+      -7.105427357601002e-15
+     ],
+     "cos_to_side": 1.0
     },
     {
      "id": "horn_screw",
      "side": "FRONT",
      "dot": -14,
      "off": [
-      -52.983320996790766,
+      2.6645352591003757e-15,
       -14,
-      73.41006535994256
-     ]
+      0
+     ],
+     "cos_to_side": 1.0
     }
    ]
+  },
+  "ramp": {
+   "dark": {
+    "heat": [
+     "#1c5cab",
+     "#2a78d6",
+     "#5598e7",
+     "#86b6ef"
+    ],
+    "stage": "#070b0a"
+   },
+   "light": {
+    "heat": [
+     "#5598e7",
+     "#2a78d6",
+     "#1c5cab",
+     "#104281"
+    ],
+    "stage": "#dfe4de"
+   }
   },
   "bom": {
    "owned_chips": 9,
@@ -364,6 +449,7 @@
   },
   "exports": {
    "stl_watertight": true,
+   "stl_count": 13,
    "3mf": {
     "files": 2,
     "ok": true
@@ -373,8 +459,16 @@
    "urdf_pybullet_joints": 2
   },
   "dataviz": {
-   "light": true,
-   "dark": true
+   "light": {
+    "palette": "#5598e7,#2a78d6,#1c5cab,#104281",
+    "surface": "#dfe4de",
+    "pass": true
+   },
+   "dark": {
+    "palette": "#1c5cab,#2a78d6,#5598e7,#86b6ef",
+    "surface": "#070b0a",
+    "pass": true
+   }
   },
   "errors": [],
   "ok": true

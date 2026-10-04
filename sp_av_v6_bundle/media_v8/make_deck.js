@@ -93,7 +93,7 @@ const THEME = { name: "Shawarma Prints", headFontFace: "Arial", bodyFontFace: "A
              { text: "Print + measure the hole coupon (9 holes, 46 min)", options: { bullet: true, breakLine: true } },
              { text: "Weigh the parts; read the spool's datasheet", options: { bullet: true } }],
             { x: 0.5, y: 1.25, w: 4.4, h: 1.8, fontSize: 16, color: C.background1, paraSpaceAfter: 8, margin: 0, valign: "top", isTextBox: true, objectName: "measure" });
-  s.addText("12 UNVERIFIED tiles turn PASS or FAIL — both are useful.", { x: 0.5, y: 3.1, w: 4.4, h: 0.5, fontSize: 12, italic: true, color: "8A8F98", margin: 0, isTextBox: true, objectName: "mnote" });
+  s.addText("11 UNVERIFIED tiles turn PASS or FAIL — both are useful.", { x: 0.5, y: 3.1, w: 4.4, h: 0.5, fontSize: 12, italic: true, color: "8A8F98", margin: 0, isTextBox: true, objectName: "mnote" });
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 5.3, y: 1.25, w: 4.2, h: 2.6, fill: { color: "FF6B35" }, line: { color: "FF6B35" }, rectRadius: 0.12, objectName: "offer" });
   s.addText("AV for your build", { x: 5.55, y: 1.45, w: 3.7, h: 0.45, fontSize: 18, bold: true, color: "141413", margin: 0, isTextBox: true, objectName: "oh" });
   s.addText([{ text: "$450 — LOAD + FIT + SECURE", options: { breakLine: true } }, { text: "$1,200 — + TEST, checks, MEASURE_ME", options: { breakLine: true } },

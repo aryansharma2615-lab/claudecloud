@@ -251,11 +251,16 @@ facts["ligament"] = round(HP - WIN[0] / 2 - P["pilot_d"] / 2, 3)
 facts["horn_screw_bite"] = round(Y_SPL - (Y_ARM1 - 8.0), 3)
 
 # ---------------------------------------------------------------- DFM harness (/sp-print-dfm)
-def vol_int(a, b):
+BOOL_ERRORS = []
+
+
+def vol_int(a, b, tag=""):
+    """overlap volume; a failed boolean is recorded (never read as 'no clash') and fails dfm.pass"""
     try:
         i = solid_of(a) & solid_of(b)
         return i.volume if i is not None else 0.0
-    except Exception:
+    except Exception as e:
+        BOOL_ERRORS.append([tag, type(e).__name__ + ": " + str(e)[:120]])
         return 0.0
 
 dfm = facts["dfm"]
@@ -264,7 +269,7 @@ clashes, designed_hits = [], []
 ids = list(PARTS)
 for i, a in enumerate(ids):
     for b in ids[i + 1:]:
-        v = vol_int(PARTS[a], PARTS[b])
+        v = vol_int(PARTS[a], PARTS[b], f"{a}&{b}")
         if v > 1e-3:
             (designed_hits if tuple(sorted((a, b))) in DESIGNED else clashes).append([a, b, round(v, 3)])
 dfm["clashes_at_rest"] = clashes
@@ -280,7 +285,7 @@ for ang in range(int(lo), int(hi) + 1, 5):
         for s in ids:
             if s in MOVING or tuple(sorted((m, s))) in DESIGNED:
                 continue
-            v = vol_int(mv, PARTS[s])
+            v = vol_int(mv, PARTS[s], f"{m}@{ang}&{s}")
             if v > 1e-3:
                 sweep_hits.append([ang, m, s, round(v, 3)])
 dfm["sweep_deg"] = [lo, hi, 5]
@@ -293,7 +298,8 @@ for pid in ("base", "cradle", "arm"):
     env[pid] = {"extent": [round(e, 2) for e in ext], "fits": all(e <= b for e, b in zip(ext, sorted(bed)))}
 dfm["envelope"] = env
 dfm["min_wall_ligament"] = facts["ligament"]
-dfm["pass"] = (not clashes and not sweep_hits and all(v["valid"] and v["single_solid"] for v in dfm["solid"].values())
+dfm["boolean_errors"] = BOOL_ERRORS
+dfm["pass"] = (not clashes and not sweep_hits and not BOOL_ERRORS and all(v["valid"] and v["single_solid"] for v in dfm["solid"].values())
                and all(e["fits"] for e in env.values()))
 dfm["warn"] = [] if facts["ligament"] >= 1.6 - 1e-6 else [f"CAD tab-hole ligament {facts['ligament']} mm < 1.60 house minimum — trade-off D4 (prints ~1.66 after hole shrink; measure the SG90 pitch)"]
 
@@ -319,11 +325,12 @@ with open(os.path.join(OUT, "DFM_REPORT.md"), "w") as f:
     f.write(f"| clashes at rest (excluding designed contacts) | {len(clashes)} {clashes if clashes else ''} |\n")
     f.write(f"| designed contacts found | {len(designed_hits)} (screw bites, insert melt-in, horn on spline) |\n")
     f.write(f"| arm sweep {lo}°…{hi}° every 5° | {len(sweep_hits)} clashes {sweep_hits[:6] if sweep_hits else ''} |\n")
+    f.write(f"| boolean operations that failed (counted as FAIL, never as 'no clash') | {len(BOOL_ERRORS)} {BOOL_ERRORS[:4] if BOOL_ERRORS else ''} |\n")
     for pid, e in env.items():
         f.write(f"| envelope {pid} {e['extent']} mm vs bed {bed} | {'fits' if e['fits'] else 'TOO BIG'} |\n")
     f.write(f"| tab-hole ligament (window edge → pilot edge, CAD) | {facts['ligament']} mm (house min 1.60) {'— WARN, see D4' if dfm['warn'] else ''} |\n")
     f.write(f"| insert boss wall / cover over bore | {facts['insert']['boss_wall']} mm / {facts['insert']['cover']} mm (min 1.40) |\n")
     f.write(f"| M3 thread engagement in insert / tip gap to bore end | {facts['insert']['engagement_m3']} mm / {facts['insert']['tip_gap']} mm |\n")
     f.write(f"| horn screw bite into the spline | {facts['horn_screw_bite']} mm |\n")
-print(json.dumps({"dfm_pass": dfm["pass"], "clashes": clashes, "sweep": len(sweep_hits), "ligament": facts["ligament"],
+print(json.dumps({"dfm_pass": dfm["pass"], "clashes": clashes, "sweep": len(sweep_hits), "bool_errors": len(BOOL_ERRORS), "ligament": facts["ligament"],
                   "vol": {k: v["volume_mm3"] for k, v in facts["parts"].items()}}, indent=1))

@@ -2046,7 +2046,8 @@ const dprNow = () => Math.min(devicePixelRatio||1, interacting ? DPR_INT : DPR_C
 const CSSV = new Map();   /* RATCHET v8 R56 */
 new MutationObserver(() => CSSV.clear()).observe(document.documentElement, {attributes: true, attributeFilter: ["data-theme", "class", "style"]});
 try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => CSSV.clear()); } catch(e){}
-const cssVar = n => { let v = CSSV.get(n); if (v === undefined){ v = getComputedStyle(document.documentElement).getPropertyValue(n).trim(); CSSV.set(n, v); } return v; };
+const cssVar = n => { const r = document.documentElement, k = (r.getAttribute("data-theme") || "") + "|" + r.className + "|" + n;
+  let v = CSSV.get(k); if (v === undefined){ v = getComputedStyle(r).getPropertyValue(n).trim(); CSSV.set(k, v); } return v; };   /* keyed by theme: a synchronous theme flip (build sheet) never reads stale colours */
 function resize(){
   const r = cv.getBoundingClientRect();
   const dpr = dprNow();
@@ -2789,8 +2790,8 @@ if (!FAST.length) $("bFast").style.display="none";
 $("bTheme").addEventListener("click", ()=>{
   const cur = document.documentElement.getAttribute("data-theme")==="light"?"dark":"light";
   document.documentElement.setAttribute("data-theme",cur);
-  document.querySelector('meta[name=theme-color]')
-          .setAttribute("content", cur==="light" ? "#eef1ec" : "#0d1211");
+  const tcm = document.querySelector('meta[name=theme-color]');   /* RATCHET v8 R58 */
+  if (tcm) tcm.setAttribute("content", cur==="light" ? "#eef1ec" : "#0d1211");
   draw();
 });
 
@@ -8686,7 +8687,7 @@ function inertia8(kg, lever){ let I = 0; for (const pid of MD.moving){ const [x,
 function tauDyn8(kg, lever){
   const k = MD.path.keys, sp = MD.path.speed_dps; let amax = 0;
   for (let i = 0; i < k.length - 1; i++){
-    const dd = Math.abs(k[i+1] - k[i]), T = dd/sp;
+    const dd = Math.abs(k[i+1] - k[i]), T = 1.875*dd/sp;          /* the path player: speed_dps is the peak speed */
     if (T > 0) amax = Math.max(amax, 5.774*dd*Math.PI/180/(T*T));
   }
   return [inertia8(kg, lever)*1e-9*amax*1000, amax];
@@ -8757,7 +8758,7 @@ function liveChecks(R){
     else would = value <= c.limit ? "pass" : value <= c.limit*1.4 ? "warn" : "fail";
     let status = would === "fail" ? "fail" : (c.assumed.length ? "unverified" : would);
     if (value == null || c.limit == null) status = "unverified";
-    const inputs = c.inputs.map(i => i.k === "load mass" ? {...i, v: R.kg} : i.k === "lever arm" ? {...i, v: R.lever} : i);
+    const inputs = c.inputs.map(i => i.k === "load mass" ? {...i, v: R.kg} : i.k === "lever arm" ? {...i, v: R.lever} : i.k === "load at stall" ? {...i, v: R.kg_stall} : i);
     return {...c, value, would, status, inputs};
   });
 }
@@ -8769,7 +8770,7 @@ function printed8(cad, kind){
   const T = ENG.tolerance;
   if (kind === "rect") return [cad.map(c => c + T.rect.delta), T.rect.src];
   const meas = (T.coupon || []).filter(c => c.measured != null || V8.measured[c.cad] != null)
-                 .map(c => [c.cad, V8.measured[c.cad] != null ? V8.measured[c.cad] : c.measured]).sort((a, b) => a[0] - b[0]);
+                 .map(c => [c.cad, V8.measured[c.cad] != null ? V8.measured[c.cad] : c.measured]).sort((a, b) => a[0] - b[0] || a[1] - b[1]);
   if (meas.length >= 2){
     const ds = meas.map(([c, m]) => [c, m - c]);
     let d;
@@ -8937,6 +8938,10 @@ function setCal(on){
   syncToggles(); draw();
 }
 $("bCal") && $("bCal").addEventListener("click", () => setCal(!V8.calOn));
+setDia = (o => function(on){ if (on && V8.calOn) setCal(false); return o(on); })(setDia);
+setGap = (o => function(on){ if (on && V8.calOn) setCal(false); return o(on); })(setGap);
+setAng = (o => function(on){ if (on && V8.calOn) setCal(false); return o(on); })(setAng);
+$("bMeas").addEventListener("click", () => { if (measOn && V8.calOn) setCal(false); });
 navTap = (orig => function(cx, cy, hp){
   if (!V8.calOn || V7.lpFired) return orig(cx, cy, hp);
   const h = raycast(cx, cy);
@@ -9097,7 +9102,7 @@ function tipFor(p){
   if (e && e.material) row("material", nameEl("span", null, e.material));
   else if (p.material) row("material", nameEl("span", null, p.material));
   if (e){
-    row("mass", num8(e.mass.v, "g", e.mass.src, e.mass.note || ""));
+    if (e.mass) row("mass", num8(e.mass.v, "g", e.mass.src, e.mass.note || ""));
     const mt = e.mat && e.mat.density;
     if (mt && e.volume) row("solid", num8(e.volume.v/1000*mt.v, "g", "CALC", "CAD volume " + fmt8(e.volume.v, 0) + " mm³ × ρ " + mt.v + " g/cm³ (" + mt.src + ")"));
     if (e.slicer) row("print", num8(e.slicer.time_min.v, "min", "SLICER", e.slicer.slicer || ""));
@@ -9105,8 +9110,9 @@ function tipFor(p){
   } else if (p.print && p.print.time_min){ row("print", num8(p.print.time_min, "min", "SLICER")); }
   return box;
 }
+function ensureTip(){ if (!tipEl){ tipEl = el("div", "v8tipbox"); tipEl.style.display = "none"; $("stage").appendChild(tipEl); } return tipEl; }
 function showTip(p, x, y){
-  if (!tipEl){ tipEl = el("div", "v8tipbox"); $("stage").appendChild(tipEl); }
+  ensureTip();
   showEl(tipEl, !!p);
   if (!p) return;
   if (tipEl.dataset.k !== p.id){ tipEl.dataset.k = p.id; tipEl.textContent = ""; tipEl.appendChild(tipFor(p)); }
@@ -9122,7 +9128,7 @@ cv.addEventListener("pointermove", e => {
   if (id !== V8.hover){ V8.hover = id; draw(); }
   showTip(h ? h.part : null, x, y);
 });
-cv.addEventListener("pointerleave", () => { if (V8.hover){ V8.hover = null; draw(); } showTip(null); });
+cv.addEventListener("pointerleave", e => { if (e.pointerType !== "mouse") return; if (V8.hover){ V8.hover = null; draw(); } showTip(null); });   /* a touch "leaves" after every tap */
 syncUI = (orig => function(){
   orig();
   if (!ENG || !tipEl) return;
@@ -9152,7 +9158,7 @@ function syncPhaseBar(){
 }
 /* leaving through the dock (BOM, Plate, …) ends the guided phase */
 goTab = (orig => function(tab){
-  if (!V8.inPhase && V8.phase){ V8.phase = null; V8.heat = false; V8.tol = false; if (V8.calOn) setCal(false); syncPhaseBar(); }
+  if (!V8.inPhase && V8.phase){ V8.phase = null; V8.heat = false; V8.tol = false; V8.xray = V8.wire = false; if (V8.calOn) setCal(false); syncPhaseBar(); syncToggles(); }
   return orig(tab);
 })(goTab);
 function setPhase(ph, opt){
@@ -9165,6 +9171,8 @@ function setPhase(ph, opt){
 }
 function enterPhase(ph, opt){
   if (ph !== "fit"){ if (V8.calOn) setCal(false); V8.tol = false; }
+  if (ph !== "test" && !opt.restore){ V8.xray = V8.wire = false; }   /* their toggles live on the TEST card only */
+  if (ph === "load") ensureTip();
   V8.heat = ph === "test";
   if (ph !== "load") showTip(null);
   if (ph === "load"){
@@ -9270,7 +9278,8 @@ function renderFit(){
     const nm = el("button", "lb lnk"); nm.dataset.nonum = "1";
     const ic = {green: "✓", yellow: "!", red: "✗"}[f.band.tone] || "?";
     const dot = nameEl("span", null, ic + " "); dot.style.color = f.band.color;
-    nm.append(dot, document.createTextNode(f.label + " · " + f.part));
+    nm.append(dot); if (f.kind === "hole"){ nm.appendChild(num8(f.cad.v, "mm", "CAD", "CAD diameter", 2)); nm.appendChild(document.createTextNode(" ")); }
+    nm.appendChild(document.createTextNode(f.label + " · " + f.part));
     nm.addEventListener("click", () => { V8.fitSel = f.id; flyTo(f.at, byId.get(f.part)); });
     const vl = el("div", "vl"); vl.appendChild(num8(f.clr, "mm", "CALC", "clearance = " + (f.measuredJS != null ? "measured" : "printed (" + f.psrc + ")") + " − " + f.mate, 2));
     const sub = el("div", "sub");
@@ -9314,8 +9323,10 @@ function stackCard(st){
   k.appendChild(kpi8("Worst min", num8(st.worst[0], "mm", "CALC", "nominal − Σ|tᵢ|", 2), st.ok_worst ? "" : "bad"));
   k.appendChild(kpi8("RSS min", num8(st.rss[0], "mm", "CALC", "nominal − √Σtᵢ²", 2), st.ok_rss ? "" : "bad"));
   c.appendChild(k);
-  const eat = el("div", "sub"); eat.dataset.nonum = "1"; eat.style.cssText = "font-size:12px;color:var(--mut);margin-top:6px";
-  eat.textContent = "eats most: " + st.eats + " · want " + st.want.min + "…" + st.want.max + " mm"; eat.dataset.nonum = "1";
+  const eat = el("div", "sub"); eat.style.cssText = "font-size:12px;color:var(--mut);margin-top:6px";
+  eat.appendChild(nameEl("span", null, "eats most: " + st.eats + " · want "));
+  eat.appendChild(num8(st.want.min, "", st.want.src || "SPEC", st.want.note || "", 2)); eat.appendChild(nameEl("span", null, " … "));
+  eat.appendChild(num8(st.want.max, "mm", st.want.src || "SPEC", st.want.note || "", 2));
   c.appendChild(eat);
   return c;
 }
@@ -9349,7 +9360,7 @@ function couponCard(){
   const c = el("div", "v8card"); c.appendChild(nameEl("h3", null, "Your measurements → shared in the link"));
   for (const h of ENG.tolerance.coupon){
     const r = el("div", "v8btns"); r.style.alignItems = "center";
-    const lb = nameEl("span", null, "Ø" + h.cad.toFixed(1)); lb.style.cssText = "width:56px;font:13px var(--f-mono)";
+    const lb = num8(h.cad, "", "CAD", "CAD hole diameter", 1); lb.style.cssText = "width:96px;font:13px var(--f-mono)";
     const i = document.createElement("input"); i.type = "number"; i.step = "0.01"; i.placeholder = "measured";
     i.value = V8.measured[h.cad] != null ? V8.measured[h.cad] : (h.measured != null ? h.measured : "");
     i.setAttribute("aria-label", "measured Ø" + h.cad);
@@ -9445,8 +9456,8 @@ function paintLive(box){
   mrow.append(a, v); box.appendChild(mrow);
   const mt = el("div", "v8meter"); mt.setAttribute("role", "img"); mt.setAttribute("aria-label", `${(R.frac_hold*100).toFixed(0)} percent of stall`);
   const fill = document.createElement("i"); fill.style.width = Math.min(100, R.frac_hold*100) + "%"; if (R.frac_hold > 1) fill.className = "over"; mt.appendChild(fill);
-  for (const [f, t] of [[MD.targets.hold_frac, "50 %"], [MD.targets.dyn_frac, "70 %"], [1, "stall"]]){
-    const u = document.createElement("u"); u.style.left = (f*100) + "%"; const sp = document.createElement("span"); sp.textContent = t; sp.dataset.nonum = "1";
+  for (const [f, t] of [[MD.targets.hold_frac, (MD.targets.hold_frac*100).toFixed(0) + " %"], [MD.targets.dyn_frac, (MD.targets.dyn_frac*100).toFixed(0) + " %"], [1, "stall"]]){
+    const u = document.createElement("u"); u.style.left = (f*100) + "%"; const sp = document.createElement("span"); sp.textContent = t; sp.className = "num"; sp.dataset.src = f >= 1 ? "DATASHEET" : "SPEC";
     if (f >= 1){ sp.style.left = "auto"; sp.style.right = "0"; } u.appendChild(sp); mt.appendChild(u); }
   box.appendChild(mt);
   if (R.frac_hold > 1){
@@ -9458,7 +9469,7 @@ function paintLive(box){
     w.appendChild(t); box.appendChild(w);
   } else if (R.frac_hold > MD.targets.hold_frac){
     const w = el("div", "v8warn soft"); w.id = "v8stall"; w.appendChild(nameEl("b", null, "!"));
-    const t = el("div"); t.appendChild(nameEl("span", null, "Above the 50 % continuous rule — servos cook near stall. "));
+    const t = el("div"); t.appendChild(nameEl("span", null, "Above the continuous-duty rule (")); t.appendChild(num8(MD.targets.hold_frac*100, "% stall", "SPEC", "", 0)); t.appendChild(nameEl("span", null, ") — servos cook near stall. "));
     t.appendChild(num8(R.frac_hold*100, "% stall", "CALC", "", 0)); w.appendChild(t); box.appendChild(w);
   }
   /* heat legend */
@@ -9528,7 +9539,7 @@ function chartCard(R){
   mk("line", {x1: L, x2: W - Rr, y1: Y(stallK), y2: Y(stallK), class: "ref"});
   mk("line", {x1: L, x2: W - Rr, y1: Y(stallK*MD.targets.hold_frac), y2: Y(stallK*MD.targets.hold_frac), class: "ref2"});
   mk("text", {x: W - Rr, y: Y(stallK) - 4, "text-anchor": "end", class: "num", "data-src": "DATASHEET"}).textContent = "stall " + stallK.toFixed(1) + " DATASHEET";
-  mk("text", {x: W - Rr, y: Y(stallK*MD.targets.hold_frac) - 4, "text-anchor": "end", class: "num", "data-src": "SPEC"}).textContent = "50 % SPEC";
+  mk("text", {x: W - Rr, y: Y(stallK*MD.targets.hold_frac) - 4, "text-anchor": "end", class: "num", "data-src": "SPEC"}).textContent = (MD.targets.hold_frac*100).toFixed(0) + " % SPEC";
   for (const th of [lo, 0, hi]) mk("text", {x: X(th), y: H - 6, "text-anchor": "middle", "data-nonum": "1"}).textContent = th + "°";
   mk("text", {x: L - 4, y: Y(ymax) + 4, "text-anchor": "end", "data-nonum": "1"}).textContent = ymax.toFixed(1);
   mk("text", {x: L - 4, y: Y(0) + 4, "text-anchor": "end", "data-nonum": "1"}).textContent = "0";
@@ -9612,10 +9623,10 @@ renderInspector = (orig => function(p){
   box.appendChild(nameEl("h3", null, "Engineering data"));
   const row = (k, node, sub) => { const r = el("div", "v8row"); r.appendChild(nameEl("div", "lb", k)); const v = el("div", "vl"); v.appendChild(node); r.appendChild(v);
                                   if (sub){ const s = nameEl("div", "sub", sub); r.appendChild(s); } box.appendChild(r); };
-  row("Mass", num8(e.mass.v, "g", e.mass.src, e.mass.note || ""), e.mass.note);
+  if (e.mass) row("Mass", num8(e.mass.v, "g", e.mass.src, e.mass.note || ""), e.mass.note);
   if (e.measured_mass) row("Measured mass", num8(e.measured_mass.v, "g", "MEASURED"), e.measured_mass.v == null ? "weigh it → MEASURE_ME" : "");
-  row("Volume", num8(e.volume.v, "mm³", "CAD", "", 0));
-  row("Centre of mass", num8(e.com.v.map(x => x.toFixed(1)).join(", "), "mm", "CALC", e.com.note));
+  if (e.volume) row("Volume", num8(e.volume.v, "mm³", "CAD", "", 0));
+  if (e.com) row("Centre of mass", num8(e.com.v.map(x => x.toFixed(1)).join(", "), "mm", "CALC", e.com.note));
   if (e.mat){
     for (const [k, lab] of [["yield_xy", "Yield XY"], ["z_factor", "Z factor"], ["E", "E"], ["tg", "Tg"], ["density", "Density"]]){
       const m = e.mat[k]; if (m) row(lab, num8(m.v, m.u, m.src, m.note || ""));
@@ -9630,7 +9641,7 @@ renderInspector = (orig => function(p){
     for (const [k, lab] of [["layer", "Layer"], ["walls", "Walls"], ["top_bottom", "Top / bottom"], ["infill", "Infill"]]){ const x = e.print[k]; if (x) row(lab, num8(x.v, x.u, x.src, "", k === "layer" ? 2 : 0)); }
     for (const [k, lab] of [["pattern", "Pattern"], ["supports", "Supports"], ["orientation", "Orientation"]]){ const x = e.print[k]; if (x){ const r = el("div", "v8row"); r.appendChild(nameEl("div", "lb", lab)); r.appendChild(nameEl("div", "vl", String(x.v))); if (x.why) r.appendChild(nameEl("div", "sub", x.why)); box.appendChild(r); } }
   }
-  if (e.slicer){ row("Filament", num8(e.slicer.grams.v, "g", "SLICER", e.slicer.slicer)); row("Print time", num8(e.slicer.time_min.v, "min", "SLICER", e.slicer.slicer)); row("Layers", num8(e.slicer.layers.v, "", "SLICER", "", 0)); }
+  if (e.slicer){ row("Filament", num8(e.slicer.grams.v, "g", "SLICER", e.slicer.slicer)); row("Print time", num8(e.slicer.time_min.v, "min", "SLICER", e.slicer.slicer)); if (e.slicer.layers) row("Layers", num8(e.slicer.layers.v, "", "SLICER", "", 0)); }
   const fs = (ENG.fasteners || []).find(f => f.id === p.id);
   if (fs){ row("Torque", num8(fs.torque.v, fs.torque.u, fs.torque.src, fs.torque.note || ""), fs.torque.note);
            row("Thread engagement", num8(fs.engagement.v, "mm", fs.engagement.src, fs.engagement.note || ""));
@@ -9737,7 +9748,7 @@ function parseV8(h){
   for (const x of f.slice(2)){
     let m;
     if ((m = /^ex(-?[\d.]+)$/.exec(x))) o.ex = m[1];
-    else if ((m = /^sec(\d)_([\d.]+)_([01])$/.exec(x))) o.sec = [m[1], m[2], m[3]].join(",");
+    else if ((m = /^sec([0-2])_([\d.]+)_([01])$/.exec(x))) o.sec = [m[1], m[2], m[3]].join(",");
     else if ((m = /^kg([\d.]+)$/.exec(x))) o.kg = m[1];
     else if ((m = /^lev([\d.]+)$/.exec(x))) o.lev = m[1];
     else if ((m = /^st(\d+)$/.exec(x))) o.st = m[1];
@@ -9769,14 +9780,15 @@ function applyV8(o){
   V8.xray = o.xr === "1"; V8.wire = o.wf === "1";
   if (o.phase === "fit") V8.tol = o.tol !== "0";
   const land = () => {
-    if (o.ex != null && isFinite(+o.ex)){ explode = +o.ex; $("ex").value = Math.round(Math.min(1, explode)*100); $("exv").textContent = Math.round(explode*100) + "%"; V8.spacing = Math.round(explode*EXK); }
-    if (o.sec){ const [a, t, f] = o.sec.split(",").map(Number); if (!sectOn) $("bSect").click(); sectAxis = a|0; sectT = Math.max(0, Math.min(1, t)); sectFlip = !!f; $("sec").value = Math.round(sectT*1000); syncSect(); }
+    if (V8.phase !== o.phase) return;                       /* the user moved on before the restore landed */
+    if (o.ex != null && isFinite(+o.ex)){ explode = Math.max(0, Math.min(50/EXK, +o.ex)); $("ex").value = Math.round(Math.min(1, explode)*100); $("exv").textContent = Math.round(explode*100) + "%"; V8.spacing = Math.round(explode*EXK); }
+    if (o.sec){ const [a, t, f] = o.sec.split(",").map(Number); if (!sectOn) $("bSect").click(); sectAxis = Math.min(2, Math.max(0, a|0)); sectT = Math.max(0, Math.min(1, isFinite(t) ? t : 1)); sectFlip = !!f; $("sec").value = Math.round(sectT*1000); syncSect(); }
     if (o.st && stepMode){ stopPlay(); gotoStep(+o.st); }
     if (o.part){ const p = byId.get(o.part); if (p){ sel.clear(); sel.add(p.id); syncUI(); } }
     if (o.phase === "test") syncLoad();
     if (o.phase === "fit") renderFit();
     if (o.phase === "test" && motionMode){ V8.inPhase = true; try { showMotion(); } finally { V8.inPhase = false; } }
-    syncToggles(); draw();
+    syncToggles(); draw(); writeHash();
   };
   setTimeout(land, V7RM() ? 0 : 460);
   return true;
@@ -9869,7 +9881,7 @@ window.__avV8 = {
   hash: withCam => V8.phase ? v8Hash(!!withCam) : hashNow(), share: () => shareView(null),
   heat: () => [...HEAT].map(([k, h]) => ({id: k, s0: h.s0, s1: h.s1})), ranking: () => ranking8(V8.R || calc8()).map(r => ({id: r.id, sf: r.sf})),
   motionTau: q => { const st = poseFromQ({...homeQ(), shaft: q || 0}); const L = loads(st).find(l => l.id === "shaft"); return L ? L.kgcm : null; },
-  setXray, setWire, state: () => ({xray: V8.xray, wire: V8.wire, tol: V8.tol, heat: V8.heat, kg: V8.kg, lever: V8.lever, explode, sectOn, sectAxis, sectT, step, stepMode, motionMode, sel: [...sel]}),
+  setXray, setWire, state: () => ({xray: V8.xray, wire: V8.wire, tol: V8.tol, heat: V8.heat, kg: V8.kg, lever: V8.lever, explode, sectOn, sectAxis, sectT, step, stepMode, motionMode, sel: [...sel], pan: PAN.slice(), ortho: !!V7.ortho}),
   toggleTree, tree: () => ({drawer: !!(treeEl && treeEl.classList.contains("open")), sheet: sheetOpen && sheetTab === "tree"}),
   numScan: () => {
     const bad = [];
@@ -9885,7 +9897,7 @@ window.__avV8 = {
     }
     return bad;
   },
-  nums: () => document.querySelectorAll("[data-eng] .num[data-src]").length,
+  nums: () => [...document.querySelectorAll("[data-eng] .num[data-src]")].filter(e => !e.closest("[hidden]") && (e.offsetParent !== null || getComputedStyle(e).position === "fixed")).length,
   capProbe: (pt) => {
     draw();
     const r = cv.getBoundingClientRect(), W = cv.width, H = cv.height, V = M.look(eye(), target(), [0, 0, 1]), P = M.persp(FOV, W/H, 1, 2000); skewY(P);
@@ -9911,8 +9923,12 @@ window.__avV8 = {
     for (const f of FAST){
       const pp = byId.get(f.screw); if (!pp) continue;
       stopPlay(); gotoStep(f.step); if (!SA) continue;
-      SA.paused = true; SA.u = 0.15; const m0 = modelOf(pp); SA.u = 1; const m1 = modelOf(pp);
-      const d = [m0[12] - m1[12], m0[13] - m1[13], m0[14] - m1[14]];
+      /* track the screw's own seat point (on its axis), not the mesh origin — the fly-in also spins the
+         screw about that axis, which swings the origin sideways */
+      const a = (pp.screw && pp.screw.at) || [0, 0, 0];
+      const tp = m => [0, 1, 2].map(i => m[i]*a[0] + m[4 + i]*a[1] + m[8 + i]*a[2] + m[12 + i]);
+      SA.paused = true; SA.u = 0.15; const q0 = tp(modelOf(pp)); SA.u = 1; const q1 = tp(modelOf(pp));
+      const d = [q0[0] - q1[0], q0[1] - q1[1], q0[2] - q1[2]];
       out.push({id: f.id, side: f.side, dot: d[0]*f.axis[0] + d[1]*f.axis[1] + d[2]*f.axis[2], off: d});
     }
     draw(); return out;
